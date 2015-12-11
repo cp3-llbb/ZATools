@@ -1,16 +1,18 @@
 
 import ROOT
 import sys
+import numpy
 #sys.path.insert(0,'/home/fynu/amertens/scratch/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/plots/ZAAnalysis')
 from ZACnC import *
 
-#### To be modified by the user
+def gaussian(x, mu, sig):
+    return numpy.exp(-numpy.power(x - mu, 2.) / (2 * numpy.power(sig, 2.)))
 
 #luminosity
 lumi = 1280.23
 
 # directory where the files are located
-dir_path = "/home/fynu/amertens/scratch/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/test_CnC/build/"
+dir_path = "/home/fynu/amertens/scratch/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/CnC/build/"
 
 # write [name, file, xsec, gen events]
 bkgFiles = [
@@ -28,8 +30,12 @@ dataFiles = [
 
 options = options_()
 
+
+
 for cutkey in options.cut :
     var = cutkey
+    mbb=options.mA_list[cutkey]
+    mllbb=options.mH_list[cutkey]
     
     #initializations
     totBkg=0
@@ -57,6 +63,7 @@ for cutkey in options.cut :
         i += 1
         totBkg+=Nev
 
+    totBkg+=10*gaussian(mbb,150,30)+gaussian(mllbb,400,75)
     totBkg_str = str("%.3f" %totBkg)
     observed=(15-len(totBkg_str))*" "+totBkg_str
     f = open("template.txt","r")
