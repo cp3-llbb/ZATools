@@ -63,13 +63,14 @@ for cutkey in options.cut :
         i += 1
         totBkg+=Nev
 
-    totBkg+=10*gaussian(mbb,150,30)+gaussian(mllbb,400,75)
-    totBkg_str = str("%.3f" %totBkg)
-    observed=(15-len(totBkg_str))*" "+totBkg_str
-    f = open("template.txt","r")
-    newfile = f.read()
-    newfile = newfile.replace("NCHANNELS",str(i-1)).replace("OBSERVED",observed).replace("SIGNAL",signal).replace("BINS",bins).replace("PROCESSES",processes).replace("ORDER",order).replace("YIELDS",yields)
-    outfile = open("../cards/"+var+".txt","w")
-    outfile.write(newfile)
-    outfile.close()
+    if totBkg > 0 :
+      if (mbb > 50 and mbb < 110 and mllbb > 210 and mllbb < 390) :totBkg+=10*gaussian(mbb,80,15)+gaussian(mllbb,300,45)
+      totBkg_str = str("%.3f" %totBkg)
+      observed=(15-len(totBkg_str))*" "+totBkg_str
+      f = open("template.txt","r")
+      newfile = f.read()
+      newfile = newfile.replace("NCHANNELS",str(i-1)).replace("OBSERVED",observed).replace("SIGNAL",signal).replace("BINS",bins).replace("PROCESSES",processes).replace("ORDER",order).replace("YIELDS",yields)
+      outfile = open("../cards/"+var+".txt","w")
+      outfile.write(newfile)
+      outfile.close()
  
