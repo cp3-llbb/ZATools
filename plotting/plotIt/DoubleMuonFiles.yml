@@ -1,0 +1,10 @@
+'DoubleMuon_Run2015D-05Oct2015-v1_2015-10-20_v1.1.0+7415-23-g22d44c6_ZAAnalysis_919cd18_histos.root':
+  type: data
+  legend: "DiMu 2015D"
+  group: "DiEl_DiMu"
+
+'DoubleMuon_Run2015D-PromptReco-v4_2015-10-20_v1.1.0+7415-23-g22d44c6_ZAAnalysis_919cd18_histos.root':
+  type: data
+  legend: "DiMu 2015D"
+  group: "DiEl_DiMu"
+

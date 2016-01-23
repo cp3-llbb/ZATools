@@ -1,0 +1,14 @@
+configuration:
+    include: ['centralConfig.yml']
+
+files:
+    include: ['MCFiles.yml', 'DoubleMuonFiles.yml', 'DoubleElectronFiles.yml']
+
+plots:
+    include: ['plots_all.yml']
+
+groups:
+    DiEl_DiMu:
+        legend: "data"
+legend:
+  position: [0.72, 0.62, 1.16, 0.90]

@@ -1,0 +1,2272 @@
+'ll_Pt_mmfj':
+  x-axis: 'll_Pt_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Eta_mmfj':
+  x-axis: 'll_Eta_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Phi_mmfj':
+  x-axis: 'll_Phi_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_mmfj':
+  x-axis: 'll_M_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_mmfj':
+  x-axis: 'll_M_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DR_mmfj':
+  x-axis: 'll_DR_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DEta_mmfj':
+  x-axis: 'll_DEta_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DPhi_mmfj':
+  x-axis: 'll_DPhi_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Pt_mmfj':
+  x-axis: 'fat-Jet_Pt_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Eta_mmfj':
+  x-axis: 'fat-Jet_Eta_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Phi_mmfj':
+  x-axis: 'fat-Jet_Phi_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_M_mmfj':
+  x-axis: 'fat-Jet_M_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_CSVv2_mmfj':
+  x-axis: 'fat-Jet_CSVv2_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_minDRjl_mmfj':
+  x-axis: 'fat-Jet_minDRjl_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_softdrop_mass_mmfj':
+  x-axis: 'fat-Jet_softdrop_mass_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_trimmed_mass_mmfj':
+  x-axis: 'fat-Jet_trimmed_mass_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_pruned_mass_mmfj':
+  x-axis: 'fat-Jet_pruned_mass_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_filtered_mass_mmfj':
+  x-axis: 'fat-Jet_filtered_mass_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau1_mmfj':
+  x-axis: 'fat-Jet_tau1_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau2_mmfj':
+  x-axis: 'fat-Jet_tau2_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau3_mmfj':
+  x-axis: 'fat-Jet_tau3_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_subjetDR_mmfj':
+  x-axis: 'fat-Jet_subjetDR_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'llj_M_mmfj':
+  x-axis: 'llj_M_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'llj_Eta_mmfj':
+  x-axis: 'llj_Eta_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'llj_Phi_mmfj':
+  x-axis: 'llj_Phi_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'llj_M_mmfj':
+  x-axis: 'llj_M_mmfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Pt_mmbfj':
+  x-axis: 'll_Pt_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Eta_mmbfj':
+  x-axis: 'll_Eta_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Phi_mmbfj':
+  x-axis: 'll_Phi_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_mmbfj':
+  x-axis: 'll_M_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_mmbfj':
+  x-axis: 'll_M_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DR_mmbfj':
+  x-axis: 'll_DR_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DEta_mmbfj':
+  x-axis: 'll_DEta_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DPhi_mmbfj':
+  x-axis: 'll_DPhi_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Pt_mmbfj':
+  x-axis: 'fat-Jet_Pt_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Eta_mmbfj':
+  x-axis: 'fat-Jet_Eta_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Phi_mmbfj':
+  x-axis: 'fat-Jet_Phi_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_M_mmbfj':
+  x-axis: 'fat-Jet_M_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_CSVv2_mmbfj':
+  x-axis: 'fat-Jet_CSVv2_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_minDRjl_mmbfj':
+  x-axis: 'fat-Jet_minDRjl_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_softdrop_mass_mmbfj':
+  x-axis: 'fat-Jet_softdrop_mass_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_trimmed_mass_mmbfj':
+  x-axis: 'fat-Jet_trimmed_mass_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_pruned_mass_mmbfj':
+  x-axis: 'fat-Jet_pruned_mass_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_filtered_mass_mmbfj':
+  x-axis: 'fat-Jet_filtered_mass_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau1_mmbfj':
+  x-axis: 'fat-Jet_tau1_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau2_mmbfj':
+  x-axis: 'fat-Jet_tau2_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau3_mmbfj':
+  x-axis: 'fat-Jet_tau3_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_subjetDR_mmbfj':
+  x-axis: 'fat-Jet_subjetDR_mmbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Pt_mmbbsbjsbj':
+  x-axis: 'll_Pt_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Eta_mmbbsbjsbj':
+  x-axis: 'll_Eta_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Phi_mmbbsbjsbj':
+  x-axis: 'll_Phi_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_mmbbsbjsbj':
+  x-axis: 'll_M_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_mmbbsbjsbj':
+  x-axis: 'll_M_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DR_mmbbsbjsbj':
+  x-axis: 'll_DR_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DEta_mmbbsbjsbj':
+  x-axis: 'll_DEta_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DPhi_mmbbsbjsbj':
+  x-axis: 'll_DPhi_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Pt_mmbbsbjsbj':
+  x-axis: 'fat-Jet_Pt_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Eta_mmbbsbjsbj':
+  x-axis: 'fat-Jet_Eta_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Phi_mmbbsbjsbj':
+  x-axis: 'fat-Jet_Phi_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_M_mmbbsbjsbj':
+  x-axis: 'fat-Jet_M_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_CSVv2_mmbbsbjsbj':
+  x-axis: 'fat-Jet_CSVv2_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_minDRjl_mmbbsbjsbj':
+  x-axis: 'fat-Jet_minDRjl_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_softdrop_mass_mmbbsbjsbj':
+  x-axis: 'fat-Jet_softdrop_mass_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_trimmed_mass_mmbbsbjsbj':
+  x-axis: 'fat-Jet_trimmed_mass_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_pruned_mass_mmbbsbjsbj':
+  x-axis: 'fat-Jet_pruned_mass_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_filtered_mass_mmbbsbjsbj':
+  x-axis: 'fat-Jet_filtered_mass_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau1_mmbbsbjsbj':
+  x-axis: 'fat-Jet_tau1_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau2_mmbbsbjsbj':
+  x-axis: 'fat-Jet_tau2_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau3_mmbbsbjsbj':
+  x-axis: 'fat-Jet_tau3_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_subjetDR_mmbbsbjsbj':
+  x-axis: 'fat-Jet_subjetDR_mmbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'nohf_met_Pt_mmbbhighmass':
+  x-axis: 'nohf_met_Pt_mmbbhighmass'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Pt_eefj':
+  x-axis: 'll_Pt_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Eta_eefj':
+  x-axis: 'll_Eta_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Phi_eefj':
+  x-axis: 'll_Phi_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_eefj':
+  x-axis: 'll_M_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_eefj':
+  x-axis: 'll_M_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DR_eefj':
+  x-axis: 'll_DR_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DEta_eefj':
+  x-axis: 'll_DEta_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DPhi_eefj':
+  x-axis: 'll_DPhi_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Pt_eefj':
+  x-axis: 'fat-Jet_Pt_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Eta_eefj':
+  x-axis: 'fat-Jet_Eta_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Phi_eefj':
+  x-axis: 'fat-Jet_Phi_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_M_eefj':
+  x-axis: 'fat-Jet_M_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_CSVv2_eefj':
+  x-axis: 'fat-Jet_CSVv2_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_minDRjl_eefj':
+  x-axis: 'fat-Jet_minDRjl_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_softdrop_mass_eefj':
+  x-axis: 'fat-Jet_softdrop_mass_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_trimmed_mass_eefj':
+  x-axis: 'fat-Jet_trimmed_mass_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_pruned_mass_eefj':
+  x-axis: 'fat-Jet_pruned_mass_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_filtered_mass_eefj':
+  x-axis: 'fat-Jet_filtered_mass_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau1_eefj':
+  x-axis: 'fat-Jet_tau1_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau2_eefj':
+  x-axis: 'fat-Jet_tau2_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau3_eefj':
+  x-axis: 'fat-Jet_tau3_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_subjetDR_eefj':
+  x-axis: 'fat-Jet_subjetDR_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'llj_M_eefj':
+  x-axis: 'llj_M_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'llj_Eta_eefj':
+  x-axis: 'llj_Eta_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'llj_Phi_eefj':
+  x-axis: 'llj_Phi_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'llj_M_eefj':
+  x-axis: 'llj_M_eefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Pt_eebfj':
+  x-axis: 'll_Pt_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Eta_eebfj':
+  x-axis: 'll_Eta_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Phi_eebfj':
+  x-axis: 'll_Phi_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_eebfj':
+  x-axis: 'll_M_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_eebfj':
+  x-axis: 'll_M_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DR_eebfj':
+  x-axis: 'll_DR_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DEta_eebfj':
+  x-axis: 'll_DEta_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DPhi_eebfj':
+  x-axis: 'll_DPhi_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Pt_eebfj':
+  x-axis: 'fat-Jet_Pt_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Eta_eebfj':
+  x-axis: 'fat-Jet_Eta_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Phi_eebfj':
+  x-axis: 'fat-Jet_Phi_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_M_eebfj':
+  x-axis: 'fat-Jet_M_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_CSVv2_eebfj':
+  x-axis: 'fat-Jet_CSVv2_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_minDRjl_eebfj':
+  x-axis: 'fat-Jet_minDRjl_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_softdrop_mass_eebfj':
+  x-axis: 'fat-Jet_softdrop_mass_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_trimmed_mass_eebfj':
+  x-axis: 'fat-Jet_trimmed_mass_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_pruned_mass_eebfj':
+  x-axis: 'fat-Jet_pruned_mass_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_filtered_mass_eebfj':
+  x-axis: 'fat-Jet_filtered_mass_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau1_eebfj':
+  x-axis: 'fat-Jet_tau1_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau2_eebfj':
+  x-axis: 'fat-Jet_tau2_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau3_eebfj':
+  x-axis: 'fat-Jet_tau3_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_subjetDR_eebfj':
+  x-axis: 'fat-Jet_subjetDR_eebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Pt_eebbsbjsbj':
+  x-axis: 'll_Pt_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Eta_eebbsbjsbj':
+  x-axis: 'll_Eta_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Phi_eebbsbjsbj':
+  x-axis: 'll_Phi_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_eebbsbjsbj':
+  x-axis: 'll_M_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_eebbsbjsbj':
+  x-axis: 'll_M_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DR_eebbsbjsbj':
+  x-axis: 'll_DR_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DEta_eebbsbjsbj':
+  x-axis: 'll_DEta_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DPhi_eebbsbjsbj':
+  x-axis: 'll_DPhi_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Pt_eebbsbjsbj':
+  x-axis: 'fat-Jet_Pt_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Eta_eebbsbjsbj':
+  x-axis: 'fat-Jet_Eta_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Phi_eebbsbjsbj':
+  x-axis: 'fat-Jet_Phi_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_M_eebbsbjsbj':
+  x-axis: 'fat-Jet_M_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_CSVv2_eebbsbjsbj':
+  x-axis: 'fat-Jet_CSVv2_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_minDRjl_eebbsbjsbj':
+  x-axis: 'fat-Jet_minDRjl_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_softdrop_mass_eebbsbjsbj':
+  x-axis: 'fat-Jet_softdrop_mass_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_trimmed_mass_eebbsbjsbj':
+  x-axis: 'fat-Jet_trimmed_mass_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_pruned_mass_eebbsbjsbj':
+  x-axis: 'fat-Jet_pruned_mass_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_filtered_mass_eebbsbjsbj':
+  x-axis: 'fat-Jet_filtered_mass_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau1_eebbsbjsbj':
+  x-axis: 'fat-Jet_tau1_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau2_eebbsbjsbj':
+  x-axis: 'fat-Jet_tau2_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau3_eebbsbjsbj':
+  x-axis: 'fat-Jet_tau3_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_subjetDR_eebbsbjsbj':
+  x-axis: 'fat-Jet_subjetDR_eebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'nohf_met_Pt_eebbhighmass':
+  x-axis: 'nohf_met_Pt_eebbhighmass'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Pt_llfj':
+  x-axis: 'll_Pt_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Eta_llfj':
+  x-axis: 'll_Eta_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Phi_llfj':
+  x-axis: 'll_Phi_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_llfj':
+  x-axis: 'll_M_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_llfj':
+  x-axis: 'll_M_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DR_llfj':
+  x-axis: 'll_DR_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DEta_llfj':
+  x-axis: 'll_DEta_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DPhi_llfj':
+  x-axis: 'll_DPhi_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Pt_llfj':
+  x-axis: 'fat-Jet_Pt_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Eta_llfj':
+  x-axis: 'fat-Jet_Eta_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Phi_llfj':
+  x-axis: 'fat-Jet_Phi_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_M_llfj':
+  x-axis: 'fat-Jet_M_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_CSVv2_llfj':
+  x-axis: 'fat-Jet_CSVv2_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_minDRjl_llfj':
+  x-axis: 'fat-Jet_minDRjl_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_softdrop_mass_llfj':
+  x-axis: 'fat-Jet_softdrop_mass_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_trimmed_mass_llfj':
+  x-axis: 'fat-Jet_trimmed_mass_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_pruned_mass_llfj':
+  x-axis: 'fat-Jet_pruned_mass_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_filtered_mass_llfj':
+  x-axis: 'fat-Jet_filtered_mass_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau1_llfj':
+  x-axis: 'fat-Jet_tau1_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau2_llfj':
+  x-axis: 'fat-Jet_tau2_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau3_llfj':
+  x-axis: 'fat-Jet_tau3_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_subjetDR_llfj':
+  x-axis: 'fat-Jet_subjetDR_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'llj_M_llfj':
+  x-axis: 'llj_M_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'llj_Eta_llfj':
+  x-axis: 'llj_Eta_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'llj_Phi_llfj':
+  x-axis: 'llj_Phi_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'llj_M_llfj':
+  x-axis: 'llj_M_llfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Pt_llbfj':
+  x-axis: 'll_Pt_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Eta_llbfj':
+  x-axis: 'll_Eta_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Phi_llbfj':
+  x-axis: 'll_Phi_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_llbfj':
+  x-axis: 'll_M_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_llbfj':
+  x-axis: 'll_M_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DR_llbfj':
+  x-axis: 'll_DR_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DEta_llbfj':
+  x-axis: 'll_DEta_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DPhi_llbfj':
+  x-axis: 'll_DPhi_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Pt_llbfj':
+  x-axis: 'fat-Jet_Pt_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Eta_llbfj':
+  x-axis: 'fat-Jet_Eta_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Phi_llbfj':
+  x-axis: 'fat-Jet_Phi_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_M_llbfj':
+  x-axis: 'fat-Jet_M_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_CSVv2_llbfj':
+  x-axis: 'fat-Jet_CSVv2_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_minDRjl_llbfj':
+  x-axis: 'fat-Jet_minDRjl_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_softdrop_mass_llbfj':
+  x-axis: 'fat-Jet_softdrop_mass_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_trimmed_mass_llbfj':
+  x-axis: 'fat-Jet_trimmed_mass_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_pruned_mass_llbfj':
+  x-axis: 'fat-Jet_pruned_mass_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_filtered_mass_llbfj':
+  x-axis: 'fat-Jet_filtered_mass_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau1_llbfj':
+  x-axis: 'fat-Jet_tau1_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau2_llbfj':
+  x-axis: 'fat-Jet_tau2_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau3_llbfj':
+  x-axis: 'fat-Jet_tau3_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_subjetDR_llbfj':
+  x-axis: 'fat-Jet_subjetDR_llbfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Pt_llbbsbjsbj':
+  x-axis: 'll_Pt_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Eta_llbbsbjsbj':
+  x-axis: 'll_Eta_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Phi_llbbsbjsbj':
+  x-axis: 'll_Phi_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_llbbsbjsbj':
+  x-axis: 'll_M_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_llbbsbjsbj':
+  x-axis: 'll_M_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DR_llbbsbjsbj':
+  x-axis: 'll_DR_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DEta_llbbsbjsbj':
+  x-axis: 'll_DEta_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DPhi_llbbsbjsbj':
+  x-axis: 'll_DPhi_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Pt_llbbsbjsbj':
+  x-axis: 'fat-Jet_Pt_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Eta_llbbsbjsbj':
+  x-axis: 'fat-Jet_Eta_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Phi_llbbsbjsbj':
+  x-axis: 'fat-Jet_Phi_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_M_llbbsbjsbj':
+  x-axis: 'fat-Jet_M_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_CSVv2_llbbsbjsbj':
+  x-axis: 'fat-Jet_CSVv2_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_minDRjl_llbbsbjsbj':
+  x-axis: 'fat-Jet_minDRjl_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_softdrop_mass_llbbsbjsbj':
+  x-axis: 'fat-Jet_softdrop_mass_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_trimmed_mass_llbbsbjsbj':
+  x-axis: 'fat-Jet_trimmed_mass_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_pruned_mass_llbbsbjsbj':
+  x-axis: 'fat-Jet_pruned_mass_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_filtered_mass_llbbsbjsbj':
+  x-axis: 'fat-Jet_filtered_mass_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau1_llbbsbjsbj':
+  x-axis: 'fat-Jet_tau1_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau2_llbbsbjsbj':
+  x-axis: 'fat-Jet_tau2_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau3_llbbsbjsbj':
+  x-axis: 'fat-Jet_tau3_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_subjetDR_llbbsbjsbj':
+  x-axis: 'fat-Jet_subjetDR_llbbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'nohf_met_Pt_llbbhighmass':
+  x-axis: 'nohf_met_Pt_llbbhighmass'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Pt_mefj':
+  x-axis: 'll_Pt_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Eta_mefj':
+  x-axis: 'll_Eta_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Phi_mefj':
+  x-axis: 'll_Phi_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_mefj':
+  x-axis: 'll_M_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_mefj':
+  x-axis: 'll_M_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DR_mefj':
+  x-axis: 'll_DR_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DEta_mefj':
+  x-axis: 'll_DEta_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DPhi_mefj':
+  x-axis: 'll_DPhi_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Pt_mefj':
+  x-axis: 'fat-Jet_Pt_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Eta_mefj':
+  x-axis: 'fat-Jet_Eta_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Phi_mefj':
+  x-axis: 'fat-Jet_Phi_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_M_mefj':
+  x-axis: 'fat-Jet_M_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_CSVv2_mefj':
+  x-axis: 'fat-Jet_CSVv2_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_minDRjl_mefj':
+  x-axis: 'fat-Jet_minDRjl_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_softdrop_mass_mefj':
+  x-axis: 'fat-Jet_softdrop_mass_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_trimmed_mass_mefj':
+  x-axis: 'fat-Jet_trimmed_mass_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_pruned_mass_mefj':
+  x-axis: 'fat-Jet_pruned_mass_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_filtered_mass_mefj':
+  x-axis: 'fat-Jet_filtered_mass_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau1_mefj':
+  x-axis: 'fat-Jet_tau1_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau2_mefj':
+  x-axis: 'fat-Jet_tau2_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau3_mefj':
+  x-axis: 'fat-Jet_tau3_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_subjetDR_mefj':
+  x-axis: 'fat-Jet_subjetDR_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'llj_M_mefj':
+  x-axis: 'llj_M_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'llj_Eta_mefj':
+  x-axis: 'llj_Eta_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'llj_Phi_mefj':
+  x-axis: 'llj_Phi_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'llj_M_mefj':
+  x-axis: 'llj_M_mefj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Pt_mebfj':
+  x-axis: 'll_Pt_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Eta_mebfj':
+  x-axis: 'll_Eta_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Phi_mebfj':
+  x-axis: 'll_Phi_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_mebfj':
+  x-axis: 'll_M_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_mebfj':
+  x-axis: 'll_M_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DR_mebfj':
+  x-axis: 'll_DR_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DEta_mebfj':
+  x-axis: 'll_DEta_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DPhi_mebfj':
+  x-axis: 'll_DPhi_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Pt_mebfj':
+  x-axis: 'fat-Jet_Pt_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Eta_mebfj':
+  x-axis: 'fat-Jet_Eta_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Phi_mebfj':
+  x-axis: 'fat-Jet_Phi_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_M_mebfj':
+  x-axis: 'fat-Jet_M_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_CSVv2_mebfj':
+  x-axis: 'fat-Jet_CSVv2_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_minDRjl_mebfj':
+  x-axis: 'fat-Jet_minDRjl_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_softdrop_mass_mebfj':
+  x-axis: 'fat-Jet_softdrop_mass_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_trimmed_mass_mebfj':
+  x-axis: 'fat-Jet_trimmed_mass_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_pruned_mass_mebfj':
+  x-axis: 'fat-Jet_pruned_mass_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_filtered_mass_mebfj':
+  x-axis: 'fat-Jet_filtered_mass_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau1_mebfj':
+  x-axis: 'fat-Jet_tau1_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau2_mebfj':
+  x-axis: 'fat-Jet_tau2_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau3_mebfj':
+  x-axis: 'fat-Jet_tau3_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_subjetDR_mebfj':
+  x-axis: 'fat-Jet_subjetDR_mebfj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Pt_mebbsbjsbj':
+  x-axis: 'll_Pt_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Eta_mebbsbjsbj':
+  x-axis: 'll_Eta_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_Phi_mebbsbjsbj':
+  x-axis: 'll_Phi_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_mebbsbjsbj':
+  x-axis: 'll_M_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_M_mebbsbjsbj':
+  x-axis: 'll_M_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DR_mebbsbjsbj':
+  x-axis: 'll_DR_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DEta_mebbsbjsbj':
+  x-axis: 'll_DEta_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'ll_DPhi_mebbsbjsbj':
+  x-axis: 'll_DPhi_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Pt_mebbsbjsbj':
+  x-axis: 'fat-Jet_Pt_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Eta_mebbsbjsbj':
+  x-axis: 'fat-Jet_Eta_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_Phi_mebbsbjsbj':
+  x-axis: 'fat-Jet_Phi_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_M_mebbsbjsbj':
+  x-axis: 'fat-Jet_M_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_CSVv2_mebbsbjsbj':
+  x-axis: 'fat-Jet_CSVv2_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_minDRjl_mebbsbjsbj':
+  x-axis: 'fat-Jet_minDRjl_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_softdrop_mass_mebbsbjsbj':
+  x-axis: 'fat-Jet_softdrop_mass_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_trimmed_mass_mebbsbjsbj':
+  x-axis: 'fat-Jet_trimmed_mass_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_pruned_mass_mebbsbjsbj':
+  x-axis: 'fat-Jet_pruned_mass_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_filtered_mass_mebbsbjsbj':
+  x-axis: 'fat-Jet_filtered_mass_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau1_mebbsbjsbj':
+  x-axis: 'fat-Jet_tau1_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau2_mebbsbjsbj':
+  x-axis: 'fat-Jet_tau2_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_tau3_mebbsbjsbj':
+  x-axis: 'fat-Jet_tau3_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'fat-Jet_subjetDR_mebbsbjsbj':
+  x-axis: 'fat-Jet_subjetDR_mebbsbjsbj'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true
+'nohf_met_Pt_mebbhighmass':
+  x-axis: 'nohf_met_Pt_mebbhighmass'
+  y-axis: 'Evt'
+  y-axis-format: '%1% / %2$.0f GeV'
+  normalized: false
+  log-y: both
+  save-extensions: ['png','pdf','root']
+  show-ratio: true

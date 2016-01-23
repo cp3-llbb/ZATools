@@ -4,7 +4,7 @@ class options_():
 
     ### Define 2D mapping for the search in the M(bb) - M(llbb) plane ###
     rangeMassA = []
-    mbb=100
+    mbb=10
     sigma=1.0
     for i in range(1,36):
       dmbb=0.15*mbb*1.5
@@ -13,7 +13,7 @@ class options_():
       mbb+=step_mbb
 
     rangeMassH = []
-    mllbb=200
+    mllbb=10
     for i in range(1,36):
       dmllbb=0.15*mllbb*1.5
       step_mllbb = dmllbb/1.5

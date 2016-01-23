@@ -51,7 +51,7 @@ for cutkey in options.cut :
     mbb=options.mA_list[cutkey]
     mllbb=options.mH_list[cutkey]
          
-    if (mbb < mllbb) and (mllbb > 126.0): 
+    if (mbb < mllbb - 90) and (mllbb > 126.0) and os.path.exists(DataCard): 
 
       if run_combine == 1 :
         # Running combine and moving the output rootfile in the repository
