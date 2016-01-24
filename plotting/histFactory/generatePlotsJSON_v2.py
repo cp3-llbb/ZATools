@@ -1,10 +1,11 @@
 from cp3_llbb.ZATools.ZACnC import *
 
-def printInJsonNoVar(f, g, obj, objName, cut, cutName, binnings, isLastEntry):
+def printInJsonNoVar(f, g, obj, objName, cut, cutName, weights, binnings, isLastEntry):
     f.write( "        {\n")
     f.write( "        'name': '"+objName+"_"+cutName+"',\n")
     f.write( "        'variable': '"+obj+"',\n")
     f.write( "        'plot_cut': '"+cut+"',\n")
+    f.write( "        'weight': '"+weights+"',\n")
     f.write( "        'binning': '"+binnings[0]+"'\n")
     if (isLastEntry == False) :
         f.write( "        },\n")
@@ -21,12 +22,13 @@ def printInJsonNoVar(f, g, obj, objName, cut, cutName, binnings, isLastEntry):
     g.write("  show-ratio: true\n")
 
 
-def printInJson(f, g, obj, objName, variables, variableNames, cut, cutName, binnings, isLastEntry):
+def printInJson(f, g, obj, objName, variables, variableNames, cut, cutName, weights, binnings, isLastEntry):
     for i in range(0, len(variables)) :
         f.write( "        {\n")
         f.write( "        'name': '"+objName+"_"+variableNames[i]+"_"+cutName+"',\n")
         f.write( "        'variable': '"+obj+"."+variables[i]+"',\n")
         f.write( "        'plot_cut': '"+cut+"',\n")
+        f.write( "        'weight': '"+weights+"',\n")
         f.write( "        'binning': '"+binnings[i]+"'\n")
         if (isLastEntry == False or i < len(variables)-1) : 
             f.write( "        },\n")
@@ -45,11 +47,12 @@ def printInJson(f, g, obj, objName, variables, variableNames, cut, cutName, binn
         g.write("  save-extensions: ['png','pdf','root']\n")
         g.write("  show-ratio: true\n")
 
-def printInPy(f, g, cut, cutName, binning, isLastEntry):
+def printInPy(f, g, cut, cutName, weights, binning, isLastEntry):
     f.write( "        {\n")
     f.write( "        'name': '"+cutName+"',\n")
     f.write( "        'variable': '"+cut+"',\n")
     f.write( "        'plot_cut': '"+cut+"',\n")
+    f.write( "        'weight': '"+weights+"',\n")
     f.write( "        'binning': '"+binning+"'\n")
     if (isLastEntry == False or i < len(variables)-1) :
         f.write( "        },\n")
@@ -78,7 +81,7 @@ mj_binning = "(30, 0, 30)"
 csv_binning = "(20,0,1)"
 DR_binning = "(15, 0, 6)"
 DPhi_binning = "(10, 0, 3.1416)"
-ptZ_binning = "80,0,800)"
+ptZ_binning = "(80,0,800)"
 MZ_binning = "(80,0,400)"
 MZzoomed_binning = "(60,60,120)"
 Mjj_binning = "(30,0,600)"
@@ -197,6 +200,7 @@ MRewIso = "1" #" * (muon_sf_iso_02_loose[za_diLeptons[0].idxLep1][0]*muon_sf_iso
 
 CSVV2_medium_SF_weight = " * (jet_sf_csvv2_medium[za_diJets[0].idxJet1][0] * jet_sf_csvv2_medium[za_diJets[0].idxJet2][0] )))"
 
+ll_weights = "( event_run < 200000 ? (za_diLeptons[0].triggerSF * event_pu_weight * event_weight) : 1.)"
 
 twoLCond = []
 twoLCondName = []
@@ -227,7 +231,7 @@ twoLTwoBHighMassCond = []
 twoLTwoBHighMassCondName = []
 
 basicJcond="(elel_TwoJets_cut || mumu_TwoJets_cut || muel_TwoJets_cut || elmu_TwoJets_cut)"
-basicTwoBcond="(Length$(za_diJets) > 0 && ((elel_TwoBjets_cut || mumu_TwoBjets_cut || muel_TwoBjets_cut || elmu_TwoBjets_cut) "
+basicTwoBcond="(Length$(za_diJets) > 0) && ((elel_TwoBjets_cut || mumu_TwoBjets_cut || muel_TwoBjets_cut || elmu_TwoBjets_cut) "
 basicThreeBcond="(elel_ThreeBjets_cut || mumu_ThreeBjets_cut || muel_ThreeBjets_cut || elmu_ThreeBjets_cut)"
 basicSubJcond="(elel_TwoSubJets_cut || mumu_TwoSubJets_cut || muel_TwoSubJets_cut || elmu_TwoSubJets_cut)"
 basicOneBFatJetTcond="((elel_OneBFatJetT_cut || mumu_OneBFatJetT_cut || muel_OneBFatJetT_cut || elmu_OneBFatJetT_cut) && (Length$(za_diLepFatJets) > 0))"
@@ -244,7 +248,7 @@ basicTwoBSubJetsLLcondName="sbjsbj"
 basictwoLTwoBHighMasscondName="highmass"
 for x in range(0,4):
 	twoLtwoJCond.append("("+twoLCond[x]+" && "+basicJcond+")")
-	twoLtwoBCond.append("("+twoLCond[x]+" && "+basicTwoBcond+")"+CSVV2_medium_SF_weight)
+	twoLtwoBCond.append("("+twoLCond[x]+" && "+basicTwoBcond+")")
 	twoLthreeBCond.append("("+twoLCond[x]+" && "+basicThreeBcond+")")
 	twoLtwoSubJCond.append("("+twoLCond[x]+" && "+basicSubJcond+")")
 	twoLOneBFatJetTCond.append("("+twoLCond[x]+" && "+basicOneBFatJetTcond+")")
@@ -277,26 +281,32 @@ fyml = open('plots_all.yml', 'w')
 ## CandCount variables :
 
 options = options_()
+
 '''
-for cutkey in options.cut :
+for x in range(0,1):
+    for cutkey in options.cut :
         print 'cutkey : ', cutkey
         ### get M_A and M_H ###
         #mH[0] = float(options.mH_list[cutkey])
         #mA[0] = float(options.mA_list[cutkey])
-        printInPy(fjson, fyml, options.cut[cutkey], twoLepTwoBjets+" && "+cutkey,"(2, 0, 2)", 0)
+        printInPy(fjson, fyml, options.cut[cutkey], twoLtwoBCond[x]+" && "+cutkey, ll_weights ,"(2, 0, 2)", 0)
 '''
+
+printInPy(fjson, fyml, " ( Length$(za_diJets) > 0 && TMath::Abs(za_diJets[0].p4.M()-90) < 30) && "+twoLtwoBCond[0]+" )", "SR" , ll_weights ,"(2, 0, 2)", 0)
+printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, "( Length$(za_diJets) > 0 && TMath::Abs(za_diJets[0].p4.M()-90) > 30) && "+twoLtwoBCond[0]+" )", "CR", ll_weights, dilep_binning, 1)
+
 ## Control Plots :
 
 
 # 1) 2L stage
 
+'''
 for x in range(0,4):
 	print x
-        
-	printInJson(fjson, fyml, l1, l1Name, l_var, l_varName, twoLCond[x]+weights, twoLCondName[x], l_binning, 0)
-	printInJson(fjson, fyml, l2, l2Name, l_var, l_varName, twoLCond[x]+weights, twoLCondName[x], l_binning, 0)
-	printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLCond[x]+weights, twoLCondName[x], dilep_binning, 0)
-        '''
+       
+	printInJson(fjson, fyml, l1, l1Name, l_var, l_varName, twoLCond[x], twoLCondName[x], ll_weights, l_binning, 0)
+	printInJson(fjson, fyml, l2, l2Name, l_var, l_varName, twoLCond[x], twoLCondName[x], ll_weights, l_binning, 0)
+	printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLCond[x], twoLCondName[x], ll_weights , dilep_binning, 0)
 	printInJson(fjson, fyml, selJets, selJetsName, selJets_var, selJets_varName, twoLCond[x]+weights, twoLCondName[x], selJets_binning, 0)
 	printInJson(fjson, fyml, selBjets, selBjetsName, selJets_var, selJets_varName, twoLCond[x]+weights, twoLCondName[x], selJets_binning, 0)
 	printInJsonNoVar(fjson, fyml, nPV, nPVName, twoLCond[x]+weights, twoLCondName[x], nPV_binning, 0)
@@ -309,7 +319,7 @@ for x in range(0,4):
 	printInJson(fjson, fyml, j1pt, j1ptName, j_var, j_varName, twoLtwoJCond[x]+weights, twoLtwoJCondName[x], j_binning, 0)
 	printInJson(fjson, fyml, j2pt, j2ptName, j_var, j_varName, twoLtwoJCond[x]+weights, twoLtwoJCondName[x], j_binning, 0)
 	# 2L2B
-	printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLtwoBCond[x]+weights, twoLtwoBCondName[x], dilep_binning, 0)
+	printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLtwoBCond[x], twoLtwoBCondName[x], ll_weights, dilep_binning, 0)
 	printInJson(fjson, fyml, j1pt, j1ptName, j_var, j_varName, twoLtwoBCond[x]+weights, twoLtwoBCondName[x], j_binning, 0)
 	printInJson(fjson, fyml, j2pt, j2ptName, j_var, j_varName, twoLtwoBCond[x]+weights, twoLtwoBCondName[x], j_binning, 0)
 	printInJson(fjson, fyml, dijet, dijetName, dijet_var, dijet_varName, twoLtwoBCond[x]+weights, twoLtwoBCondName[x], dijet_binning, 0)
@@ -339,11 +349,10 @@ for x in range(0,4):
 	printInJson(fjson, fyml, dijetdilep, dijetdilepName, dijetdilep_var, dijetdilep_varName, twoLTwoBHighMassCond[x]+weights,twoLTwoBHighMassCondName[x], dijetdilep_binning, 0)
 	printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLTwoBHighMassCond[x]+weights,twoLTwoBHighMassCondName[x], dilep_binning, 0)
 	printInJson(fjson, fyml, dijet, dijetName, dijet_var, dijet_varName, twoLTwoBHighMassCond[x]+weights,twoLTwoBHighMassCondName[x], dijet_binning, 0)
-        '''
-	printInJson(fjson, fyml, met, metName, met_var, met_varName, twoLTwoBHighMassCond[x]+weights,twoLTwoBHighMassCondName[x], met_binning, 1 if x==3 else 0)
+        printInJson(fjson, fyml, met, metName, met_var, met_varName, twoLTwoBHighMassCond[x]+weights,twoLTwoBHighMassCondName[x], met_binning, 1 if x==3 else 0)
         '''
 
-
+'''
 printInJson(fjson, fyml, j1pt, j1ptName, j_var, j_varName, twoMuTwojets, twoMuTwojetsName, j_binning, 0)
 printInJson(fjson, fyml, j2pt, j2ptName, j_var, j_varName, twoMuTwojets, twoMuTwojetsName, j_binning, 0)
 printInJson(fjson, fyml, j1csv, j1csvName, j_var, j_varName, twoMuTwojets, twoMuTwojetsName, j_binning, 0)
