@@ -10,13 +10,22 @@ import CombineHarvester.CombineTools.ch as ch
 import ROOT
 from ROOT import gROOT
 from ROOT import TChain, TFile, TCanvas
+from ROOT import TH1F
+from cp3_llbb.ZATools.ZACnC import *
+
 #gROOT.Reset()
 #gROOT.SetBatch()
 #ROOT.PyConfig.IgnoreCommandLineOptions = True
 
-
-
 def main():
+  options = options_()
+  for cutkey in options.cut :
+    print 'cutkey : ', cutkey
+    ### get M_A and M_H ###
+    mH = float(options.mH_list[cutkey])
+    mA = float(options.mA_list[cutkey])
+    print mH, mA
+
     """Main function"""
     # start the timer
     tstart = datetime.now()
@@ -26,21 +35,21 @@ def main():
 
     intL = 2245.792 # in pb-1    
     tag = 'v1.1.0+7415-23-g22d44c6_ZAAnalysis_919cd18'
-    path = '/nfs/scratch/fynu/amertens/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/16_01_21/build'
+    path = '/nfs/scratch/fynu/amertens/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/16_01_24/build'
     CHANNEL = 'mumu'
     ERA = '13TeV'
-    MASS = '90'
+    MASS = str(mH)+"_"+str(mA)
     ANALYSIS = 'HtoZAtoLLBB'
     DEBUG = 0
 
     c = ch.CombineHarvester()
-    cats = [(0, 'SR'),
-            (1, 'll_M_CR')
+    cats = [(0, "SR"+cutkey),
+            (1, "ll_M_CR"+cutkey)
             ]
 
     bins = {}
-    bins['signalregion'] = 'SR'
-    bins['mll_bkgregion'] = 'll_M_CR'
+    bins['signalregion'] = "SR"+cutkey
+    bins['mll_bkgregion'] = "ll_M_CR"+cutkey
 
     processes = {}
     p = Process('data_obs')
@@ -48,9 +57,9 @@ def main():
     processes['data_obs'] = p
     if DEBUG: print p
     # define signal
-    p = Process('zz')
-    p.prepare_process(path, 'zz', 'ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_MiniAODv2', tag)
-    processes['zz'] = p
+    #p = Process('zz')
+    #p.prepare_process(path, 'zz', 'ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_MiniAODv2', tag)
+    #processes['zz'] = p
     if DEBUG: print p
     # define backgrounds
     # ttbar
@@ -73,7 +82,7 @@ def main():
 
 
     c.AddObservations([MASS], [ANALYSIS], [ERA], [CHANNEL], cats)
-    c.AddProcesses([MASS], [ANALYSIS], [ERA], [CHANNEL], ['zz'], cats, True)
+    c.AddProcesses([MASS], [ANALYSIS], [ERA], [CHANNEL], ['ZA'], cats, True)
     c.AddProcesses([MASS], [ANALYSIS], [ERA], [CHANNEL], ['ttbar', 'dy1', 'dy2'], cats, False)
     c.cp().process(['ttbar', 'dy1', 'dy2', 'zz']).AddSyst(
         c, "lumi", "lnN", ch.SystMap('channel', 'era', 'bin_id')
@@ -88,14 +97,15 @@ def main():
     f = TFile(outputRoot, "recreate")
     f.Close()
     for b in bins:
-        print bins[b]
+        print b , bins[b]
         for p in processes:
-            print processes[p]
+            #print processes[p]
             #hname = "hist_%s_%s" % (b, p)
             #chain = TChain("t")
             #chain.Add(processes[p].file)
             #chain.Draw("jj_M>>%s(60,0,600)" % hname, "((%s) && (%s))" % (cleaningCut, bins[b]))
             file_in = TFile(processes[p].file,"READ")
+            print " Getting ", bins[b], " in file ", processes[p].file
             h = file_in.Get(bins[b])
             h.SetDirectory(0)
             file_in.Close()
@@ -110,6 +120,17 @@ def main():
                 h.Write()
             f.Write()
             f.Close()
+
+    f = TFile(outputRoot, "update")
+    h1 = TH1F("hist_"+bins['signalregion']+"_ZA","hist_"+bins['signalregion']+"_ZA",2,0,2)
+    h1.Fill(1.5)
+    h1.Write()
+    
+    h2 = TH1F("hist_"+bins['mll_bkgregion']+"_ZA","hist_"+bins['mll_bkgregion']+"_ZA",60,60,120)
+    h2.Write()
+
+    f.Write()
+    f.Close()
 
     c.cp().backgrounds().ExtractShapes(
         outputRoot, "hist_$BIN_$PROCESS", "hist_$BIN_$PROCESS_$SYSTEMATIC")
