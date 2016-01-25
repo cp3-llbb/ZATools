@@ -23,8 +23,8 @@ class options_():
       mllbb+=step_mllbb
     '''
 
-    mbb_list = {50,100,150,200,250,300,400}
-    mllbb_list = {200,250,300,400,500,650,800,1000}
+    mbb_list = {30,50,75,100,125,150,200,225,250,300,350,400,500}
+    mllbb_list = {150,200,250,300,350,400,450,500,550,650,800,1000}
 
     rangeMassA = []
     rangeMassH = []
@@ -50,6 +50,7 @@ class options_():
 
     for mA in rangeMassA:
         for mH in rangeMassH:
+          if mA[2]+90.0 < mH[2] :
             key = "mA"+str(mA[0])+"to"+str(mA[1])+"_mH"+str(mH[0])+"to"+str(mH[1])
             cut[key] = "( Length$(za_diJets) > 0 && Length$(za_diLepDiJets) > 0 && za_diJets[0].p4.M() >= "+str(mA[0])+" && za_diJets[0].p4.M() < "+str(mA[1])+" && za_diLepDiJets[0].p4.M() >= "+str(mH[0])+" && za_diLepDiJets[0].p4.M() < "+str(mH[1])+" )"
             mA_list[key] = mA[2]
