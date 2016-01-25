@@ -2,6 +2,7 @@
 
 class options_():
 
+
     '''
     ### Define 2D mapping for the search in the M(bb) - M(llbb) plane ###
     rangeMassA = []
@@ -22,8 +23,8 @@ class options_():
       mllbb+=step_mllbb
     '''
 
-    mbb_list = {50,100,200,300}
-    mllbb_list = {150,300,500,800}
+    mbb_list = {50,100,150,200,250,300,400}
+    mllbb_list = {200,250,300,400,500,650,800,1000}
 
     rangeMassA = []
     rangeMassH = []
