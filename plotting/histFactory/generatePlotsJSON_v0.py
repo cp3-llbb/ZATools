@@ -77,6 +77,7 @@ pt_binning  = "(30, 0, 600)"
 eta_binning = "(30, -3, 3)"
 phi_binning = "(30, -3.1416, 3.1416)"
 lepiso_binning = "(30, 0, 0.3)"
+dca_binning = "(50, -5.0, 5.0)"
 mj_binning = "(30, 0, 30)"
 csv_binning = "(20,0,1)"
 DR_binning = "(15, 0, 6)"
@@ -102,10 +103,10 @@ l2 = "za_dilep_ptOrdered[1]"
 l1Name = "lep_pt1"
 l2Name = "lep_pt2"
 
-l_var = ["p4.Pt()", "p4.Eta()", "p4.Phi()", "isoValue"]
-l_varName = ["Pt", "Eta", "Phi", "isoValue"]
+l_var = ["p4.Pt()", "p4.Eta()", "p4.Phi()", "isoValue","dca"]
+l_varName = ["Pt", "Eta", "Phi", "isoValue","dca"]
 
-l_binning = [pt_binning, eta_binning, phi_binning, lepiso_binning]
+l_binning = [pt_binning, eta_binning, phi_binning, lepiso_binning,dca_binning]
 
 # Jets variables
 
@@ -192,15 +193,13 @@ nPV_binning = [nPV_binning]
 
 # Cuts
 
-weights = " * event_pu_weight * event_weight"
-
 ERewID = "1" # " * (electron_sf_id_loose[za_diLeptons[0].idxLep1][0]*electron_sf_id_loose[za_diLeptons[0].idxLep2][0])"
 MRewID = "1" #" * (muon_sf_id_loose[za_diLeptons[0].idxLep1][0]*muon_sf_id_loose[za_diLeptons[0].idxLep2][0])"
 MRewIso = "1" #" * (muon_sf_iso_02_loose[za_diLeptons[0].idxLep1][0]*muon_sf_iso_02_loose[za_diLeptons[0].idxLep2][0])"
 
 CSVV2_medium_SF_weight = " * (jet_sf_csvv2_medium[za_diJets[0].idxJet1][0] * jet_sf_csvv2_medium[za_diJets[0].idxJet2][0] ))"
 
-ll_weights = "( event_run < 200000 ? (za_diLeptons[0].triggerSF * event_pu_weight * event_weight) : 1.)"
+ll_weights = "(event_is_data !=1 ?( za_diLeptons[0].triggerSF * event_pu_weight * event_weight) : 1.0)"
 
 twoLCond = []
 twoLCondName = []
@@ -264,11 +263,6 @@ for x in range(0,4):
 	print twoLtwoJCond[x]
 
 
-#test_highMass_cond = "(Length$(za_diJets) > 0 && Length$(za_diLeptons) > 0 && za_diJets[0].p4.Pt() > 200 && za_diLeptons[0].p4.Pt() > 200)"
-#test_highMass =  twoL_cond + " * " + twoB_cond + " * " + test_highMass_cond + weights
-#test_highMassName = "highPt"
-
-
 # Writing the JSON
 
 ## 2 Muons 2 Jets :
@@ -282,15 +276,6 @@ fyml = open('plots_all.yml', 'w')
 
 options = options_()
 
-'''
-for x in range(0,1):
-    for cutkey in options.cut :
-        print 'cutkey : ', cutkey
-        ### get M_A and M_H ###
-        #mH[0] = float(options.mH_list[cutkey])
-        #mA[0] = float(options.mA_list[cutkey])
-        printInPy(fjson, fyml, options.cut[cutkey], twoLtwoBCond[x]+" && "+cutkey, ll_weights ,"(2, 0, 2)", 0)
-'''
 
 #printInPy(fjson, fyml, " ( Length$(za_diJets) > 0 && TMath::Abs(za_diJets[0].p4.M()-90) < 30) && "+twoLtwoBCond[0]+" )", "SR" , ll_weights ,"(2, 0, 2)", 0)
 #printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, "( Length$(za_diJets) > 0 && TMath::Abs(za_diJets[0].p4.M()-90) > 30) && "+twoLtwoBCond[0]+" )", "CR", ll_weights, dilep_binning, 1)
@@ -301,7 +286,7 @@ for x in range(0,1):
 # 1) 2L stage
 
 
-for x in range(0,4):
+for x in range(0,1):
 	print x
        
 	printInJson(fjson, fyml, l1, l1Name, l_var, l_varName, twoLCond[x], twoLCondName[x], ll_weights, l_binning, 0)
@@ -310,6 +295,7 @@ for x in range(0,4):
 	printInJson(fjson, fyml, selJets, selJetsName, selJets_var, selJets_varName, twoLCond[x], twoLCondName[x],ll_weights, selJets_binning, 0)
 	printInJson(fjson, fyml, selBjets, selBjetsName, selJets_var, selJets_varName, twoLCond[x], twoLCondName[x],ll_weights, selJets_binning, 0)
 	printInJsonNoVar(fjson, fyml, nPV, nPVName, twoLCond[x], twoLCondName[x],ll_weights, nPV_binning, 0)
+        
 	# 2L2J
 	printInJson(fjson, fyml, l1, l1Name, l_var, l_varName, twoLtwoJCond[x], twoLtwoJCondName[x],ll_weights, l_binning, 0)
 	printInJson(fjson, fyml, l2, l2Name, l_var, l_varName, twoLtwoJCond[x], twoLtwoJCondName[x],ll_weights, l_binning, 0)
@@ -349,5 +335,6 @@ for x in range(0,4):
 	printInJson(fjson, fyml, dijetdilep, dijetdilepName, dijetdilep_var, dijetdilep_varName, twoLTwoBHighMassCond[x],twoLTwoBHighMassCondName[x],ll_weights, dijetdilep_binning, 0)
 	printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLTwoBHighMassCond[x],twoLTwoBHighMassCondName[x],ll_weights, dilep_binning, 0)
 	printInJson(fjson, fyml, dijet, dijetName, dijet_var, dijet_varName, twoLTwoBHighMassCond[x],twoLTwoBHighMassCondName[x],ll_weights, dijet_binning, 0)
-        printInJson(fjson, fyml, met, metName, met_var, met_varName, twoLTwoBHighMassCond[x],twoLTwoBHighMassCondName[x],ll_weights, met_binning, 1 if x==3 else 0)
+        
+        printInJson(fjson, fyml, met, metName, met_var, met_varName, twoLTwoBHighMassCond[x],twoLTwoBHighMassCondName[x],ll_weights, met_binning, 1 if x==0 else 0)
 
