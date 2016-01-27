@@ -1,26 +1,5 @@
 from cp3_llbb.ZATools.ZACnC import *
 
-def printInJsonNoVar(f, g, obj, objName, cut, cutName, weights, binnings, isLastEntry):
-    f.write( "        {\n")
-    f.write( "        'name': '"+objName+"_"+cutName+"',\n")
-    f.write( "        'variable': '"+obj+"',\n")
-    f.write( "        'plot_cut': '"+cut+"',\n")
-    f.write( "        'weight': '"+weights+"',\n")
-    f.write( "        'binning': '"+binnings[0]+"'\n")
-    if (isLastEntry == False) :
-        f.write( "        },\n")
-    if (isLastEntry == True) :
-        f.write( "        }]\n")
-
-    g.write("'"+objName+"_"+cutName+"':\n")
-    g.write("  x-axis: '"+objName+"_"+cutName+"'\n")
-    g.write("  y-axis: 'Evt'\n")
-    g.write("  y-axis-format: '%1% / %2$.0f GeV'\n")
-    g.write("  normalized: false\n")
-    g.write("  log-y: both\n")
-    g.write("  save-extensions: ['png','pdf']\n")
-    g.write("  show-ratio: true\n")
-
 def printInPyWithSyst(f, g, name = '', variable = '', cut = '', weight = '', binning = '', writeInPlotIt = 0):
     f.write( "        {\n")
     f.write( "        'name': '"+name+"',\n")
@@ -39,58 +18,15 @@ def printInPyWithSyst(f, g, name = '', variable = '', cut = '', weight = '', bin
       g.write("  save-extensions: ['png','pdf']\n")
       g.write("  show-ratio: true\n")
 
-def printInJson(f, g, obj, objName, variables, variableNames, cut, cutName, weights, binnings, isLastEntry):
-    for i in range(0, len(variables)) :
-        f.write( "        {\n")
-        f.write( "        'name': '"+objName+"_"+variableNames[i]+"_"+cutName+"',\n")
-        f.write( "        'variable': '"+obj+"."+variables[i]+"',\n")
-        f.write( "        'plot_cut': '"+cut+"',\n")
-        f.write( "        'weight': '"+weights+"',\n")
-        f.write( "        'binning': '"+binnings[i]+"'\n")
-        if (isLastEntry == False or i < len(variables)-1) : 
-            f.write( "        },\n")
-        else : 
-            f.write( "        }\n")
-    if (isLastEntry == True) :
-        f.write( "        ]\n")
-
-    for i in range(0, len(variables)) :
-        g.write("'"+objName+"_"+variableNames[i]+"_"+cutName+"':\n")
-        g.write("  x-axis: '"+objName+"_"+variableNames[i]+"_"+cutName+"'\n")
-        g.write("  y-axis: 'Evt'\n")
-        g.write("  y-axis-format: '%1% / %2$.0f GeV'\n")
-        g.write("  normalized: false\n")
-        g.write("  log-y: both\n")
-        g.write("  save-extensions: ['png','pdf','root']\n")
-        g.write("  show-ratio: true\n")
-
-def printInPy(f, g, cut, cutName, weights, binning, isLastEntry):
-    f.write( "        {\n")
-    f.write( "        'name': '"+cutName+"',\n")
-    f.write( "        'variable': '"+cut+"',\n")
-    f.write( "        'plot_cut': '"+cut+"',\n")
-    f.write( "        'weight': '"+weights+"',\n")
-    f.write( "        'binning': '"+binning+"'\n")
-    if (isLastEntry == False or i < len(variables)-1) :
-        f.write( "        },\n")
-    else :
-        f.write( "        }\n")
-    if (isLastEntry == True) :
-        f.write( "        ]\n")
-
-    g.write("'"+cutName+"':\n")
-    g.write("  x-axis: '"+cutName+"'\n")
-    g.write("  y-axis: 'Evt'\n")
-    g.write("  y-axis-format: '%1% / %2$.0f GeV'\n")
-    g.write("  normalized: false\n")
-    g.write("  log-y: both\n")
-    g.write("  save-extensions: ['png','pdf']\n")
-    g.write("  show-ratio: true\n")
-
-
 # binnings
 
-nPV_binning = "(50,0,50)"
+nPV_binning = "(35,0,35)"
+mll_binning = "(30,60,120)"
+
+# mll
+
+mll = "za_diLeptons[0].p4.M()"
+mllName = "mll"
 
 # PV N
 
@@ -187,6 +123,38 @@ llweights = {'': weights,
              '__pudown': weights_pudown
     }
 
+
+## Plots for combine
+
+options = options_()
+
+for x in range(0,1):
+    for cutkey in options.cut :
+        for s,w in llweights.iteritems() :
+            print 'cutkey : ', cutkey
+            ### get M_A and M_H ###
+            #mH[0] = float(options.mH_list[cutkey])
+            #mA[0] = float(options.mA_list[cutkey])
+
+            ### SIGNAL Region ###
+            printInPyWithSyst(fjson, fyml, 
+                    name = twoLtwoBCondName[x]+"SR"+cutkey+s, 
+                    variable = '0.5', 
+                    cut = options.cut[cutkey]+" && "+twoLtwoBCond[0]+" )", 
+                    weight = w, 
+                    binning = "(1,0,1)", 
+                    writeInPlotIt = (1 if s==''  else 0)
+                    )
+            ### BACKGROUND Region ###
+            printInPyWithSyst(fjson, fyml, 
+                    name = mllName+'_'+twoLtwoBCondName[x]+"BR"+cutkey+s, 
+                    variable = mll, 
+                    cut = "!"+options.cut[cutkey]+" && "+twoLtwoBCond[0]+" )", 
+                    weight = w, 
+                    binning = mll_binning, 
+                    writeInPlotIt = (1 if s==''  else 0)
+                    )
+
 ## Control Plots :
 
 for x in range(0,4):
@@ -198,9 +166,3 @@ for x in range(0,4):
 
 fjson.write( "        ]\n")
 
-'''
-for line in fjson:
-    pass
-last = line
-last.replace(',',']')
-'''
