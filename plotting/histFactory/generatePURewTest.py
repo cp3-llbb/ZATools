@@ -35,9 +35,6 @@ nPVName = "nVX"
 
 # Cuts
 
-weights = "event_pu_weight * event_weight"
-weights_puup = "event_pu_weight_up * event_weight"
-weights_pudown = "event_pu_weight_down * event_weight"
 
 ll_weights = "( event_run < 200000 ? (za_diLeptons[0].triggerSF * event_pu_weight * event_weight) : 1.)"
 
@@ -117,10 +114,29 @@ fjson = open('plots_test.py', 'w')
 fjson.write( "plots = [\n")
 fyml = open('plots_test.yml', 'w')
 
+'''
+weights = "event_pu_weight * event_weight"
+weights_puup = "event_pu_weight_up * event_weight"
+weights_pudown = "event_pu_weight_down * event_weight"
+za_diLeptons[0].triggerSF
+* (jet_sf_csvv2_medium[za_diJets[0].idxJet1][0] * jet_sf_csvv2_medium[za_diJets[0].idxJet2][0] ))
+'''
 
-llweights = {'': weights,
-             '__puup': weights_puup,
-             '__pudown': weights_pudown
+weights = "event_pu_weight * event_weight"
+weights_puup = "event_pu_weight_up * event_weight"
+weights_pudown = "event_pu_weight_down * event_weight"
+
+llTrigSF = "(event_is_data !=1 ?( za_diLeptons[0].triggerSF * event_pu_weight * event_weight) : 1.0)"
+
+btagSF = "(jet_sf_csvv2_medium[za_diJets[0].idxJet1][0] * jet_sf_csvv2_medium[za_diJets[0].idxJet2][0] )"
+btagSFup = "(jet_sf_csvv2_medium[za_diJets[0].idxJet1][1] * jet_sf_csvv2_medium[za_diJets[0].idxJet2][1] )"
+btagSFdown = "(jet_sf_csvv2_medium[za_diJets[0].idxJet1][2] * jet_sf_csvv2_medium[za_diJets[0].idxJet2][2] )"
+
+llweights = {'': llTrigSF+'*'+btagSF+'*'+weights,
+             '__puup': llTrigSF+'*'+btagSF+'*'+weights_puup,
+             '__pudown': llTrigSF+'*'+btagSF+'*'+weights_pudown,
+             '__btagup': llTrigSF+'*'+btagSFup+'*'+weights,
+	     '__btagdown': llTrigSF+'*'+btagSFdown+'*'+weights
     }
 
 
@@ -157,7 +173,7 @@ for x in range(0,1):
 
 ## Control Plots :
 
-for x in range(0,4):
+for x in range(0,1):
     for s,w in llweights.iteritems() : 
 	print x, s, w 
 	#printInJsonNoVar(fjson, fyml, nPV, nPVName, twoLCond[x]+weights, twoLCondName[x], nPV_binning, 0)
