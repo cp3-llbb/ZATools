@@ -67,7 +67,7 @@ twoLTwoBHighMassCond = []
 twoLTwoBHighMassCondName = []
 
 basicJcond="(elel_TwoJets_cut || mumu_TwoJets_cut || muel_TwoJets_cut || elmu_TwoJets_cut)"
-basicTwoBcond="(Length$(za_diJets) > 0) && ((elel_TwoBjets_cut || mumu_TwoBjets_cut || muel_TwoBjets_cut || elmu_TwoBjets_cut) "
+basicTwoBcond="(Length$(za_diJets) > 0) && ((za_elel_TwoBjets_cut || za_mumu_TwoBjets_cut || za_muel_TwoBjets_cut || za_elmu_TwoBjets_cut) "
 basicThreeBcond="(elel_ThreeBjets_cut || mumu_ThreeBjets_cut || muel_ThreeBjets_cut || elmu_ThreeBjets_cut)"
 basicSubJcond="(elel_TwoSubJets_cut || mumu_TwoSubJets_cut || muel_TwoSubJets_cut || elmu_TwoSubJets_cut)"
 basicOneBFatJetTcond="((elel_OneBFatJetT_cut || mumu_OneBFatJetT_cut || muel_OneBFatJetT_cut || elmu_OneBFatJetT_cut) && (Length$(za_diLepFatJets) > 0))"
@@ -110,6 +110,8 @@ for x in range(0,4):
 
 ## 2 Muons 2 Jets :
 
+cutBtagsMM = "za_mumu_DiJetBWP_MM_cut"
+
 fjson = open('plots_test.py', 'w')
 fjson.write( "plots = [\n")
 fyml = open('plots_test.yml', 'w')
@@ -126,13 +128,25 @@ weights = "event_pu_weight * event_weight"
 weights_puup = "event_pu_weight_up * event_weight"
 weights_pudown = "event_pu_weight_down * event_weight"
 
-llTrigSF = "(event_is_data !=1 ?( za_diLeptons[0].triggerSF * event_pu_weight * event_weight) : 1.0)"
+llTrigSF = "(event_is_data !=1 ?( za_diLeptons[0].triggerSF) : 1.0)"
 
-btagSF = "(jet_sf_csvv2_medium[za_diJets[0].idxJet1][0] * jet_sf_csvv2_medium[za_diJets[0].idxJet2][0] )"
-btagSFup = "(jet_sf_csvv2_medium[za_diJets[0].idxJet1][1] * jet_sf_csvv2_medium[za_diJets[0].idxJet2][1] )"
-btagSFdown = "(jet_sf_csvv2_medium[za_diJets[0].idxJet1][2] * jet_sf_csvv2_medium[za_diJets[0].idxJet2][2] )"
+btagSF = "(event_is_data !=1 ? (jet_sf_csvv2_medium[za_diJets[0].idxJet1][0] * jet_sf_csvv2_medium[za_diJets[0].idxJet2][0] ) : 1.0)"
+#btagSFup = "(event_is_data !=1 ? (jet_sf_csvv2_medium[za_diJets[0].idxJet1][1] * jet_sf_csvv2_medium[za_diJets[0].idxJet2][1] ) : 1.0)"
+#btagSFdown = "(event_is_data !=1 ? (jet_sf_csvv2_medium[za_diJets[0].idxJet1][2] * jet_sf_csvv2_medium[za_diJets[0].idxJet2][2] ) : 1.0)"
 
-llweights = {'': llTrigSF+'*'+btagSF+'*'+weights,
+btagSF = "(event_is_data !=1 ?  ( common::combineScaleFactors<2>({{{ jet_sf_csvv2_medium[za_diJets[0].idxJet1][0] , 1 }, { jet_sf_csvv2_medium[za_diJets[0].idxJet2][0] , 1 }}}, {{1, 1}, {1, 1}}, common::Variation::NOMINAL) ) : 1.0) ";
+
+btagSFup = "(event_is_data !=1 ? ( common::combineScaleFactors<2>({{{ jet_sf_csvv2_medium[za_diJets[0].idxJet1][0] , jet_sf_csvv2_medium[za_diJets[0].idxJet1][2] }, { jet_sf_csvv2_medium[za_diJets[0].idxJet2][0] , jet_sf_csvv2_medium[za_diJets[0].idxJet2][2] }}}, {{1, 1}, {1, 1}}, common::Variation::UP) ) : 1.0) ";
+
+btagSFdown = "(event_is_data !=1 ? ( common::combineScaleFactors<2>({{{ jet_sf_csvv2_medium[za_diJets[0].idxJet1][0] , jet_sf_csvv2_medium[za_diJets[0].idxJet1][1] }, { jet_sf_csvv2_medium[za_diJets[0].idxJet2][0] , jet_sf_csvv2_medium[za_diJets[0].idxJet2][1] }}}, {{1, 1}, {1, 1}}, common::Variation::DOWN) ) : 1.0) ";
+
+
+llweights = {'': llTrigSF+'*'+weights,
+             '__puup': llTrigSF+'*'+weights_puup,
+             '__pudown': llTrigSF+'*'+weights_pudown
+    }
+
+llbbweights = {'': llTrigSF+'*'+btagSF+'*'+weights,
              '__puup': llTrigSF+'*'+btagSF+'*'+weights_puup,
              '__pudown': llTrigSF+'*'+btagSF+'*'+weights_pudown,
              '__btagup': llTrigSF+'*'+btagSFup+'*'+weights,
@@ -146,7 +160,7 @@ options = options_()
 
 for x in range(0,1):
     for cutkey in options.cut :
-        for s,w in llweights.iteritems() :
+        for s,w in llbbweights.iteritems() :
             print 'cutkey : ', cutkey
             ### get M_A and M_H ###
             #mH[0] = float(options.mH_list[cutkey])
@@ -156,7 +170,7 @@ for x in range(0,1):
             printInPyWithSyst(fjson, fyml, 
                     name = twoLtwoBCondName[x]+"SR"+cutkey+s, 
                     variable = '0.5', 
-                    cut = options.cut[cutkey]+" && "+twoLtwoBCond[0]+" )", 
+                    cut = options.cut[cutkey]+" && "+cutBtagsMM, 
                     weight = w, 
                     binning = "(1,0,1)", 
                     writeInPlotIt = (1 if s==''  else 0)
@@ -165,11 +179,20 @@ for x in range(0,1):
             printInPyWithSyst(fjson, fyml, 
                     name = mllName+'_'+twoLtwoBCondName[x]+"BR"+cutkey+s, 
                     variable = mll, 
-                    cut = "!"+options.cut[cutkey]+" && "+twoLtwoBCond[0]+" )", 
+                    cut = "!"+options.cut[cutkey]+" && "+cutBtagsMM, 
                     weight = w, 
                     binning = mll_binning, 
                     writeInPlotIt = (1 if s==''  else 0)
                     )
+
+printInPyWithSyst(fjson, fyml,
+            name = 'jet_sf_csvv2_medium',
+            variable = 'jet_sf_csvv2_medium.size()',
+            cut = cutBtagsMM,
+            weight = w,
+            binning = '(10,0,2)',
+            writeInPlotIt = 0
+            )
 
 ## Control Plots :
 
@@ -178,7 +201,6 @@ for x in range(0,1):
 	print x, s, w 
 	#printInJsonNoVar(fjson, fyml, nPV, nPVName, twoLCond[x]+weights, twoLCondName[x], nPV_binning, 0)
         printInPyWithSyst(fjson, fyml, name=nPVName+'_'+twoLCondName[x]+s, variable=nPV, cut=twoLCond[x], weight=w, binning=nPV_binning, writeInPlotIt= (1 if s==''  else 0))
-        #printInPyWithSyst(f, g, name = '', variable = '', cut = '', weight = '', binning = '', isLastEntry=0):
 
 fjson.write( "        ]\n")
 
