@@ -44,6 +44,7 @@ class options_():
     # creating cuts 
 
     cut = {}
+    cut_SYST = {}
     mA_list = {}
     mA_list_down = {}
     mA_list_up = {}
