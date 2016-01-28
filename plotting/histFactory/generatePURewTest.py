@@ -26,6 +26,7 @@ mll_binning = "(30,60,120)"
 # mll
 
 mll = "za_diLeptons[0].p4.M()"
+mll_SYST = "za_SYST_diLeptons[0].p4.M()"
 mllName = "mll"
 
 # PV N
@@ -110,31 +111,33 @@ for x in range(0,4):
 
 ## 2 Muons 2 Jets :
 
-cutBtagsMM = "za_mumu_DiJetBWP_MM_cut"
+systematics = {'__jecup':'jecup',
+               '__jecdown':'jecdown',
+               '__jerup':'jerup',
+               '__jerdown':'jerdown'}
+
+cutBtagsMM = "za_mumu_DiJetBWP_MM_cut && za_mumu_Mll_cut"
+cutBtagsMM_SYST = "za_SYST_mumu_DiJetBWP_MM_cut && za_SYST_mumu_Mll_cut"
 
 fjson = open('plots_test.py', 'w')
 fjson.write( "plots = [\n")
 fyml = open('plots_test.yml', 'w')
-
-'''
-weights = "event_pu_weight * event_weight"
-weights_puup = "event_pu_weight_up * event_weight"
-weights_pudown = "event_pu_weight_down * event_weight"
-za_diLeptons[0].triggerSF
-* (jet_sf_csvv2_medium[za_diJets[0].idxJet1][0] * jet_sf_csvv2_medium[za_diJets[0].idxJet2][0] ))
-'''
 
 weights = "event_pu_weight * event_weight"
 weights_puup = "event_pu_weight_up * event_weight"
 weights_pudown = "event_pu_weight_down * event_weight"
 
 llTrigSF = "(event_is_data !=1 ?( za_diLeptons[0].triggerSF) : 1.0)"
+llTrigSF_SYST = "(event_is_data !=1 ?( za_SYST_diLeptons[0].triggerSF) : 1.0)"
 
-btagSF = "(event_is_data !=1 ? (jet_sf_csvv2_medium[za_diJets[0].idxJet1][0] * jet_sf_csvv2_medium[za_diJets[0].idxJet2][0] ) : 1.0)"
+#btagSF = "(event_is_data !=1 ? (jet_sf_csvv2_medium[za_diJets[0].idxJet1][0] * jet_sf_csvv2_medium[za_diJets[0].idxJet2][0] ) : 1.0)"
 #btagSFup = "(event_is_data !=1 ? (jet_sf_csvv2_medium[za_diJets[0].idxJet1][1] * jet_sf_csvv2_medium[za_diJets[0].idxJet2][1] ) : 1.0)"
 #btagSFdown = "(event_is_data !=1 ? (jet_sf_csvv2_medium[za_diJets[0].idxJet1][2] * jet_sf_csvv2_medium[za_diJets[0].idxJet2][2] ) : 1.0)"
 
 btagSF = "(event_is_data !=1 ?  ( common::combineScaleFactors<2>({{{ jet_sf_csvv2_medium[za_diJets[0].idxJet1][0] , 1 }, { jet_sf_csvv2_medium[za_diJets[0].idxJet2][0] , 1 }}}, {{1, 1}, {1, 1}}, common::Variation::NOMINAL) ) : 1.0) ";
+
+btagSF_SYST = "(event_is_data !=1 ?  ( common::combineScaleFactors<2>({{{ jet_SYST_sf_csvv2_medium[za_SYST_diJets[0].idxJet1][0] , 1 }, { jet_SYST_sf_csvv2_medium[za_SYST_diJets[0].idxJet2][0] , 1 }}}, {{1, 1}, {1, 1}}, common::Variation::NOMINAL) ) : 1.0) ";
+
 
 btagSFup = "(event_is_data !=1 ? ( common::combineScaleFactors<2>({{{ jet_sf_csvv2_medium[za_diJets[0].idxJet1][0] , jet_sf_csvv2_medium[za_diJets[0].idxJet1][2] }, { jet_sf_csvv2_medium[za_diJets[0].idxJet2][0] , jet_sf_csvv2_medium[za_diJets[0].idxJet2][2] }}}, {{1, 1}, {1, 1}}, common::Variation::UP) ) : 1.0) ";
 
@@ -156,6 +159,7 @@ llbbweights = {'': llTrigSF+'*'+btagSF+'*'+weights,
 
 ## Plots for combine
 
+'''
 options = options_()
 
 for x in range(0,1):
@@ -184,6 +188,7 @@ for x in range(0,1):
                     binning = mll_binning, 
                     writeInPlotIt = (1 if s==''  else 0)
                     )
+        
 
 printInPyWithSyst(fjson, fyml,
             name = 'jet_sf_csvv2_medium',
@@ -194,13 +199,31 @@ printInPyWithSyst(fjson, fyml,
             writeInPlotIt = 0
             )
 
-## Control Plots :
+
+
+
+## Control Plots in ll category:
 
 for x in range(0,1):
     for s,w in llweights.iteritems() : 
 	print x, s, w 
-	#printInJsonNoVar(fjson, fyml, nPV, nPVName, twoLCond[x]+weights, twoLCondName[x], nPV_binning, 0)
+        # N of vertices
         printInPyWithSyst(fjson, fyml, name=nPVName+'_'+twoLCondName[x]+s, variable=nPV, cut=twoLCond[x], weight=w, binning=nPV_binning, writeInPlotIt= (1 if s==''  else 0))
+        # M_ll
+        printInPyWithSyst(fjson, fyml, name=mllName+'_'+twoLCondName[x]+s, variable=mll, cut=twoLCond[x], weight=w, binning=mll_binning, writeInPlotIt= (1 if s==''  else 0))
+
+'''
+## Control Plots in llbb category:
+
+for x in range(0,1):
+    for s,w in llbbweights.iteritems() :
+        print x, s, w
+        # M_ll
+        printInPyWithSyst(fjson, fyml, name=mllName+'_'+twoLtwoBCondName[x]+s, variable=mll, cut=cutBtagsMM, weight=w, binning=mll_binning, writeInPlotIt= (1 if s==''  else 0))
+    for s1,s2 in systematics.iteritems() :
+        w = llTrigSF_SYST.replace('SYST',s2)+'*'+btagSF_SYST.replace('SYST',s2)+'*'+weights
+        printInPyWithSyst(fjson, fyml, name=mllName+'_'+twoLtwoBCondName[x]+s1, variable=mll_SYST.replace('SYST',s2), cut=cutBtagsMM_SYST.replace('SYST',s2), weight=w, binning=mll_binning, writeInPlotIt= (1 if s==''  else 0))
+
 
 fjson.write( "        ]\n")
 

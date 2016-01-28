@@ -56,6 +56,7 @@ class options_():
           if mA[2]+90.0 < mH[2] :
             key = "mA"+str(mA[0])+"to"+str(mA[1])+"_mH"+str(mH[0])+"to"+str(mH[1])
             cut[key] = "( Length$(za_diJets) > 0 && Length$(za_diLepDiJets) > 0 && za_diJets[0].p4.M() >= "+str(mA[0])+" && za_diJets[0].p4.M() < "+str(mA[1])+" && za_diLepDiJets[0].p4.M() >= "+str(mH[0])+" && za_diLepDiJets[0].p4.M() < "+str(mH[1])+" )"
+            cut_SYST[key] = "( Length$(za_SYST_diJets) > 0 && Length$(za_SYST_diLepDiJets) > 0 && za_SYST_diJets[0].p4.M() >= "+str(mA[0])+" && za_SYST_diJets[0].p4.M() < "+str(mA[1])+" && za_SYST_diLepDiJets[0].p4.M() >= "+str(mH[0])+" && za_SYST_diLepDiJets[0].p4.M() < "+str(mH[1])+" )"
             mA_list[key] = mA[2]
             mA_list_down[key] = mA[0]
             mA_list_up[key] = mA[1]
