@@ -119,9 +119,9 @@ systematics = {'__jecup':'jecup',
 cutBtagsMM = "za_mumu_DiJetBWP_MM_cut && za_mumu_Mll_cut"
 cutBtagsMM_SYST = "za_SYST_mumu_DiJetBWP_MM_cut && za_SYST_mumu_Mll_cut"
 
-fjson = open('plots_test.py', 'w')
+fjson = open('plots_syst.py', 'w')
 fjson.write( "plots = [\n")
-fyml = open('plots_test.yml', 'w')
+fyml = open('plots_syst.yml', 'w')
 
 weights = "event_pu_weight * event_weight"
 weights_puup = "event_pu_weight_up * event_weight"
@@ -159,7 +159,7 @@ llbbweights = {'': llTrigSF+'*'+btagSF+'*'+weights,
 
 ## Plots for combine
 
-'''
+
 options = options_()
 
 for x in range(0,1):
@@ -212,7 +212,7 @@ for x in range(0,1):
         # M_ll
         printInPyWithSyst(fjson, fyml, name=mllName+'_'+twoLCondName[x]+s, variable=mll, cut=twoLCond[x], weight=w, binning=mll_binning, writeInPlotIt= (1 if s==''  else 0))
 
-'''
+
 ## Control Plots in llbb category:
 
 for x in range(0,1):
@@ -222,7 +222,7 @@ for x in range(0,1):
         printInPyWithSyst(fjson, fyml, name=mllName+'_'+twoLtwoBCondName[x]+s, variable=mll, cut=cutBtagsMM, weight=w, binning=mll_binning, writeInPlotIt= (1 if s==''  else 0))
     for s1,s2 in systematics.iteritems() :
         w = llTrigSF_SYST.replace('SYST',s2)+'*'+btagSF_SYST.replace('SYST',s2)+'*'+weights
-        printInPyWithSyst(fjson, fyml, name=mllName+'_'+twoLtwoBCondName[x]+s1, variable=mll_SYST.replace('SYST',s2), cut=cutBtagsMM_SYST.replace('SYST',s2), weight=w, binning=mll_binning, writeInPlotIt= (1 if s==''  else 0))
+        printInPyWithSyst(fjson, fyml, name=mllName+'_'+twoLtwoBCondName[x]+s1, variable=mll_SYST.replace('SYST',s2), cut= " !event_is_data && "+ cutBtagsMM_SYST.replace('SYST',s2), weight=w, binning=mll_binning, writeInPlotIt= (1 if s==''  else 0))
 
 
 fjson.write( "        ]\n")
