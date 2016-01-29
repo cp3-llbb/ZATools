@@ -22,12 +22,26 @@ def printInPyWithSyst(f, g, name = '', variable = '', cut = '', weight = '', bin
 
 nPV_binning = "(35,0,35)"
 mll_binning = "(30,60,120)"
+mbb_binning = "(20,0,600)"
+mllbb_binning = "(20,0,1000)"
 
 # mll
 
 mll = "za_diLeptons[0].p4.M()"
 mll_SYST = "za_SYST_diLeptons[0].p4.M()"
 mllName = "mll"
+
+# mbb
+
+mbb = "za_diJets[0].p4.M()"
+mbb_SYST = "za_SYST_diJets[0].p4.M()"
+mbbName = "mbb"
+
+# mllbb
+
+mllbb = "za_diLepDiJets[0].p4.M()"
+mllbb_SYST = "za_SYST_diLepDiJets[0].p4.M()"
+mllbbName = "mllbb"
 
 # PV N
 
@@ -116,12 +130,12 @@ systematics = {'__jecup':'jecup',
                '__jerup':'jerup',
                '__jerdown':'jerdown'}
 
-cutBtagsMM = "za_mumu_DiJetBWP_MM_cut && za_mumu_Mll_cut"
-cutBtagsMM_SYST = "za_SYST_mumu_DiJetBWP_MM_cut && za_SYST_mumu_Mll_cut"
+cutBtagsMM = "za_mumu_DiJetBWP_MM_cut && za_mumu_LooseZCandidate_cut"
+cutBtagsMM_SYST = "za_SYST_mumu_DiJetBWP_MM_cut && za_SYST_mumu_LooseZCandidate_cut"
 
-fjson = open('plots_test.py', 'w')
+fjson = open('plots_syst.py', 'w')
 fjson.write( "plots = [\n")
-fyml = open('plots_test.yml', 'w')
+fyml = open('plots_syst.yml', 'w')
 
 weights = "event_pu_weight * event_weight"
 weights_puup = "event_pu_weight_up * event_weight"
@@ -159,7 +173,7 @@ llbbweights = {'': llTrigSF+'*'+btagSF+'*'+weights,
 
 ## Plots for combine
 
-'''
+
 options = options_()
 
 for x in range(0,1):
@@ -212,7 +226,7 @@ for x in range(0,1):
         # M_ll
         printInPyWithSyst(fjson, fyml, name=mllName+'_'+twoLCondName[x]+s, variable=mll, cut=twoLCond[x], weight=w, binning=mll_binning, writeInPlotIt= (1 if s==''  else 0))
 
-'''
+
 ## Control Plots in llbb category:
 
 for x in range(0,1):
@@ -220,9 +234,19 @@ for x in range(0,1):
         print x, s, w
         # M_ll
         printInPyWithSyst(fjson, fyml, name=mllName+'_'+twoLtwoBCondName[x]+s, variable=mll, cut=cutBtagsMM, weight=w, binning=mll_binning, writeInPlotIt= (1 if s==''  else 0))
+        # M_bb
+        printInPyWithSyst(fjson, fyml, name=mbbName+'_'+twoLtwoBCondName[x]+s, variable=mbb, cut=cutBtagsMM, weight=w, binning=mbb_binning, writeInPlotIt= (1 if s==''  else 0))
+        # M_llbb
+        printInPyWithSyst(fjson, fyml, name=mllbbName+'_'+twoLtwoBCondName[x]+s, variable=mllbb, cut=cutBtagsMM, weight=w, binning=mllbb_binning, writeInPlotIt= (1 if s==''  else 0))
+
     for s1,s2 in systematics.iteritems() :
         w = llTrigSF_SYST.replace('SYST',s2)+'*'+btagSF_SYST.replace('SYST',s2)+'*'+weights
-        printInPyWithSyst(fjson, fyml, name=mllName+'_'+twoLtwoBCondName[x]+s1, variable=mll_SYST.replace('SYST',s2), cut=cutBtagsMM_SYST.replace('SYST',s2), weight=w, binning=mll_binning, writeInPlotIt= (1 if s==''  else 0))
+        # M_ll
+        printInPyWithSyst(fjson, fyml, name=mllName+'_'+twoLtwoBCondName[x]+s1, variable=mll_SYST.replace('SYST',s2), cut= " !event_is_data && "+ cutBtagsMM_SYST.replace('SYST',s2), weight=w, binning=mll_binning, writeInPlotIt= (1 if s==''  else 0))
+        # M_bb
+        printInPyWithSyst(fjson, fyml, name=mbbName+'_'+twoLtwoBCondName[x]+s1, variable=mbb_SYST.replace('SYST',s2), cut= " !event_is_data && "+ cutBtagsMM_SYST.replace('SYST',s2), weight=w, binning=mbb_binning, writeInPlotIt= (1 if s==''  else 0))
+        # M_llbb
+        printInPyWithSyst(fjson, fyml, name=mllbbName+'_'+twoLtwoBCondName[x]+s1, variable=mllbb_SYST.replace('SYST',s2), cut= " !event_is_data && "+ cutBtagsMM_SYST.replace('SYST',s2), weight=w, binning=mllbb_binning, writeInPlotIt= (1 if s==''  else 0))
 
 
 fjson.write( "        ]\n")
