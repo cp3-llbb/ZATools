@@ -26,8 +26,8 @@ class options_():
     #mbb_list = {30,50,75,100,125,150,200,225,250,300,350,400,500}
     #mllbb_list = {150,200,250,300,350,400,450,500,550,650,800,1000}
 
-    mbb_list = {250}
-    mllbb_list = {500}
+    mbb_list = [250]
+    mllbb_list = [500]
 
     rangeMassA = []
     rangeMassH = []

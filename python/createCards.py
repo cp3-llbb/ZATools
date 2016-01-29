@@ -34,8 +34,8 @@ def main():
     #options = get_options()
 
     intL = 2245.792 # in pb-1    
-    tag = 'v1.1.0+7415-23-g22d44c6_ZAAnalysis_919cd18'
-    path = '/nfs/scratch/fynu/amertens/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/16_01_24/build'
+    tag = 'v1.2.0+7415-19-g7bbca78_ZAAnalysis_1a69757'
+    path = '/nfs/scratch/fynu/amertens/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/16_01_28_syst/build'
     CHANNEL = 'mumu'
     ERA = '13TeV'
     MASS = str(mH)+"_"+str(mA)
@@ -43,24 +43,24 @@ def main():
     DEBUG = 0
 
     c = ch.CombineHarvester()
-    cats = [(0, "SR"+cutkey),
-            (1, "ll_M_CR"+cutkey)
+    cats = [(0, "mmbbSR"+cutkey),
+            (1, "mll_mmbbBR"+cutkey)
             ]
 
     bins = {}
-    bins['signalregion'] = "SR"+cutkey
-    bins['mll_bkgregion'] = "ll_M_CR"+cutkey
+    bins['signalregion'] = "mmbbSR"+cutkey
+    bins['mll_bkgregion'] = "mll_mmbbBR"+cutkey
 
     processes = {}
     p = Process('data_obs')
-    p.prepare_process(path, 'data_obs', 'DoubleMuon_Run2015D-PromptReco-v4_2015-10-20', tag)
+    p.prepare_process(path, 'data_obs', 'DoubleMuon_Run2015D-PromptReco-v4_2015-12-18', tag)
     processes['data_obs'] = p
     if DEBUG: print p
     # define signal
     #p = Process('zz')
     #p.prepare_process(path, 'zz', 'ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_MiniAODv2', tag)
     #processes['zz'] = p
-    if DEBUG: print p
+    #if DEBUG: print p
     # define backgrounds
     # ttbar
     p = Process('ttbar')
@@ -84,46 +84,65 @@ def main():
     c.AddObservations([MASS], [ANALYSIS], [ERA], [CHANNEL], cats)
     c.AddProcesses([MASS], [ANALYSIS], [ERA], [CHANNEL], ['ZA'], cats, True)
     c.AddProcesses([MASS], [ANALYSIS], [ERA], [CHANNEL], ['ttbar', 'dy1', 'dy2'], cats, False)
-    c.cp().process(['ttbar', 'dy1', 'dy2', 'zz']).AddSyst(
+    c.cp().process(['ttbar', 'dy1', 'dy2', 'zz','ZA']).AddSyst(
         c, "lumi", "lnN", ch.SystMap('channel', 'era', 'bin_id')
         ([CHANNEL], [ERA],  [0,1,2,3], 1.046))
+
+    c.cp().process(['ttbar', 'dy1', 'dy2']).AddSyst(
+        c, "btag", "shape", ch.SystMap()(1.0))
+
+    c.cp().process(['dy1', 'dy2']).AddSyst(
+        c, "DYnorm", "lnN", ch.SystMap('channel', 'era', 'bin_id')
+        ([CHANNEL], [ERA],  [0,1,2,3], 2.))
+
+    c.cp().process(['ttbar', 'ttbar']).AddSyst(
+        c, "TTnorm", "lnN", ch.SystMap('channel', 'era', 'bin_id')
+        ([CHANNEL], [ERA],  [0,1,2,3], 2.))
+
+    
+
 
     nChannels = len(bins)
     nBackgrounds = len([processes[x] for x in processes if processes[x].type > 0])
     nNuisances = 1
 
-
+    systematics = {'':'','_btagUp':'__btagup', '_btagDown':'__btagdown'}
     outputRoot = "shapes.root"
     f = TFile(outputRoot, "recreate")
     f.Close()
     for b in bins:
         print b , bins[b]
         for p in processes:
+          for s1,s2 in systematics.iteritems() :
             #print processes[p]
             #hname = "hist_%s_%s" % (b, p)
             #chain = TChain("t")
             #chain.Add(processes[p].file)
             #chain.Draw("jj_M>>%s(60,0,600)" % hname, "((%s) && (%s))" % (cleaningCut, bins[b]))
             file_in = TFile(processes[p].file,"READ")
-            print " Getting ", bins[b], " in file ", processes[p].file
-            h = file_in.Get(bins[b])
+            print " Getting ", bins[b]+s2, " in file ", processes[p].file
+            h = file_in.Get(bins[b]+s2)
             h.SetDirectory(0)
             file_in.Close()
             f = TFile(outputRoot, "update")
-            h.SetName("hist_"+bins[b]+"_"+p)
+            h.SetName("hist_"+bins[b]+"_"+p+s1)
 #           print processes[p].xsection * intL / processes[p].sumW
             if p == 'data_obs' :
                 h.Write()
             else :
                 h.Sumw2()
                 h.Scale(processes[p].xsection * intL / processes[p].sumW)
+                #h.Scale(intL)
                 h.Write()
             f.Write()
             f.Close()
 
+
+
+    # hist_SRmA193to306_mH387to612_data_obs
     f = TFile(outputRoot, "update")
-    h1 = TH1F("hist_"+bins['signalregion']+"_ZA","hist_"+bins['signalregion']+"_ZA",2,0,2)
-    h1.Fill(1.5)
+    h1 = TH1F("hist_"+bins['signalregion']+"_ZA","hist_"+bins['signalregion']+"_ZA",1,0,1)
+    h1.Fill(0.5)
     h1.Write()
     
     h2 = TH1F("hist_"+bins['mll_bkgregion']+"_ZA","hist_"+bins['mll_bkgregion']+"_ZA",60,60,120)
