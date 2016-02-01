@@ -203,8 +203,8 @@ ll_weights = "(event_is_data !=1 ?( za_diLeptons[0].triggerSF * event_pu_weight 
 
 twoLCond = []
 twoLCondName = []
-twoLCond.append("(za_mumu_Mll_cut  && (za_mumu_fire_trigger_Mu17_Mu8_cut || za_mumu_fire_trigger_Mu17_TkMu8_cut || za_mumu_fire_trigger_IsoMu27_cut) && za_diLeptons[0].isMM)")
-twoLCond.append("(za_elel_Mll_cut && za_elel_fire_trigger_Ele17_Mu12_cut && za_diLeptons[0].isTT)")
+twoLCond.append("(za_mumu_Mll_cut  && (za_mumu_fire_trigger_Mu17_Mu8_cut || za_mumu_fire_trigger_Mu17_TkMu8_cut) && za_diLeptons[0].isMM)")
+twoLCond.append("(za_elel_Mll_cut && za_elel_fire_trigger_Ele17_Ele12_cut && za_diLeptons[0].isTT)")
 twoLCond.append("(za_mumu_Mll_cut ||  za_elel_Mll_cut)")
 twoLCond.append("(za_muel_Mll_cut ||  za_elmu_Mll_cut)")
 twoLCondName.append("mm")
