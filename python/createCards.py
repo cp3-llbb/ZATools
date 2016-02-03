@@ -86,7 +86,7 @@ def main():
     c.AddObservations([MASS], [ANALYSIS], [ERA], [CHANNEL], cats)
     c.AddProcesses([MASS], [ANALYSIS], [ERA], [CHANNEL], ['ZA'], cats, True)
     c.AddProcesses([MASS], [ANALYSIS], [ERA], [CHANNEL], ['ttbar', 'dy1', 'dy2'], cats, False)
-    c.cp().process(['ttbar', 'dy1', 'dy2', 'zz','ZA']).AddSyst(
+    c.cp().process(['ttbar', 'dy1', 'dy2','ZA']).AddSyst(
         c, "lumi", "lnN", ch.SystMap('channel', 'era', 'bin_id')
         ([CHANNEL], [ERA],  [0,1,2,3], 1.046))
 
@@ -96,11 +96,11 @@ def main():
     c.cp().process(['dy1', 'dy2']).AddSyst(
         c, "DYnorm", "lnN", ch.SystMap('channel', 'era', 'bin_id')
         ([CHANNEL], [ERA],  [0,1,2,3], 2.))
-
+    
     c.cp().process(['ttbar']).AddSyst(
         c, "TTnorm", "lnN", ch.SystMap('channel', 'era', 'bin_id')
         ([CHANNEL], [ERA],  [0,1,2,3], 2.))
-
+    
     
 
 
@@ -134,7 +134,7 @@ def main():
             else :
                 h.Sumw2()
                 #h.Scale(processes[p].xsection * intL / processes[p].sumW)
-                #h.Scale(intL)
+                h.Scale(intL)
                 h.Write()
             f.Write()
             f.Close()
