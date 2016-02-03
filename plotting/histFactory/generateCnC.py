@@ -135,8 +135,8 @@ fj_binning = [fj_mass_binning,fj_mass_binning,fj_mass_binning,fj_mass_binning,ta
 
 # MET variables
 
-met = "met_p4"
-metName = "met"
+met = "nohf_met_p4"
+metName = "nohf_met"
 
 met_var = ["Pt()"]
 met_varName = ["Pt"]
@@ -198,16 +198,16 @@ ERewID = "1" # " * (electron_sf_id_loose[za_diLeptons[0].idxLep1][0]*electron_sf
 MRewID = "1" #" * (muon_sf_id_loose[za_diLeptons[0].idxLep1][0]*muon_sf_id_loose[za_diLeptons[0].idxLep2][0])"
 MRewIso = "1" #" * (muon_sf_iso_02_loose[za_diLeptons[0].idxLep1][0]*muon_sf_iso_02_loose[za_diLeptons[0].idxLep2][0])"
 
-CSVV2_medium_SF_weight = " * (jet_sf_csvv2_medium[za_diJets[0].idxJet1][0] * jet_sf_csvv2_medium[za_diJets[0].idxJet2][0] ))"
+CSVV2_medium_SF_weight = " * (jet_sf_csvv2_medium[za_diJets[0].idxJet1][0] * jet_sf_csvv2_medium[za_diJets[0].idxJet2][0] )))"
 
 ll_weights = "( event_run < 200000 ? (za_diLeptons[0].triggerSF * event_pu_weight * event_weight) : 1.)"
 
 twoLCond = []
 twoLCondName = []
-twoLCond.append("za_mumu_Mll_cut")
-twoLCond.append("za_elel_Mll_cut")
-twoLCond.append("(za_mumu_Mll_cut ||  za_elel_Mll_cut)")
-twoLCond.append("(za_muel_Mll_cut ||  za_elmu_Mll_cut)")
+twoLCond.append("mumu_Mll_cut")
+twoLCond.append("elel_Mll_cut")
+twoLCond.append("(mumu_Mll_cut ||  elel_Mll_cut)")
+twoLCond.append("(muel_Mll_cut ||  elmu_Mll_cut)")
 twoLCondName.append("mm")
 twoLCondName.append("ee")
 twoLCondName.append("ll")
@@ -230,14 +230,14 @@ twoLTwoBSubJetsMMCondName = []
 twoLTwoBHighMassCond = []
 twoLTwoBHighMassCondName = []
 
-basicJcond="(za_elel_TwoJets_cut || za_mumu_TwoJets_cut || za_muel_TwoJets_cut || za_elmu_TwoJets_cut)"
-basicTwoBcond="(Length$(za_diJets) > 0) && ((za_elel_TwoBjets_cut || za_mumu_TwoBjets_cut || za_muel_TwoBjets_cut || za_elmu_TwoBjets_cut) "
-basicThreeBcond="(za_elel_ThreeBjets_cut || za_mumu_ThreeBjets_cut || za_muel_ThreeBjets_cut || za_elmu_ThreeBjets_cut)"
-basicSubJcond="(za_elel_TwoSubJets_cut || za_mumu_TwoSubJets_cut || za_muel_TwoSubJets_cut || za_elmu_TwoSubJets_cut)"
-basicOneBFatJetTcond="((za_elel_OneBFatJetT_cut || za_mumu_OneBFatJetT_cut || za_muel_OneBFatJetT_cut || za_elmu_OneBFatJetT_cut) && (Length$(za_diLepFatJets) > 0))"
+basicJcond="(elel_TwoJets_cut || mumu_TwoJets_cut || muel_TwoJets_cut || elmu_TwoJets_cut)"
+basicTwoBcond="(Length$(za_diJets) > 0) && ((elel_TwoBjets_cut || mumu_TwoBjets_cut || muel_TwoBjets_cut || elmu_TwoBjets_cut) "
+basicThreeBcond="(elel_ThreeBjets_cut || mumu_ThreeBjets_cut || muel_ThreeBjets_cut || elmu_ThreeBjets_cut)"
+basicSubJcond="(elel_TwoSubJets_cut || mumu_TwoSubJets_cut || muel_TwoSubJets_cut || elmu_TwoSubJets_cut)"
+basicOneBFatJetTcond="((elel_OneBFatJetT_cut || mumu_OneBFatJetT_cut || muel_OneBFatJetT_cut || elmu_OneBFatJetT_cut) && (Length$(za_diLepFatJets) > 0))"
 #basicOneBFatJetTcond="(Length$(za_diLepFatJets) > 0)"
-basicTwoBSubJetsLLcond="(za_elel_TwoBSubJetsLL_cut || za_mumu_TwoBSubJetsLL_cut )"
-basicTwoBSubJetsMMcond="(za_elel_TwoSubJetsMM_cut || za_mumu_TwoSubJetsMM_cut || za_muel_TwoSubJetsMM_cut || za_elmu_TwoSubJetsMM_cut)"
+basicTwoBSubJetsLLcond="(elel_TwoBSubJetsLL_cut || mumu_TwoBSubJetsLL_cut )"
+basicTwoBSubJetsMMcond="(elel_TwoSubJetsMM_cut || mumu_TwoSubJetsMM_cut || muel_TwoSubJetsMM_cut || elmu_TwoSubJetsMM_cut)"
 basictwoLTwoBHighMasscond="(Length$(za_diJets) > 0 && Length$(za_diLeptons) > 0 && za_diJets[0].p4.Pt() > 200 && za_diLeptons[0].p4.Pt() > 200)"
 basicJcondName="jj"
 basicTwoBcondName="bb"
@@ -248,7 +248,7 @@ basicTwoBSubJetsLLcondName="sbjsbj"
 basictwoLTwoBHighMasscondName="highmass"
 for x in range(0,4):
 	twoLtwoJCond.append("("+twoLCond[x]+" && "+basicJcond+")")
-	twoLtwoBCond.append("("+twoLCond[x]+" && "+basicTwoBcond+")"+CSVV2_medium_SF_weight)
+	twoLtwoBCond.append("("+twoLCond[x]+" && "+basicTwoBcond+")")
 	twoLthreeBCond.append("("+twoLCond[x]+" && "+basicThreeBcond+")")
 	twoLtwoSubJCond.append("("+twoLCond[x]+" && "+basicSubJcond+")")
 	twoLOneBFatJetTCond.append("("+twoLCond[x]+" && "+basicOneBFatJetTcond+")")
@@ -282,17 +282,17 @@ fyml = open('plots_all.yml', 'w')
 
 options = options_()
 
-'''
+
 for x in range(0,1):
     for cutkey in options.cut :
         print 'cutkey : ', cutkey
         ### get M_A and M_H ###
         #mH[0] = float(options.mH_list[cutkey])
         #mA[0] = float(options.mA_list[cutkey])
-        printInPy(fjson, fyml, options.cut[cutkey], twoLtwoBCond[x]+" && "+cutkey, ll_weights ,"(2, 0, 2)", 0)
-'''
+        printInPy(fjson, fyml, options.cut[cutkey]+" && "+twoLtwoBCond[0]+" )", "SR"+cutkey,  ll_weights ,"(2, 0, 2)", 0)
+        printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, "!"+options.cut[cutkey]+" && "+twoLtwoBCond[0]+" )", "CR"+cutkey, ll_weights, dilep_binning, 0)
 
-#printInPy(fjson, fyml, " ( Length$(za_diJets) > 0 && TMath::Abs(za_diJets[0].p4.M()-90) < 30) && "+twoLtwoBCond[0]+" )", "SR" , ll_weights ,"(2, 0, 2)", 0)
+#printInPy(fjson, fyml, " ( Length$(za_diJets) > 0 && TMath::Abs(za_diJets[0].p4.M()-90) < 30) && "+twoLtwoBCond[0]+" )", "SR" , ll_weights ,"(2, 0, 2)", )
 #printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, "( Length$(za_diJets) > 0 && TMath::Abs(za_diJets[0].p4.M()-90) > 30) && "+twoLtwoBCond[0]+" )", "CR", ll_weights, dilep_binning, 1)
 
 ## Control Plots :
@@ -300,54 +300,96 @@ for x in range(0,1):
 
 # 1) 2L stage
 
-
+'''
 for x in range(0,4):
 	print x
        
 	printInJson(fjson, fyml, l1, l1Name, l_var, l_varName, twoLCond[x], twoLCondName[x], ll_weights, l_binning, 0)
 	printInJson(fjson, fyml, l2, l2Name, l_var, l_varName, twoLCond[x], twoLCondName[x], ll_weights, l_binning, 0)
 	printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLCond[x], twoLCondName[x], ll_weights , dilep_binning, 0)
-	printInJson(fjson, fyml, selJets, selJetsName, selJets_var, selJets_varName, twoLCond[x], twoLCondName[x],ll_weights, selJets_binning, 0)
-	printInJson(fjson, fyml, selBjets, selBjetsName, selJets_var, selJets_varName, twoLCond[x], twoLCondName[x],ll_weights, selJets_binning, 0)
-	printInJsonNoVar(fjson, fyml, nPV, nPVName, twoLCond[x], twoLCondName[x],ll_weights, nPV_binning, 0)
+	printInJson(fjson, fyml, selJets, selJetsName, selJets_var, selJets_varName, twoLCond[x]+weights, twoLCondName[x], selJets_binning, 0)
+	printInJson(fjson, fyml, selBjets, selBjetsName, selJets_var, selJets_varName, twoLCond[x]+weights, twoLCondName[x], selJets_binning, 0)
+	printInJsonNoVar(fjson, fyml, nPV, nPVName, twoLCond[x]+weights, twoLCondName[x], nPV_binning, 0)
 	# 2L2J
-	printInJson(fjson, fyml, l1, l1Name, l_var, l_varName, twoLtwoJCond[x], twoLtwoJCondName[x],ll_weights, l_binning, 0)
-	printInJson(fjson, fyml, l2, l2Name, l_var, l_varName, twoLtwoJCond[x], twoLtwoJCondName[x],ll_weights, l_binning, 0)
-	printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLtwoJCond[x], twoLtwoJCondName[x],ll_weights, dilep_binning, 0)
-	printInJson(fjson, fyml, selJets, selJetsName, selJets_var, selJets_varName, twoLtwoJCond[x], twoLtwoJCondName[x],ll_weights, selJets_binning, 0)
-	printInJson(fjson, fyml, selBjets, selBjetsName, selJets_var, selJets_varName, twoLtwoJCond[x], twoLtwoJCondName[x],ll_weights, selJets_binning, 0)
-	printInJson(fjson, fyml, j1pt, j1ptName, j_var, j_varName, twoLtwoJCond[x], twoLtwoJCondName[x], ll_weights,j_binning,0)
-	printInJson(fjson, fyml, j2pt, j2ptName, j_var, j_varName, twoLtwoJCond[x], twoLtwoJCondName[x], ll_weights,j_binning,0)
+	printInJson(fjson, fyml, l1, l1Name, l_var, l_varName, twoLtwoJCond[x]+weights, twoLtwoJCondName[x], l_binning, 0)
+	printInJson(fjson, fyml, l2, l2Name, l_var, l_varName, twoLtwoJCond[x]+weights, twoLtwoJCondName[x], l_binning, 0)
+	printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLtwoJCond[x]+weights, twoLtwoJCondName[x], dilep_binning, 0)
+	printInJson(fjson, fyml, selJets, selJetsName, selJets_var, selJets_varName, twoLtwoJCond[x]+weights, twoLtwoJCondName[x], selJets_binning, 0)
+	printInJson(fjson, fyml, selBjets, selBjetsName, selJets_var, selJets_varName, twoLtwoJCond[x]+weights, twoLtwoJCondName[x], selJets_binning, 0)
+	printInJson(fjson, fyml, j1pt, j1ptName, j_var, j_varName, twoLtwoJCond[x]+weights, twoLtwoJCondName[x], j_binning, 0)
+	printInJson(fjson, fyml, j2pt, j2ptName, j_var, j_varName, twoLtwoJCond[x]+weights, twoLtwoJCondName[x], j_binning, 0)
 	# 2L2B
 	printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLtwoBCond[x], twoLtwoBCondName[x], ll_weights, dilep_binning, 0)
-	printInJson(fjson, fyml, j1pt, j1ptName, j_var, j_varName, twoLtwoBCond[x], twoLtwoBCondName[x],ll_weights, j_binning, 0)
-	printInJson(fjson, fyml, j2pt, j2ptName, j_var, j_varName, twoLtwoBCond[x], twoLtwoBCondName[x],ll_weights, j_binning, 0)
-	printInJson(fjson, fyml, dijet, dijetName, dijet_var, dijet_varName, twoLtwoBCond[x], twoLtwoBCondName[x],ll_weights, dijet_binning, 0)
-	printInJson(fjson, fyml, dijetdilep, dijetdilepName, dijetdilep_var, dijetdilep_varName, twoLtwoBCond[x], twoLtwoBCondName[x],ll_weights, dijetdilep_binning, 0)
+	printInJson(fjson, fyml, j1pt, j1ptName, j_var, j_varName, twoLtwoBCond[x]+weights, twoLtwoBCondName[x], j_binning, 0)
+	printInJson(fjson, fyml, j2pt, j2ptName, j_var, j_varName, twoLtwoBCond[x]+weights, twoLtwoBCondName[x], j_binning, 0)
+	printInJson(fjson, fyml, dijet, dijetName, dijet_var, dijet_varName, twoLtwoBCond[x]+weights, twoLtwoBCondName[x], dijet_binning, 0)
+	printInJson(fjson, fyml, dijetdilep, dijetdilepName, dijetdilep_var, dijetdilep_varName, twoLtwoBCond[x]+weights, twoLtwoBCondName[x], dijetdilep_binning, 0)
 	# 2L3B
-        printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLthreeBCond[x], twoLthreeBCondName[x],ll_weights, dilep_binning, 0)
-        printInJson(fjson, fyml, j1pt, j1ptName, j_var, j_varName, twoLthreeBCond[x], twoLthreeBCondName[x],ll_weights, j_binning, 0)
-        printInJson(fjson, fyml, j2pt, j2ptName, j_var, j_varName, twoLthreeBCond[x], twoLthreeBCondName[x],ll_weights, j_binning, 0)
-        printInJson(fjson, fyml, dijet, dijetName, dijet_var, dijet_varName, twoLthreeBCond[x], twoLthreeBCondName[x],ll_weights, dijet_binning, 0)
-        printInJson(fjson, fyml, dijetdilep, dijetdilepName, dijetdilep_var, dijetdilep_varName, twoLthreeBCond[x], twoLthreeBCondName[x],ll_weights, dijetdilep_binning, 0)
+        printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLthreeBCond[x]+weights, twoLthreeBCondName[x], dilep_binning, 0)
+        printInJson(fjson, fyml, j1pt, j1ptName, j_var, j_varName, twoLthreeBCond[x]+weights, twoLthreeBCondName[x], j_binning, 0)
+        printInJson(fjson, fyml, j2pt, j2ptName, j_var, j_varName, twoLthreeBCond[x]+weights, twoLthreeBCondName[x], j_binning, 0)
+        printInJson(fjson, fyml, dijet, dijetName, dijet_var, dijet_varName, twoLthreeBCond[x]+weights, twoLthreeBCondName[x], dijet_binning, 0)
+        printInJson(fjson, fyml, dijetdilep, dijetdilepName, dijetdilep_var, dijetdilep_varName, twoLthreeBCond[x]+weights, twoLthreeBCondName[x], dijetdilep_binning, 0)
 	# 2L2SJ
-	printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLtwoSubJCond[x] , twoLtwoSubJCondName[x],ll_weights, dilep_binning, 0)
-	printInJson(fjson, fyml, fj, fjName, j_var, j_varName, twoLtwoSubJCond[x] , twoLtwoSubJCondName[x],ll_weights, j_binning, 0)
-	printInJson(fjson, fyml, fj, fjName, fj_var, fj_varName, twoLtwoSubJCond[x] , twoLtwoSubJCondName[x],ll_weights, fj_binning, 0)
-        printInJson(fjson, fyml, dilepFatjet, dilepFatjetName, dilepFatjet_var, dilepFatjet_varName, twoLtwoSubJCond[x] , twoLtwoSubJCondName[x],ll_weights,dilepFatjet_binning, 0)
+	printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLtwoSubJCond[x]+weights , twoLtwoSubJCondName[x], dilep_binning, 0)
+	printInJson(fjson, fyml, fj, fjName, j_var, j_varName, twoLtwoSubJCond[x]+weights , twoLtwoSubJCondName[x], j_binning, 0)
+	printInJson(fjson, fyml, fj, fjName, fj_var, fj_varName, twoLtwoSubJCond[x]+weights , twoLtwoSubJCondName[x], fj_binning, 0)
+        printInJson(fjson, fyml, dilepFatjet, dilepFatjetName, dilepFatjet_var, dilepFatjet_varName, twoLtwoSubJCond[x]+weights , twoLtwoSubJCondName[x],dilepFatjet_binning, 0)
 	# 2L1BF
-	printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLOneBFatJetTCond[x] , twoLOneBFatJetTCondName[x],ll_weights, dilep_binning, 0)
-	printInJson(fjson, fyml, fj, fjName, j_var, j_varName, twoLOneBFatJetTCond[x] , twoLOneBFatJetTCondName[x],ll_weights, j_binning, 0)
-	printInJson(fjson, fyml, fj, fjName, fj_var, fj_varName, twoLOneBFatJetTCond[x] , twoLOneBFatJetTCondName[x],ll_weights, fj_binning, 0)
+	printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLOneBFatJetTCond[x]+weights , twoLOneBFatJetTCondName[x], dilep_binning, 0)
+	printInJson(fjson, fyml, fj, fjName, j_var, j_varName, twoLOneBFatJetTCond[x]+weights , twoLOneBFatJetTCondName[x], j_binning, 0)
+	printInJson(fjson, fyml, fj, fjName, fj_var, fj_varName, twoLOneBFatJetTCond[x]+weights , twoLOneBFatJetTCondName[x], fj_binning, 0)
         #printInJson(fjson, fyml, dilepFatjet, dilepFatjetName, dilepFatjet_var, dilepFatjet_varName, twoLOneBFatJetTCond[x]+weights , twoLOneBFatJetTCondName[x], dilepFatjet_binning, 0)
 	# 6) 2L2BSJ
-	printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLTwoBSubJetsLLCond[x], twoLTwoBSubJetsLLCondName[x],ll_weights, dilep_binning, 0)
-	printInJson(fjson, fyml, fj, fjName, j_var, j_varName, twoLTwoBSubJetsLLCond[x] , twoLTwoBSubJetsLLCondName[x],ll_weights, j_binning, 0)
-	printInJson(fjson, fyml, fj, fjName, fj_var, fj_varName, twoLTwoBSubJetsLLCond[x] , twoLTwoBSubJetsLLCondName[x],ll_weights, fj_binning, 0)
-        #printInJson(fjson, fyml, dilepFatjet, dilepFatjetName, dilepFatjet_var, dilepFatjet_varName, twoLTwoBSubJetsMMCond[x]+weights , twoLTwoBSubJetsMMCondName[x],ll_weights, dilepFatjet_binning, 0)
+	printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLTwoBSubJetsLLCond[x]+weights , twoLTwoBSubJetsLLCondName[x], dilep_binning, 0)
+	printInJson(fjson, fyml, fj, fjName, j_var, j_varName, twoLTwoBSubJetsLLCond[x]+weights , twoLTwoBSubJetsLLCondName[x], j_binning, 0)
+	printInJson(fjson, fyml, fj, fjName, fj_var, fj_varName, twoLTwoBSubJetsLLCond[x]+weights , twoLTwoBSubJetsLLCondName[x], fj_binning, 0)
+        printInJson(fjson, fyml, dilepFatjet, dilepFatjetName, dilepFatjet_var, dilepFatjet_varName, twoLTwoBSubJetsMMCond[x]+weights , twoLTwoBSubJetsMMCondName[x], dilepFatjet_binning, 0)
 	## test high mass
-	printInJson(fjson, fyml, dijetdilep, dijetdilepName, dijetdilep_var, dijetdilep_varName, twoLTwoBHighMassCond[x],twoLTwoBHighMassCondName[x],ll_weights, dijetdilep_binning, 0)
-	printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLTwoBHighMassCond[x],twoLTwoBHighMassCondName[x],ll_weights, dilep_binning, 0)
-	printInJson(fjson, fyml, dijet, dijetName, dijet_var, dijet_varName, twoLTwoBHighMassCond[x],twoLTwoBHighMassCondName[x],ll_weights, dijet_binning, 0)
-        printInJson(fjson, fyml, met, metName, met_var, met_varName, twoLTwoBHighMassCond[x],twoLTwoBHighMassCondName[x],ll_weights, met_binning, 1 if x==3 else 0)
+	printInJson(fjson, fyml, dijetdilep, dijetdilepName, dijetdilep_var, dijetdilep_varName, twoLTwoBHighMassCond[x]+weights,twoLTwoBHighMassCondName[x], dijetdilep_binning, 0)
+	printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLTwoBHighMassCond[x]+weights,twoLTwoBHighMassCondName[x], dilep_binning, 0)
+	printInJson(fjson, fyml, dijet, dijetName, dijet_var, dijet_varName, twoLTwoBHighMassCond[x]+weights,twoLTwoBHighMassCondName[x], dijet_binning, 0)
+        printInJson(fjson, fyml, met, metName, met_var, met_varName, twoLTwoBHighMassCond[x]+weights,twoLTwoBHighMassCondName[x], met_binning, 1 if x==3 else 0)
+        '''
 
+'''
+printInJson(fjson, fyml, j1pt, j1ptName, j_var, j_varName, twoMuTwojets, twoMuTwojetsName, j_binning, 0)
+printInJson(fjson, fyml, j2pt, j2ptName, j_var, j_varName, twoMuTwojets, twoMuTwojetsName, j_binning, 0)
+printInJson(fjson, fyml, j1csv, j1csvName, j_var, j_varName, twoMuTwojets, twoMuTwojetsName, j_binning, 0)
+printInJson(fjson, fyml, j2csv, j2csvName, j_var, j_varName, twoMuTwojets, twoMuTwojetsName, j_binning, 0)
+printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoMuTwojets, twoMuTwojetsName, dilep_binning, 0)
+printInJson(fjson, fyml, dijet, dijetName, dijet_var, dijet_varName, twoMuTwojets, twoMuTwojetsName, dijet_binning, 0)
+printInJson(fjson, fyml, dijetdilep, dijetdilepName, dijetdilep_var, dijetdilep_varName, twoMuTwojets, twoMuTwojetsName, dijetdilep_binning, 0)
+
+## 2 Electrons 2 Jets :
+
+printInJson(fjson, fyml, l1, l1Name, l_var, l_varName, twoElTwojets, twoElTwojetsName, l_binning, 0)
+printInJson(fjson, fyml, l2, l2Name, l_var, l_varName, twoElTwojets, twoElTwojetsName, l_binning, 0)
+printInJson(fjson, fyml, j1pt, j1ptName, j_var, j_varName, twoElTwojets, twoElTwojetsName, j_binning, 0)
+printInJson(fjson, fyml, j2pt, j2ptName, j_var, j_varName, twoElTwojets, twoElTwojetsName, j_binning, 0)
+printInJson(fjson, fyml, j1csv, j1csvName, j_var, j_varName, twoElTwojets, twoElTwojetsName, j_binning, 0)
+printInJson(fjson, fyml, j2csv, j2csvName, j_var, j_varName, twoElTwojets, twoElTwojetsName, j_binning, 0)
+printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoElTwojets, twoElTwojetsName, dilep_binning, 0)
+printInJson(fjson, fyml, dijet, dijetName, dijet_var, dijet_varName, twoElTwojets, twoElTwojetsName, dijet_binning, 0)
+printInJson(fjson, fyml, dijetdilep, dijetdilepName, dijetdilep_var, dijetdilep_varName, twoElTwojets, twoElTwojetsName, dijetdilep_binning, 0)
+
+## 2 leptons, 2 BJets :
+
+printInJson(fjson, fyml, l1, l1Name, l_var, l_varName, twoLepTwoBjets, twoLepTwoBjetsName, l_binning, 0)
+printInJson(fjson, fyml, l2, l2Name, l_var, l_varName, twoLepTwoBjets, twoLepTwoBjetsName, l_binning, 0)
+printInJson(fjson, fyml, j1pt, j1ptName, j_var, j_varName, twoLepTwoBjets, twoLepTwoBjetsName, j_binning, 0)
+printInJson(fjson, fyml, j2pt, j2ptName, j_var, j_varName, twoLepTwoBjets, twoLepTwoBjetsName, j_binning, 0)
+printInJson(fjson, fyml, j1csv, j1csvName, j_var, j_varName, twoLepTwoBjets, twoLepTwoBjetsName, j_binning, 0)
+printInJson(fjson, fyml, j2csv, j2csvName, j_var, j_varName, twoLepTwoBjets, twoLepTwoBjetsName, j_binning, 0)
+printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLepTwoBjets, twoLepTwoBjetsName, dilep_binning, 0)
+printInJson(fjson, fyml, dijet, dijetName, dijet_var, dijet_varName, twoLepTwoBjets, twoLepTwoBjetsName, dijet_binning, 0)
+printInJson(fjson, fyml, dijetdilep, dijetdilepName, dijetdilep_var, dijetdilep_varName, twoLepTwoBjets, twoLepTwoBjetsName, dijetdilep_binning, 0)
+printInJson(fjson, fyml, met, metName, met_var, met_varName, twoLepTwoBjets, twoLepTwoBjetsName, met_binning, 0)
+
+## test high mass
+printInJson(fjson, fyml, dijetdilep, dijetdilepName, dijetdilep_var, dijetdilep_varName, test_highMass, test_highMassName, dijetdilep_binning, 0)
+printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, test_highMass, test_highMassName, dilep_binning, 0)
+printInJson(fjson, fyml, dijet, dijetName, dijet_var, dijet_varName, test_highMass, test_highMassName, dijet_binning, 0)
+printInJson(fjson, fyml, met, metName, met_var, met_varName, test_highMass, test_highMassName, met_binning, 1)
+
+'''
