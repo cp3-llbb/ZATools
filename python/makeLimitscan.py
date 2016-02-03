@@ -20,9 +20,9 @@ ROOT.gSystem.Load('/home/fynu/amertens/scratch/cmssw/CMSSW_7_1_5/src/LorentzVect
 ### Definitions ###
 ###################
 
-run_combine = 0
+run_combine = 1
 
-xmax = 400
+xmax = 500
 ymax = 1000
 
 myTGraph = TGraph2D(9)

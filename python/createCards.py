@@ -34,8 +34,10 @@ def main():
     #options = get_options()
 
     intL = 2245.792 # in pb-1    
-    tag = 'v1.2.0+7415-19-g7bbca78_ZAAnalysis_1a69757'
-    path = '/nfs/scratch/fynu/amertens/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/16_01_28_syst/build'
+    #tag = 'v1.2.0+7415-19-g7bbca78_ZAAnalysis_1a69757'
+    #path = '/nfs/scratch/fynu/amertens/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/16_01_28_syst/build'
+    tag = 'v1.1.0+7415-57-g4bff5ea_ZAAnalysis_b1377a8'
+    path = '/home/fynu/amertens/scratch/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/CnCWithSyst/condor/output/'
     CHANNEL = 'mumu'
     ERA = '13TeV'
     MASS = str(mH)+"_"+str(mA)
@@ -95,7 +97,7 @@ def main():
         c, "DYnorm", "lnN", ch.SystMap('channel', 'era', 'bin_id')
         ([CHANNEL], [ERA],  [0,1,2,3], 2.))
 
-    c.cp().process(['ttbar', 'ttbar']).AddSyst(
+    c.cp().process(['ttbar']).AddSyst(
         c, "TTnorm", "lnN", ch.SystMap('channel', 'era', 'bin_id')
         ([CHANNEL], [ERA],  [0,1,2,3], 2.))
 
@@ -131,7 +133,7 @@ def main():
                 h.Write()
             else :
                 h.Sumw2()
-                h.Scale(processes[p].xsection * intL / processes[p].sumW)
+                #h.Scale(processes[p].xsection * intL / processes[p].sumW)
                 #h.Scale(intL)
                 h.Write()
             f.Write()
