@@ -55,15 +55,18 @@ def main():
 
     processes = {}
     p = Process('data_obs')
-    p.prepare_process(path, 'data_obs', 'DoubleMuon_Run2015D-PromptReco-v4_2015-12-18', tag)
+    #DoubleMuon_Run2015D_v1.1.0+7415-57-g4bff5ea_ZAAnalysis_b1377a8_histos.root
+    p.prepare_process(path, 'data_obs', 'DoubleMuon_Run2015D', tag)
     processes['data_obs'] = p
     if DEBUG: print p
     # define signal
-    #p = Process('zz')
-    #p.prepare_process(path, 'zz', 'ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_MiniAODv2', tag)
-    #processes['zz'] = p
-    #if DEBUG: print p
     # define backgrounds
+    # zz
+    p = Process('zz')
+    p.prepare_process(path, 'zz', 'ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_MiniAODv2', tag)
+    processes['zz'] = p
+    if DEBUG: print p
+
     # ttbar
     p = Process('ttbar')
     p.prepare_process(path, 'ttbar', 'TTTo2L2Nu_13TeV-powheg_MiniAODv2', tag)
@@ -95,11 +98,11 @@ def main():
 
     c.cp().process(['dy1', 'dy2']).AddSyst(
         c, "DYnorm", "lnN", ch.SystMap('channel', 'era', 'bin_id')
-        ([CHANNEL], [ERA],  [0,1,2,3], 2.))
+        ([CHANNEL], [ERA],  [0,1], 2.))
     
     c.cp().process(['ttbar']).AddSyst(
         c, "TTnorm", "lnN", ch.SystMap('channel', 'era', 'bin_id')
-        ([CHANNEL], [ERA],  [0,1,2,3], 2.))
+        ([CHANNEL], [ERA],  [0], 2.))
     
     
 
