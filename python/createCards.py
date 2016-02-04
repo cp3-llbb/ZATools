@@ -46,12 +46,16 @@ def main():
 
     c = ch.CombineHarvester()
     cats = [(0, "mmbbSR"+cutkey),
-            (1, "mll_mmbbBR"+cutkey)
+            (1, "mll_mmbbBR"+cutkey),
+            (2, "eebbSR"+cutkey),
+            (3, "mll_eebbBR"+cutkey)
             ]
 
     bins = {}
-    bins['signalregion'] = "mmbbSR"+cutkey
-    bins['mll_bkgregion'] = "mll_mmbbBR"+cutkey
+    bins['signalregion_mm'] = "mmbbSR"+cutkey
+    bins['mll_bkgregion_mm'] = "mll_mmbbBR"+cutkey
+    bins['signalregion_ee'] = "eebbSR"+cutkey
+    bins['mll_bkgregion_ee'] = "mll_eebbBR"+cutkey
 
     processes = {}
     p = Process('data_obs')
@@ -141,14 +145,22 @@ def main():
 
 
 
-    # hist_SRmA193to306_mH387to612_data_obs
+    # Fill signal histograms FIXME: read efficiencies from eff.root
     f = TFile(outputRoot, "update")
-    h1 = TH1F("hist_"+bins['signalregion']+"_ZA","hist_"+bins['signalregion']+"_ZA",1,0,1)
+    h1 = TH1F("hist_"+bins['signalregion_mm']+"_ZA","hist_"+bins['signalregion_mm']+"_ZA",1,0,1)
     h1.Fill(0.5)
     h1.Write()
     
-    h2 = TH1F("hist_"+bins['mll_bkgregion']+"_ZA","hist_"+bins['mll_bkgregion']+"_ZA",60,60,120)
+    h2 = TH1F("hist_"+bins['mll_bkgregion_mm']+"_ZA","hist_"+bins['mll_bkgregion_mm']+"_ZA",60,60,120)
     h2.Write()
+
+    h3 = TH1F("hist_"+bins['signalregion_ee']+"_ZA","hist_"+bins['signalregion_ee']+"_ZA",1,0,1)
+    h3.Fill(0.5)
+    h3.Write()
+
+    h4 = TH1F("hist_"+bins['mll_bkgregion_ee']+"_ZA","hist_"+bins['mll_bkgregion_ee']+"_ZA",60,60,120)
+    h4.Write()
+
 
     f.Write()
     f.Close()
