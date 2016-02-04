@@ -18,9 +18,8 @@ from ZACnC import *
 ### Definitions ###
 ###################
 
-run_combine = 0
 
-xmax = 400
+xmax = 500
 ymax = 1000
 
 myTGraph = TGraph2D(9)
@@ -59,11 +58,13 @@ for cutkey in options.cut :
       sigfile = TFile(Signal_path+file_name,"READ")
       tree = sigfile.Get("t")
       #print options.cut[cutkey]
-      weight_cut = options.cut[cutkey]+" * mumu_Mll_cut"
+      weight_cut = options.cut[cutkey]+" * mumu_LooseZCandidate_cut"
       tree.Draw("1>>tempHist",weight_cut,"")
       tempHist=gDirectory.Get("tempHist")
       n+=1
-      myTGraph.SetPoint(n, mA, mH, tempHist.GetEntries()/100000.0)
+      eff = tempHist.GetEntries()/tree.GetEntriesFast()
+      myTGraph.SetPoint(n, mA, mH, eff)
+      print mA, mH, eff
 
 
 f = TFile("eff.root","recreate")
