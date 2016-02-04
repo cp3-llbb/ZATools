@@ -60,7 +60,7 @@ def main():
     processes = {}
     p = Process('data_obs')
     #DoubleMuon_Run2015D_v1.1.0+7415-57-g4bff5ea_ZAAnalysis_b1377a8_histos.root
-    p.prepare_process(path, 'data_obs', 'DoubleMuon_Run2015D', tag)
+    p.prepare_process(path, 'data_obs', 'DoubleMuon_DoubleEG_Run2015D', tag)
     processes['data_obs'] = p
     if DEBUG: print p
     # define signal

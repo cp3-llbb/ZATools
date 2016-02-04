@@ -38,10 +38,15 @@ Signal_path = "/home/fynu/amertens/scratch/cmssw/CMSSW_7_6_3/src/cp3_llbb/ZAAnal
 
 options = options_()
 
-myTGraph = TGraph2D(9)
-myTGraph.SetName("efficiency")
-eff = TH2D("eff","efficiency",500,0,xmax,500,0,ymax)
-myTGraph.SetHistogram(eff)
+effmmGr = TGraph2D(9)
+effmmGr.SetName("efficiency_mumu")
+effmm = TH2D("effmm","efficiency_mm",500,0,xmax,500,0,ymax)
+effmmGr.SetHistogram(effmm)
+
+effeeGr = TGraph2D(9)
+effeeGr.SetName("efficiency_ee")
+effee = TH2D("effee","efficiency_ee",500,0,xmax,500,0,ymax)
+effeeGr.SetHistogram(effee)
 
 n=-1
 
@@ -59,15 +64,25 @@ for cutkey in options.cut :
       tree = sigfile.Get("t")
       #print options.cut[cutkey]
       weight_cut = options.cut[cutkey]+" * mumu_LooseZCandidate_cut"
-      tree.Draw("1>>tempHist",weight_cut,"")
-      tempHist=gDirectory.Get("tempHist")
-      n+=1
-      eff = tempHist.GetEntries()/tree.GetEntriesFast()
-      myTGraph.SetPoint(n, mA, mH, eff)
+      tree.Draw("1>>tempHistmm",weight_cut,"")
+      tempHistmm=gDirectory.Get("tempHistmm")
+      eff_mm = tempHistmm.GetEntries()/tree.GetEntriesFast()
+
+      weight_cut = options.cut[cutkey]+" * elel_LooseZCandidate_cut"
+      tree.Draw("1>>tempHistee",weight_cut,"")
+      tempHistee=gDirectory.Get("tempHistee")
+      eff_ee = tempHistee.GetEntries()/tree.GetEntriesFast()
+
+
+      n+=1 
+      effmmGr.SetPoint(n, mA, mH, eff_mm)
+      effeeGr.SetPoint(n, mA, mH, eff_ee)
+
       print mA, mH, eff
 
 
 f = TFile("eff.root","recreate")
-myTGraph.GetHistogram().Write()
+effmmGr.GetHistogram().Write()
+effeeGr.GetHistogram().Write()
 f.Close()
 
