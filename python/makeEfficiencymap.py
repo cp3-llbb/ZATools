@@ -19,7 +19,7 @@ from ZACnC import *
 ###################
 
 
-xmax = 500
+xmax = 1000
 ymax = 1000
 
 myTGraph = TGraph2D(9)
@@ -78,7 +78,7 @@ for cutkey in options.cut :
       effmmGr.SetPoint(n, mA, mH, eff_mm)
       effeeGr.SetPoint(n, mA, mH, eff_ee)
 
-      print mA, mH, eff
+      print mA, mH, eff_mm, eff_ee
 
 
 f = TFile("eff.root","recreate")
