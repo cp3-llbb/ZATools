@@ -18,7 +18,7 @@ from ZACnC import *
 ### Definitions ###
 ###################
 
-mH=500
+mH=800
 
 run_combine = 0
 
@@ -163,9 +163,12 @@ leg.AddEntry(myTG_2,"CL_{s} Expected","L")
 leg.AddEntry(myTG_5,"CL_{s} Observed","L")
 leg.Draw()
 
-f = TFile("test_BBP.root","recreate")
+C.Print("BBP"+str(mH)+".png")
+
+f = TFile("test_BBP"+str(mH)+".root","recreate")
 C.Write()
 f.Close()
+
 
 
 ###########
