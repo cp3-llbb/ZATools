@@ -36,8 +36,9 @@ def main():
     intL = 2245.792 # in pb-1    
     #tag = 'v1.2.0+7415-19-g7bbca78_ZAAnalysis_1a69757'
     #path = '/nfs/scratch/fynu/amertens/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/16_01_28_syst/build'
-    tag = 'v1.1.0+7415-57-g4bff5ea_ZAAnalysis_b1377a8'
-    path = '/home/fynu/amertens/scratch/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/CnCWithSyst/condor/output/'
+    tag = 'v1.1.0+7415-83-g2a9f912_ZAAnalysis_2ff9261'
+    #tag = 'v1.1.0+7415-57-g4bff5ea_ZAAnalysis_b1377a8'
+    path = '/home/fynu/amertens/scratch/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/test_syst/condor/output/'
     CHANNEL = 'mumu'
     ERA = '13TeV'
     MASS = str(mH)+"_"+str(mA)
@@ -97,68 +98,106 @@ def main():
         c, "lumi", "lnN", ch.SystMap('channel', 'era', 'bin_id')
         ([CHANNEL], [ERA],  [0,1,2,3], 1.046))
 
+    c.cp().process(['ttbar', 'dy1', 'dy2','ZA']).AddSyst(
+        c, "trig", "lnN", ch.SystMap('channel', 'era', 'bin_id')
+        ([CHANNEL], [ERA],  [0,1,2,3], 1.04))
+
     c.cp().process(['ttbar', 'dy1', 'dy2']).AddSyst(
         c, "btag", "shape", ch.SystMap()(1.0))
 
+    c.cp().process(['ttbar', 'dy1', 'dy2']).AddSyst(
+        c, "jec", "shape", ch.SystMap()(1.0))
+
+    c.cp().process(['ttbar', 'dy1', 'dy2']).AddSyst(
+        c, "jer", "shape", ch.SystMap()(1.0))
+
+    c.cp().process(['ttbar', 'dy1', 'dy2']).AddSyst(
+        c, "pu", "shape", ch.SystMap()(1.0))
+
+    c.cp().process(['ttbar']).AddSyst(
+        c, "TTpdf", "shape", ch.SystMap()(1.0))
+
+    c.cp().process(['dy1', 'dy2']).AddSyst(
+        c, "DYpdf", "shape", ch.SystMap()(1.0)) 
+
     c.cp().process(['dy1', 'dy2']).AddSyst(
         c, "DYnorm", "lnN", ch.SystMap('channel', 'era', 'bin_id')
-        ([CHANNEL], [ERA],  [0,1], 2.))
+        ([CHANNEL], [ERA],  [0,1], 1.1))
     
     c.cp().process(['ttbar']).AddSyst(
         c, "TTnorm", "lnN", ch.SystMap('channel', 'era', 'bin_id')
-        ([CHANNEL], [ERA],  [0], 2.))
-    
-    
+        ([CHANNEL], [ERA],  [0], 1.1))
 
 
     nChannels = len(bins)
     nBackgrounds = len([processes[x] for x in processes if processes[x].type > 0])
     nNuisances = 1
 
-    systematics = {'':'','_btagUp':'__btagup', '_btagDown':'__btagdown'}
+    systematics = {'':'','_btagUp':'__btagup', '_btagDown':'__btagdown',
+                         '_jecUp':'__jecup','_jecDown':'__jecdown',
+                         '_jerUp':'__jerup','_jerDown':'__jerdown', 
+                         '_puUp':'__puup', '_puDown':'__pudown',
+                         '_TTpdfUp':'__pdfup','_TTpdfDown':'__pdfdown', '_DYpdfUp':'__pdfup','_DYpdfDown':'__pdfdown'}
     outputRoot = "shapes.root"
     f = TFile(outputRoot, "recreate")
     f.Close()
     for b in bins:
         print b , bins[b]
         for p in processes:
-          for s1,s2 in systematics.iteritems() :
-            #print processes[p]
-            #hname = "hist_%s_%s" % (b, p)
-            #chain = TChain("t")
-            #chain.Add(processes[p].file)
-            #chain.Draw("jj_M>>%s(60,0,600)" % hname, "((%s) && (%s))" % (cleaningCut, bins[b]))
+          if p == 'data_obs' :
             file_in = TFile(processes[p].file,"READ")
-            print " Getting ", bins[b]+s2, " in file ", processes[p].file
-            h = file_in.Get(bins[b]+s2)
+            print " Getting ", bins[b], " in file ", processes[p].file
+            h = file_in.Get(bins[b])
             h.SetDirectory(0)
             file_in.Close()
             f = TFile(outputRoot, "update")
-            h.SetName("hist_"+bins[b]+"_"+p+s1)
-#           print processes[p].xsection * intL / processes[p].sumW
-            if p == 'data_obs' :
-                h.Write()
-            else :
-                h.Sumw2()
-                #h.Scale(processes[p].xsection * intL / processes[p].sumW)
-                h.Scale(intL)
-                h.Write()
+            h.SetName("hist_"+bins[b]+"_"+p)
+            h.Write()
             f.Write()
             f.Close()
 
 
+          else :
+            for s1,s2 in systematics.iteritems() :
+              file_in = TFile(processes[p].file,"READ")
+              print " Getting ", bins[b]+s2, " in file ", processes[p].file
+              h = file_in.Get(bins[b]+s2)
+              h.SetDirectory(0)
+              file_in.Close()
+              f = TFile(outputRoot, "update")
+              h.SetName("hist_"+bins[b]+"_"+p+s1)
+              h.Sumw2()
+              #h.Scale(processes[p].xsection * intL / processes[p].sumW)
+              h.Scale(intL)
+              h.Write()
+              f.Write()
+              f.Close()
+
+
 
     # Fill signal histograms FIXME: read efficiencies from eff.root
+    
+    eff_file = TFile("eff.root", "READ")
+    effee_hist = eff_file.Get("effee")
+    eff_ee = effee_hist.Interpolate(mA,mH)
+    effmm_hist = eff_file.Get("effmm")
+    eff_mm = effmm_hist.Interpolate(mA,mH)
+
+    print "lumi : ", options.lumi
+    print "eff at ", mA, mH, ":", eff_ee, eff_mm
+    print "ZA yields: ", options.lumi*eff_mm, options.lumi*eff_ee
+    
+
     f = TFile(outputRoot, "update")
     h1 = TH1F("hist_"+bins['signalregion_mm']+"_ZA","hist_"+bins['signalregion_mm']+"_ZA",1,0,1)
-    h1.Fill(0.5)
+    h1.Fill(0.5,options.lumi*eff_mm)
     h1.Write()
     
     h2 = TH1F("hist_"+bins['mll_bkgregion_mm']+"_ZA","hist_"+bins['mll_bkgregion_mm']+"_ZA",60,60,120)
     h2.Write()
 
     h3 = TH1F("hist_"+bins['signalregion_ee']+"_ZA","hist_"+bins['signalregion_ee']+"_ZA",1,0,1)
-    h3.Fill(0.5)
+    h3.Fill(0.5,options.lumi*eff_ee)
     h3.Write()
 
     h4 = TH1F("hist_"+bins['mll_bkgregion_ee']+"_ZA","hist_"+bins['mll_bkgregion_ee']+"_ZA",60,60,120)
