@@ -2,6 +2,15 @@
 
 class options_():
 
+    # parameters
+
+    lumi = 2245.792 #in pb
+    lumifb = lumi/1000.0 #in fb
+    tag = 'v1.1.0+7415-83-g2a9f912_ZAAnalysis_2ff9261'
+    path = '/home/fynu/amertens/scratch/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/test_narrow/condor/output/'
+    CHANNEL = 'mumu'
+    ERA = '13TeV'
+    ANALYSIS = 'HtoZAtoLLBB'
 
     '''
     ### Define 2D mapping for the search in the M(bb) - M(llbb) plane ###
@@ -23,12 +32,12 @@ class options_():
       mllbb+=step_mllbb
     '''
 
-    mbb_list = {30,50,75,100,125,150,200,225,250,300,350,400} #,500}
+    mbb_list = {50,75,100,125,150,200,225,250,300,350,400} #,500}
     #mllbb_list = {150,200,250,300,350,400,450,500,550,650,800,1000}
 
     #mbb_list = [250]
     #mbb_list = [50, 75, 100]
-    mllbb_list = [300, 500, 800]
+    mllbb_list = {300, 500, 800}
 
     rangeMassA = []
     rangeMassH = []
@@ -43,8 +52,6 @@ class options_():
         
 
     # creating cuts 
-
-    lumi = 2.2
 
     cut = {}
     cut_SYST = {}
