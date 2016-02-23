@@ -13,8 +13,10 @@ def main():
     gr_jec = TGraph(4)
     gr_jer = TGraph(4)
 
+    gr_statMC = TGraph(4)
+    gr_stat = TGraph(4)
  
-    mH_tested = 800.0
+    mH_tested = 500.0
 
     syst_list = {"btag":gr_btag,
                  "jec":gr_jec,
@@ -42,11 +44,18 @@ def main():
             file = TFile(filepath,"READ")
 
             valC = 0
+            errC = 0
             for bkg in bkg_list:
                 histC = file.Get("mmbbSR"+cutkey+"/"+bkg)
+                histC.Sumw2()
                 valC += histC.GetBinContent(1)
+                errC = sqrt(errC*errC + histC.GetBinError(1)*histC.GetBinError(1))
+                print bkg , histC.GetBinContent(1) ,"#pm",  histC.GetBinError(1), " N : ", histC.GetEntries() 
 
-            print valC
+            print valC ,"#pm",  errC, " N : ", histC.GetEntries()
+            gr_statMC.SetPoint(n,mA,errC/valC)
+            gr_stat.SetPoint(n,mA,sqrt(valC)/valC)
+
             for syst, gr_syst in syst_list.iteritems():
                 valUp = 0
                 valDown = 0
@@ -79,6 +88,20 @@ def main():
         leg.AddEntry(gr_syst,syst,"l")
         mg.Add(gr_syst)
 
+    gr_statMC.Sort()
+    gr_statMC.SetLineWidth(3)
+    gr_statMC.SetLineColor(kOrange+2)
+    gr_statMC.SetTitle(syst)
+    leg.AddEntry(gr_statMC,"stat MC","l")
+    mg.Add(gr_statMC)
+
+    gr_stat.Sort()
+    gr_stat.SetLineWidth(3)
+    gr_stat.SetLineColor(kOrange+4)
+    gr_stat.SetTitle(syst)
+    leg.AddEntry(gr_stat,"stat","l")
+    mg.Add(gr_stat)
+
     leg.SetFillColor(0)
     leg.SetLineColor(0)
     
@@ -86,6 +109,8 @@ def main():
     mg.GetXaxis().SetTitle("m_{A} [GeV]")
     mg.GetYaxis().SetTitle("uncertainty")
     leg.Draw()
+    mg.GetYaxis().SetRangeUser(0.01,5)
+    C.SetLogy()
     C.Print("syst_"+str(mH_tested)+".png")
 
 
