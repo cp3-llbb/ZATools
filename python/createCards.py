@@ -38,7 +38,7 @@ def main():
     #path = '/nfs/scratch/fynu/amertens/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/16_01_28_syst/build'
     tag = 'v1.1.0+7415-83-g2a9f912_ZAAnalysis_2ff9261'
     #tag = 'v1.1.0+7415-57-g4bff5ea_ZAAnalysis_b1377a8'
-    path = '/home/fynu/amertens/scratch/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/test_syst/condor/output/'
+    path = '/home/fynu/amertens/scratch/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/test_narrow/condor/output/'
     CHANNEL = 'mumu'
     ERA = '13TeV'
     MASS = str(mH)+"_"+str(mA)
@@ -78,11 +78,13 @@ def main():
     processes['ttbar'] = p
     p = Process('ttbar')
     if DEBUG: print p
+    '''
     # drell-yan
     p = Process('dy1')
     p.prepare_process(path, 'dy1', 'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX_MiniAODv2', tag)
     processes['dy1'] = p
     if DEBUG: print p
+    '''
     p = Process('dy2')
     p.prepare_process(path, 'dy2', 'DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX_MiniAODv2', tag)
     processes['dy2'] = p
@@ -90,37 +92,36 @@ def main():
 
 
 
-
     c.AddObservations([MASS], [ANALYSIS], [ERA], [CHANNEL], cats)
     c.AddProcesses([MASS], [ANALYSIS], [ERA], [CHANNEL], ['ZA'], cats, True)
-    c.AddProcesses([MASS], [ANALYSIS], [ERA], [CHANNEL], ['ttbar', 'dy1', 'dy2'], cats, False)
-    c.cp().process(['ttbar', 'dy1', 'dy2','ZA']).AddSyst(
+    c.AddProcesses([MASS], [ANALYSIS], [ERA], [CHANNEL], ['ttbar', 'dy2','zz'], cats, False)
+    c.cp().process(['ttbar', 'dy2','ZA']).AddSyst(
         c, "lumi", "lnN", ch.SystMap('channel', 'era', 'bin_id')
         ([CHANNEL], [ERA],  [0,1,2,3], 1.046))
 
-    c.cp().process(['ttbar', 'dy1', 'dy2','ZA']).AddSyst(
+    c.cp().process(['ttbar', 'dy2','ZA']).AddSyst(
         c, "trig", "lnN", ch.SystMap('channel', 'era', 'bin_id')
         ([CHANNEL], [ERA],  [0,1,2,3], 1.04))
 
-    c.cp().process(['ttbar', 'dy1', 'dy2']).AddSyst(
+    c.cp().process(['ttbar', 'dy2']).AddSyst(
         c, "btag", "shape", ch.SystMap()(1.0))
 
-    c.cp().process(['ttbar', 'dy1', 'dy2']).AddSyst(
+    c.cp().process(['ttbar', 'dy2']).AddSyst(
         c, "jec", "shape", ch.SystMap()(1.0))
 
-    c.cp().process(['ttbar', 'dy1', 'dy2']).AddSyst(
+    c.cp().process(['ttbar', 'dy2']).AddSyst(
         c, "jer", "shape", ch.SystMap()(1.0))
 
-    c.cp().process(['ttbar', 'dy1', 'dy2']).AddSyst(
+    c.cp().process(['ttbar', 'dy2']).AddSyst(
         c, "pu", "shape", ch.SystMap()(1.0))
 
     c.cp().process(['ttbar']).AddSyst(
         c, "TTpdf", "shape", ch.SystMap()(1.0))
 
-    c.cp().process(['dy1', 'dy2']).AddSyst(
+    c.cp().process(['dy2']).AddSyst(
         c, "DYpdf", "shape", ch.SystMap()(1.0)) 
 
-    c.cp().process(['dy1', 'dy2']).AddSyst(
+    c.cp().process(['dy2']).AddSyst(
         c, "DYnorm", "lnN", ch.SystMap('channel', 'era', 'bin_id')
         ([CHANNEL], [ERA],  [0,1], 1.1))
     

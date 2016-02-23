@@ -18,7 +18,7 @@ from ZACnC import *
 ### Definitions ###
 ###################
 
-mH=500
+mH=800
 
 run_combine = 0
 
@@ -150,6 +150,9 @@ myTG_2.SetLineColor(kBlack)
 myTG_2.SetLineStyle(9)
 myTG_2.SetLineWidth(2)
 
+myTG_8TeV.SetLineColor(kBlue)
+myTG_8TeV.SetLineWidth(2)
+
 myTG_5.SetLineColor(kBlack)
 myTG_5.SetLineWidth(2)
 myTG_5.Sort()
@@ -158,11 +161,14 @@ TGAS_1.Sort()
 myTG_2.Sort()
 myTG_8TeV.Sort()
 
+#gPad.SetLogy()
+
 title = "M_{H} = "+str(int(mH))
 TGAS_2.SetTitle(title)
 TGAS_2.GetXaxis().SetTitle("M_{A}")
 TGAS_2.GetXaxis().SetTitleSize(0.045)
 TGAS_2.GetXaxis().SetTitleOffset(0.8)
+#TGAS_2.SetMinimum(0)
 TGAS_2.Draw('A E3')
 TGAS_1.Draw('E3')
 myTG_2.Draw("L")
@@ -180,11 +186,12 @@ leg.AddEntry(TGAS_1,"CL_{s} Expected #pm 1 #sigma","F")
 leg.AddEntry(TGAS_2,"CL_{s} Expected #pm 2 #sigma","F")
 leg.AddEntry(myTG_2,"CL_{s} Expected","L")
 leg.AddEntry(myTG_5,"CL_{s} Observed","L")
+leg.AddEntry(myTG_8TeV,"8 TeV","L")
 leg.Draw()
 
 C.Print("BBP"+str(mH)+".pdf")
 C.Print("BBP"+str(mH)+".png")
-f = TFile("test_BBP"+str(mH)+".root","recreate")
+f = TFile("narrow_BBP"+str(mH)+".root","recreate")
 C.Write()
 f.Close()
 
