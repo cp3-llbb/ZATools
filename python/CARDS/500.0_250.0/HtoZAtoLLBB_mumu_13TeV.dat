@@ -1,0 +1,28 @@
+# Datacard produced by CombineHarvester with git status: CombineHarvester-v15.12-21-g9df579d-dirty
+imax    4 number of bins
+jmax    3 number of processes minus 1
+kmax    * number of nuisance parameters
+--------------------------------------------------------------------------------
+shapes * eebbSRmA193to306_mH387to612 ../common/HtoZAtoLLBB_mumu_500.0_250.0.input_13TeV.root eebbSRmA193to306_mH387to612/$PROCESS eebbSRmA193to306_mH387to612/$PROCESS_$SYSTEMATIC
+shapes * mll_eebbBRmA193to306_mH387to612 ../common/HtoZAtoLLBB_mumu_500.0_250.0.input_13TeV.root mll_eebbBRmA193to306_mH387to612/$PROCESS mll_eebbBRmA193to306_mH387to612/$PROCESS_$SYSTEMATIC
+shapes * mll_mmbbBRmA193to306_mH387to612 ../common/HtoZAtoLLBB_mumu_500.0_250.0.input_13TeV.root mll_mmbbBRmA193to306_mH387to612/$PROCESS mll_mmbbBRmA193to306_mH387to612/$PROCESS_$SYSTEMATIC
+shapes * mmbbSRmA193to306_mH387to612 ../common/HtoZAtoLLBB_mumu_500.0_250.0.input_13TeV.root mmbbSRmA193to306_mH387to612/$PROCESS mmbbSRmA193to306_mH387to612/$PROCESS_$SYSTEMATIC
+--------------------------------------------------------------------------------
+bin          mmbbSRmA193to306_mH387to612 mll_mmbbBRmA193to306_mH387to612 eebbSRmA193to306_mH387to612 mll_eebbBRmA193to306_mH387to612 
+observation  88.0            1406.0          78.0            1013.0          
+--------------------------------------------------------------------------------
+bin                    mmbbSRmA193to306_mH387to612 mll_mmbbBRmA193to306_mH387to612 eebbSRmA193to306_mH387to612 mll_eebbBRmA193to306_mH387to612 mmbbSRmA193to306_mH387to612 mmbbSRmA193to306_mH387to612 mmbbSRmA193to306_mH387to612 mll_mmbbBRmA193to306_mH387to612 mll_mmbbBRmA193to306_mH387to612 mll_mmbbBRmA193to306_mH387to612 eebbSRmA193to306_mH387to612 eebbSRmA193to306_mH387to612 eebbSRmA193to306_mH387to612 mll_eebbBRmA193to306_mH387to612 mll_eebbBRmA193to306_mH387to612 mll_eebbBRmA193to306_mH387to612 
+process                ZA              ZA              ZA              ZA              ttbar           dy1             dy2             ttbar           dy1             dy2             ttbar           dy1             dy2             ttbar           dy1             dy2             
+process                0               0               0               0               1               2               3               1               2               3               1               2               3               1               2               3               
+rate                   0.292988        0               0.232478        0               64.717          0               66.8887         896.917         0               564.433         45.5965         0               44.7959         659.008         0               438.924         
+--------------------------------------------------------------------------------
+DYnorm         lnN     -               -               -               -               -               1.1             1.1             -               1.1             1.1             -               -               -               -               -               -               
+DYpdf          shape   -               -               -               -               -               1               1               -               1               1               -               1               1               -               1               1               
+TTnorm         lnN     -               -               -               -               1.1             -               -               -               -               -               -               -               -               -               -               -               
+TTpdf          shape   -               -               -               -               1               -               -               1               -               -               1               -               -               1               -               -               
+btag           shape   -               -               -               -               1               1               1               1               1               1               1               1               1               1               1               1               
+jec            shape   -               -               -               -               1               1               1               1               1               1               1               1               1               1               1               1               
+jer            shape   -               -               -               -               1               1               1               1               1               1               1               1               1               1               1               1               
+lumi           lnN     1.046           1.046           1.046           1.046           1.046           1.046           1.046           1.046           1.046           1.046           1.046           1.046           1.046           1.046           1.046           1.046           
+pu             shape   -               -               -               -               1               1               1               1               1               1               1               1               1               1               1               1               
+trig           lnN     1.04            1.04            1.04            1.04            1.04            1.04            1.04            1.04            1.04            1.04            1.04            1.04            1.04            1.04            1.04            1.04            

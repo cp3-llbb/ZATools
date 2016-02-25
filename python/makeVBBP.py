@@ -32,6 +32,8 @@ myTG_3 = TGraph(5)
 myTG_4 = TGraph(5)
 myTG_5 = TGraph(5)
 
+myTG_8TeV = TGraph(5)
+
 myTGraph = TGraph2D(9)
 #myTGraph.SetNpx(100)
 #myTGraph.SetNpy(100)
@@ -50,6 +52,16 @@ options = options_()
 #######################
 
 n=-1
+
+############################
+### Getting 8 TeV limits ###
+############################
+
+
+f = TFile("Limit_XS_eff.root")
+h_exp = f.Get("h22_lt")
+h_exp.SetDirectory(0)
+f.Close()
 
 #######################
 ### Running Combine ###
@@ -76,20 +88,20 @@ for cutkey in options.cut :
           os.system(str(combine_cmd))
           mv_cmd = "mv higgsCombineTest.Asymptotic.mH"+str(int(mbb))+".root "+RootFile
           os.system(str(mv_cmd))
-
+        '''
         eff_file = TFile('eff.root','READ')
         eff_h = eff_file.Get('eff')
         eff = eff_h.Interpolate(mbb,mllbb)
-
+        '''
         # Accessing the rootfile, get the p-value and fill a TGraph2D
         fList = TFile(str(RootFile)) 
         mytree  = fList.Get("limit")
         #for entry in mytree:
         mytree.GetEntry(2)
         limit=mytree.limit
-        SignalYields = eff*2.2
+        SignalYields = 1 #eff*2.2
 
-        print 'mbb : ', mbb, ' limit : ', limit, 'eff : ', eff
+        print 'mbb : ', mbb, ' limit : ', limit #, 'eff : ', eff
 
         if limit > 0  and SignalYields > 0:
 	  n+=1
@@ -110,9 +122,10 @@ for cutkey in options.cut :
           mytree.GetEntry(5)
           myTG_5.SetPoint(n,int(mbb),mytree.limit/SignalYields) 
         
-
-
-
+          limit_8TeV = h_exp.Interpolate(int(mbb),int(mllbb))
+          print "8TeV : ", limit_8TeV
+          myTG_8TeV.SetPoint(n,int(mbb),limit_8TeV)
+ 
         #n+=1
         #myTGraph.SetPoint(n, mbb, mllbb, mytree.limit)
       except:
@@ -137,22 +150,34 @@ myTG_2.SetLineColor(kBlack)
 myTG_2.SetLineStyle(9)
 myTG_2.SetLineWidth(2)
 
+myTG_8TeV.SetLineColor(kBlue)
+myTG_8TeV.SetLineWidth(2)
+
 myTG_5.SetLineColor(kBlack)
 myTG_5.SetLineWidth(2)
 myTG_5.Sort()
 TGAS_2.Sort()
 TGAS_1.Sort()
 myTG_2.Sort()
+myTG_8TeV.Sort()
+
+#gPad.SetLogy()
 
 title = "M_{H} = "+str(int(mH))
 TGAS_2.SetTitle(title)
 TGAS_2.GetXaxis().SetTitle("M_{A}")
 TGAS_2.GetXaxis().SetTitleSize(0.045)
 TGAS_2.GetXaxis().SetTitleOffset(0.8)
+#TGAS_2.SetMinimum(0)
 TGAS_2.Draw('A E3')
 TGAS_1.Draw('E3')
 myTG_2.Draw("L")
-#myTG_5.Draw("L")
+myTG_8TeV.Draw("L")
+
+TGAS_2.GetXaxis().SetTitle("m_{A} (GeV)")
+TGAS_2.GetYaxis().SetTitle("#sigma (pp #rightarrow H) #times BR(H #rightarrow Z(ll)A(bb)) (fb)")
+
+#gPad().SetLogy(1)
 
 leg = TLegend(0.59,0.68,0.89,0.88)
 leg.SetLineColor(0)
@@ -161,11 +186,12 @@ leg.AddEntry(TGAS_1,"CL_{s} Expected #pm 1 #sigma","F")
 leg.AddEntry(TGAS_2,"CL_{s} Expected #pm 2 #sigma","F")
 leg.AddEntry(myTG_2,"CL_{s} Expected","L")
 leg.AddEntry(myTG_5,"CL_{s} Observed","L")
+leg.AddEntry(myTG_8TeV,"8 TeV","L")
 leg.Draw()
 
+C.Print("BBP"+str(mH)+".pdf")
 C.Print("BBP"+str(mH)+".png")
-
-f = TFile("test_BBP"+str(mH)+".root","recreate")
+f = TFile("narrow_BBP"+str(mH)+".root","recreate")
 C.Write()
 f.Close()
 
