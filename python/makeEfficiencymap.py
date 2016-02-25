@@ -48,7 +48,14 @@ effeeGr.SetName("efficiency_ee")
 effee = TH2D("effee","efficiency_ee",500,0,xmax,500,0,ymax)
 effeeGr.SetHistogram(effee)
 
+eff_300 = TGraph(3)
+eff_500 = TGraph(3)
+eff_800 = TGraph(3)
+
 n=-1
+n3=-1
+n5=-1
+n8=-1
 
 ######################
 ### Efficiency Map ###
@@ -78,8 +85,62 @@ for cutkey in options.cut :
       effmmGr.SetPoint(n, mA, mH, eff_mm)
       effeeGr.SetPoint(n, mA, mH, eff_ee)
 
+      if mH == 300 :
+          n3+=1
+          eff_300.SetPoint(n3,mA,eff_mm+eff_ee)
+
+      if mH == 500 :
+          n5+=1
+          eff_500.SetPoint(n5,mA,eff_mm+eff_ee)
+
+      if mH == 800 :
+          n8+=1
+          eff_800.SetPoint(n8,mA,eff_mm+eff_ee)
+
+
       print mA, mH, eff_mm, eff_ee
 
+
+Cname = "C_"+str(mH)
+C = TCanvas(Cname,Cname,1200,500)
+C.SetLeftMargin(0.13)
+C.SetBottomMargin(0.13)
+
+mg = TMultiGraph()
+leg = TLegend(0.7,0.2,0.88,0.5)
+
+eff_300.Sort()
+eff_300.SetLineWidth(3)
+eff_300.SetLineColor(kRed)
+eff_500.Sort()
+eff_500.SetLineWidth(3)
+eff_500.SetLineColor(kOrange)
+eff_800.Sort()
+eff_800.SetLineWidth(3)
+eff_800.SetLineColor(kOrange+2)
+
+leg.AddEntry(eff_300,"m_{H} = 300","l")
+leg.AddEntry(eff_500,"m_{H} = 500","l")
+leg.AddEntry(eff_800,"m_{H} = 800","l")
+
+mg.Add(eff_300)
+mg.Add(eff_500)
+mg.Add(eff_800)
+
+leg.SetFillColor(0)
+leg.SetLineColor(0)
+
+mg.Draw("ALP")
+
+mg.GetXaxis().SetTitle("m_{A} [GeV]")
+mg.GetYaxis().SetTitle("#epsilon ")
+mg.GetXaxis().SetTitleSize(0.06)
+mg.GetYaxis().SetTitleSize(0.06)
+mg.GetYaxis().SetTitleOffset(0.6)
+
+
+leg.Draw()
+C.Print("efficiency.png")
 
 f = TFile("eff.root","recreate")
 effmmGr.GetHistogram().Write()

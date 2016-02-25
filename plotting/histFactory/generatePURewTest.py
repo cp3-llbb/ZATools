@@ -20,6 +20,8 @@ def printInPyWithSyst(f, g, name = '', variable = '', cut = '', weight = '', bin
 
 # binnings
 
+onlyCP = 1
+
 nPV_binning = "(35,0,35)"
 mll_binning = "(30,60,120)"
 mbb_binning = "(20,0,600)"
@@ -173,45 +175,46 @@ llbbweights = {'': llTrigSF+'*'+btagSF+'*'+weights,
 
 ## Plots for combine
 
-
-options = options_()
-
-for x in range(0,1):
-    for cutkey in options.cut :
-        for s,w in llbbweights.iteritems() :
-            print 'cutkey : ', cutkey
-            ### get M_A and M_H ###
-            #mH[0] = float(options.mH_list[cutkey])
-            #mA[0] = float(options.mA_list[cutkey])
-
-            ### SIGNAL Region ###
-            printInPyWithSyst(fjson, fyml, 
-                    name = twoLtwoBCondName[x]+"SR"+cutkey+s, 
-                    variable = '0.5', 
-                    cut = options.cut[cutkey]+" && "+cutBtagsMM, 
-                    weight = w, 
-                    binning = "(1,0,1)", 
-                    writeInPlotIt = (1 if s==''  else 0)
-                    )
-            ### BACKGROUND Region ###
-            printInPyWithSyst(fjson, fyml, 
-                    name = mllName+'_'+twoLtwoBCondName[x]+"BR"+cutkey+s, 
-                    variable = mll, 
-                    cut = "!"+options.cut[cutkey]+" && "+cutBtagsMM, 
-                    weight = w, 
-                    binning = mll_binning, 
-                    writeInPlotIt = (1 if s==''  else 0)
-                    )
-        
-
-printInPyWithSyst(fjson, fyml,
-            name = 'jet_sf_csvv2_medium',
-            variable = 'jet_sf_csvv2_medium.size()',
-            cut = cutBtagsMM,
-            weight = w,
-            binning = '(10,0,2)',
-            writeInPlotIt = 0
-            )
+if onlyCP == 0 :
+    
+    options = options_()
+    
+    for x in range(0,1):
+        for cutkey in options.cut :
+            for s,w in llbbweights.iteritems() :
+                print 'cutkey : ', cutkey
+                ### get M_A and M_H ###
+                #mH[0] = float(options.mH_list[cutkey])
+                #mA[0] = float(options.mA_list[cutkey])
+    
+                ### SIGNAL Region ###
+                printInPyWithSyst(fjson, fyml, 
+                        name = twoLtwoBCondName[x]+"SR"+cutkey+s, 
+                        variable = '0.5', 
+                        cut = options.cut[cutkey]+" && "+cutBtagsMM, 
+                        weight = w, 
+                        binning = "(1,0,1)", 
+                        writeInPlotIt = (1 if s==''  else 0)
+                        )
+                ### BACKGROUND Region ###
+                printInPyWithSyst(fjson, fyml, 
+                        name = mllName+'_'+twoLtwoBCondName[x]+"BR"+cutkey+s, 
+                        variable = mll, 
+                        cut = "!"+options.cut[cutkey]+" && "+cutBtagsMM, 
+                        weight = w, 
+                        binning = mll_binning, 
+                        writeInPlotIt = (1 if s==''  else 0)
+                        )
+            
+    
+    printInPyWithSyst(fjson, fyml,
+                name = 'jet_sf_csvv2_medium',
+                variable = 'jet_sf_csvv2_medium.size()',
+                cut = cutBtagsMM,
+                weight = w,
+                binning = '(10,0,2)',
+                writeInPlotIt = 0
+                )
 
 
 
@@ -222,7 +225,7 @@ for x in range(0,1):
     for s,w in llweights.iteritems() : 
 	print x, s, w 
         # N of vertices
-        printInPyWithSyst(fjson, fyml, name=nPVName+'_'+twoLCondName[x]+s, variable=nPV, cut=twoLCond[x], weight=w, binning=nPV_binning, writeInPlotIt= (1 if s==''  else 0))
+        #printInPyWithSyst(fjson, fyml, name=nPVName+'_'+twoLCondName[x]+s, variable=nPV, cut=twoLCond[x], weight=w, binning=nPV_binning, writeInPlotIt= (1 if s==''  else 0))
         # M_ll
         printInPyWithSyst(fjson, fyml, name=mllName+'_'+twoLCondName[x]+s, variable=mll, cut=twoLCond[x], weight=w, binning=mll_binning, writeInPlotIt= (1 if s==''  else 0))
 

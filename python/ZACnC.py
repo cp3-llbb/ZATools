@@ -2,6 +2,15 @@
 
 class options_():
 
+    # parameters
+
+    lumi = 2245.792 #in pb
+    lumifb = lumi/1000.0 #in fb
+    tag = 'v1.1.0+7415-83-g2a9f912_ZAAnalysis_2ff9261'
+    path = '/home/fynu/amertens/scratch/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/test_narrow/condor/output/'
+    CHANNEL = 'mumu'
+    ERA = '13TeV'
+    ANALYSIS = 'HtoZAtoLLBB'
 
     '''
     ### Define 2D mapping for the search in the M(bb) - M(llbb) plane ###
@@ -13,7 +22,8 @@ class options_():
       step_mbb = sigma*0.15*mbb
       rangeMassA.append([int(mbb-dmbb),int(mbb+dmbb),int(mbb)])
       mbb+=step_mbb
-
+    '''
+    '''
     rangeMassH = []
     mllbb=10
     for i in range(1,36):
@@ -31,6 +41,7 @@ class options_():
     mllbb_list = [300, 500, 800]
 
     rangeMassA = []
+
     rangeMassH = []
 
     for mbb in mbb_list :
@@ -39,8 +50,7 @@ class options_():
 
     for mllbb in mllbb_list :
       dmllbb=0.15*mllbb*1.5
-      rangeMassH.append([int(mllbb-dmllbb),int(mllbb+dmllbb),int(mllbb)])
-        
+      rangeMassH.append([int(mllbb-dmllbb),int(mllbb+dmllbb),int(mllbb)])    
 
     # creating cuts 
 
