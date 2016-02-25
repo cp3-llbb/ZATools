@@ -22,11 +22,46 @@
   legend: 'TT Full Lept'
   order: 6
 
-#'TT_TuneCUETP8M1_13TeV-powheg-pythia8_MiniAODv2_v1.0.0+7415-10-gcf61438_ZAAnalysis_dd80b32_histos.root':
-#  type: mc
-#  cross-section: 831.76
-#  generated-events: 19757200.0
-#  fill-color: '#EB6841'
-#  legend: 'TT incl'
-#  order: 6
+'ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg_Fall15MiniAODv2_v1.2.0+7415-73-g91bfcf0_ZAAnalysis_4f7ac83_histos.root':
+  type: mc
+  cross-section: 35.85
+  generated-events: 1  #988500
+  order: 5
+  group: 'ST'
 
+'ST_tW_top_5f_inclusiveDecays_13TeV-powheg_Fall15MiniAODv2_v1.2.0+7415-73-g91bfcf0_ZAAnalysis_4f7ac83_histos.root':
+  type: mc
+  cross-section: 35.85
+  generated-events: 1 #995600
+  order: 5
+  group: 'ST'
+
+'ST_s-channel_4f_leptonDecays_13TeV-amcatnlo_Fall15MiniAODv2_v1.2.0+7415-73-g91bfcf0_ZAAnalysis_4f7ac83_histos.root':
+  type: mc
+  cross-section: 3.36
+  generated-events: 1 #984400
+  order: 5
+  group: 'ST'
+
+'ST_t-channel_4f_leptonDecays_13TeV-amcatnlo_Fall15MiniAODv2_v1.2.0+7415-73-g91bfcf0_ZAAnalysis_4f7ac83_histos.root':
+  type: mc
+  cross-section: 70.69
+  generated-events: 1 #984400
+  order: 5
+  group: 'ST'
+
+'ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8_v1.2.0+7415-73-g91bfcf0_ZAAnalysis_4f7ac83_histos.root':
+  type: mc
+  cross-section: 0.86
+  generated-events: 1
+  fill-color: '#C02942'
+  legend: 'Zh'
+  order: 2
+
+'ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_Fall15MiniAODv2_v1.2.0+7415-73-g91bfcf0_ZAAnalysis_4f7ac83_histos.root':
+  type: mc
+  cross-section: 3.22
+  generated-events: 1
+  fill-color: '#542437'
+  legend: 'ZZ'
+  order: 1
