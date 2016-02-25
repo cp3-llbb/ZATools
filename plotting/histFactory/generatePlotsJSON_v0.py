@@ -304,6 +304,8 @@ for x in range(0,1):
 	printInJson(fjson, fyml, selBjets, selBjetsName, selJets_var, selJets_varName, twoLtwoJCond[x], twoLtwoJCondName[x],ll_weights, selJets_binning, 0)
 	printInJson(fjson, fyml, j1pt, j1ptName, j_var, j_varName, twoLtwoJCond[x], twoLtwoJCondName[x], ll_weights,j_binning,0)
 	printInJson(fjson, fyml, j2pt, j2ptName, j_var, j_varName, twoLtwoJCond[x], twoLtwoJCondName[x], ll_weights,j_binning,0)
+        printInJson(fjson, fyml, dijet, dijetName, dijet_var, dijet_varName, twoLtwoJCond[x], twoLtwoJCondName[x],ll_weights, dijet_binning, 0)
+        printInJson(fjson, fyml, dijetdilep, dijetdilepName, dijetdilep_var, dijetdilep_varName, twoLtwoJCond[x], twoLtwoJCondName[x],ll_weights, dijetdilep_binning, 0)
 	# 2L2B
 	printInJson(fjson, fyml, dilep, dilepName, dilep_var, dilep_varName, twoLtwoBCond[x], twoLtwoBCondName[x], ll_weights+"*"+twoCSVV2_medium_SF_weight, dilep_binning, 0)
 	printInJson(fjson, fyml, j1pt, j1ptName, j_var, j_varName, twoLtwoBCond[x], twoLtwoBCondName[x],ll_weights+"*"+twoCSVV2_medium_SF_weight, j_binning, 0)

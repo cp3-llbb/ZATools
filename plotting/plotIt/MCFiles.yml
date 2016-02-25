@@ -1,23 +1,23 @@
-'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX_MiniAODv2_v1.1.0+7415-23-g22d44c6_ZAAnalysis_919cd18_histos.root':
+'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX_Fall15MiniAODv2_v1.2.0+7415-73-g91bfcf0_ZAAnalysis_4f7ac83_histos.root':
   type: mc
   cross-section: 18610.0
-  generated-events: 8.43221e+11
+  generated-events: 1
   fill-color: '#CF00A0B0'   #"#CFC02942"
   legend: "DY M 10-50"
   order: 8
 
-'DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX_MiniAODv2_v1.1.0+7415-23-g22d44c6_ZAAnalysis_919cd18_histos.root':
+'DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX_Fall15MiniAODv2_v1.2.0+7415-73-g91bfcf0_ZAAnalysis_4f7ac83_histos.root':
   type: mc
   cross-section: 6025.2
-  generated-events: 432201000000
+  generated-events: 1
   fill-color: '#8F00A0B0'
   legend: "DY M 50-inf"
   order: 7
 
-'TTTo2L2Nu_13TeV-powheg_MiniAODv2_v1.1.0+7415-23-g22d44c6_ZAAnalysis_919cd18_histos.root':
+'TTTo2L2Nu_13TeV-powheg_Fall15MiniAODv2_v1.2.0+7415-73-g91bfcf0_ZAAnalysis_4f7ac83_histos.root':
   type: mc
   cross-section: 87.31
-  generated-events: 4972770
+  generated-events: 1
   fill-color: '#EB6841'
   legend: 'TT Full Lept'
   order: 6

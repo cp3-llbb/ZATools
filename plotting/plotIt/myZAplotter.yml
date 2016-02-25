@@ -5,7 +5,7 @@ files:
     include: ['MCFiles.yml', 'DoubleMuonFiles.yml', 'DoubleElectronFiles.yml']
 
 plots:
-    include: ['plots_all.yml']
+    include: ['../histFactory/plots_syst.yml']
 
 groups:
     DiEl_DiMu:
