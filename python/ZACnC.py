@@ -12,8 +12,8 @@ class options_():
     ERA = '13TeV'
     ANALYSIS = 'HtoZAtoLLBB'
 
-    '''
     ### Define 2D mapping for the search in the M(bb) - M(llbb) plane ###
+    '''
     rangeMassA = []
     mbb=10
     sigma=1.0
@@ -32,29 +32,28 @@ class options_():
       rangeMassH.append([int(mllbb-dmllbb),int(mllbb+dmllbb),int(mllbb)])
       mllbb+=step_mllbb
     '''
-
-    mbb_list = {30,50,75,100,125,150,200,225,250,300,350,400} #,500}
+    mbb_list = {50,75,100,125,150,200,225,250,300,350,400,500,600,700}
     #mllbb_list = {150,200,250,300,350,400,450,500,550,650,800,1000}
 
     #mbb_list = [250]
     #mbb_list = [50, 75, 100]
-    mllbb_list = [300, 500, 800]
+    mllbb_list = {300, 500, 800}
+
+    #rangeMassA = []
 
     rangeMassA = []
 
     rangeMassH = []
 
-    for mbb in mbb_list :
-      dmbb=0.15*mbb*1.5
-      rangeMassA.append([int(mbb-dmbb),int(mbb+dmbb),int(mbb)])
+    #for mbb in mbb_list :
+    #  dmbb=0.15*mbb*1.5
+    #  rangeMassA.append([int(mbb-dmbb),int(mbb+dmbb),int(mbb)])
 
     for mllbb in mllbb_list :
       dmllbb=0.15*mllbb*1.5
       rangeMassH.append([int(mllbb-dmllbb),int(mllbb+dmllbb),int(mllbb)])    
 
     # creating cuts 
-
-    lumi = 2.2
 
     cut = {}
     cut_SYST = {}

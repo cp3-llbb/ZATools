@@ -33,16 +33,16 @@ def main():
     # get the options
     #options = get_options()
 
-    intL = 2245.792 # in pb-1    
+    intL = options.lumi # in pb-1    
     #tag = 'v1.2.0+7415-19-g7bbca78_ZAAnalysis_1a69757'
     #path = '/nfs/scratch/fynu/amertens/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/16_01_28_syst/build'
     tag = 'v1.1.0+7415-83-g2a9f912_ZAAnalysis_2ff9261'
     #tag = 'v1.1.0+7415-57-g4bff5ea_ZAAnalysis_b1377a8'
-    path = '/home/fynu/amertens/scratch/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/test_narrow/condor/output/'
-    CHANNEL = 'mumu'
-    ERA = '13TeV'
+    path = options.path 
+    CHANNEL = options.CHANNEL
+    ERA = options.ERA
     MASS = str(mH)+"_"+str(mA)
-    ANALYSIS = 'HtoZAtoLLBB'
+    ANALYSIS = options.ANALYSIS
     DEBUG = 0
 
     c = ch.CombineHarvester()
@@ -184,21 +184,21 @@ def main():
     effmm_hist = eff_file.Get("effmm")
     eff_mm = effmm_hist.Interpolate(mA,mH)
 
-    print "lumi : ", options.lumi
+    print "lumi : ", options.lumifb
     print "eff at ", mA, mH, ":", eff_ee, eff_mm
-    print "ZA yields: ", options.lumi*eff_mm, options.lumi*eff_ee
+    print "ZA yields: ", options.lumifb*eff_mm, options.lumifb*eff_ee
     
 
     f = TFile(outputRoot, "update")
     h1 = TH1F("hist_"+bins['signalregion_mm']+"_ZA","hist_"+bins['signalregion_mm']+"_ZA",1,0,1)
-    h1.Fill(0.5,options.lumi*eff_mm)
+    h1.Fill(0.5,options.lumifb*eff_mm)
     h1.Write()
     
     h2 = TH1F("hist_"+bins['mll_bkgregion_mm']+"_ZA","hist_"+bins['mll_bkgregion_mm']+"_ZA",60,60,120)
     h2.Write()
 
     h3 = TH1F("hist_"+bins['signalregion_ee']+"_ZA","hist_"+bins['signalregion_ee']+"_ZA",1,0,1)
-    h3.Fill(0.5,options.lumi*eff_ee)
+    h3.Fill(0.5,options.lumifb*eff_ee)
     h3.Write()
 
     h4 = TH1F("hist_"+bins['mll_bkgregion_ee']+"_ZA","hist_"+bins['mll_bkgregion_ee']+"_ZA",60,60,120)
