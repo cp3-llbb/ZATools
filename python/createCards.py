@@ -36,7 +36,7 @@ def main():
     intL = options.lumi # in pb-1    
     #tag = 'v1.2.0+7415-19-g7bbca78_ZAAnalysis_1a69757'
     #path = '/nfs/scratch/fynu/amertens/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/16_01_28_syst/build'
-    tag = 'v1.1.0+7415-83-g2a9f912_ZAAnalysis_2ff9261'
+    tag = 'v1.2.0+7415-73-g91bfcf0_ZAAnalysis_4f7ac83'
     #tag = 'v1.1.0+7415-57-g4bff5ea_ZAAnalysis_b1377a8'
     path = options.path 
     CHANNEL = options.CHANNEL
@@ -47,6 +47,7 @@ def main():
 
     c = ch.CombineHarvester()
     cats = [(0, "mmbbSR"+cutkey),
+            #(1, "eebbSR"+cutkey)
             (1, "mll_mmbbBR"+cutkey),
             (2, "eebbSR"+cutkey),
             (3, "mll_eebbBR"+cutkey)
@@ -61,32 +62,38 @@ def main():
     processes = {}
     p = Process('data_obs')
     #DoubleMuon_Run2015D_v1.1.0+7415-57-g4bff5ea_ZAAnalysis_b1377a8_histos.root
-    p.prepare_process(path, 'data_obs', 'DoubleMuon_DoubleEG_Run2015D', tag)
+    p.prepare_process(path, 'data_obs', 'DoubleMuon_DoubleEG_Run2015D_v2_2015-12-18', tag)
     processes['data_obs'] = p
     if DEBUG: print p
     # define signal
     # define backgrounds
     # zz
+
+    p = Process('zh')
+    p.prepare_process(path, 'zh', 'ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8', tag)
+    processes['zh'] = p
+    if DEBUG: print p
+
     p = Process('zz')
-    p.prepare_process(path, 'zz', 'ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_MiniAODv2', tag)
+    p.prepare_process(path, 'zz', 'ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_Fall15MiniAODv2', tag)
     processes['zz'] = p
     if DEBUG: print p
 
     # ttbar
     p = Process('ttbar')
-    p.prepare_process(path, 'ttbar', 'TTTo2L2Nu_13TeV-powheg_MiniAODv2', tag)
+    p.prepare_process(path, 'ttbar', 'TTTo2L2Nu_13TeV-powheg_Fall15MiniAODv2', tag)
     processes['ttbar'] = p
     p = Process('ttbar')
     if DEBUG: print p
     '''
     # drell-yan
     p = Process('dy1')
-    p.prepare_process(path, 'dy1', 'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX_MiniAODv2', tag)
+    p.prepare_process(path, 'dy1', 'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX_Fall15MiniAODv2', tag)
     processes['dy1'] = p
     if DEBUG: print p
     '''
     p = Process('dy2')
-    p.prepare_process(path, 'dy2', 'DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX_MiniAODv2', tag)
+    p.prepare_process(path, 'dy2', 'DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX_Fall15MiniAODv2', tag)
     processes['dy2'] = p
     if DEBUG: print p
 
@@ -94,25 +101,25 @@ def main():
 
     c.AddObservations([MASS], [ANALYSIS], [ERA], [CHANNEL], cats)
     c.AddProcesses([MASS], [ANALYSIS], [ERA], [CHANNEL], ['ZA'], cats, True)
-    c.AddProcesses([MASS], [ANALYSIS], [ERA], [CHANNEL], ['ttbar', 'dy2','zz'], cats, False)
-    c.cp().process(['ttbar', 'dy2','ZA']).AddSyst(
-        c, "lumi", "lnN", ch.SystMap('channel', 'era', 'bin_id')
-        ([CHANNEL], [ERA],  [0,1,2,3], 1.046))
+    c.AddProcesses([MASS], [ANALYSIS], [ERA], [CHANNEL], ['ttbar', 'dy2','zz','zh'], cats, False)
+    c.cp().process(['ttbar', 'dy2','zz','zh','ZA']).AddSyst(
+        c, "lumi_13TeV2015", "lnN", ch.SystMap('channel', 'era', 'bin_id')
+        ([CHANNEL], [ERA],  [0,1,2,3], 1.027))
 
-    c.cp().process(['ttbar', 'dy2','ZA']).AddSyst(
+    c.cp().process(['ttbar', 'dy2','zz','zh','ZA']).AddSyst(
         c, "trig", "lnN", ch.SystMap('channel', 'era', 'bin_id')
         ([CHANNEL], [ERA],  [0,1,2,3], 1.04))
 
-    c.cp().process(['ttbar', 'dy2']).AddSyst(
+    c.cp().process(['ttbar', 'dy2','zz','zh','ZA']).AddSyst(
         c, "btag", "shape", ch.SystMap()(1.0))
 
-    c.cp().process(['ttbar', 'dy2']).AddSyst(
+    c.cp().process(['ttbar', 'dy2','zz','zh','ZA']).AddSyst(
         c, "jec", "shape", ch.SystMap()(1.0))
 
-    c.cp().process(['ttbar', 'dy2']).AddSyst(
+    c.cp().process(['ttbar', 'dy2','zz','zh','ZA']).AddSyst(
         c, "jer", "shape", ch.SystMap()(1.0))
 
-    c.cp().process(['ttbar', 'dy2']).AddSyst(
+    c.cp().process(['ttbar', 'dy2','zz','zh','ZA']).AddSyst(
         c, "pu", "shape", ch.SystMap()(1.0))
 
     c.cp().process(['ttbar']).AddSyst(
@@ -123,11 +130,11 @@ def main():
 
     c.cp().process(['dy2']).AddSyst(
         c, "DYnorm", "lnN", ch.SystMap('channel', 'era', 'bin_id')
-        ([CHANNEL], [ERA],  [0,1], 1.1))
+        ([CHANNEL], [ERA],  [0,1], 1.04))
     
     c.cp().process(['ttbar']).AddSyst(
         c, "TTnorm", "lnN", ch.SystMap('channel', 'era', 'bin_id')
-        ([CHANNEL], [ERA],  [0], 1.1))
+        ([CHANNEL], [ERA],  [0], 1.08))
 
 
     nChannels = len(bins)
@@ -143,11 +150,11 @@ def main():
     f = TFile(outputRoot, "recreate")
     f.Close()
     for b in bins:
-        print b , bins[b]
+        #print b , bins[b]
         for p in processes:
           if p == 'data_obs' :
             file_in = TFile(processes[p].file,"READ")
-            print " Getting ", bins[b], " in file ", processes[p].file
+            #print " Getting ", bins[b], " in file ", processes[p].file
             h = file_in.Get(bins[b])
             h.SetDirectory(0)
             file_in.Close()
@@ -161,23 +168,75 @@ def main():
           else :
             for s1,s2 in systematics.iteritems() :
               file_in = TFile(processes[p].file,"READ")
-              print " Getting ", bins[b]+s2, " in file ", processes[p].file
+              #if s1 == '' :
+              #    print " Getting ", bins[b]+s2, " in file ", processes[p].file
               h = file_in.Get(bins[b]+s2)
+              #if s1 == '' : 
+              #    print "Val: ", h.GetBinContent(1),  "ERROR : ", h.GetBinError(1), 'Entries : ', h.GetEntries()
+              '''
+              if s1 == '' and 'mmbbSR' in bins[b] :
+                  print "Adding MC stat uncertainty in ", p, bins[b] , " of ",
+                  if h.GetBinContent(1) > 0.0 :
+                      MCStatUnc = 1+h.GetBinError(1)/h.GetBinContent(1)
+                  else :
+                      MCStatUnc = 2.0
+                  print h.GetBinError(1), h.GetBinContent(1), h.GetEntries(),  MCStatUnc
+                  
+                  c.cp().process([p]).AddSyst(
+                      c, p+bins[b]+"MCStat", "lnN", ch.SystMap('bin_id')
+                      ([0],MCStatUnc))
+              if s1 == '' and 'eebbSR' in bins[b] :
+                  print "Adding MC stat uncertainty in ", p, bins[b] , " of ",
+                  MCStatUnc = 1+h.GetBinError(1)/h.GetBinContent(1)
+                  print h.GetBinError(1), h.GetBinContent(1), h.GetEntries(),  MCStatUnc
+
+                  c.cp().process([p]).AddSyst(
+                      c, p+bins[b]+"MCStat", "lnN", ch.SystMap('bin_id')
+                      ([2],MCStatUnc))
+              '''
+
               h.SetDirectory(0)
               file_in.Close()
               f = TFile(outputRoot, "update")
               h.SetName("hist_"+bins[b]+"_"+p+s1)
-              h.Sumw2()
+              Nbins = h.GetNbinsX()
+              for it_b in range(0,h.GetNbinsX()+1) :
+                 if h.GetBinContent(it_b) < 0.0 :
+                     print "WARNING : negative bin content in bin ", it_b, " of histo ", "hist_"+bins[b]+"_"+p+s1
+                     h.SetBinContent(it_b,0.0)
+              #h.Sumw2()
               #h.Scale(processes[p].xsection * intL / processes[p].sumW)
               h.Scale(intL)
               h.Write()
               f.Write()
               f.Close()
 
+          for s1,s2 in systematics.iteritems() :
+              file_sig_path = "/home/fynu/amertens/scratch/cmssw/CMSSW_7_6_3/src/cp3_llbb/CommonTools/histFactory/Plots_v3/condor/output/HToZATo2L2B_MH-"+str(int(mH))+"_MA-"+str(int(mA))+"_13TeV-madgraph_Fall15MiniAODv1_v1.2.0+7415-73-g91bfcf0_ZAAnalysis_4f7ac83_histos.root"
+              file_sig = TFile(file_sig_path, "READ")
+              h = file_sig.Get(bins[b]+s2)
+              h.SetDirectory(0)
+              file_sig.Close()
+              f = TFile(outputRoot, "update")
+              h.SetName("hist_"+bins[b]+"_"+"ZA"+s1)
 
+              if DEBUG and s1 == '' :
+              #if s1 == '' :
+                  print file_sig_path
+                  print "saving ", "hist_"+bins[b]+"_"+"ZA"+s1
+                  print h.GetBinContent(1), "after rescaling",
+              h.Scale(options.lumifb)
+              #if DEBUG and s1 == '' :
+              if s1 == '' :
+                  print h.GetBinContent(1)
+              h.Write()
+              f.Write()
+              f.Close()
 
     # Fill signal histograms FIXME: read efficiencies from eff.root
-    
+
+    '''    
+
     eff_file = TFile("eff.root", "READ")
     effee_hist = eff_file.Get("effee")
     eff_ee = effee_hist.Interpolate(mA,mH)
@@ -203,7 +262,7 @@ def main():
 
     h4 = TH1F("hist_"+bins['mll_bkgregion_ee']+"_ZA","hist_"+bins['mll_bkgregion_ee']+"_ZA",60,60,120)
     h4.Write()
-
+    '''
 
     f.Write()
     f.Close()
@@ -212,6 +271,12 @@ def main():
         outputRoot, "hist_$BIN_$PROCESS", "hist_$BIN_$PROCESS_$SYSTEMATIC")
     c.cp().signals().ExtractShapes(
         outputRoot, "hist_$BIN_$PROCESS", "hist_$BIN_$PROCESS_$SYSTEMATIC")
+
+    bbb = ch.BinByBinFactory().SetAddThreshold(0.05).SetFixNorm(False)
+
+    bbb.AddBinByBin(c.cp().backgrounds(),c)
+    ch.SetStandardBinNames(c)
+
     writer = ch.CardWriter('$TAG/$MASS/$ANALYSIS_$CHANNEL_$ERA.dat',
                    '$TAG/common/$ANALYSIS_$CHANNEL_$MASS.input_$ERA.root')
     writer.WriteCards('CARDS/', c)

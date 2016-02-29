@@ -18,21 +18,21 @@ from ZACnC import *
 ### Definitions ###
 ###################
 
-mH=800
+mH=500
 
-run_combine = 0
+run_combine = 1
 
 TGAS_1 = TGraphAsymmErrors(0)
 TGAS_2 = TGraphAsymmErrors(0)
 
-myTG_0 = TGraph(5)
-myTG_1 = TGraph(5)
-myTG_2 = TGraph(5)
-myTG_3 = TGraph(5)
-myTG_4 = TGraph(5)
-myTG_5 = TGraph(5)
+myTG_0 = TGraph(2)
+myTG_1 = TGraph(2)
+myTG_2 = TGraph(2)
+myTG_3 = TGraph(2)
+myTG_4 = TGraph(2)
+myTG_5 = TGraph(2)
 
-myTG_8TeV = TGraph(5)
+myTG_8TeV = TGraph(2)
 
 myTGraph = TGraph2D(9)
 #myTGraph.SetNpx(100)
@@ -134,7 +134,7 @@ for cutkey in options.cut :
 gStyle.SetOptStat(0)
 
 Cname = "C_"+str(mH)
-C = TCanvas(Cname,Cname,1200,500)
+C = TCanvas(Cname,Cname,1200,1200)
 C.SetLeftMargin(0.2)
 C.SetBottomMargin(0.2)
 C.SetTitle(" ")
@@ -176,6 +176,8 @@ myTG_8TeV.Draw("L")
 
 TGAS_2.GetXaxis().SetTitle("m_{A} (GeV)")
 TGAS_2.GetYaxis().SetTitle("#sigma (pp #rightarrow H) #times BR(H #rightarrow Z(ll)A(bb)) (fb)")
+TGAS_2.SetMinimum(5)
+TGAS_2.SetMaximum(1000)
 
 #gPad().SetLogy(1)
 
@@ -189,9 +191,14 @@ leg.AddEntry(myTG_5,"CL_{s} Observed","L")
 leg.AddEntry(myTG_8TeV,"8 TeV","L")
 leg.Draw()
 
-C.Print("BBP"+str(mH)+".pdf")
-C.Print("BBP"+str(mH)+".png")
-f = TFile("narrow_BBP"+str(mH)+".root","recreate")
+gPad.SetLogy(1)
+
+
+
+
+C.Print("BBP"+str(mH)+"_v1.pdf")
+C.Print("BBP"+str(mH)+"_v1.png")
+f = TFile("narrow_BBP"+str(mH)+"_v1.root","recreate")
 C.Write()
 f.Close()
 

@@ -38,7 +38,7 @@ class Process:
         return resultset.one()
 
     def prepare_process(self, path, shortname, name, tag):
-        #sample = self.get_sample(name, tag)
+        sample = self.get_sample(name, tag)
         self.name = shortname
         if 'ZZ' in name:
             self.type = -1
@@ -54,8 +54,9 @@ class Process:
         print self.file
         os.path.isfile(self.file)
         print self.file
-        self.xsection = 1 #sample.source_dataset.xsection
-        self.sumW = 1 #sample.event_weight_sum
+        if sample :
+            self.xsection = sample.source_dataset.xsection
+            self.sumW = sample.event_weight_sum
         self.channels = {}
         
         return self
