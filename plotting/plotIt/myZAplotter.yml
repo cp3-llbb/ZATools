@@ -5,10 +5,16 @@ files:
     include: ['MCFiles.yml', 'DoubleMuonFiles.yml', 'DoubleElectronFiles.yml']
 
 plots:
-    include: ['../histFactory/plots_syst.yml']
+    include: ['../histFactory/plots_all.yml']
 
 groups:
     DiEl_DiMu:
         legend: "data"
+    ST:
+        legend: "Single top"
+        fill-color: '#FC3F05'
+    DY:
+        legend: "Drell-Yan"
+        fill-color: '#FAD70C'
 legend:
   position: [0.72, 0.62, 1.16, 0.90]
