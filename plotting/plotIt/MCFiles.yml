@@ -24,14 +24,14 @@
 
 'ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg_Fall15MiniAODv2_v1.2.0+7415-73-g91bfcf0_ZAAnalysis_4f7ac83_histos.root':
   type: mc
-  cross-section: 35.85
+  cross-section: 35.6
   generated-events: 1  #988500
   order: 5
   group: 'ST'
 
 'ST_tW_top_5f_inclusiveDecays_13TeV-powheg_Fall15MiniAODv2_v1.2.0+7415-73-g91bfcf0_ZAAnalysis_4f7ac83_histos.root':
   type: mc
-  cross-section: 35.85
+  cross-section: 35.6
   generated-events: 1 #995600
   order: 5
   group: 'ST'
@@ -52,7 +52,7 @@
 
 'ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8_v1.2.0+7415-73-g91bfcf0_ZAAnalysis_4f7ac83_histos.root':
   type: mc
-  cross-section: 0.86
+  cross-section: 0.172948
   generated-events: 1
   fill-color: '#C02942'
   legend: 'Zh'
