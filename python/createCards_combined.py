@@ -27,7 +27,7 @@ def main():
     mA = float(options.mA_list[cutkey])
     print mH, mA
 
-    file_sig_path = "/home/fynu/amertens/scratch/cmssw/CMSSW_7_6_3/src/cp3_llbb/CommonTools/histFactory/Plots_v3/condor/output/HToZATo2L2B_MH-"+str(int(mH))+"_MA-"+str(int(mA))+"_13TeV-madgraph_Fall15MiniAODv1_v1.2.0+7415-73-g91bfcf0_ZAAnalysis_4f7ac83_histos.root"
+    file_sig_path = "/home/fynu/amertens/scratch/cmssw/CMSSW_7_6_3/src/cp3_llbb/CommonTools/histFactory/Plots_v5/condor/output/HToZATo2L2B_MH-"+str(int(mH))+"_MA-"+str(int(mA))+"_13TeV-madgraph_Fall15MiniAODv1_v1.2.0+7415-73-g91bfcf0_ZAAnalysis_4f7ac83_histos.root"
     if os.path.isfile(file_sig_path) :
 
       """Main function"""
@@ -50,18 +50,13 @@ def main():
       DEBUG = 0
   
       c = ch.CombineHarvester()
-      cats = [(0, "mmbbSR"+cutkey),
-              #(1, "eebbSR"+cutkey)
-              (1, "mll_mmbbBR"+cutkey),
-              (2, "eebbSR"+cutkey),
-              (3, "mll_eebbBR"+cutkey)
+      cats = [(0, "llbbSR"+cutkey),
+              (1, "mll_llbbBR"+cutkey)
               ]
   
       bins = {}
-      bins['signalregion_mm'] = "mmbbSR"+cutkey
-      bins['mll_bkgregion_mm'] = "mll_mmbbBR"+cutkey
-      bins['signalregion_ee'] = "eebbSR"+cutkey
-      bins['mll_bkgregion_ee'] = "mll_eebbBR"+cutkey
+      bins['signalregion_ll'] = "llbbSR"+cutkey
+      bins['mll_bkgregion_ll'] = "mll_llbbBR"+cutkey
   
       processes = {}
       p = Process('data_obs')
@@ -122,7 +117,13 @@ def main():
   
       c.cp().process(['ttbar', 'dy2','zz','zh','ZA']).AddSyst(
           c, "jer", "shape", ch.SystMap()(1.0))
-  
+
+      c.cp().process(['ttbar', 'dy2','zz','zh','ZA']).AddSyst(
+          c, "elID", "shape", ch.SystMap()(1.0))
+
+      c.cp().process(['ttbar', 'dy2','zz','zh','ZA']).AddSyst(
+          c, "muID", "shape", ch.SystMap()(1.0))
+
       c.cp().process(['ttbar', 'dy2','zz','zh','ZA']).AddSyst(
           c, "pu", "shape", ch.SystMap()(1.0))
   
@@ -131,6 +132,12 @@ def main():
   
       c.cp().process(['dy2']).AddSyst(
           c, "DYpdf", "shape", ch.SystMap()(1.0)) 
+
+      c.cp().process(['ttbar']).AddSyst(
+          c, "TTscale", "shape", ch.SystMap()(1.0))
+
+      c.cp().process(['dy2']).AddSyst(
+          c, "DYscale", "shape", ch.SystMap()(1.0))
   
       c.cp().process(['dy2']).AddSyst(
           c, "DYnorm", "lnN", ch.SystMap('channel', 'era', 'bin_id')
@@ -147,8 +154,11 @@ def main():
       systematics = {'':'','_btagUp':'__btagup', '_btagDown':'__btagdown',
                            '_jecUp':'__jecup','_jecDown':'__jecdown',
                            '_jerUp':'__jerup','_jerDown':'__jerdown', 
+                           '_elIDUp':'__elIDup', '_elIDDown':'__elIDdown',
+                           '_muIDUp':'__muIDup', '_muIDDown':'__muIDdown',
                            '_puUp':'__puup', '_puDown':'__pudown',
-                           '_TTpdfUp':'__pdfup','_TTpdfDown':'__pdfdown', '_DYpdfUp':'__pdfup','_DYpdfDown':'__pdfdown'}
+                           '_TTpdfUp':'__pdfup','_TTpdfDown':'__pdfdown', '_DYpdfUp':'__pdfup','_DYpdfDown':'__pdfdown',
+                           '_TTscaleUp':'__scaleup','_TTscaleDown':'__scaledown', '_DYscaleUp':'__scaleup','_DYscaleDown':'__scaledown'}
       outputRoot = "shapes.root"
       f = TFile(outputRoot, "recreate")
       f.Close()
@@ -268,7 +278,7 @@ def main():
   
       writer = ch.CardWriter('$TAG/$MASS/$ANALYSIS_$CHANNEL_$ERA.dat',
                      '$TAG/common/$ANALYSIS_$CHANNEL_$MASS.input_$ERA.root')
-      writer.WriteCards('CARDS/', c)
+      writer.WriteCards('CARDS_combined/', c)
 
 #
 # main

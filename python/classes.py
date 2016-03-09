@@ -48,12 +48,9 @@ class Process:
             self.type = 2
         if 'data_obs' in shortname:
             self.type = 0
-        print name + "_" + tag + "_histos.root"
         
         self.file = os.path.join(path, name + "_" + tag + "_histos.root")
-        print self.file
         os.path.isfile(self.file)
-        print self.file
         if sample :
             self.xsection = sample.source_dataset.xsection
             self.sumW = sample.event_weight_sum

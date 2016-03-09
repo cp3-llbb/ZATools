@@ -4,14 +4,15 @@ class options_():
 
     # parameters
 
-    lumi = 2245.792 #in pb
+    lumi = 2300.0 #in pb
     lumifb = lumi/1000.0 #in fb
-    tag = 'v1.1.0+7415-83-g2a9f912_ZAAnalysis_2ff9261'
-    path = '/home/fynu/amertens/scratch/cmssw/CMSSW_7_4_15/src/cp3_llbb/CommonTools/histFactory/test_narrow/condor/output/'
+    tag = 'v1.2.0+7415-73-g91bfcf0_ZAAnalysis_4f7ac83'
+    path = '/home/fynu/amertens/scratch/cmssw/CMSSW_7_6_3/src/cp3_llbb/CommonTools/histFactory/Plots_v5/condor/output/'
     CHANNEL = 'mumu'
     ERA = '13TeV'
     ANALYSIS = 'HtoZAtoLLBB'
 
+    '''
     ### Define 2D mapping for the search in the M(bb) - M(llbb) plane ###
     '''
     rangeMassA = []
@@ -32,22 +33,27 @@ class options_():
       rangeMassH.append([int(mllbb-dmllbb),int(mllbb+dmllbb),int(mllbb)])
       mllbb+=step_mllbb
     '''
-    mbb_list = {50,75,100,125,150,200,225,250,300,350,400,500,600,700}
+    
+    #mbb_list = {50,75,100,125,150,200,225,250,300,350,400,500,600,700}
     #mllbb_list = {150,200,250,300,350,400,450,500,550,650,800,1000}
 
-    #mbb_list = [250]
+    #mbb_list = [50,75,100,125,150,200,225,250,300,350,400]
     #mbb_list = [50, 75, 100]
-    mllbb_list = {300, 500, 800}
+    #mllbb_list = {300, 500, 800}
 
-    #rangeMassA = []
+    mbb_list = [50, 100, 200, 300, 400, 700]
+    #mbb_list = [100]
+    mllbb_list = [300, 500, 800]
+
+    rangeMassA = []
 
     rangeMassA = []
 
     rangeMassH = []
 
-    #for mbb in mbb_list :
-    #  dmbb=0.15*mbb*1.5
-    #  rangeMassA.append([int(mbb-dmbb),int(mbb+dmbb),int(mbb)])
+    for mbb in mbb_list :
+      dmbb=0.15*mbb*1.5
+      rangeMassA.append([int(mbb-dmbb),int(mbb+dmbb),int(mbb)])
 
     for mllbb in mllbb_list :
       dmllbb=0.15*mllbb*1.5

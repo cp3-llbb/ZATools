@@ -70,12 +70,12 @@ for cutkey in options.cut :
       sigfile = TFile(Signal_path+file_name,"READ")
       tree = sigfile.Get("t")
       #print options.cut[cutkey]
-      weight_cut = options.cut[cutkey]+" * mumu_LooseZCandidate_cut"
+      weight_cut = options.cut[cutkey]+" * mumu_TightZCandidate_cut"
       tree.Draw("1>>tempHistmm",weight_cut,"")
       tempHistmm=gDirectory.Get("tempHistmm")
       eff_mm = tempHistmm.GetEntries()/tree.GetEntriesFast()
 
-      weight_cut = options.cut[cutkey]+" * elel_LooseZCandidate_cut"
+      weight_cut = options.cut[cutkey]+" * elel_TightZCandidate_cut"
       tree.Draw("1>>tempHistee",weight_cut,"")
       tempHistee=gDirectory.Get("tempHistee")
       eff_ee = tempHistee.GetEntries()/tree.GetEntriesFast()
