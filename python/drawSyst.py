@@ -16,7 +16,7 @@ def main():
     gr_statMC = TGraph(4)
     gr_stat = TGraph(4)
  
-    mH_tested = 500.0
+    mH_tested = 300.0
 
     syst_list = {"btag":gr_btag,
                  "jec":gr_jec,

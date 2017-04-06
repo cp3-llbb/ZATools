@@ -20,13 +20,13 @@ import CMS_lumi, tdrstyle
 
 def drawTheoryGraph(gr, tb):
 
-    x1 = 160
-    lenght = 20
-    x2 = x1+20
+    x1 = 150
+    lenght = 100
+    x2 = x1+50
     y1 = gr.Eval(x1)
     y2 = gr.Eval(x2)
 
-    pente = math.atan( 300/4 *(log10(y2)-log10(y1))/(x2-x1))
+    pente = math.atan( 820/4 *(log10(y2)-log10(y1))/(x2-x1))
     angle = pente*180/math.pi
 
     x3 = x1 + lenght*math.cos(pente)
@@ -35,7 +35,7 @@ def drawTheoryGraph(gr, tb):
     print angle
     print x1, y1, x3, y3
 
-    size = 10
+    size = 1
     x_pl = numpy.array([x1-size, x3+size, x3+size, x1-size, x1-size], dtype=float) #[x1+10, x2+10, x2-10, x1-10, x1+10]
     y_pl = numpy.array([y1+size, y3+size, y3-size, y1-size, y1+size], dtype=float)
     pline = TPolyLine(5,x_pl,y_pl)
@@ -59,7 +59,7 @@ def drawTheoryGraph(gr, tb):
 ### Definitions ###
 ###################
 
-mH=300
+mH=800
 
 run_combine = 0
 run_blind = 0
@@ -269,8 +269,8 @@ if run_blind == 1 :
 TGAS_2.GetXaxis().SetTitle("m_{A} [GeV]")
 TGAS_2.GetYaxis().SetTitle("#sigma #times BR [fb]")
 TGAS_2.GetYaxis().SetTitleOffset(1.30)
-TGAS_2.SetMinimum(10)
-TGAS_2.SetMaximum(100000)
+TGAS_2.SetMinimum(1)
+TGAS_2.SetMaximum(10000)
 
 
 
