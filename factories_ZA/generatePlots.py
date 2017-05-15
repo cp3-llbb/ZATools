@@ -217,7 +217,7 @@ for systematicType in systematics.keys():
         if systematicType == "modifObjects" and not for_data:
             objects = systematic
         else:
-            objects = "nominal" #ensure that we use normal hh_objects for systematics not modifying obect such as scale factors 
+            objects = "nominal" #ensure that we use normal ZA_objects for systematics not modifying obect such as scale factors 
 
 
         ###### llbb stage ######

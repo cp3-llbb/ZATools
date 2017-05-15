@@ -3,7 +3,7 @@ import copy, sys, os, yaml, inspect
 
 scriptDir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 sys.path.append(scriptDir)
-sys.path.append(os.path.join(scriptDir, "../histFactory_hh"))
+sys.path.append(os.path.join(scriptDir, "../histFactory_ZA"))
 
 from basePlotter import *
 
