@@ -1,0 +1,11 @@
+'DoubleMuon_Run2016*':
+  type: data
+  group: "Data"
+
+'DoubleEG_Run2016*':
+  type: data
+  group: "Data"
+
+'MuonEG_Run2016*':
+  type: data
+  group: "Data"
