@@ -54,7 +54,7 @@ class BasePlotter:
         # For backwards compatibility with other tools:
         #CHANGE THE FOLLOWING LINE ACCORDINGLY!!
         #self.suffix = self.baseObjectName + "_hZAleptons_" + ("btagM_cmva" if btag else "nobtag_cmva")
-        self.suffix = self.baseObjectName + "" + ("btagM_cmva" if btag else "nobtag_cmva")
+        self.suffix = self.baseObjectName + "" + ("_btagM_cmva" if btag else "_nobtag_cmva")
         self.btag = btag
         self.prefix = "hZA_"
         
@@ -64,7 +64,7 @@ class BasePlotter:
         self.jet2_str = "hZA_jets[%s.ijet2]" % self.baseObject
         self.ll_str = "%s.ll_p4" % self.baseObject 
         self.jj_str = "%s.jj_p4" % self.baseObject
-        #self.met_str = "met_p4"
+        self.met_str = "met_p4"
         self.jet_coll_str = "hZA_jets"
         self.lepton_coll_str = "hZA_leptons"
         self.sys_fwk = ""
@@ -85,10 +85,10 @@ class BasePlotter:
         #    self.met_str = "met_" + objects + "_p4"
 
         # needed to get scale factors (needs to be after the object modification due to systematics)
-        #self.lep1_fwkIdx = self.lep1_str + ".idx"
-        #self.lep2_fwkIdx = self.lep2_str + ".idx"
-        #self.jet1_fwkIdx = self.jet1_str + ".idx"
-        #self.jet2_fwkIdx = self.jet2_str + ".idx"
+        self.lep1_fwkIdx = self.lep1_str + ".idx"
+        self.lep2_fwkIdx = self.lep2_str + ".idx"
+        self.jet1_fwkIdx = self.jet1_str + ".idx"
+        self.jet2_fwkIdx = self.jet2_str + ".idx"
 
         # Ensure we have one candidate, works also for jecup etc
         self.sanityCheck = "Length$({}) > 0".format(self.baseObjectName)
@@ -99,17 +99,12 @@ class BasePlotter:
         self.dict_cat_cut =  {
             "ElEl": "({0}.isElEl && (runOnMC || (hZA_elel_fire_trigger_cut && runOnElEl)) && {1}.M() > 12)".format(self.baseObject, self.ll_str),
             "MuMu": "({0}.isMuMu && (runOnMC || (hZA_mumu_fire_trigger_cut && runOnMuMu)) && {1}.M() > 12)".format(self.baseObject, self.ll_str),
-            "MuEl": "(({0}.isElMu || {0}.isMuEl) && (runOnMC || ((hZA_muel_fire_trigger_cut || hZA_elmu_fire_trigger_cut) && runOnElMu)) && {1}.M() > 12)".format(self.baseObject, self.ll_str)
+            #"MuEl": "(({0}.isElMu || {0}.isMuEl) && (runOnMC || ((hZA_muel_fire_trigger_cut || hZA_elmu_fire_trigger_cut) && runOnElMu)) && {1}.M() > 12)".format(self.baseObject, self.ll_str)
                         }
         self.dict_cat_cut["SF"] = "(" + self.dict_cat_cut["ElEl"] + "||" + self.dict_cat_cut["MuMu"] + ")"
 
-        # Possible stages (selection)
-        self.dict_stage_cut = {
-               "no_cut": ""
-            }
 
-
-    def generatePlots(self, categories, stage, requested_plots, weights, systematic="nominal", extraString="", prependCuts=[], appendCuts=[], allowWeightedData=False, resonant_signal_grid=[], nonresonant_signal_grid=[], skimSignal2D=False): 
+    def generatePlots(self, categories, requested_plots, weights, systematic="nominal", extraString="", prependCuts=[], appendCuts=[], allowWeightedData=False, resonant_signal_grid=[], nonresonant_signal_grid=[], skimSignal2D=False): 
 
         # Protect against the fact that data do not have jecup collections, in the nominal case we still have to check that data have one candidate 
         sanityCheck = self.sanityCheck
@@ -126,23 +121,23 @@ class BasePlotter:
         # Weights #
         ###########
 
-        ## Lepton ID and Iso Scale Factors
-        #electron_id_branch = "electron_sf_id_mediumplushltsafe_hZA"
-        #electron_reco_branch = "electron_sf_reco_moriond17"
-        #muon_tracking_branch = "muon_sf_tracking"
-        #muon_id_branch = "muon_sf_id_tight"
-        #muon_iso_branch = "muon_sf_iso_tight_id_tight"
-        #llIdIso_sf_dict = {
-        #        "sf_lep1_el": "{id}[{0}][0] * {reco}[{0}][0]".format(self.lep1_fwkIdx, id=electron_id_branch, reco=electron_reco_branch),
-        #        "sf_lep2_el": "{id}[{0}][0] * {reco}[{0}][0]".format(self.lep2_fwkIdx, id=electron_id_branch, reco=electron_reco_branch),
-        #        "sf_lep1_mu": "{tracking}[{0}][0] * {id}[{0}][0] * {iso}[{0}][0]".format(self.lep1_fwkIdx, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch),
-        #        "sf_lep2_mu": "{tracking}[{0}][0] * {id}[{0}][0] * {iso}[{0}][0]".format(self.lep2_fwkIdx, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch),
-        #        "err_lep1_el": "0.",
-        #        "err_lep1_mu": "0.",
-        #        "err_lep2_el": "0.",
-        #        "err_lep2_mu": "0.",
-        #    }
-        #llIdIso_var = "NOMINAL"
+        # Lepton ID and Iso Scale Factors
+        electron_id_branch = "electron_sf_id_mediumplushltsafe_hh"
+        electron_reco_branch = "electron_sf_reco_moriond17"
+        muon_tracking_branch = "muon_sf_tracking"
+        muon_id_branch = "muon_sf_id_tight"
+        muon_iso_branch = "muon_sf_iso_tight_id_tight"
+        llIdIso_sf_dict = {
+                "sf_lep1_el": "{id}[{0}][0] * {reco}[{0}][0]".format(self.lep1_fwkIdx, id=electron_id_branch, reco=electron_reco_branch),
+                "sf_lep2_el": "{id}[{0}][0] * {reco}[{0}][0]".format(self.lep2_fwkIdx, id=electron_id_branch, reco=electron_reco_branch),
+                "sf_lep1_mu": "{tracking}[{0}][0] * {id}[{0}][0] * {iso}[{0}][0]".format(self.lep1_fwkIdx, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch),
+                "sf_lep2_mu": "{tracking}[{0}][0] * {id}[{0}][0] * {iso}[{0}][0]".format(self.lep2_fwkIdx, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch),
+                "err_lep1_el": "0.",
+                "err_lep1_mu": "0.",
+                "err_lep2_el": "0.",
+                "err_lep2_mu": "0.",
+            }
+        llIdIso_var = "NOMINAL"
         
         #for sf in ["elidiso", "elreco", "mutracking", "muid", "muiso"]:
         #    if sf in systematic:
@@ -154,7 +149,7 @@ class BasePlotter:
         #            var_index = "1"
         #        else:
         #            raise Exception("Could not find up or down variation")
-                
+
         #        if sf == "elidiso":
         #            llIdIso_sf_dict["err_lep1_el"] = "{id}[{0}][{1}] * {reco}[{0}][0]".format(self.lep1_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
         #            llIdIso_sf_dict["err_lep2_el"] = "{id}[{0}][{1}] * {reco}[{0}][0]".format(self.lep2_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
@@ -175,44 +170,44 @@ class BasePlotter:
         #            llIdIso_sf_dict["err_lep1_mu"] = "{tracking}[{0}][0] * {id}[{0}][0] * {iso}[{0}][{1}]".format(self.lep1_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
         #            llIdIso_sf_dict["err_lep2_mu"] = "{tracking}[{0}][0] * {id}[{0}][0] * {iso}[{0}][{1}]".format(self.lep2_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
 
-        #llIdIso_sf = """( common::combineScaleFactors<2>( {{ {{ 
-        #        {{ 
-        #            ({lep1}.isEl) ? {sf_lep1_el} : {sf_lep1_mu},
-        #            ({lep1}.isEl) ? {err_lep1_el} : {err_lep1_mu}
-        #        }},
-        #        {{
-        #            ({lep2}.isEl) ? {sf_lep2_el} : {sf_lep2_mu},
-        #            ({lep2}.isEl) ? {err_lep2_el} : {err_lep2_mu}
-        #        }}
-        #    }} }}, common::Variation::{var} ) )""".format(lep1=self.lep1_str, lep2=self.lep2_str, var=llIdIso_var, **llIdIso_sf_dict)
+        llIdIso_sf = """( common::combineScaleFactors<2>( {{ {{ 
+                {{ 
+                    ({lep1}.isEl) ? {sf_lep1_el} : {sf_lep1_mu},
+                    ({lep1}.isEl) ? {err_lep1_el} : {err_lep1_mu}
+                }},
+                {{
+                    ({lep2}.isEl) ? {sf_lep2_el} : {sf_lep2_mu},
+                    ({lep2}.isEl) ? {err_lep2_el} : {err_lep2_mu}
+                }}
+            }} }}, common::Variation::{var} ) )""".format(lep1=self.lep1_str, lep2=self.lep2_str, var=llIdIso_var, **llIdIso_sf_dict)
 
         # BTAG SF, only applied if requesting b-tags
-        #if self.btag:
-        #    jjBtag_light_sfIdx = "[0]"
-        #    jjBtag_light_strCommon="NOMINAL"
-        #    if systematic == "jjbtaglightup":
-        #        jjBtag_light_sfIdx = "[2]" 
-        #        jjBtag_light_strCommon="UP"
-        #    if systematic == "jjbtaglightdown":
-        #        jjBtag_light_sfIdx = "[1]"
-        #        jjBtag_light_strCommon="DOWN"
+        if self.btag:
+            jjBtag_light_sfIdx = "[0]"
+            jjBtag_light_strCommon="NOMINAL"
+            if systematic == "jjbtaglightup":
+                jjBtag_light_sfIdx = "[2]" 
+                jjBtag_light_strCommon="UP"
+            if systematic == "jjbtaglightdown":
+                jjBtag_light_sfIdx = "[1]"
+                jjBtag_light_strCommon="DOWN"
             
-        #    jjBtag_heavy_sfIdx = "[0]"
-        #    jjBtag_heavy_strCommon="NOMINAL"
-        #    if systematic == "jjbtagheavyup":
-        #        jjBtag_heavy_sfIdx = "[2]" 
-        #        jjBtag_heavy_strCommon="UP"
-        #    if systematic == "jjbtagheavydown":
-        #        jjBtag_heavy_sfIdx = "[1]"
-        #        jjBtag_heavy_strCommon="DOWN"
+            jjBtag_heavy_sfIdx = "[0]"
+            jjBtag_heavy_strCommon="NOMINAL"
+            if systematic == "jjbtagheavyup":
+                jjBtag_heavy_sfIdx = "[2]" 
+                jjBtag_heavy_strCommon="UP"
+            if systematic == "jjbtagheavydown":
+                jjBtag_heavy_sfIdx = "[1]"
+                jjBtag_heavy_strCommon="DOWN"
 
-        #    jjBtag_heavyjet_sf = "(common::combineScaleFactors<2>({{ {{ {{ jet{0}_sf_cmvav2_heavyjet_{1}[{2}][0] , jet{0}_sf_cmvav2_heavyjet_{1}[{2}]{3} }}, {{ jet{0}_sf_cmvav2_heavyjet_{1}[{4}][0], jet{0}_sf_cmvav2_heavyjet_{1}[{4}]{3} }} }} }}, common::Variation::{5}) )".format(self.sys_fwk, "medium", self.jet1_fwkIdx, jjBtag_heavy_sfIdx, self.jet2_fwkIdx, jjBtag_heavy_strCommon)
+            jjBtag_heavyjet_sf = "(common::combineScaleFactors<2>({{ {{ {{ jet{0}_sf_cmvav2_heavyjet_{1}[{2}][0] , jet{0}_sf_cmvav2_heavyjet_{1}[{2}]{3} }}, {{ jet{0}_sf_cmvav2_heavyjet_{1}[{4}][0], jet{0}_sf_cmvav2_heavyjet_{1}[{4}]{3} }} }} }}, common::Variation::{5}) )".format(self.sys_fwk, "medium", self.jet1_fwkIdx, jjBtag_heavy_sfIdx, self.jet2_fwkIdx, jjBtag_heavy_strCommon)
 
-        #    jjBtag_lightjet_sf = "(common::combineScaleFactors<2>({{ {{ {{ jet{0}_sf_cmvav2_lightjet_{1}[{2}][0] , jet{0}_sf_cmvav2_lightjet_{1}[{2}]{3} }},{{ jet{0}_sf_cmvav2_lightjet_{1}[{4}][0], jet{0}_sf_cmvav2_lightjet_{1}[{4}]{3} }} }} }}, common::Variation::{5}) )".format(self.sys_fwk, "medium", self.jet1_fwkIdx, jjBtag_light_sfIdx, self.jet2_fwkIdx, jjBtag_light_strCommon)
+            jjBtag_lightjet_sf = "(common::combineScaleFactors<2>({{ {{ {{ jet{0}_sf_cmvav2_lightjet_{1}[{2}][0] , jet{0}_sf_cmvav2_lightjet_{1}[{2}]{3} }},{{ jet{0}_sf_cmvav2_lightjet_{1}[{4}][0], jet{0}_sf_cmvav2_lightjet_{1}[{4}]{3} }} }} }}, common::Variation::{5}) )".format(self.sys_fwk, "medium", self.jet1_fwkIdx, jjBtag_light_sfIdx, self.jet2_fwkIdx, jjBtag_light_strCommon)
 
-        #else:
-        #    jjBtag_heavyjet_sf = "1."
-        #    jjBtag_lightjet_sf = "1."
+        else:
+            jjBtag_heavyjet_sf = "1."
+            jjBtag_lightjet_sf = "1."
 
         # PU WEIGHT
         puWeight = "event_pu_weight"
@@ -243,8 +238,10 @@ class BasePlotter:
 
         available_weights = {
                 'trigeff': trigEff,
-                #'jjbtag_heavy': jjBtag_heavyjet_sf,
-                #'jjbtag_light': jjBtag_lightjet_sf,
+                'jjbtag_heavy': jjBtag_heavyjet_sf,
+                'jjbtag_light': jjBtag_lightjet_sf,
+				'llidiso': llIdIso_sf,
+				'pu': puWeight
                 }
         
         # Append the proper extension to the name plot if needed
@@ -273,7 +270,7 @@ class BasePlotter:
         for cat in categories:
 
             catCut = self.dict_cat_cut[cat]
-            self.totalCut = self.joinCuts(cuts, catCut, self.dict_stage_cut[stage], *appendCuts)
+            self.totalCut = self.joinCuts(cuts, catCut, *appendCuts)
             
             self.llFlav = cat
             self.extraString = ""
@@ -445,7 +442,19 @@ class BasePlotter:
 						'variable': "abs("+self.baseObject+".DPhi_j_j)",
 						'plot_cut': self.totalCut,
 						'binning': '(50, 0, 3.1416)'
-				}
+				},
+                {
+                        'name': 'met_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.met_str + ".Pt()",
+                        'plot_cut': self.totalCut,
+                        'binning': '(50, 0, 500)'
+                },
+                {
+                        'name': 'met_E_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.met_str + ".E()",
+                        'plot_cut': self.totalCut,
+                        'binning': '(50, 0, 500)'
+                }
             ])
             
             self.csv_plot.extend([

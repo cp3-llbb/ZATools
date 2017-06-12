@@ -41,15 +41,19 @@
 #  group: DY
   
 # NLO
-#'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_*_histos.root':
-#  type: mc
-#  group: DY
+'DYToLL_0J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_*_histos.root':
+  type: mc
+  group: DY
 
-#'DYToLL_?J_13TeV-amcatnloFXFX-pythia8_*_histos.root':
-#  type: mc
-#  group: DY
+'DYToLL_1J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_*_histos.root':
+  type: mc
+  group: DY
 
-'DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_*_histos.root':
+'DYToLL_2J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_*_histos.root':
+  type: mc
+  group: DY
+
+'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_*_histos.root':
   type: mc
   group: DY
 

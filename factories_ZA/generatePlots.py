@@ -50,9 +50,8 @@ use_syst = get_cfg('syst')
 
 lljj_categories = get_cfg('lljj_categories', ['MuMu', 'ElEl'])
 llbb_categories = get_cfg('llbb_categories', ['MuMu', 'ElEl'])
-# DON'T USE ANY CUT, YOU DON'T NEED IT 
-lljj_stages = get_cfg('lljj_stages', ['no_cut'])
-llbb_stages = get_cfg('llbb_stages', ['no_cut'])
+lljj_stages = get_cfg('lljj_stages', [])
+llbb_stages = get_cfg('llbb_stages', [])
 lljj_plot_families = get_cfg('lljj_plots', [])
 llbb_plot_families = get_cfg('llbb_plots', [])
 
@@ -76,8 +75,7 @@ sources = default_sources(scriptDir)
 ######### Plot configuration ###########
 
 #### lljj
-# THE ONLY WEIGHT I'M CONSIDERING IS THE TRIGGER EFFICIENCY
-weights_lljj = ['trigeff']
+weights_lljj = ['trigeff', 'llidiso', 'pu']
 
 plots_lljj = []
 if "basic" in lljj_plot_families:
@@ -86,10 +84,11 @@ if "other" in lljj_plot_families:
     plots_lljj += ["other"]
 if "btag_efficiencies" in lljj_plot_families:
     plots_lljj += ["btag_efficiency_2d"]
+if "weights" in lljj_plot_families:
+    plots_lljj += ["llidisoWeight", "trigeffWeight", "puWeight"]
 
 #### llbb
-# CONDISERING ONLY THE TRIGGER EFFICIENCY
-weights_llbb = ['trigeff']
+weights_llbb = ['trigeff', 'llidiso', 'pu', 'jjbtag_heavy', 'jjbtag_light']
 
 plots_llbb = []
 if "basic" in llbb_plot_families:
@@ -97,7 +96,7 @@ if "basic" in llbb_plot_families:
 if "other" in llbb_plot_families:
     plots_llbb += ["other"]
 if "weights" in llbb_plot_families:
-    plots_llbb += ["trigeffWeight"]
+    plots_llbb += ["llidisoWeight", "trigeffWeight", "puWeight", "jjbtagWeight"]
 
 # No weights for data!
 if for_data:
@@ -220,30 +219,26 @@ for systematicType in systematics.keys():
             objects = "nominal" #ensure that we use normal ZA_objects for systematics not modifying obect such as scale factors 
 
 
-        ###### llbb stage ######
+        ###### llbb ######
+        
+        basePlotter_llbb = BasePlotter(btag=True, objects=objects)
+        
         if allowed_systematics_llbb(systematic):
-            
-            basePlotter_llbb = BasePlotter(btag=True, objects=objects)
- 
-            for stage in llbb_stages:
-                this_categories = llbb_categories[:]
-
-                plots.extend(basePlotter_llbb.generatePlots(this_categories, stage, weights=weights_llbb, requested_plots=plots_llbb))
+            this_categories = llbb_categories[:]
+            plots.extend(basePlotter_llbb.generatePlots(this_categories, weights=weights_llbb, requested_plots=plots_llbb))
 
         # Signal: only do llbb!
         if for_signal:
             continue
 
 
-        ##### lljj stage ###### 
+        ##### lljj ######
+
         basePlotter_lljj = BasePlotter(btag=False, objects=objects)
         
         if allowed_systematics_lljj(systematic):
- 
-            for stage in lljj_stages:
-                this_categories = lljj_categories[:]
-                
-                plots.extend(basePlotter_lljj.generatePlots(this_categories, stage, systematic=systematic, weights=weights_lljj, requested_plots=plots_lljj))
+            this_categories = lljj_categories[:]
+            plots.extend(basePlotter_lljj.generatePlots(this_categories, systematic=systematic, weights=weights_lljj, requested_plots=plots_lljj))
 
 
 for plot in plots:
