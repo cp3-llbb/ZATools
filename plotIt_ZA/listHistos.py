@@ -49,17 +49,15 @@ file = TFile.Open(fileName)
 keys = file.GetListOfKeys() 
 alreadyIn = []
 
-# Create 'hh_plotter_all.yml':
+# Create 'ZA_plotter_all.yml':
 # Configure list of files and legend
-with open('hh_plotter_all.yml.tpl') as tpl_handle:
+with open('ZA_plotter_all.yml.tpl') as tpl_handle:
     tpl = tpl_handle.read()
     if args.lljj:
-        #tpl = tpl.format(files="['MCFiles.yml', 'DY_MCFiles.yml', 'DataFiles.yml']", legend="position: [0.61, 0.61, 0.94, 0.89]")
-        tpl = tpl.format(files="['DY_MCFiles.yml']", legend="position: [0.61, 0.61, 0.94, 0.89]")
+        tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml']", legend="position: [0.61, 0.61, 0.94, 0.89]")
     if args.llbb:
-        #tpl = tpl.format(files="['MCFiles.yml', 'DY_estFromData.yml', 'DataFiles.yml', 'SignalFiles.yml']", legend="include: ['legendPosition.yml']")
-        tpl = tpl.format(files="['DY_MCFiles.yml', 'SignalFiles.yml']", legend="include: ['legendPosition.yml']")
-    with open('hh_plotter_all.yml', 'w') as f:
+        tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml', 'SignalFiles.yml']", legend="include: ['legendPosition.yml']")
+    with open('ZA_plotter_all.yml', 'w') as f:
         f.write(tpl)
 
 # Create 'centralConfig.yml':
@@ -132,7 +130,7 @@ for key in keys:
         
         # skip 2D histos
         if "_vs_" in key_name and "flat" not in key_name: continue
-        
+ 
         #if "All" in key_name: continue
 
         if args.lljj and 'btagM' in key_name: continue
@@ -234,8 +232,8 @@ for key in keys:
         elif "jj_DPhi_j_j" in key_name:
             plot['x-axis'] = "#Delta#phi(leading jet, sub-leading jet)"
             plot.update(defaultStyle_events)
-        elif "llmetjj_pt_" in key_name:
-            plot['x-axis'] = "p_{T}^{lljj#slash{E}_{T}}"
+        elif "lljj_pt_" in key_name:
+            plot['x-axis'] = "p_{T}^{lljj}"
             plot.update(defaultStyle_events_per_gev)
         elif "DPhi_ll_met_" in key_name:
             plot['x-axis'] = "#Delta#phi(ll, #slash{E}_{T})"
@@ -312,8 +310,8 @@ for key in keys:
             if should_be_blind(key_name):
                 plot['blinded-range'] = [150, 500]
 
-        elif "llmetjj_M_" in key_name:
-            plot['x-axis'] = "m_{lljj#slash{E}_{T}}"
+        elif "lljj_M_" in key_name:
+            plot['x-axis'] = "m_{lljj}"
             plot.update(defaultStyle_events_per_gev)
             if should_be_blind(key_name):
                 plot['blinded-range'] = [500, 1500]
@@ -321,12 +319,6 @@ for key in keys:
         elif "ll_M_" in key_name:
             plot['x-axis'] = "m_{ll} (GeV)"
             plot.update(defaultStyle_events_per_gev)
-            #if "inverted_mll_cut" in key_name:
-            #    plot['x-axis-range'] = [76, 252]
-            #elif "mll_cut" in key_name:
-            #    plot['x-axis-range'] = [12, 76]
-            #elif "mll_peak" in key_name:
-            #    plot['x-axis-range'] = [76, 106]
             
             #### Do the yields here
             btag_stage = ""

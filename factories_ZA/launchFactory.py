@@ -74,11 +74,11 @@ def get_sample_events_per_job(sample, factor=1):
     nevents = 100000
     return nevents * factor
 
-workflows = {}
-
+#workflows = {}
+configurations = []
 
 class Configuration:
-    def __init__(self, config, workflow='default', mode='plot', suffix='', samples=[], generation_args={}):
+    def __init__(self, config, mode='plot', suffix='', samples=[], generation_args={}):
         self.samples = samples
         self.sample_ids = []
         self.configuration_file = config
@@ -86,11 +86,12 @@ class Configuration:
         self.mode = mode
         self.generation_args = generation_args
 
-        if workflow not in workflows.keys():
-            workflows[workflow] = [ self ]
-        else:
-            workflows[workflow].append(self)
-        
+        #if workflow not in workflows.keys():
+        #    workflows[workflow] = [ self ]
+        #else:
+        #    workflows[workflow].append(self)
+        #configurations_temp[config] = [ self ]
+
         if mode == "plots":
             self.toolScript = "createPlotter.sh"
             self.executable = "plotter.exe"
@@ -127,10 +128,12 @@ class Configuration:
 ####### Different configurations for possible workflows ###### 
 
 # General plots
-MainPlots_ForMC = Configuration('generatePlots.py', workflow='plot_main', suffix='_for_MCbkg',  mode='plots', samples=[
-#             "DY_LO"
+MainPlots_ForMC = Configuration('generatePlots.py', suffix='_for_MCbkg', mode='plots', samples=[
+#            "DY_LO"
 #            "Main_Training",
             "DY_NLO",
+			"TTBar",
+			"ZZ"
 #            "Higgs",
 #            "VV_VVV",
 #            "Top_Other",
@@ -139,28 +142,24 @@ MainPlots_ForMC = Configuration('generatePlots.py', workflow='plot_main', suffix
             'sample_type': 'MC',
             'lljj_plots': ['basic'],
             'llbb_plots': ['basic'],
-            'syst': False,
-            'llbb_stages': ['no_cut'],
-            'lljj_stages': ['no_cut'],
+            'syst': False
         })
-#MainPlots_ForData = Configuration('generatePlots.py', workflow='plot_main', suffix='_for_data', mode='plots', samples=['Data'], generation_args={
-#            'sample_type': 'Data',
-#            'lljj_plots': ['basic', 'dy_bdt'],
-#            'llbb_plots': ['basic', 'dy_bdt', 'nn'],
-#            'syst': True,
-#            'llbb_stages': ['mll_cut', 'inverted_mll_cut', 'mll_peak'],
-#            'lljj_stages': ['mll_cut', 'no_cut'],
-#        })
-MainPlots_ForSignal = Configuration('generatePlots.py', workflow='plot_main', suffix='_for_signal', mode='plots', samples=['Signal'], generation_args={
-            'sample_type': 'Signal',
+MainPlots_ForData = Configuration('generatePlots.py', suffix='_for_data', mode='plots', samples=['Data'], generation_args={
+            'sample_type': 'Data',
+            'lljj_plots': ['basic'],
             'llbb_plots': ['basic'],
-            'syst': False,
-            'llbb_stages': ['no_cut'],
+            'syst': False
+        })
+MainPlots_ForSignal = Configuration('generatePlots.py', suffix='_for_signal', mode='plots', samples=['Signal'], generation_args={
+            'sample_type': 'Signal',
+            'lljj_plots': ['basic'],
+            'llbb_plots': ['basic'],
+            'syst': False
         })
 
 """
 # Testing area
-TestPlots_ForMC = Configuration('generatePlots.py', workflow='test', mode='plots', samples=[
+TestPlots_ForMC = Configuration('generatePlots.py', mode='plots', samples=[
             "Main_Training",
             "DY_NLO",
             "Higgs",
@@ -169,21 +168,18 @@ TestPlots_ForMC = Configuration('generatePlots.py', workflow='test', mode='plots
             "WJets",
         ], generation_args={
             'sample_type': 'MC',
-            'llbb_stages': ['mll_cut'],
             'llbb_plots': ['basic', 'nn', 'mjj_vs_nn'],
             'syst': True,
             'syst_split_jec': True,
         })
-TestPlots_ForData = Configuration('generatePlots.py', workflow='test', suffix='_for_data', mode='plots', samples=['Data'], generation_args={
+TestPlots_ForData = Configuration('generatePlots.py', suffix='_for_data', mode='plots', samples=['Data'], generation_args={
             'sample_type': 'Data',
-            'llbb_stages': ['mll_cut'],
             'llbb_plots': ['basic', 'nn', 'mjj_vs_nn'],
             'syst': True,
             'syst_split_jec': True,
         })
-TestPlots_ForSignal = Configuration('generatePlots.py', workflow='test', suffix='_for_signal', mode='plots', samples=['Signal_NonResonant', 'Signal_BM_Resonant'], generation_args={
+TestPlots_ForSignal = Configuration('generatePlots.py', suffix='_for_signal', mode='plots', samples=['Signal_NonResonant', 'Signal_BM_Resonant'], generation_args={
             'sample_type': 'Signal',
-            'llbb_stages': ['mll_cut'],
             'llbb_plots': ['basic', 'nn', 'mjj_vs_nn'],
             'syst': True,
             'syst_split_jec': True,
@@ -195,16 +191,16 @@ parser = argparse.ArgumentParser(description='Facility to submit histFactory job
 parser.add_argument('-o', '--output', dest='output', default=str(datetime.date.today()), help='Name of the output directory.', required=True)
 parser.add_argument('-s', '--submit', help='Choice to actually submit the jobs or not.', action="store_true")
 parser.add_argument('-f', '--factor', dest='factor', type=int, default=1, help='Factor to multiply number of files sent to each job')
-parser.add_argument('-t', '--test', help='Run on the output of HHAnalyzer not yet in the DB.', action="store_true")
+parser.add_argument('-t', '--test', help='Run on the output of ZAAnalyzer not yet in the DB.', action="store_true")
 parser.add_argument('-r', '--remove', help='Overwrite output directory if it already exists.', action="store_true")
 parser.add_argument('--skip', help='Skip the building part.', action="store_true")
-parser.add_argument('-w', '--workflow', dest='workflow', choices=workflows.keys(), help='Choose workflow, i.e. set of configurations', required=True)
+#parser.add_argument('-w', '--workflow', dest='workflow', choices=workflows.keys(), help='Choose workflow, i.e. set of configurations', required=True)
 
 args = parser.parse_args()
 
-print("#### Will use workflow: {} ####\n".format(args.workflow))
-
-configurations = workflows[args.workflow]
+configurations.append(MainPlots_ForMC)
+configurations.append(MainPlots_ForData)
+configurations.append(MainPlots_ForSignal)
 
 for c in configurations:
     c.get_sample_ids()
@@ -361,7 +357,7 @@ def create_slurm(samples, output, executable):
             newJson = copy.deepcopy(sample["json_skeleton"][sample["db_name"]])
 
             tt_other_sample["db_name"] = sample["db_name"].replace("TT_Tune", "TT_Other_Tune")
-            newJson["sample_cut"] = "(hh_gen_ttbar_decay_type <= 3 || hh_gen_ttbar_decay_type == 7)"
+            newJson["sample_cut"] = "(hZA_gen_ttbar_decay_type <= 3 || hZA_gen_ttbar_decay_type == 7)"
 
             tt_other_sample["json_skeleton"][tt_other_sample["db_name"]] = newJson
             tt_other_sample["json_skeleton"].pop(sample["db_name"])

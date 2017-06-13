@@ -1,6 +1,8 @@
 ####### Warning: put most recent tags first! ###### 
 analysis_tags = [
-        'v5.0.1+80X-2-g909e9e2_ZAAnalysis_Moriond2015-1-gd479ab9'
+        'v5.0.1+80X-7-g03c2b54_ZAAnalysis_Moriond2015-7-g08c899b'
+		#'v5.0.1+80X-2-g909e9e2_ZAAnalysis_Moriond2015-5-g0d38378'
+        #'v5.0.1+80X-2-g909e9e2_ZAAnalysis_Moriond2015-1-gd479ab9'
         #'v5.0.1+80X_HHAnalysis_2017-03-01.v0', # fix for JER (only MC)
         # 'v5.0.0+80X_HHAnalysis_2017-03-01.v0', # the one prod to end them all
         #'v4.4.2+80X_HHAnalysis_2017-02-13.v2', # mini-prod with new SF and corrections
@@ -11,11 +13,11 @@ analysis_tags = [
 samples_dict = {}
 
 # Data
-#samples_dict["Data"] = [
-#    'DoubleEG',
-#    'MuonEG',
-#    'DoubleMuon',
-#    ]
+samples_dict["Data"] = [
+    'DoubleEG',
+    'MuonEG',
+    'DoubleMuon'
+]
 
 # Main backgrounds:
 #samples_dict["Main_Training"] = [
@@ -27,10 +29,19 @@ samples_dict = {}
 
 # DY NLO
 samples_dict["DY_NLO"] = [
-     'DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2'
-#    'DYToLL_0J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1',
-#    'DYToLL_1J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1',
-#    'DYToLL_2J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1',
+     'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1',
+	 'DYToLL_0J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1',
+     'DYToLL_1J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1',
+     'DYToLL_2J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1' 
+	 #'DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2',
+     #'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2',
+     #'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1_Summer16MiniAODv2'
+     #'DYToLL_0J_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2',
+	 #'DYToLL_0J_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2_ext1',
+	 #'DYToLL_1J_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2',
+	 #'DYToLL_1J_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2_ext1',
+	 #'DYToLL_2J_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2'
+	 #'DYToLL_2J_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2_ext1'
 #    'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1',
 ]
 
@@ -51,6 +62,22 @@ samples_dict["DY_NLO"] = [
     # 'DYJetsToLL_M-5to50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8', # 400-600 non-merged
     # 'DYJetsToLL_M-5to50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_extended', # 600-Inf merged
 #    ]
+
+# TTBar
+samples_dict["TTBar"] = [
+    'TT_TuneCUETP8M2T4_13TeV-powheg-pythia8_extended_ext0_plus_ext1'
+    
+	#'TTTo2L2Nu_13TeV-powheg_Summer16MiniAODv2',
+	#'TT_TuneCUETP8M2T4_13TeV-powheg-pythia8_ext1_Summer16MiniAODv2',
+	#'TT_TuneCUETP8M2T4_13TeV-powheg-pythia8_Summer16MiniAODv2'
+]
+
+# ZZ
+samples_dict["ZZ"] = [
+     'ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8',
+     'ZZTo2L2Nu_13TeV_powheg_pythia8',
+     'ZZTo4L_13TeV_powheg_pythia8'
+]
 
 # Other backgrounds
 # VV
@@ -148,7 +175,9 @@ samples_dict["DY_NLO"] = [
 
 # Resonant signal
 samples_dict["Signal"] = [
-    'HToZATo2L2B_MH-500_MA-100_13TeV-madgraph_Summer16MiniAODv2'
+	'HToZATo2L2B_MH-650_MA-50_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-500_MA-100_13TeV-madgraph_Summer16MiniAODv2',
+	'HToZATo2L2B_MH-500_MA-300_13TeV-madgraph_Summer16MiniAODv2'
 ]
 
 # Number of samples used as basis for the reweighting
