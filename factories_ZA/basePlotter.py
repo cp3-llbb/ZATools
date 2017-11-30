@@ -49,15 +49,24 @@ class BasePlotter:
     def __init__(self, btag, objects="nominal"):
         # systematic should be jecup, jecdown, jerup or jerdown. The one for lepton, btag, etc, have to be treated with the "weight" parameter in generatePlots.py (so far)
 
-        self.baseObjectName = "hZA_lljj"
-        self.baseObject = self.baseObjectName + "[0]"
-        # For backwards compatibility with other tools:
-        #CHANGE THE FOLLOWING LINE ACCORDINGLY!!
-        #self.suffix = self.baseObjectName + "_hZAleptons_" + ("btagM_cmva" if btag else "nobtag_cmva")
-        self.suffix = self.baseObjectName + "" + ("_btagM_cmva" if btag else "_nobtag_cmva")
+        self.baseObjectName_cmva = "hZA_lljj_cmva"
+        self.baseObject_cmva = self.baseObjectName_cmva + "[0]"
+        self.baseObjectName_deepCSV = "hZA_lljj_deepCSV"
+        self.baseObject_deepCSV = self.baseObjectName_deepCSV + "[0]"
         self.btag = btag
         self.prefix = "hZA_"
-        
+
+        # For backwards compatibility with other tools:
+        # FIXME: baseObjects to be modified in the next production
+        if btag:
+            self.baseObjectName = self.baseObjectName_deepCSV
+            self.baseObject = self.baseObject_deepCSV
+            self.suffix = self.baseObjectName + "" + ("_btagM")
+        elif not btag:
+            self.baseObjectName = self.baseObjectName_cmva
+            self.baseObject = self.baseObject_cmva
+            self.suffix = self.baseObjectName + "" + ("_nobtag")
+
         self.lep1_str = "hZA_leptons[%s.ilep1]" % self.baseObject
         self.lep2_str = "hZA_leptons[%s.ilep2]" % self.baseObject
         self.jet1_str = "hZA_jets[%s.ijet1]" % self.baseObject
@@ -65,6 +74,7 @@ class BasePlotter:
         self.ll_str = "%s.ll_p4" % self.baseObject 
         self.jj_str = "%s.jj_p4" % self.baseObject
         self.met_str = "met_p4"
+        self.metSig_str = "met_significance"
         self.jet_coll_str = "hZA_jets"
         self.lepton_coll_str = "hZA_leptons"
         self.sys_fwk = ""
@@ -93,18 +103,30 @@ class BasePlotter:
         # Ensure we have one candidate, works also for jecup etc
         self.sanityCheck = "Length$({}) > 0".format(self.baseObjectName)
         if self.btag:
-            self.sanityCheck += " && {}.btag_MM".format(self.baseObject)
+            self.sanityCheck += " && {}.btag_deepCSV_MM".format(self.baseObject)
 
         # Categories (lepton flavours)
         self.dict_cat_cut =  {
             "ElEl": "({0}.isElEl && (runOnMC || (hZA_elel_fire_trigger_cut && runOnElEl)) && {1}.M() > 12)".format(self.baseObject, self.ll_str),
             "MuMu": "({0}.isMuMu && (runOnMC || (hZA_mumu_fire_trigger_cut && runOnMuMu)) && {1}.M() > 12)".format(self.baseObject, self.ll_str),
-            #"MuEl": "(({0}.isElMu || {0}.isMuEl) && (runOnMC || ((hZA_muel_fire_trigger_cut || hZA_elmu_fire_trigger_cut) && runOnElMu)) && {1}.M() > 12)".format(self.baseObject, self.ll_str)
+            "MuEl": "(({0}.isElMu || {0}.isMuEl) && (runOnMC || ((hZA_muel_fire_trigger_cut || hZA_elmu_fire_trigger_cut) && runOnElMu)) && {1}.M() > 12)".format(self.baseObject, self.ll_str)
                         }
         self.dict_cat_cut["SF"] = "(" + self.dict_cat_cut["ElEl"] + "||" + self.dict_cat_cut["MuMu"] + ")"
+        self.dict_cat_cut["All"] = "(" + self.dict_cat_cut["ElEl"] + "||" + self.dict_cat_cut["MuMu"] + "||" + self.dict_cat_cut["MuEl"] + ")"
+
+        # Possible stages (selection)
+        mll_cut = "({0}.M() > 70) && ({0}.M() < 110)".format(self.ll_str, self.ll_str)
+        met_cut = "({0}.Pt() > 0) && ({0}.Pt() < 80)".format(self.met_str, self.met_str)
+        mll_and_met_cut = "({0}.M() > 70) && ({0}.M() < 110) && ({1}.Pt() > 0) && ({1}.Pt() < 80)".format(self.ll_str, self.ll_str, self.met_str, self.met_str)
+        self.dict_stage_cut = {
+            "no_cut": "", 
+            "mll_cut": mll_cut,
+            "met_cut": met_cut,
+            "mll_and_met_cut": mll_and_met_cut
+        }
 
 
-    def generatePlots(self, categories, requested_plots, weights, systematic="nominal", extraString="", prependCuts=[], appendCuts=[], allowWeightedData=False, resonant_signal_grid=[], nonresonant_signal_grid=[], skimSignal2D=False): 
+    def generatePlots(self, categories, stage, requested_plots, weights, systematic="nominal", extraString="", prependCuts=[], appendCuts=[], allowWeightedData=False, resonant_signal_grid=[], nonresonant_signal_grid=[], skimSignal2D=False): 
 
         # Protect against the fact that data do not have jecup collections, in the nominal case we still have to check that data have one candidate 
         sanityCheck = self.sanityCheck
@@ -115,6 +137,7 @@ class BasePlotter:
         
         electron_1_id_cut = '({0}.isEl ? ( {0}.ele_hlt_id && !(std::abs({0}.p4.Eta()) > 1.444 && std::abs({0}.p4.Eta()) < 1.566) ) : 1)'.format(self.lep1_str)
         electron_2_id_cut = '({0}.isEl ? ( {0}.ele_hlt_id && !(std::abs({0}.p4.Eta()) > 1.444 && std::abs({0}.p4.Eta()) < 1.566) ) : 1)'.format(self.lep2_str)
+        
         cuts = self.joinCuts(cuts, electron_1_id_cut, electron_2_id_cut)
 
         ###########
@@ -122,7 +145,8 @@ class BasePlotter:
         ###########
 
         # Lepton ID and Iso Scale Factors
-        electron_id_branch = "electron_sf_id_mediumplushltsafe_hh"
+        # FIXME: Change electron_sf_hww_mva80_wp to electron_sf_hww_mva90_wp in the next prod
+        electron_id_branch = "electron_sf_hww_mva80_wp"
         electron_reco_branch = "electron_sf_reco_moriond17"
         muon_tracking_branch = "muon_sf_tracking"
         muon_id_branch = "muon_sf_id_tight"
@@ -191,7 +215,7 @@ class BasePlotter:
             if systematic == "jjbtaglightdown":
                 jjBtag_light_sfIdx = "[1]"
                 jjBtag_light_strCommon="DOWN"
-            
+
             jjBtag_heavy_sfIdx = "[0]"
             jjBtag_heavy_strCommon="NOMINAL"
             if systematic == "jjbtagheavyup":
@@ -201,9 +225,9 @@ class BasePlotter:
                 jjBtag_heavy_sfIdx = "[1]"
                 jjBtag_heavy_strCommon="DOWN"
 
-            jjBtag_heavyjet_sf = "(common::combineScaleFactors<2>({{ {{ {{ jet{0}_sf_cmvav2_heavyjet_{1}[{2}][0] , jet{0}_sf_cmvav2_heavyjet_{1}[{2}]{3} }}, {{ jet{0}_sf_cmvav2_heavyjet_{1}[{4}][0], jet{0}_sf_cmvav2_heavyjet_{1}[{4}]{3} }} }} }}, common::Variation::{5}) )".format(self.sys_fwk, "medium", self.jet1_fwkIdx, jjBtag_heavy_sfIdx, self.jet2_fwkIdx, jjBtag_heavy_strCommon)
+            jjBtag_heavyjet_sf = "(common::combineScaleFactors<2>({{ {{ {{ jet{0}_sf_deepCSV_heavyjet_{1}[{2}][0] , jet{0}_sf_deepCSV_heavyjet_{1}[{2}]{3} }}, {{ jet{0}_sf_deepCSV_heavyjet_{1}[{4}][0], jet{0}_sf_deepCSV_heavyjet_{1}[{4}]{3} }} }} }}, common::Variation::{5}) )".format(self.sys_fwk, "medium", self.jet1_fwkIdx, jjBtag_heavy_sfIdx, self.jet2_fwkIdx, jjBtag_heavy_strCommon)
 
-            jjBtag_lightjet_sf = "(common::combineScaleFactors<2>({{ {{ {{ jet{0}_sf_cmvav2_lightjet_{1}[{2}][0] , jet{0}_sf_cmvav2_lightjet_{1}[{2}]{3} }},{{ jet{0}_sf_cmvav2_lightjet_{1}[{4}][0], jet{0}_sf_cmvav2_lightjet_{1}[{4}]{3} }} }} }}, common::Variation::{5}) )".format(self.sys_fwk, "medium", self.jet1_fwkIdx, jjBtag_light_sfIdx, self.jet2_fwkIdx, jjBtag_light_strCommon)
+            jjBtag_lightjet_sf = "(common::combineScaleFactors<2>({{ {{ {{ jet{0}_sf_deepCSV_lightjet_{1}[{2}][0] , jet{0}_sf_deepCSV_lightjet_{1}[{2}]{3} }},{{ jet{0}_sf_deepCSV_lightjet_{1}[{4}][0], jet{0}_sf_deepCSV_lightjet_{1}[{4}]{3} }} }} }}, common::Variation::{5}) )".format(self.sys_fwk, "medium", self.jet1_fwkIdx, jjBtag_light_sfIdx, self.jet2_fwkIdx, jjBtag_light_strCommon)
 
         else:
             jjBtag_heavyjet_sf = "1."
@@ -240,8 +264,8 @@ class BasePlotter:
                 'trigeff': trigEff,
                 'jjbtag_heavy': jjBtag_heavyjet_sf,
                 'jjbtag_light': jjBtag_lightjet_sf,
-				'llidiso': llIdIso_sf,
-				'pu': puWeight
+                'llidiso': llIdIso_sf,
+                'pu': puWeight
                 }
         
         # Append the proper extension to the name plot if needed
@@ -254,7 +278,6 @@ class BasePlotter:
         #########
         self.basic_plot = []
         self.csv_plot = []
-        self.cmva_plot = []
         self.isElEl_plot = []
         self.mjj_plot = []
  
@@ -270,16 +293,16 @@ class BasePlotter:
         for cat in categories:
 
             catCut = self.dict_cat_cut[cat]
-            self.totalCut = self.joinCuts(cuts, catCut, *appendCuts)
+            self.totalCut = self.joinCuts(cuts, catCut, self.dict_stage_cut[stage], *appendCuts)
             
             self.llFlav = cat
-            self.extraString = ""
+            self.extraString = stage + extraString
 
             self.mjj_plot.append({
                         'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
                         'variable': self.jj_str + ".M()",
                         'plot_cut': self.totalCut,
-                        'binning': '(50, 10, 410)'
+                        'binning': '(40, 10, 1000)'
                 })
             
             # Plot to compute yields (ensure we have not over/under flow)
@@ -305,6 +328,12 @@ class BasePlotter:
             
             # BASIC PLOTS
             self.basic_plot.extend([
+                {
+                        'name': 'Mjj_vs_Mlljj_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.jj_str + '.M() ::: '+self.baseObject + '.p4.M()',
+                        'plot_cut': self.totalCut,
+                        'binning': '(60, 0, 1500, 60, 0, 1500)'
+                },
                 {
                         'name': 'lep1_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
                         'variable': self.lep1_str+".p4.Pt()",
@@ -454,9 +483,51 @@ class BasePlotter:
                         'variable': self.met_str + ".E()",
                         'plot_cut': self.totalCut,
                         'binning': '(50, 0, 500)'
+                },
+                {
+                        'name': 'met_significance_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.metSig_str,
+                        'plot_cut': self.totalCut,
+                        'binning': '(300, 0, 500)'
                 }
             ])
-            
+                
+
+            if self.btag:
+                self.basic_plot.extend([
+                    {
+                            'name': 'jet1_deepCSV_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                            'variable': self.jet1_str+".deepCSV",
+                            'plot_cut': self.totalCut,
+                            'binning': '(50, -1, 1)'
+                    },
+                    {
+                            'name': 'jet2_deepCSV_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                            'variable': self.jet2_str+".deepCSV",
+                            'plot_cut': self.totalCut,
+                            'binning': '(50, -1, 1)'
+                    },
+                    {
+                            'name': 'jj_deepCSV_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                            'variable': self.baseObject+".sumDeepCSV",
+                            'plot_cut': self.totalCut,
+                            'binning': '(50, -2, 2)'
+                    },
+                    {
+                            'name': 'jet1_deepCSV_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                            'variable': self.jet1_str+".btag_deepCSV_M",
+                            'plot_cut': self.totalCut,
+                            'binning': '(50, -1, 1)'
+                    },
+                    {
+                            'name': 'jj_deepCSV_MM_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                            'variable': self.baseObject+".btag_deepCSV_MM",
+                            'plot_cut': self.totalCut,
+                            'binning': '(50, -1, 1)'
+                    }
+                ])
+
+
             self.csv_plot.extend([
                 {
                         'name': 'jet1_CSV_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
@@ -472,23 +543,6 @@ class BasePlotter:
                 }
             ])
             
-            self.cmva_plot.extend([
-                {
-                        'name': 'jet1_cMVAv2_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.jet1_str+".CMVAv2",
-                        'plot_cut': self.totalCut,
-                        'binning': '(50, -1, 1)'
-                },
-                {
-                        'name': 'jet2_cMVAv2_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.jet2_str+".CMVAv2",
-                        'plot_cut': self.totalCut,
-                        'binning': '(50, -1, 1)'
-                }
-            ])
-            
-
-
             
             # gen level plots for jj 
             #for elt in self.plots_jj:

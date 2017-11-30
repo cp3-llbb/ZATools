@@ -48,10 +48,10 @@ check_overlap([for_data, for_MC, for_signal])
 
 use_syst = get_cfg('syst')
 
-lljj_categories = get_cfg('lljj_categories', ['MuMu', 'ElEl'])
-llbb_categories = get_cfg('llbb_categories', ['MuMu', 'ElEl'])
-lljj_stages = get_cfg('lljj_stages', [])
-llbb_stages = get_cfg('llbb_stages', [])
+lljj_categories = get_cfg('lljj_categories', ['MuMu', 'ElEl', 'MuEl'])
+llbb_categories = get_cfg('llbb_categories', ['MuMu', 'ElEl', 'MuEl'])
+lljj_stages = get_cfg('lljj_stages', ['no_cut', 'mll_and_met_cut'])
+llbb_stages = get_cfg('llbb_stages', ['no_cut', 'mll_and_met_cut'])
 lljj_plot_families = get_cfg('lljj_plots', [])
 llbb_plot_families = get_cfg('llbb_plots', [])
 
@@ -222,10 +222,12 @@ for systematicType in systematics.keys():
         ###### llbb ######
         
         basePlotter_llbb = BasePlotter(btag=True, objects=objects)
-        
+ 
         if allowed_systematics_llbb(systematic):
-            this_categories = llbb_categories[:]
-            plots.extend(basePlotter_llbb.generatePlots(this_categories, weights=weights_llbb, requested_plots=plots_llbb))
+            #This line was not here before
+            for stage in llbb_stages:
+                this_categories = llbb_categories[:]
+                plots.extend(basePlotter_llbb.generatePlots(this_categories, stage, weights=weights_llbb, requested_plots=plots_llbb))
 
         # Signal: only do llbb!
         if for_signal:
@@ -237,8 +239,10 @@ for systematicType in systematics.keys():
         basePlotter_lljj = BasePlotter(btag=False, objects=objects)
         
         if allowed_systematics_lljj(systematic):
-            this_categories = lljj_categories[:]
-            plots.extend(basePlotter_lljj.generatePlots(this_categories, systematic=systematic, weights=weights_lljj, requested_plots=plots_lljj))
+            #This line was not here before
+            for stage in lljj_stages:
+                this_categories = lljj_categories[:]
+                plots.extend(basePlotter_lljj.generatePlots(this_categories, stage, systematic=systematic, weights=weights_lljj, requested_plots=plots_lljj))
 
 
 for plot in plots:

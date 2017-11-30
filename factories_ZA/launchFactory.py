@@ -129,32 +129,39 @@ class Configuration:
 
 # General plots
 MainPlots_ForMC = Configuration('generatePlots.py', suffix='_for_MCbkg', mode='plots', samples=[
-#            "DY_LO"
-#            "Main_Training",
             "DY_NLO",
-			"TTBar",
-			"ZZ"
-#            "Higgs",
-#            "VV_VVV",
-#            "Top_Other",
-#            "WJets",
+            "TTBar",
+            "ZZ",
+            "ZH",
+            "SingleTop",
+            "VV",
+            #FIXME: to be copied in the DB
+            #"WJets",
+            "TTV",
+            "TTH",
+            "QCD"
         ], generation_args={
             'sample_type': 'MC',
             'lljj_plots': ['basic'],
             'llbb_plots': ['basic'],
-            'syst': False
+            'syst': False,
+            'llbb_stages': ['no_cut', 'mll_and_met_cut'],
+            'lljj_stages': ['no_cut', 'mll_and_met_cut']
         })
 MainPlots_ForData = Configuration('generatePlots.py', suffix='_for_data', mode='plots', samples=['Data'], generation_args={
             'sample_type': 'Data',
             'lljj_plots': ['basic'],
             'llbb_plots': ['basic'],
-            'syst': False
+            'syst': False,
+            'llbb_stages': ['no_cut', 'mll_and_met_cut'],
+            'lljj_stages': ['no_cut', 'mll_and_met_cut']
         })
 MainPlots_ForSignal = Configuration('generatePlots.py', suffix='_for_signal', mode='plots', samples=['Signal'], generation_args={
             'sample_type': 'Signal',
             'lljj_plots': ['basic'],
             'llbb_plots': ['basic'],
-            'syst': False
+            'syst': False,
+            'llbb_stages': ['no_cut', 'mll_and_met_cut']
         })
 
 """

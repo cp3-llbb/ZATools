@@ -5,8 +5,6 @@
   cross-section: 3
   line-color: '#d62728' #red
   #line-color: '#2ca02c' # from https://github.com/vega/vega/wiki/Scales#scale-range-literals
-  #line-color: '#05C10C'
-  #line-color: '#008A00'
   legend: '2HDM (500,100)'
   legend-order: 14
   line-width: 2.7
@@ -17,8 +15,6 @@
   cross-section: 3
   line-color: '#bcbd22' #yellow
   #line-color: '#2ca02c' # from https://github.com/vega/vega/wiki/Scales#scale-range-literals
-  #line-color: '#05C10C'
-  #line-color: '#008A00'
   legend: '2HDM (500,300)'
   legend-order: 15
   line-width: 2.7
@@ -29,9 +25,34 @@
   cross-section: 3
   line-color: '#2ca02c' #green
   #line-color: '#2ca02c' # from https://github.com/vega/vega/wiki/Scales#scale-range-literals
-  #line-color: '#05C10C'
-  #line-color: '#008A00'
   legend: '2HDM (650,50)'
   legend-order: 16
+  line-width: 2.7
+  line-type: 1
+
+'HToZATo2L2B_MH-200_MA-50_13TeV-madgraph_*_histos.root':
+  type: signal
+  cross-section: 1000
+  line-color: '#05C10C'
+  legend: '2HDM (200,50)'
+  legend-order: 15
+  line-width: 2.7
+  line-type: 1
+
+'HToZATo2L2B_MH-800_MA-700_13TeV-madgraph_*_histos.root':
+  type: signal
+  cross-section: 1000
+  line-color: '#008A00'
+  legend: '2HDM (800,700)'
+  legend-order: 15
+  line-width: 2.7
+  line-type: 1
+
+'HToZATo2L2B_MH-1000_MA-500_13TeV-madgraph_*_histos.root':
+  type: signal
+  cross-section: 1000
+  line-color: '#17becf'
+  legend: '2HDM (1000,500)'
+  legend-order: 15
   line-width: 2.7
   line-type: 1
