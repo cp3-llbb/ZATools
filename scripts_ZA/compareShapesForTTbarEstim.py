@@ -12,7 +12,6 @@ from ROOT import TCanvas, TPad, TLine
 import argparse
 
 
-
 def getSingleTop(path):
 
     Mjj = ROOT.TH1F("Mjj", "Mjj", 40, 10, 1000)
@@ -27,8 +26,6 @@ def getSingleTop(path):
     list_histos = []
     lumi = 35922
     
-    # I guess the Single Top should come from the MuEl category, since we are
-    # subtracting it to data which is in the MuEl category
     histoMjj_name = "jj_M_MuEl_hZA_lljj_deepCSV_btagM_"
     histoMlljj_name = "lljj_M_MuEl_hZA_lljj_deepCSV_btagM_"
     histoMll_name = "ll_M_MuEl_hZA_lljj_deepCSV_btagM_"
@@ -104,7 +101,7 @@ def getSingleTop(path):
     return list_histos
 
 
-def addHistos(path, data):
+def addHistos(path, ttbar_from_data):
     
     Mjj = ROOT.TH1F("Mjj", "Mjj", 40, 10, 1000)
     Mlljj = ROOT.TH1F("Mlljj", "Mlljj", 50, 100, 1500)
@@ -120,7 +117,7 @@ def addHistos(path, data):
 
     for filename in glob.glob(os.path.join(path, '*.root')):
         split_filename = filename.split('/')
-        if data:
+        if ttbar_from_data:
             histoMjj_name = "jj_M_MuEl_hZA_lljj_deepCSV_btagM_"
             histoMlljj_name = "lljj_M_MuEl_hZA_lljj_deepCSV_btagM_"
             histoMll_name = "ll_M_MuEl_hZA_lljj_deepCSV_btagM_"
@@ -132,7 +129,7 @@ def addHistos(path, data):
             histojjpt_name = "jj_pt_MuEl_hZA_lljj_deepCSV_btagM_"
             if not str(split_filename[-1]).startswith('MuonEG'):
                 continue
-        elif not data:
+        elif not ttbar_from_data:
             histoMjj_name = "jj_M_MuMu_hZA_lljj_deepCSV_btagM_"
             histoMlljj_name = "lljj_M_MuMu_hZA_lljj_deepCSV_btagM_"
             histoMll_name = "ll_M_MuMu_hZA_lljj_deepCSV_btagM_"
@@ -182,7 +179,7 @@ def addHistos(path, data):
         single_jjpt.SetDirectory(0)
         jjpt.Add(single_jjpt)
 
-    if not data:
+    if not ttbar_from_data:
         Mjj.Scale(lumi)
         Mlljj.Scale(lumi)
         Mll.Scale(lumi)
@@ -223,7 +220,7 @@ def main():
     c3 = []
     pad1 = []
     pad2 = []
-    subtractSingleTop = False
+    subtractSingleTop = True
 
     for i in range(0, len(list_histos_data)):
 
@@ -249,6 +246,7 @@ def main():
         # Subtract the SingleTop background
         if subtractSingleTop:
             list_histos_data[i].Add(list_histos_singleTop[i], -1)
+            norm_data = list_histos_data[i].Integral()
         list_histos_data[i].Scale(1/norm_data)
         list_histos_data[i].Draw("")
         list_histos_ttbarMC[i].Scale(1/norm_ttbar)
@@ -265,7 +263,6 @@ def main():
         pad2[i].Draw()
         pad2[i].cd()
         ratio = list_histos_data[i].Clone("Ratio")
-        #ROOT.gStyle.SetOptTitle(0)
         ratio.SetTitle("")
         ratio.Sumw2()
         ratio.Divide(list_histos_ttbarMC[i])
@@ -281,16 +278,17 @@ def main():
         c1[i].cd()
         if not subtractSingleTop:
             c1[i].SaveAs("compareShapesForTTbar/plot_%i.png" % i)
-            #c1[i].SaveAs("compareShapesForTTbar/plot_%i.pdf" % i)
+            c1[i].SaveAs("compareShapesForTTbar/plot_%i.pdf" % i)
         elif subtractSingleTop:
             c1[i].SaveAs("compareShapesForTTbar/plot_subtractSingleTop%i.png" % i)
-            #c1[i].SaveAs("compareShapesForTTbar/plot_%i.pdf" % i)
+            c1[i].SaveAs("compareShapesForTTbar/plot_subtractSingleTop%i.pdf" % i)
             
 
         c3.append(TCanvas("c3","c3",600,600))
         c3[i].cd()
         list_histos_singleTop[i].Draw("")
         c3[i].SaveAs("compareShapesForTTbar/plot_SingleTop_%i.png" % i)
+        c3[i].SaveAs("compareShapesForTTbar/plot_SingleTop_%i.pdf" % i)
 
 #main
 if __name__ == "__main__":

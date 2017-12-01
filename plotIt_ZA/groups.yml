@@ -19,7 +19,7 @@
 'Data':
   legend: 'Data'
 'Higgs':
-  legend: 'SM Higgs'
+  legend: 'ttH, VH'
   legend-order: 3
   fill-color: '#A8DBA8'
 'Others':
