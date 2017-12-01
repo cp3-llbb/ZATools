@@ -114,9 +114,29 @@ samples_dict["QCD"] = [
 
 # Resonant signal
 samples_dict["Signal"] = [
-	'HToZATo2L2B_MH-650_MA-50_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-200_MA-50_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-200_MA-100_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-250_MA-50_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-250_MA-100_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-300_MA-50_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-300_MA-100_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-300_MA-200_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-500_MA-50_13TeV-madgraph_Summer16MiniAODv2',
     'HToZATo2L2B_MH-500_MA-100_13TeV-madgraph_Summer16MiniAODv2',
-	'HToZATo2L2B_MH-500_MA-300_13TeV-madgraph_Summer16MiniAODv2'
+    'HToZATo2L2B_MH-500_MA-200_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-500_MA-300_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-500_MA-400_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-650_MA-50_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-800_MA-50_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-800_MA-100_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-800_MA-200_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-800_MA-400_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-800_MA-700_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-1000_MA-50_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-1000_MA-200_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-1000_MA-500_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-2000_MA-1000_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-3000_MA-2000_13TeV-madgraph_Summer16MiniAODv2'
 ]
 
 # Number of samples used as basis for the reweighting
