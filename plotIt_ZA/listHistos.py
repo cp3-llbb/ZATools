@@ -34,9 +34,8 @@ else:
 
 fileName = ""
 for file in root_files:
-#if "dy" not in os.path.basename(file).lower() and "HHTo2B2VTo2L2Nu" not in file:
-    fileName = file
-    #    break
+    if "HToZATo2L2B" not in file:
+        fileName = file
 
 print("Listing histograms found in %r" % fileName)
 
@@ -46,7 +45,7 @@ print("Listing histograms found in %r" % fileName)
 print "OPENING THE FOLLOWING FILE:"
 print fileName
 file = TFile.Open(fileName) 
-keys = file.GetListOfKeys() 
+keys = file.GetListOfKeys()
 alreadyIn = []
 
 # Create 'ZA_plotter_all.yml':
@@ -95,12 +94,6 @@ defaultStyle_events.update({
         'y-axis-format': '%1% / %2$.2f',
         })
 
-defaultStyle_events_NN = defaultStyle.copy()
-defaultStyle_events_NN.update({
-        'y-axis': 'Events',
-        'y-axis-format': '%1%',
-        })
-
 nHistos = 0
 
 def should_be_blind(name):
@@ -133,15 +126,13 @@ for key in keys:
  
         #if "All" in key_name: continue
 
+        # if lljj (for background), plot the non-btagged plots
         if args.lljj and 'btagM' in key_name: continue
-        if args.llbb and 'btagM' not in key_name: continue
+        # if llbb (for background and signal), plot only the btagged plots
+        if args.llbb and 'nobtag' in key_name: continue
 
         #if not "no_cut" in key_name:
         #    continue
-
-        if "nobtag_to_btagM_reweighting" in key_name: continue
-
-        #if "NN" not in key_name and "jj_M" not in key_name: continue
 
         ## Update all the plots with title, ...
 
@@ -193,11 +184,17 @@ for key in keys:
         elif "jet2_CSV" in key_name:
             plot['x-axis'] = "Sub-leading jet CSVv2 discriminant"
             plot.update(defaultStyle_events)
-        elif "jet1_CMVAv2" in key_name:
+        elif "jet1_cMVAv2" in key_name:
             plot['x-axis'] = "Leading jet cMVAv2 discriminant"
             plot.update(defaultStyle_events)
-        elif "jet2_CMVAv2" in key_name:
+        elif "jet2_cMVAv2" in key_name:
             plot['x-axis'] = "Sub-leading jet cMVAv2 discriminant"
+            plot.update(defaultStyle_events)
+        elif "jet1_deepCSV" in key_name:
+            plot['x-axis'] = "Leading jet deepCSV discriminant"
+            plot.update(defaultStyle_events)
+        elif "jet2_deepCSV" in key_name:
+            plot['x-axis'] = "Sub-leading jet deepCSV discriminant"
             plot.update(defaultStyle_events)
         elif "jet1_JP" in key_name:
             plot['x-axis'] = "Leading jet JP discriminant"
@@ -235,6 +232,16 @@ for key in keys:
         elif "lljj_pt_" in key_name:
             plot['x-axis'] = "p_{T}^{lljj}"
             plot.update(defaultStyle_events_per_gev)
+        elif "jet1_deepCSV_" in key_name:
+            plot['x-axis'] = "deepCSV of leading jet"
+            plot.update(defaultStyle_events)
+        elif "jet2_deepCSV_" in key_name:
+            plot['x-axis'] = "deepCSV of sub-leading jet"
+            plot.update(defaultStyle_events)
+        elif "met_significance" in key_name:
+            plot['x-axis'] = "MET significance"
+            plot['x-axis-range'] = [0, 100]
+            plot.update(defaultStyle_events)
         elif "DPhi_ll_met_" in key_name:
             plot['x-axis'] = "#Delta#phi(ll, #slash{E}_{T})"
             plot.update(defaultStyle_events)
@@ -298,12 +305,7 @@ for key in keys:
         elif "cosThetaStar" in key_name:
             plot['x-axis'] = "cos(#theta^{*}_{CS})_{lljj#slash{E}_{T}}"
             plot.update(defaultStyle_events)
-        
-        elif "DY_BDT" in key_name:
-            plot['x-axis'] = "DY reweighting BDT"
-            plot['legend-position'] = [0.2, 0.52, 0.53, 0.80]
-            plot.update(defaultStyle_events)
-        
+ 
         elif "MT2" in key_name:
             plot['x-axis'] = "MT2"
             plot.update(defaultStyle_events)
@@ -311,7 +313,7 @@ for key in keys:
                 plot['blinded-range'] = [150, 500]
 
         elif "lljj_M_" in key_name:
-            plot['x-axis'] = "m_{lljj}"
+            plot['x-axis'] = "m_{lljj} (GeV)"
             plot.update(defaultStyle_events_per_gev)
             if should_be_blind(key_name):
                 plot['blinded-range'] = [500, 1500]
@@ -319,70 +321,24 @@ for key in keys:
         elif "ll_M_" in key_name:
             plot['x-axis'] = "m_{ll} (GeV)"
             plot.update(defaultStyle_events_per_gev)
-            
+ 
             #### Do the yields here
             btag_stage = ""
             if "btagM" in key_name:
                 btag_stage = "llbb"
             else:
                 btag_stage = "lljj"
-            stage = ""
-            if "inverted_mll_cut" in key_name:
-                stage = ", inverted mll cut"
-            elif "mll_cut" in key_name:
-                stage = ", mll cut"
-                plot['for-yields'] = True
-            elif "mll_peak" in key_name:
-                stage = ", mll peak"
-            plot['yields-title'] = get_flavour(key_name) + ", " + btag_stage + stage
+            plot['yields-title'] = get_flavour(key_name) + ", " + btag_stage
+            plot['for-yields'] = True
             if args.yields:
                 plots['override'] = True
-        
-        elif "jj_M_" in key_name and "_vs_" not in key_name:
+
+        elif "jj_M_" in key_name and "_vs_" not in key_name and ("jj_deepCSV" not in key_name or "jj_cmva" not in key_name):
             plot['x-axis'] = "m_{jj} (GeV)"
             plot.update(defaultStyle_events_per_gev)
             if should_be_blind(key_name):
                 plot['blinded-range'] = [75, 140]
 
-        elif "NN_" in key_name and "_vs_" not in key_name:
-            plot['x-axis'] = "NN output"
-            plot['log-y'] = "both"
-            plot.update(defaultStyle_events_NN)
-            if should_be_blind(key_name):
-                plot['blinded-range'] = [0.7, 1]
-
-        elif "flat_mjj_vs_NN" in key_name:
-            plot['x-axis'] = "NN output, m_{jj} bins"
-            plot.update(defaultStyle_events_NN)
-            plot['vertical-lines'] = [ 
-                    { "line-color": 1, "line-type": 2, "line-width": 2, "value": 1.0 }, 
-                    { "line-color": 1, "line-type": 2, "line-width": 2, "value": 2.0 }
-                ]
-            plot['labels'] += [
-                    { "size": 18, "position": [ 0.24, 0.65 ], "text": "m_{jj} < 75 GeV" },
-                    { "size": 18, "position": [ 0.45, 0.65 ], "text": "75 GeV #leq m_{jj} < 140 GeV" },
-                    { "size": 18, "position": [ 0.76, 0.65 ], "text": "m_{jj} #geq 140 GeV" },
-                ]
-            plot['legend-position'] = [0.45, 0.61, 0.91, 0.89]
-            if should_be_blind(key_name):
-                plot['blinded-range'] = [1.7, 1.999]
-        
-        elif "flatDrop_mjj_vs_NN" in key_name:
-            plot['x-axis'] = "NN output, m_{jj} bins"
-            plot.update(defaultStyle_events_NN)
-            plot['vertical-lines'] = [ 
-                    { "line-color": 1, "line-type": 2, "line-width": 2, "value": 1.00 }, 
-                    { "line-color": 1, "line-type": 2, "line-width": 2, "value": 1.88 }
-                ]
-            plot['labels'] += [
-                    { "size": 18, "position": [ 0.24, 0.65 ], "text": "m_{jj} < 75 GeV" },
-                    { "size": 18, "position": [ 0.45, 0.65 ], "text": "75 GeV #leq m_{jj} < 140 GeV" },
-                    { "size": 18, "position": [ 0.76, 0.65 ], "text": "m_{jj} #geq 140 GeV" },
-                ]
-            plot['legend-position'] = [0.45, 0.61, 0.91, 0.89]
-            if should_be_blind(key_name):
-                plot['blinded-range'] = [1.58, 1.879]
-        
         # Default:
         
         else:

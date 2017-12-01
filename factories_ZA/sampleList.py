@@ -1,16 +1,14 @@
 ####### Warning: put most recent tags first! ###### 
 analysis_tags = [
-        'v5.0.1+80X-7-g03c2b54_ZAAnalysis_Moriond2015-7-g08c899b'
-		#'v5.0.1+80X-2-g909e9e2_ZAAnalysis_Moriond2015-5-g0d38378'
+        'v6.1.0+80X_ZAAnalysis_2017-11-10.v0'
+        #'v6.0.0+80X_ZAAnalysis_2017-09-27.v1' --> cmva bug, no METsignificance
+        #'v5.0.1+80X-7-g03c2b54_ZAAnalysis_Moriond2015-7-g08c899b'
+        #'v5.0.1+80X-2-g909e9e2_ZAAnalysis_Moriond2015-5-g0d38378'
         #'v5.0.1+80X-2-g909e9e2_ZAAnalysis_Moriond2015-1-gd479ab9'
-        #'v5.0.1+80X_HHAnalysis_2017-03-01.v0', # fix for JER (only MC)
-        # 'v5.0.0+80X_HHAnalysis_2017-03-01.v0', # the one prod to end them all
-        #'v4.4.2+80X_HHAnalysis_2017-02-13.v2', # mini-prod with new SF and corrections
-        #'v4.3.0+80X_HHAnalysis_2017-01-26.v0', # Fixed Muon triggers in data -> DoubleMuon, MuonEG
-        #'v4.2.0+80X_HHAnalysis_2017-01-18.v0' # DoubleEG + Summer16 MC
         ]
 
 samples_dict = {}
+
 
 # Data
 samples_dict["Data"] = [
@@ -19,57 +17,18 @@ samples_dict["Data"] = [
     'DoubleMuon'
 ]
 
-# Main backgrounds:
-#samples_dict["Main_Training"] = [
-#    'ST_tW_top_5f_noFullyHadronicDecays_13TeV-powheg',
-#    'ST_tW_antitop_5f_noFullyHadronicDecays_13TeV-powheg',
-#    'TT_TuneCUETP8M2T4_13TeV-powheg-pythia8_extended_ext0_plus_ext1', # TT incl NLO
-#    'TTTo2L2Nu_13TeV-powheg', # TT -> 2L 2Nu NLO
-#    ]
-
 # DY NLO
 samples_dict["DY_NLO"] = [
-     'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1',
-	 'DYToLL_0J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1',
-     'DYToLL_1J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1',
-     'DYToLL_2J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1' 
-	 #'DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2',
-     #'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2',
-     #'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1_Summer16MiniAODv2'
-     #'DYToLL_0J_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2',
-	 #'DYToLL_0J_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2_ext1',
-	 #'DYToLL_1J_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2',
-	 #'DYToLL_1J_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2_ext1',
-	 #'DYToLL_2J_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2'
-	 #'DYToLL_2J_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2_ext1'
-#    'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1',
+    'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1',
+    'DYToLL_0J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1',
+    'DYToLL_1J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1',
+    'DYToLL_2J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1'
 ]
-
-# DY LO
-#samples_dict["DY_LO"] = [
-    # M-50 incl. merged
-    # 'DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_extended',
-    # M-50, binned HT > 100
-    # 'DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8', # 100-200 non-merged
-    # 'DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8', # 200-400 non-merged
-    # 'DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_extended', # 400-600 merged
-    # 'DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_extended', # 600-Inf merged
-    # M-5to50 incl.: forget it...
-    # 'DYJetsToLL_M-5to50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8',
-    # M-5to50, binned HT
-    # 'DYJetsToLL_M-5to50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_extended', # 100-200 merged
-    # 'DYJetsToLL_M-5to50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8', # 200-400 non-merged
-    # 'DYJetsToLL_M-5to50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8', # 400-600 non-merged
-    # 'DYJetsToLL_M-5to50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_extended', # 600-Inf merged
-#    ]
 
 # TTBar
 samples_dict["TTBar"] = [
     'TT_TuneCUETP8M2T4_13TeV-powheg-pythia8_extended_ext0_plus_ext1'
-    
-	#'TTTo2L2Nu_13TeV-powheg_Summer16MiniAODv2',
-	#'TT_TuneCUETP8M2T4_13TeV-powheg-pythia8_ext1_Summer16MiniAODv2',
-	#'TT_TuneCUETP8M2T4_13TeV-powheg-pythia8_Summer16MiniAODv2'
+    #'TTTo2L2Nu_13TeV-powheg_Summer16MiniAODv2',
 ]
 
 # ZZ
@@ -79,105 +38,103 @@ samples_dict["ZZ"] = [
      'ZZTo4L_13TeV_powheg_pythia8'
 ]
 
-# Other backgrounds
+# ZH
+samples_dict["ZH"] = [
+    'HZJ_HToWW_M125_13TeV_powheg_pythia8_Summer16MiniAODv2',
+    'ggZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8_Summer16MiniAODv2',
+    'GluGluZH_HToWWTo2L2Nu_ZTo2L_M125_13TeV_powheg_pythia8_Summer16MiniAODv2',
+    'ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8_Summer16MiniAODv2',
+    'ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8_Summer16MiniAODv2',
+    'ggZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8_Summer16MiniAODv2',
+    'ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8_Summer16MiniAODv2',
+    'ggZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8_Summer16MiniAODv2'
+]
+
 # VV
-#samples_dict["VV_VVV"] = [
-    #'VVTo2L2Nu_13TeV_amcatnloFXFX_madspin_pythia8', # VV(2L2Nu)
+samples_dict["VV"] = [
+    # WW
+    'WWToLNuQQ_13TeV-powheg_Summer16MiniAODv2',
+    'WWTo2L2Nu_13TeV-powheg_Summer16MiniAODv2',
+    # WZ
+    'WZTo3LNu_TuneCUETP8M1_13TeV-powheg-pythia8_Summer16MiniAODv2',
+    'WZTo1L3Nu_13TeV_amcatnloFXFX_madspin_pythia8_Summer16MiniAODv2',
+    'WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_Summer16MiniAODv2',
+    'WZTo1L1Nu2Q_13TeV_amcatnloFXFX_madspin_pythia8_Summer16MiniAODv2',
+    # WZZ
+    'WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8_Summer16MiniAODv2',
+    # WWZ
+    'WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8_Summer16MiniAODv2',
+    # WWW
+    'WWW_TuneCUETP8M1_13TeV-amcatnlo-pythia8_Summer16MiniAODv2',
+    # ZZZ
+    'ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8_Summer16MiniAODv2'
+]
 
-#    'WWToLNuQQ_13TeV-powheg', # WW(LNuQQ)
-#    'WWTo2L2Nu_13TeV-powheg', # WW(2L2Nu)
+# WJets 
+samples_dict["WJets"] = [
+    'WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2'
+]
 
-#    'WZTo3LNu_TuneCUETP8M1_13TeV-powheg-pythia8', # WZ(3LNu)
-#    'WZTo1L3Nu_13TeV_amcatnloFXFX_madspin_pythia8', # WZ(L3Nu)
-#    'WZTo1L1Nu2Q_13TeV_amcatnloFXFX_madspin_pythia8', # WZ(LNu2Q)
-#    'WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8', # WZ(2L2Q)
+# TTV
+samples_dict["TTV"] = [
+    'TTZToQQ_TuneCUETP8M1_13TeV-amcatnlo-pythia8_Summer16MiniAODv2',
+    'TTWJetsToQQ_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_Summer16MiniAODv2',
+    'TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_Summer16MiniAODv2',
+    'TTZToLLNuNu_M-10_TuneCUETP8M1_13TeV-amcatnlo-pythia8_Summer16MiniAODv2'
+]
 
-#    'ZZTo4L_13TeV_powheg_pythia8', # ZZ(4L)
-#    'ZZTo2L2Nu_13TeV_powheg_pythia8', # ZZ(2L2Nu)
-#    'ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8', # ZZ(2L2Q)
+# TTH
+samples_dict["TTH"] = [
+    'ttHToNonbb_M125_TuneCUETP8M2_13TeV_powheg_pythia8_Summer16MiniAODv2',
+    'ttHTobb_M125_TuneCUETP8M2_13TeV_powheg_pythia8_Summer16MiniAODv2'
+]
 
-#    'WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8', # WZZ
-#    'WWW_TuneCUETP8M1_13TeV-amcatnlo-pythia8',
-#    'WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8',
-#    'ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8',
-#    ]
+# Single top
+samples_dict["SingleTop"] = [
+    'ST_tW_antitop_5f_noFullyHadronicDecays_13TeV-powheg_Summer16MiniAODv2',
+    'ST_tW_top_5f_noFullyHadronicDecays_13TeV-powheg_Summer16MiniAODv2',
+    'ST_s-channel_4f_leptonDecays_13TeV-amcatnlo_Summer16MiniAODv2',
+    'ST_t-channel_top_4f_inclusiveDecays_13TeV-powheg-pythia8_Summer16MiniAODv2',
+    'ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powheg-pythia8_Summer16MiniAODv'
+]
 
-# Higgs
-#samples_dict["Higgs"] = [
-    # ggH ==> no H(ZZ)?
-#    'GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8', # H(WW(2L2Nu))
-#    'GluGluHToBB_M125_13TeV_powheg_pythia8', # H(BB)
-
-    # ZH
-#    'GluGluZH_HToWWTo2L2Nu_ZTo2L_M125_13TeV_powheg_pythia8', # ggZ(LL)H(WW(2L2Nu))
-#    'HZJ_HToWW_M125_13TeV_powheg_pythia8', # ZH(WW)
-#    'ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8', # ggZ(LL)H(BB)
-#    'ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8', # Z(LL)H(BB)
-#    'ggZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8', # ggZ(NuNu)H(BB)
-
-    # VBF
-#    'VBFHToBB_M-125_13TeV_powheg_pythia8_weightfix', # VBFH(BB)
-#    'VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8', # VBFH(WW(2L2Nu))
-
-    # WH
-#    'WplusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8', # W+(LNu)H(BB)
-#    'WminusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8', # W-(LNu)H(BB)
-#    'HWplusJ_HToWW_M125_13TeV_powheg_pythia8', # W+H(WW)
-#    'HWminusJ_HToWW_M125_13TeV_powheg_pythia8', # W-H(WW)
-
-    # bbH
-#    'bbHToBB_M-125_4FS_ybyt_13TeV_amcatnlo', # bbH(BB) ybyt
-#    'bbHToBB_M-125_4FS_yb2_13TeV_amcatnlo', # bbH(BB) yb2
-    #'bbHToWWTo2L2Nu_M-125_4FS_ybyt_13TeV_amcatnlo', # bbH(WW) ybyt
-    #'bbHToWWTo2L2Nu_M-125_4FS_yb2_13TeV_amcatnlo', # bbH(WW) yb2
-#    ]
-
-# Top
-#samples_dict["Top_Other"] = [
-#    'ST_t-channel_top_4f_inclusiveDecays_13TeV-powheg', # sT t-chan
-#    'ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powheg', # sT t-chan
-#    'ST_s-channel_4f_leptonDecays_13TeV-amcatnlo', # sT s-channel
-#    'TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8', # TTW(LNu)
-#    'TTWJetsToQQ_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8', # TTW(QQ)
-#    'TTZToLLNuNu_M-10_TuneCUETP8M1_13TeV-amcatnlo-pythia8', # TTZ(2L2Nu)
-#    'TTZToQQ_TuneCUETP8M1_13TeV-amcatnlo-pythia8', # TTZ(QQ),
-#    'ttHTobb_M125_TuneCUETP8M2_13TeV_powheg_pythia8', # ttH(bb)
-#    'ttHToNonbb_M125_TuneCUETP8M2_13TeV_powheg_pythia8', # ttH(nonbb)
-    #'TTJets_TuneCUETP8M1_amcatnloFXFX' ## TTbar aMC@NLO
-#    ]
-
-# Wjets
-#samples_dict["WJets"] = [
-#    'WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8', # JetsLNu
-
-    # # HT binned
-    # 'WJetsToLNu_HT-200To400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8', # 200-400
-    # 'WJetsToLNu_HT-800To1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8', # 800-1200
-    # 'WJetsToLNu_HT-1200To2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8', # 1200 - 2500
-    # 'WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8', # 2500 - Inf
-#    ]
-
-# QCD ==> 30to50 missing
-# samples_dict["QCD"] = 
-   # 1661, # Pt-15to20EMEnriched
-   # 1671, # Pt-20to30EMEnriched
-   # 1681, # Pt-50to80EMEnriched
-   # 1637, # Pt-80to120EMEnriched
-   # 1632, # Pt-120to170EMEnriched
-   # 1670, # Pt-170to300EMEnriched
-   # 1645, # Pt-300toInfEMEnriched
-   # #1719, # Pt-20toInfMuEnriched
-   # ])
-
-
+# QCD
+samples_dict["QCD"] = [
+    'QCD_Pt-20to30_EMEnriched_TuneCUETP8M1_13TeV_pythia8_Summer16MiniAODv2',
+    'QCD_Pt-30to50_EMEnriched_TuneCUETP8M1_13TeV_pythia8_extended_ext0_plus_ext1',
+    'QCD_Pt-50to80_EMEnriched_TuneCUETP8M1_13TeV_pythia8_extended_ext0_plus_ext1',
+    'QCD_Pt-80to120_EMEnriched_TuneCUETP8M1_13TeV_pythia8_extended_ext0_plus_ext1',
+    'QCD_Pt-120to170_EMEnriched_TuneCUETP8M1_13TeV_pythia8_extended_ext0_plus_ext1',
+    'QCD_Pt-170to300_EMEnriched_TuneCUETP8M1_13TeV_pythia8_Summer16MiniAODv2',
+    'QCD_Pt-300toInf_EMEnriched_TuneCUETP8M1_13TeV_pythia8_Faill15MiniAODv2',   #keep it?
+    'QCD_Pt-20toInf_MuEnrichedPt15_TuneCUETP8M1_13TeV_pythia8_Summer16MiniAODv2'
+]
 
 ## Signals
-
-# Resonant signal
 samples_dict["Signal"] = [
-	'HToZATo2L2B_MH-650_MA-50_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-200_MA-50_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-200_MA-100_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-250_MA-50_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-250_MA-100_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-300_MA-50_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-300_MA-100_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-300_MA-200_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-500_MA-50_13TeV-madgraph_Summer16MiniAODv2',
     'HToZATo2L2B_MH-500_MA-100_13TeV-madgraph_Summer16MiniAODv2',
-	'HToZATo2L2B_MH-500_MA-300_13TeV-madgraph_Summer16MiniAODv2'
+    'HToZATo2L2B_MH-500_MA-200_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-500_MA-300_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-500_MA-400_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-650_MA-50_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-800_MA-50_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-800_MA-100_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-800_MA-200_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-800_MA-400_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-800_MA-700_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-1000_MA-50_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-1000_MA-200_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-1000_MA-500_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-2000_MA-1000_13TeV-madgraph_Summer16MiniAODv2',
+    'HToZATo2L2B_MH-3000_MA-2000_13TeV-madgraph_Summer16MiniAODv2'
 ]
 
 # Number of samples used as basis for the reweighting
