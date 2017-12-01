@@ -8,11 +8,11 @@
   legend-order: 5
   order: 10
   fill-color: '#EB6841'
-'ttV':
-  legend: ' t#bar{t}V'
-  legend-order: 2
-  fill-color: '#53777A'
-'t':
+#'ttV':
+#  legend: ' t#bar{t}V'
+#  legend-order: 2
+#  fill-color: '#53777A'
+'SingleTop':
   legend: 'Single top'
   legend-order: 4
   fill-color: '#C02942'

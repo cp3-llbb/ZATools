@@ -9,6 +9,7 @@ analysis_tags = [
 
 samples_dict = {}
 
+
 # Data
 samples_dict["Data"] = [
     'DoubleEG',

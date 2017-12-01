@@ -190,6 +190,12 @@ for key in keys:
         elif "jet2_cMVAv2" in key_name:
             plot['x-axis'] = "Sub-leading jet cMVAv2 discriminant"
             plot.update(defaultStyle_events)
+        elif "jet1_deepCSV" in key_name:
+            plot['x-axis'] = "Leading jet deepCSV discriminant"
+            plot.update(defaultStyle_events)
+        elif "jet2_deepCSV" in key_name:
+            plot['x-axis'] = "Sub-leading jet deepCSV discriminant"
+            plot.update(defaultStyle_events)
         elif "jet1_JP" in key_name:
             plot['x-axis'] = "Leading jet JP discriminant"
             plot.update(defaultStyle_events)
