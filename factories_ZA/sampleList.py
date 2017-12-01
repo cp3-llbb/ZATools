@@ -110,10 +110,7 @@ samples_dict["QCD"] = [
     'QCD_Pt-20toInf_MuEnrichedPt15_TuneCUETP8M1_13TeV_pythia8_Summer16MiniAODv2'
 ]
 
-
 ## Signals
-
-# Resonant signal
 samples_dict["Signal"] = [
     'HToZATo2L2B_MH-200_MA-50_13TeV-madgraph_Summer16MiniAODv2',
     'HToZATo2L2B_MH-200_MA-100_13TeV-madgraph_Summer16MiniAODv2',
