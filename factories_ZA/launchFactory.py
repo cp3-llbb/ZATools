@@ -302,7 +302,7 @@ def create_slurm(samples, output, executable):
     ## Create test_slurm directory and subdirs
     mySub.setupDirs()
 
-    splitTT = False
+    splitTT = True
     splitDY = False
 
     def get_node(db_name):
@@ -360,6 +360,7 @@ def create_slurm(samples, output, executable):
             #mySub.sampleCfg.append(tt_fh_sample)
 
             # Not fully leptonic
+            # define tt_other_sample = inclusive ttbar - fullylept. ttbar
             tt_other_sample = copy.deepcopy(sample)
             newJson = copy.deepcopy(sample["json_skeleton"][sample["db_name"]])
 

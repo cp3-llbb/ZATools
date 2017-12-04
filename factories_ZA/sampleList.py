@@ -27,8 +27,8 @@ samples_dict["DY_NLO"] = [
 
 # TTBar
 samples_dict["TTBar"] = [
-    'TT_TuneCUETP8M2T4_13TeV-powheg-pythia8_extended_ext0_plus_ext1'
-    #'TTTo2L2Nu_13TeV-powheg_Summer16MiniAODv2',
+    'TT_TuneCUETP8M2T4_13TeV-powheg-pythia8_extended_ext0_plus_ext1',
+    'TTTo2L2Nu_13TeV-powheg_Summer16MiniAODv2'
 ]
 
 # ZZ
