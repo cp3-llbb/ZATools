@@ -218,7 +218,7 @@ def main():
     c2 = []
     pad1 = []
     pad2 = []
-    subtractSingleTop = True 
+    subtractSingleTop = False 
 
     for i in range(0, len(list_histos_data)):
 

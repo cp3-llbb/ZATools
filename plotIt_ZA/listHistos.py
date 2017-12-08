@@ -208,7 +208,8 @@ for key in keys:
         elif "jj_pt_" in key_name:
             plot['x-axis'] = "Dijet system p_{T} (GeV)"
             plot.update(defaultStyle_events_per_gev)
-        elif "met_pt" in key_name:
+        #elif "met_pt" in key_name:
+        elif "met_pt" in key_name and "inverted_met_cut" not in key_name:
             plot['x-axis'] = "#slash{E}_{T} (GeV)"
             plot.update(defaultStyle_events_per_gev)
         elif "met_phi" in key_name:
@@ -323,6 +324,21 @@ for key in keys:
             plot.update(defaultStyle_events_per_gev)
  
             #### Do the yields here
+            #btag_stage = ""
+            #if "btagM" in key_name:
+            #    btag_stage = "llbb"
+            #else:
+            #    btag_stage = "lljj"
+            #plot['yields-title'] = get_flavour(key_name) + ", " + btag_stage
+            #plot['for-yields'] = True
+            #if args.yields:
+            #    plots['override'] = True
+
+
+        ### YIELDS FOR ttbar NORMALIZATION
+        elif "met_pt_" in key_name and "inverted_met_cut" in key_name:
+            plot['x-axis'] = "MET (GeV)"
+            plot.update(defaultStyle_events_per_gev)
             btag_stage = ""
             if "btagM" in key_name:
                 btag_stage = "llbb"
@@ -332,6 +348,8 @@ for key in keys:
             plot['for-yields'] = True
             if args.yields:
                 plots['override'] = True
+        ### END OF YIELDS FOR ttbar NORMALIZATION
+
 
         elif "jj_M_" in key_name and "_vs_" not in key_name and ("jj_deepCSV" not in key_name or "jj_cmva" not in key_name):
             plot['x-axis'] = "m_{jj} (GeV)"
