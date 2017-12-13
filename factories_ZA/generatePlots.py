@@ -50,8 +50,8 @@ use_syst = get_cfg('syst')
 
 lljj_categories = get_cfg('lljj_categories', ['MuMu', 'ElEl', 'MuEl'])
 llbb_categories = get_cfg('llbb_categories', ['MuMu', 'ElEl', 'MuEl'])
-lljj_stages = get_cfg('lljj_stages', ['no_cut', 'mll_and_met_cut', 'inverted_met_cut'])
-llbb_stages = get_cfg('llbb_stages', ['no_cut', 'mll_and_met_cut', 'inverted_met_cut'])
+lljj_stages = get_cfg('lljj_stages', ['no_cut', 'mll_and_met_cut', 'inverted_met_cut', 'met_cut_and_inverted_mll_cut'])
+llbb_stages = get_cfg('llbb_stages', ['no_cut', 'mll_and_met_cut', 'inverted_met_cut', 'met_cut_and_inverted_mll_cut'])
 lljj_plot_families = get_cfg('lljj_plots', [])
 llbb_plot_families = get_cfg('llbb_plots', [])
 
