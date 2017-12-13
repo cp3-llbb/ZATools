@@ -48,17 +48,16 @@ for d in ${directories[*]}; do
     
     #dir_content=(`ls *.root`)
 
-    file_content=`rootls ${dir_content[0]}`
+    #file_content=`rootls ${dir_content[0]}`
 
     # flatten 2D plots
-    # why?
-    if [[ ${file_content} =~ mjj_vs_NN ]]; then
-        echo "Flattening 2D histograms..."
-        parallel -j 5 flattenTH2.py -p "flat_" -a "x" -r \'mjj_vs_NN.*\' -- ::: *.root
-        parallel -j 5 flattenTH2.py -p "flatDrop_" -a "x" -r \'mjj_vs_NN.*\' -d 3 -- ::: *.root
-    else
-        echo "No 2D histograms found!"
-    fi
+    #if [[ ${file_content} =~ mjj_vs_NN ]]; then
+    #    echo "Flattening 2D histograms..."
+    #    parallel -j 5 flattenTH2.py -p "flat_" -a "x" -r \'mjj_vs_NN.*\' -- ::: *.root
+    #    parallel -j 5 flattenTH2.py -p "flatDrop_" -a "x" -r \'mjj_vs_NN.*\' -d 3 -- ::: *.root
+    #else
+    #    echo "No 2D histograms found!"
+    #fi
 
     # take envelopes for scale systematics
     #if [[ ${file_content} =~ scaleUncorr || ${file_content} =~ dyScaleUncorr ]]; then
@@ -90,5 +89,6 @@ if [[ ${directories[*]} =~ $1_for_MCbkg ]]; then echo "Moving MC bkg files to ma
 #
 #popd
 
-#if [[ ${directories[*]} =~ $1_for_signal ]]; echo "Removing empty signal folders..."; then rm -r $1_for_signal/ ; fi
-#if [[ ${directories[*]} =~ $1_for_data ]]; echo "Removing empty data folders..."; then rm -r $1_for_data/ ; fi
+if [[ ${directories[*]} =~ $1_for_signal ]]; echo "Removing empty signal folders..."; then rm -r $1_for_signal/ ; fi
+if [[ ${directories[*]} =~ $1_for_data ]]; echo "Removing empty data folders..."; then rm -r $1_for_data/ ; fi
+if [[ ${directories[*]} =~ $1_for_MCbkg ]]; echo "Removing empty MC bkg folders..."; then rm -r $1_for_MCbkg/ ; fi

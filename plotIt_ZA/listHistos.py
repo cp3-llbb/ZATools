@@ -99,9 +99,12 @@ nHistos = 0
 def should_be_blind(name):
     if args.unblinded:
         return False
+    # Define the SR here
     if "nobtag" in name:
         return False
-    if not "mll_cut" in name or "inverted" in name:
+    if not "mll_and_met_cut" in name:
+        return False
+    if "MuEl" in name:
         return False
     return True
 
@@ -307,16 +310,17 @@ for key in keys:
             plot['x-axis'] = "cos(#theta^{*}_{CS})_{lljj#slash{E}_{T}}"
             plot.update(defaultStyle_events)
  
-        elif "MT2" in key_name:
-            plot['x-axis'] = "MT2"
-            plot.update(defaultStyle_events)
-            if should_be_blind(key_name):
-                plot['blinded-range'] = [150, 500]
+        #elif "MT2" in key_name:
+        #    plot['x-axis'] = "MT2"
+        #    plot.update(defaultStyle_events)
+        #    if should_be_blind(key_name):
+        #        plot['blinded-range'] = [150, 500]
 
         elif "lljj_M_" in key_name:
             plot['x-axis'] = "m_{lljj} (GeV)"
             plot.update(defaultStyle_events_per_gev)
             if should_be_blind(key_name):
+                #plot['blinded-range'] = [500, 1500]
                 plot['blinded-range'] = [500, 1500]
 
         elif "ll_M_" in key_name:
@@ -355,7 +359,8 @@ for key in keys:
             plot['x-axis'] = "m_{jj} (GeV)"
             plot.update(defaultStyle_events_per_gev)
             if should_be_blind(key_name):
-                plot['blinded-range'] = [75, 140]
+                #plot['blinded-range'] = [75, 140]
+                plot['blinded-range'] = [0, 1500]
 
         # Default:
         
