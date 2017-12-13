@@ -27,3 +27,6 @@ N.B. Right now these numbers are computed by hand, I count on having a script to
 
 4) Once you have k_mumu and k_elel, you can apply them to the ttbar_data in the various distributions (e.g. mbb, mllbb, ...). This is done with the script "getTTbarFromData.py". The output root file is called "ttbar_from_data_final.root" and contains the ttbar estimated from data.
 Again, copy this file to the folder in factories_ZA that you're using to make plots, and copy the name of the file in plotIt_ZA/ttbar_MCFiles.yml, commenting out the file copied before. Make plots!
+
+5) After you get you ttbar estimated from data and with the right normalization, compare it to ttbar MC in the (m_bb, m_llbb) to make sure you have enough statistics to cover the plane. Should the statistics of ttbar from data be poorer than the one taken from MC, then don't go with a data-driven estimation.
+The script to compare the stats is "checkStats.py" and produces the folder "checkStats" in which it stores a root file called "compareStatsTTbarMC_vs_Data.root", containing the histos to compare the stats.
