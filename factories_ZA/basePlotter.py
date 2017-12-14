@@ -118,11 +118,19 @@ class BasePlotter:
         mll_cut = "({0}.M() > 70) && ({0}.M() < 110)".format(self.ll_str, self.ll_str)
         met_cut = "({0}.Pt() > 0) && ({0}.Pt() < 80)".format(self.met_str, self.met_str)
         mll_and_met_cut = "({0} && {1})".format(mll_cut, met_cut)
+        inverted_mll_cut = "({0}.M() <= 70) && ({0}.M() >= 110)".format(self.ll_str, self.ll_str)
+        inverted_met_cut = "({0}.Pt() >= 80)".format(self.met_str, self.met_str)
+        inverted_mll_and_met_cut = "({0} && {1})".format(inverted_mll_cut, inverted_met_cut)
+        met_cut_and_inverted_mll_cut = "({0} && {1})".format(inverted_mll_cut, met_cut)
         self.dict_stage_cut = {
             "no_cut": "", 
             "mll_cut": mll_cut,
             "met_cut": met_cut,
-            "mll_and_met_cut": mll_and_met_cut
+            "mll_and_met_cut": mll_and_met_cut,
+            "inverted_mll_cut": inverted_mll_cut,
+            "inverted_met_cut": inverted_met_cut,
+            "inverted_mll_and_met_cut": inverted_mll_and_met_cut,
+            "met_cut_and_inverted_mll_cut": met_cut_and_inverted_mll_cut
         }
 
 

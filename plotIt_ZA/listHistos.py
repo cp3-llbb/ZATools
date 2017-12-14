@@ -99,9 +99,12 @@ nHistos = 0
 def should_be_blind(name):
     if args.unblinded:
         return False
+    # Define the SR here
     if "nobtag" in name:
         return False
-    if not "mll_cut" in name or "inverted" in name:
+    if not "mll_and_met_cut" in name:
+        return False
+    if "MuEl" in name:
         return False
     return True
 
@@ -208,7 +211,8 @@ for key in keys:
         elif "jj_pt_" in key_name:
             plot['x-axis'] = "Dijet system p_{T} (GeV)"
             plot.update(defaultStyle_events_per_gev)
-        elif "met_pt" in key_name:
+        #elif "met_pt" in key_name:
+        elif "met_pt" in key_name and "inverted_met_cut" not in key_name:
             plot['x-axis'] = "#slash{E}_{T} (GeV)"
             plot.update(defaultStyle_events_per_gev)
         elif "met_phi" in key_name:
@@ -306,16 +310,17 @@ for key in keys:
             plot['x-axis'] = "cos(#theta^{*}_{CS})_{lljj#slash{E}_{T}}"
             plot.update(defaultStyle_events)
  
-        elif "MT2" in key_name:
-            plot['x-axis'] = "MT2"
-            plot.update(defaultStyle_events)
-            if should_be_blind(key_name):
-                plot['blinded-range'] = [150, 500]
+        #elif "MT2" in key_name:
+        #    plot['x-axis'] = "MT2"
+        #    plot.update(defaultStyle_events)
+        #    if should_be_blind(key_name):
+        #        plot['blinded-range'] = [150, 500]
 
         elif "lljj_M_" in key_name:
             plot['x-axis'] = "m_{lljj} (GeV)"
             plot.update(defaultStyle_events_per_gev)
             if should_be_blind(key_name):
+                #plot['blinded-range'] = [500, 1500]
                 plot['blinded-range'] = [500, 1500]
 
         elif "ll_M_" in key_name:
@@ -323,6 +328,21 @@ for key in keys:
             plot.update(defaultStyle_events_per_gev)
  
             #### Do the yields here
+            #btag_stage = ""
+            #if "btagM" in key_name:
+            #    btag_stage = "llbb"
+            #else:
+            #    btag_stage = "lljj"
+            #plot['yields-title'] = get_flavour(key_name) + ", " + btag_stage
+            #plot['for-yields'] = True
+            #if args.yields:
+            #    plots['override'] = True
+
+
+        ### YIELDS FOR ttbar NORMALIZATION
+        elif "met_pt_" in key_name and "inverted_met_cut" in key_name:
+            plot['x-axis'] = "MET (GeV)"
+            plot.update(defaultStyle_events_per_gev)
             btag_stage = ""
             if "btagM" in key_name:
                 btag_stage = "llbb"
@@ -332,12 +352,15 @@ for key in keys:
             plot['for-yields'] = True
             if args.yields:
                 plots['override'] = True
+        ### END OF YIELDS FOR ttbar NORMALIZATION
+
 
         elif "jj_M_" in key_name and "_vs_" not in key_name and ("jj_deepCSV" not in key_name or "jj_cmva" not in key_name):
             plot['x-axis'] = "m_{jj} (GeV)"
             plot.update(defaultStyle_events_per_gev)
             if should_be_blind(key_name):
-                plot['blinded-range'] = [75, 140]
+                #plot['blinded-range'] = [75, 140]
+                plot['blinded-range'] = [0, 1500]
 
         # Default:
         

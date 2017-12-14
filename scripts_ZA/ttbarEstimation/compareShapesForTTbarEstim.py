@@ -26,15 +26,15 @@ def getSingleTop(path):
     list_histos = []
     lumi = 35922
     
-    histoMjj_name = "jj_M_MuEl_hZA_lljj_deepCSV_btagM_"
-    histoMlljj_name = "lljj_M_MuEl_hZA_lljj_deepCSV_btagM_"
-    histoMll_name = "ll_M_MuEl_hZA_lljj_deepCSV_btagM_"
-    histojet1pt_name = "jet1_pt_MuEl_hZA_lljj_deepCSV_btagM_"
-    histojet2pt_name = "jet2_pt_MuEl_hZA_lljj_deepCSV_btagM_"
-    histojjDR_name = "jj_DR_j_j_MuEl_hZA_lljj_deepCSV_btagM_"
-    histolep1pt_name = "lep1_pt_MuEl_hZA_lljj_deepCSV_btagM_"
-    histolep2pt_name = "lep2_pt_MuEl_hZA_lljj_deepCSV_btagM_"
-    histojjpt_name = "jj_pt_MuEl_hZA_lljj_deepCSV_btagM_"
+    histoMjj_name = "jj_M_MuEl_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+    histoMlljj_name = "lljj_M_MuEl_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+    histoMll_name = "ll_M_MuEl_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+    histojet1pt_name = "jet1_pt_MuEl_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+    histojet2pt_name = "jet2_pt_MuEl_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+    histojjDR_name = "jj_DR_j_j_MuEl_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+    histolep1pt_name = "lep1_pt_MuEl_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+    histolep2pt_name = "lep2_pt_MuEl_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+    histojjpt_name = "jj_pt_MuEl_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
 
     for filename in glob.glob(os.path.join(path, '*.root')):
         split_filename = filename.split('/')
@@ -118,28 +118,28 @@ def addHistos(path, ttbar_from_data):
     for filename in glob.glob(os.path.join(path, '*.root')):
         split_filename = filename.split('/')
         if ttbar_from_data:
-            histoMjj_name = "jj_M_MuEl_hZA_lljj_deepCSV_btagM_"
-            histoMlljj_name = "lljj_M_MuEl_hZA_lljj_deepCSV_btagM_"
-            histoMll_name = "ll_M_MuEl_hZA_lljj_deepCSV_btagM_"
-            histojet1pt_name = "jet1_pt_MuEl_hZA_lljj_deepCSV_btagM_"
-            histojet2pt_name = "jet2_pt_MuEl_hZA_lljj_deepCSV_btagM_"
-            histojjDR_name = "jj_DR_j_j_MuEl_hZA_lljj_deepCSV_btagM_"
-            histolep1pt_name = "lep1_pt_MuEl_hZA_lljj_deepCSV_btagM_"
-            histolep2pt_name = "lep2_pt_MuEl_hZA_lljj_deepCSV_btagM_"
-            histojjpt_name = "jj_pt_MuEl_hZA_lljj_deepCSV_btagM_"
+            histoMjj_name = "jj_M_MuEl_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+            histoMlljj_name = "lljj_M_MuEl_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+            histoMll_name = "ll_M_MuEl_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+            histojet1pt_name = "jet1_pt_MuEl_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+            histojet2pt_name = "jet2_pt_MuEl_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+            histojjDR_name = "jj_DR_j_j_MuEl_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+            histolep1pt_name = "lep1_pt_MuEl_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+            histolep2pt_name = "lep2_pt_MuEl_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+            histojjpt_name = "jj_pt_MuEl_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
             if not str(split_filename[-1]).startswith('MuonEG'):
                 continue
         elif not ttbar_from_data:
-            histoMjj_name = "jj_M_MuMu_hZA_lljj_deepCSV_btagM_"
-            histoMlljj_name = "lljj_M_MuMu_hZA_lljj_deepCSV_btagM_"
-            histoMll_name = "ll_M_MuMu_hZA_lljj_deepCSV_btagM_"
-            histojet1pt_name = "jet1_pt_MuMu_hZA_lljj_deepCSV_btagM_"
-            histojet2pt_name = "jet2_pt_MuMu_hZA_lljj_deepCSV_btagM_"
-            histojjDR_name = "jj_DR_j_j_MuMu_hZA_lljj_deepCSV_btagM_"
-            histolep1pt_name = "lep1_pt_MuMu_hZA_lljj_deepCSV_btagM_"
-            histolep2pt_name = "lep2_pt_MuMu_hZA_lljj_deepCSV_btagM_"
-            histojjpt_name = "jj_pt_MuMu_hZA_lljj_deepCSV_btagM_"
-            if not str(split_filename[-1]).startswith('TT_TuneCUETP8M2T4'):
+            histoMjj_name = "jj_M_MuMu_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+            histoMlljj_name = "lljj_M_MuMu_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+            histoMll_name = "ll_M_MuMu_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+            histojet1pt_name = "jet1_pt_MuMu_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+            histojet2pt_name = "jet2_pt_MuMu_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+            histojjDR_name = "jj_DR_j_j_MuMu_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+            histolep1pt_name = "lep1_pt_MuMu_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+            histolep2pt_name = "lep2_pt_MuMu_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+            histojjpt_name = "jj_pt_MuMu_hZA_lljj_deepCSV_btagM_mll_and_met_cut"
+            if not str(split_filename[-1]).startswith('TT_Other_TuneCUETP8M2T4') and not str(split_filename[-1]).startswith('TTTo2L2Nu_13TeV-powheg'):
                 continue
         f = ROOT.TFile(filename)
         print filename
@@ -207,20 +207,18 @@ def main():
     list_histos_ttbarMC = []
     list_histos_singleTop = []
 
-    path_data = '/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/factories_ZA/plots_2017-11-10_v0_deepCSV_MllCut_METCut_for_data/slurm/output/'
-    path_MC = '/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/factories_ZA/plots_2017-11-10_v0_deepCSV_MllCut_METCut_for_MCbkg/slurm/output/'
+    path = '/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/factories_ZA/ttbarSplitting/slurm/output/'
 
-    list_histos_data = addHistos(path_data, True)
-    list_histos_ttbarMC = addHistos(path_MC, False) 
-    list_histos_singleTop = getSingleTop(path_MC)
+    list_histos_data = addHistos(path, True)
+    list_histos_ttbarMC = addHistos(path, False) 
+    list_histos_singleTop = getSingleTop(path)
 
     legend = []
     c1 = []
     c2 = []
-    c3 = []
     pad1 = []
     pad2 = []
-    subtractSingleTop = True
+    subtractSingleTop = False 
 
     for i in range(0, len(list_histos_data)):
 
@@ -276,6 +274,11 @@ def main():
         line.Draw("")
 
         c1[i].cd()
+
+        output_dir = os.path.join(os.getcwd(), "compareShapesForTTbar")
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
         if not subtractSingleTop:
             c1[i].SaveAs("compareShapesForTTbar/plot_%i.png" % i)
             c1[i].SaveAs("compareShapesForTTbar/plot_%i.pdf" % i)
@@ -284,11 +287,12 @@ def main():
             c1[i].SaveAs("compareShapesForTTbar/plot_subtractSingleTop%i.pdf" % i)
             
 
-        c3.append(TCanvas("c3","c3",600,600))
-        c3[i].cd()
+        c2.append(TCanvas("c2","c2",600,600))
+        c2[i].cd()
         list_histos_singleTop[i].Draw("")
-        c3[i].SaveAs("compareShapesForTTbar/plot_SingleTop_%i.png" % i)
-        c3[i].SaveAs("compareShapesForTTbar/plot_SingleTop_%i.pdf" % i)
+        c2[i].SaveAs("compareShapesForTTbar/plot_SingleTop_%i.png" % i)
+        c2[i].SaveAs("compareShapesForTTbar/plot_SingleTop_%i.pdf" % i)
+
 
 #main
 if __name__ == "__main__":
