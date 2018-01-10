@@ -118,7 +118,7 @@ class BasePlotter:
         mll_cut = "({0}.M() > 70) && ({0}.M() < 110)".format(self.ll_str, self.ll_str)
         met_cut = "({0}.Pt() > 0) && ({0}.Pt() < 80)".format(self.met_str, self.met_str)
         mll_and_met_cut = "({0} && {1})".format(mll_cut, met_cut)
-        inverted_mll_cut = "({0}.M() <= 70) && ({0}.M() >= 110)".format(self.ll_str, self.ll_str)
+        inverted_mll_cut = "({0}.M() <= 70 || {0}.M() >= 110)".format(self.ll_str, self.ll_str)
         inverted_met_cut = "({0}.Pt() >= 80)".format(self.met_str, self.met_str)
         inverted_mll_and_met_cut = "({0} && {1})".format(inverted_mll_cut, inverted_met_cut)
         met_cut_and_inverted_mll_cut = "({0} && {1})".format(inverted_mll_cut, met_cut)
@@ -153,8 +153,7 @@ class BasePlotter:
         ###########
 
         # Lepton ID and Iso Scale Factors
-        # FIXME: Change electron_sf_hww_mva80_wp to electron_sf_hww_mva90_wp in the next prod
-        electron_id_branch = "electron_sf_hww_mva80_wp"
+        electron_id_branch = "electron_sf_hww_mva90_wp"
         electron_reco_branch = "electron_sf_reco_moriond17"
         muon_tracking_branch = "muon_sf_tracking"
         muon_id_branch = "muon_sf_id_tight"
@@ -264,6 +263,10 @@ class BasePlotter:
 
         # TRIGGER EFFICIENCY
         trigEff = "({0}.trigger_efficiency)".format(self.baseObject)
+        if systematic == "trigeffup":
+            trigEff = "({0}.trigger_efficiency_upVariated)".format(self.baseObject)
+        if systematic == "trigeffdown":
+            trigEff = "({0}.trigger_efficiency_downVariated)".format(self.baseObject)
 
         # DY BDT reweighting
         # 17_02_17

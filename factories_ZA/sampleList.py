@@ -1,6 +1,7 @@
 ####### Warning: put most recent tags first! ###### 
 analysis_tags = [
-        'v6.1.0+80X_ZAAnalysis_2017-11-10.v0'
+        'v6.1.0+80X_ZAAnalysis_2017-12-12.v0' # --> m_electron_mva_wp80_name bug fixed, JEC and JER as systematics, new trigger eff files for electrons but wrong 
+        #'v6.1.0+80X_ZAAnalysis_2017-11-10.v0' --> m_electron_mva_wp80_name bug
         #'v6.0.0+80X_ZAAnalysis_2017-09-27.v1' --> cmva bug, no METsignificance
         #'v5.0.1+80X-7-g03c2b54_ZAAnalysis_Moriond2015-7-g08c899b'
         #'v5.0.1+80X-2-g909e9e2_ZAAnalysis_Moriond2015-5-g0d38378'
