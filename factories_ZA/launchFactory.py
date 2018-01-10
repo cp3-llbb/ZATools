@@ -135,11 +135,10 @@ MainPlots_ForMC = Configuration('generatePlots.py', suffix='_for_MCbkg', mode='p
             "ZH",
             "SingleTop",
             "VV",
-            #FIXME: to be copied in the DB
-            #"WJets",
+            "WJets",
             "TTV",
-            "TTH",
-            "QCD"
+            "TTH"
+            #"QCD"
         ], generation_args={
             'sample_type': 'MC',
             'lljj_plots': ['basic'],
@@ -297,7 +296,7 @@ if not args.skip:
 def create_slurm(samples, output, executable):
     ## Create Slurm submitter to handle job creating
     #mySub = slurmSubmitter(samples, "%s/build/" % output + executable, "DUMMY", output + "/", rescale=True)
-    mySub = slurmSubmitter(samples, "%s/build/" % output + executable, output + "/", rescale=True)
+    mySub = slurmSubmitter(samples, "%s/build/" % output + executable, output + "/", memory=3000, rescale=True)
 
     ## Create test_slurm directory and subdirs
     mySub.setupDirs()

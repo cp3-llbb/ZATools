@@ -1,6 +1,6 @@
 ####### Warning: put most recent tags first! ###### 
 analysis_tags = [
-        'v6.1.0+80X_ZAAnalysis_2017-12-12.v0' # --> m_electron_mva_wp80_name bug fixed, JEC and JER as systematics, new trigger eff files for electrons but wrong 
+        'v6.1.0+80X_ZAAnalysis_2017-12-12.v0' # --> m_electron_mva_wp80_name bug fixed, JEC and JER as systematics, new trigger eff files for electrons from hww 
         #'v6.1.0+80X_ZAAnalysis_2017-11-10.v0' --> m_electron_mva_wp80_name bug
         #'v6.0.0+80X_ZAAnalysis_2017-09-27.v1' --> cmva bug, no METsignificance
         #'v5.0.1+80X-7-g03c2b54_ZAAnalysis_Moriond2015-7-g08c899b'
@@ -47,7 +47,6 @@ samples_dict["ZH"] = [
     'ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8_Summer16MiniAODv2',
     'ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8_Summer16MiniAODv2',
     'ggZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8_Summer16MiniAODv2',
-    'ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8_Summer16MiniAODv2',
     'ggZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8_Summer16MiniAODv2'
 ]
 
@@ -101,8 +100,8 @@ samples_dict["SingleTop"] = [
 
 # QCD
 samples_dict["QCD"] = [
-    'QCD_Pt-20to30_EMEnriched_TuneCUETP8M1_13TeV_pythia8_Summer16MiniAODv2',
-    'QCD_Pt-30to50_EMEnriched_TuneCUETP8M1_13TeV_pythia8_extended_ext0_plus_ext1',
+    #'QCD_Pt-20to30_EMEnriched_TuneCUETP8M1_13TeV_pythia8_Summer16MiniAODv2',
+    #'QCD_Pt-30to50_EMEnriched_TuneCUETP8M1_13TeV_pythia8_extended_ext0_plus_ext1',
     'QCD_Pt-50to80_EMEnriched_TuneCUETP8M1_13TeV_pythia8_extended_ext0_plus_ext1',
     'QCD_Pt-80to120_EMEnriched_TuneCUETP8M1_13TeV_pythia8_extended_ext0_plus_ext1',
     'QCD_Pt-120to170_EMEnriched_TuneCUETP8M1_13TeV_pythia8_extended_ext0_plus_ext1',
