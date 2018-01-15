@@ -46,9 +46,9 @@ for d in ${directories[*]}; do
     #    hadd Higgs_M125_merged_histos.root ${to_merge} && rm ${to_merge}
     #fi
     
-    #dir_content=(`ls *.root`)
+    dir_content=(`ls *.root`)
 
-    #file_content=`rootls ${dir_content[0]}`
+    file_content=`rootls ${dir_content[0]}`
 
     # flatten 2D plots
     #if [[ ${file_content} =~ mjj_vs_NN ]]; then
@@ -60,14 +60,12 @@ for d in ${directories[*]}; do
     #fi
 
     # take envelopes for scale systematics
-    #if [[ ${file_content} =~ scaleUncorr || ${file_content} =~ dyScaleUncorr ]]; then
-    #    echo "Creating scale systematics..."
-    #    parallel -j 5 createScaleSystematics.py -s scaleUncorr dyScaleUncorr -- ::: *.root
-    #else
-    #    echo "No scale systematics found!"
-    #fi
-
-    #parallel -j 4 ../../../../scripts/fixJER.py -i ::: *.root
+    if [[ ${file_content} =~ scaleUncorr ]]; then
+        echo "Creating scale systematics..."
+        parallel -j 5 createScaleSystematics.py -s scaleUncorr -- ::: *.root
+    else
+        echo "No scale systematics found!"
+    fi
     
     echo "Done."
 
@@ -75,9 +73,9 @@ for d in ${directories[*]}; do
 done
 
 mkdir -p $1/slurm/output
-if [[ ${directories[*]} =~ $1_for_signal ]]; then echo "Moving signal files to main folder..."; mv $1_for_signal/slurm/output/*.root $1/slurm/output ; fi
-if [[ ${directories[*]} =~ $1_for_data ]]; then echo "Moving data files to main folder..."; mv $1_for_data/slurm/output/*.root $1/slurm/output ; fi
-if [[ ${directories[*]} =~ $1_for_MCbkg ]]; then echo "Moving MC bkg files to main folder..."; mv $1_for_MCbkg/slurm/output/*.root $1/slurm/output ; fi
+if [[ ${directories[*]} =~ $1_for_signal ]]; then echo "Moving signal files to main folder..."; cp $1_for_signal/slurm/output/*.root $1/slurm/output ; fi
+if [[ ${directories[*]} =~ $1_for_data ]]; then echo "Moving data files to main folder..."; cp $1_for_data/slurm/output/*.root $1/slurm/output ; fi
+if [[ ${directories[*]} =~ $1_for_MCbkg ]]; then echo "Moving MC bkg files to main folder..."; cp $1_for_MCbkg/slurm/output/*.root $1/slurm/output ; fi
 
 ## subtract MC from data for DY estimation
 #pushd $1/slurm/output/
@@ -89,6 +87,6 @@ if [[ ${directories[*]} =~ $1_for_MCbkg ]]; then echo "Moving MC bkg files to ma
 #
 #popd
 
-if [[ ${directories[*]} =~ $1_for_signal ]]; echo "Removing empty signal folders..."; then rm -r $1_for_signal/ ; fi
-if [[ ${directories[*]} =~ $1_for_data ]]; echo "Removing empty data folders..."; then rm -r $1_for_data/ ; fi
-if [[ ${directories[*]} =~ $1_for_MCbkg ]]; echo "Removing empty MC bkg folders..."; then rm -r $1_for_MCbkg/ ; fi
+#if [[ ${directories[*]} =~ $1_for_signal ]]; echo "Removing empty signal folders..."; then rm -r $1_for_signal/ ; fi
+#if [[ ${directories[*]} =~ $1_for_data ]]; echo "Removing empty data folders..."; then rm -r $1_for_data/ ; fi
+#if [[ ${directories[*]} =~ $1_for_MCbkg ]]; echo "Removing empty MC bkg folders..."; then rm -r $1_for_MCbkg/ ; fi

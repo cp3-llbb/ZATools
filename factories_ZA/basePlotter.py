@@ -135,7 +135,7 @@ class BasePlotter:
         }
 
 
-    def generatePlots(self, categories, stage, requested_plots, weights, systematic="nominal", extraString="", prependCuts=[], appendCuts=[], allowWeightedData=False, resonant_signal_grid=[], nonresonant_signal_grid=[], skimSignal2D=False): 
+    def generatePlots(self, categories, stage, requested_plots, weights, systematic="nominal", extraString="", prependCuts=[], appendCuts=[], allowWeightedData=False): 
 
         # Protect against the fact that data do not have jecup collections, in the nominal case we still have to check that data have one candidate 
         sanityCheck = self.sanityCheck
@@ -575,7 +575,8 @@ class BasePlotter:
         
         for plotFamily in requested_plots:
             
-            if "scaleUncorr" in systematic or "dyScale" in systematic:
+            #if "scaleUncorr" in systematic or "dyScale" in systematic:
+            if "scaleUncorr" in systematic:
 
                 # will fail if we can't find the scale index
                 scaleIndex = str(int(systematic[-1]))
