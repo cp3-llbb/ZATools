@@ -79,20 +79,20 @@ class BasePlotter:
         self.lepton_coll_str = "hZA_leptons"
         self.sys_fwk = ""
 
-        #if objects != "nominal":
-        #    self.baseObjectName = self.baseObjectName.replace("hZA_", "hZA_" + objects + "_")
-        #    self.baseObject = self.baseObject.replace("hZA_", "hZA_" + objects + "_")
-        #    self.prefix += objects + "_"
-        #    self.lep1_str = self.lep1_str.replace("hZA_", "hZA_" + objects + "_")
-        #    self.lep2_str = self.lep2_str.replace("hZA_", "hZA_" + objects + "_")
-        #    self.jet1_str = self.jet1_str.replace("hZA_", "hZA_" + objects + "_")
-        #    self.jet2_str = self.jet2_str.replace("hZA_", "hZA_" + objects + "_")
-        #    self.ll_str = self.ll_str.replace("hZA_", "hZA_" + objects + "_")
-        #    self.jj_str = self.jj_str.replace("hZA_", "hZA_" + objects + "_")
-        #    self.jet_coll_str = self.jet_coll_str.replace("hZA_", "hZA_" + objects + "_")
-        #    self.lepton_coll_str = self.lepton_coll_str.replace("hZA_", "hZA_" + objects + "_")
-        #    self.sys_fwk = "_" + objects
-        #    self.met_str = "met_" + objects + "_p4"
+        if objects != "nominal":
+            self.baseObjectName = self.baseObjectName.replace("hZA_", "hZA_" + objects + "_")
+            self.baseObject = self.baseObject.replace("hZA_", "hZA_" + objects + "_")
+            self.prefix += objects + "_"
+            self.lep1_str = self.lep1_str.replace("hZA_", "hZA_" + objects + "_")
+            self.lep2_str = self.lep2_str.replace("hZA_", "hZA_" + objects + "_")
+            self.jet1_str = self.jet1_str.replace("hZA_", "hZA_" + objects + "_")
+            self.jet2_str = self.jet2_str.replace("hZA_", "hZA_" + objects + "_")
+            self.ll_str = self.ll_str.replace("hZA_", "hZA_" + objects + "_")
+            self.jj_str = self.jj_str.replace("hZA_", "hZA_" + objects + "_")
+            self.jet_coll_str = self.jet_coll_str.replace("hZA_", "hZA_" + objects + "_")
+            self.lepton_coll_str = self.lepton_coll_str.replace("hZA_", "hZA_" + objects + "_")
+            self.sys_fwk = "_" + objects
+            self.met_str = "met_" + objects + "_p4"
 
         # needed to get scale factors (needs to be after the object modification due to systematics)
         self.lep1_fwkIdx = self.lep1_str + ".idx"
@@ -122,6 +122,7 @@ class BasePlotter:
         inverted_met_cut = "({0}.Pt() >= 80)".format(self.met_str, self.met_str)
         inverted_mll_and_met_cut = "({0} && {1})".format(inverted_mll_cut, inverted_met_cut)
         met_cut_and_inverted_mll_cut = "({0} && {1})".format(inverted_mll_cut, met_cut)
+        
         self.dict_stage_cut = {
             "no_cut": "", 
             "mll_cut": mll_cut,
@@ -134,7 +135,7 @@ class BasePlotter:
         }
 
 
-    def generatePlots(self, categories, stage, requested_plots, weights, systematic="nominal", extraString="", prependCuts=[], appendCuts=[], allowWeightedData=False, resonant_signal_grid=[], nonresonant_signal_grid=[], skimSignal2D=False): 
+    def generatePlots(self, categories, stage, requested_plots, weights, systematic="nominal", extraString="", prependCuts=[], appendCuts=[], allowWeightedData=False): 
 
         # Protect against the fact that data do not have jecup collections, in the nominal case we still have to check that data have one candidate 
         sanityCheck = self.sanityCheck
@@ -170,36 +171,36 @@ class BasePlotter:
             }
         llIdIso_var = "NOMINAL"
         
-        #for sf in ["elidiso", "elreco", "mutracking", "muid", "muiso"]:
-        #    if sf in systematic:
-        #        if "up" in systematic:
-        #            llIdIso_var = "UP"
-        #            var_index = "2"
-        #        elif "down" in systematic:
-        #            llIdIso_var = "DOWN"
-        #            var_index = "1"
-        #        else:
-        #            raise Exception("Could not find up or down variation")
+        for sf in ["elidiso", "elreco", "mutracking", "muid", "muiso"]:
+            if sf in systematic:
+                if "up" in systematic:
+                    llIdIso_var = "UP"
+                    var_index = "2"
+                elif "down" in systematic:
+                    llIdIso_var = "DOWN"
+                    var_index = "1"
+                else:
+                    raise Exception("Could not find up or down variation")
 
-        #        if sf == "elidiso":
-        #            llIdIso_sf_dict["err_lep1_el"] = "{id}[{0}][{1}] * {reco}[{0}][0]".format(self.lep1_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
-        #            llIdIso_sf_dict["err_lep2_el"] = "{id}[{0}][{1}] * {reco}[{0}][0]".format(self.lep2_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
-                
-        #        if sf == "elreco":
-        #            llIdIso_sf_dict["err_lep1_el"] = "{id}[{0}][0] * {reco}[{0}][{1}]".format(self.lep1_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
-        #            llIdIso_sf_dict["err_lep2_el"] = "{id}[{0}][0] * {reco}[{0}][{1}]".format(self.lep2_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
-                
-        #        if sf == "mutracking":
-        #            llIdIso_sf_dict["err_lep1_mu"] = "{tracking}[{0}][{1}] * {id}[{0}][0] * {iso}[{0}][0]".format(self.lep1_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
-        #            llIdIso_sf_dict["err_lep2_mu"] = "{tracking}[{0}][{1}] * {id}[{0}][0] * {iso}[{0}][0]".format(self.lep2_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
-                
-        #        if sf == "muid":
-        #            llIdIso_sf_dict["err_lep1_mu"] = "{tracking}[{0}][0] * {id}[{0}][{1}] * {iso}[{0}][0]".format(self.lep1_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
-        #            llIdIso_sf_dict["err_lep2_mu"] = "{tracking}[{0}][0] * {id}[{0}][{1}] * {iso}[{0}][0]".format(self.lep2_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
-                
-        #        if sf == "muiso":
-        #            llIdIso_sf_dict["err_lep1_mu"] = "{tracking}[{0}][0] * {id}[{0}][0] * {iso}[{0}][{1}]".format(self.lep1_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
-        #            llIdIso_sf_dict["err_lep2_mu"] = "{tracking}[{0}][0] * {id}[{0}][0] * {iso}[{0}][{1}]".format(self.lep2_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
+                if sf == "elidiso":
+                    llIdIso_sf_dict["err_lep1_el"] = "{id}[{0}][{1}] * {reco}[{0}][0]".format(self.lep1_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
+                    llIdIso_sf_dict["err_lep2_el"] = "{id}[{0}][{1}] * {reco}[{0}][0]".format(self.lep2_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
+
+                if sf == "elreco":
+                    llIdIso_sf_dict["err_lep1_el"] = "{id}[{0}][0] * {reco}[{0}][{1}]".format(self.lep1_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
+                    llIdIso_sf_dict["err_lep2_el"] = "{id}[{0}][0] * {reco}[{0}][{1}]".format(self.lep2_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
+
+                if sf == "mutracking":
+                    llIdIso_sf_dict["err_lep1_mu"] = "{tracking}[{0}][{1}] * {id}[{0}][0] * {iso}[{0}][0]".format(self.lep1_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
+                    llIdIso_sf_dict["err_lep2_mu"] = "{tracking}[{0}][{1}] * {id}[{0}][0] * {iso}[{0}][0]".format(self.lep2_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
+
+                if sf == "muid":
+                    llIdIso_sf_dict["err_lep1_mu"] = "{tracking}[{0}][0] * {id}[{0}][{1}] * {iso}[{0}][0]".format(self.lep1_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
+                    llIdIso_sf_dict["err_lep2_mu"] = "{tracking}[{0}][0] * {id}[{0}][{1}] * {iso}[{0}][0]".format(self.lep2_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
+
+                if sf == "muiso":
+                    llIdIso_sf_dict["err_lep1_mu"] = "{tracking}[{0}][0] * {id}[{0}][0] * {iso}[{0}][{1}]".format(self.lep1_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
+                    llIdIso_sf_dict["err_lep2_mu"] = "{tracking}[{0}][0] * {id}[{0}][0] * {iso}[{0}][{1}]".format(self.lep2_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
 
         llIdIso_sf = """( common::combineScaleFactors<2>( {{ {{ 
                 {{ 
@@ -267,9 +268,6 @@ class BasePlotter:
             trigEff = "({0}.trigger_efficiency_upVariated)".format(self.baseObject)
         if systematic == "trigeffdown":
             trigEff = "({0}.trigger_efficiency_downVariated)".format(self.baseObject)
-
-        # DY BDT reweighting
-        # 17_02_17
 
         available_weights = {
                 'trigeff': trigEff,
@@ -577,7 +575,8 @@ class BasePlotter:
         
         for plotFamily in requested_plots:
             
-            if "scaleUncorr" in systematic or "dyScale" in systematic:
+            #if "scaleUncorr" in systematic or "dyScale" in systematic:
+            if "scaleUncorr" in systematic:
 
                 # will fail if we can't find the scale index
                 scaleIndex = str(int(systematic[-1]))
@@ -626,6 +625,11 @@ class BasePlotter:
                         plot["weight"] = "event_weight/__sample_weight"
                         print "No other weight than event_weight for ", plotFamily 
                     plotsToReturn.append(plot)
+
+        # If requested, do NOT force weights to 1 for data
+        if allowWeightedData:
+            for plot in plotsToReturn:
+                plot["allow-weighted-data"] = True
 
         # Remove possible duplicates (same name => they would be overwritten when saving the output file anyway)
         cleanedPlotList = []

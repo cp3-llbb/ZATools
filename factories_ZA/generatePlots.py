@@ -47,6 +47,9 @@ for_signal = (config['sample_type'] == 'Signal')
 check_overlap([for_data, for_MC, for_signal])
 
 use_syst = get_cfg('syst')
+syst_split_jec = get_cfg('syst_split_jec', False)
+syst_only_jec = get_cfg('syst_only_jec', False)
+syst_split_pdf = get_cfg('syst_split_pdf', False)
 
 lljj_categories = get_cfg('lljj_categories', ['MuMu', 'ElEl', 'MuEl'])
 llbb_categories = get_cfg('llbb_categories', ['MuMu', 'ElEl', 'MuEl'])
@@ -158,7 +161,7 @@ else:
                 "puup", "pudown",
                 "trigeffup", "trigeffdown",
                 "pdfup", "pdfdown",
-                "dyStatup", "dyStatdown"
+                #"dyStatup", "dyStatdown"  this comes from DY data-driven
                 #"elrecoup", "elrecodown",
                 #"mutrackingup", "mutrackingdown",
                 #"hdampup", "hdampdown",
@@ -167,7 +170,6 @@ else:
     # Scale uncertainties
     for i in range(6):
         systematics["SF"].append("scaleUncorr{}".format(i))
-        systematics["SF"].append("dyScaleUncorr{}".format(i))
 
     # All JEC sources, if asked
     if syst_split_jec:
@@ -227,7 +229,7 @@ for systematicType in systematics.keys():
             #This line was not here before
             for stage in llbb_stages:
                 this_categories = llbb_categories[:]
-                plots.extend(basePlotter_llbb.generatePlots(this_categories, stage, weights=weights_llbb, requested_plots=plots_llbb))
+                plots.extend(basePlotter_llbb.generatePlots(this_categories, stage, systematic=systematic, weights=weights_llbb, requested_plots=plots_llbb))
 
         # Signal: only do llbb!
         if for_signal:
