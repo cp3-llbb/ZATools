@@ -158,7 +158,6 @@ class BasePlotter:
         
         cuts = self.joinCuts(cuts, electron_1_id_cut, electron_2_id_cut)
 
-
         ###########
         # Weights #
         ###########
