@@ -133,13 +133,13 @@ double massWindow::getValue (int n, int m, pair_d point){
                         std::cout << "a, b, theta: " << a << ", " << b << ", " << theta << std::endl;
                         a_closestEllipse = a;
                         b_closestEllipse = b;
-                        theta_closetsEllipse = theta;
+                        theta_closestEllipse = theta;
                     }
                 }
                 std::cout << "Min distance: " << dist << std::endl;
                 std::cout << "Min a, min b, min theta: " << a_closestEllipse << ", " << b_closestEllipse << ", " << theta_closestEllipse << std::endl;
                 // If no min dist found:
-                if (dist = 1000000000) interpolation == 0.;
+                if (dist == 1000000000) interpolation = 0.;
                 else {
                     if (n==0 && m==0) interpolation = cos(theta_closestEllipse)/sqrt(a_closestEllipse);
                     else if (n==0 && m==1) interpolation = sin(theta_closestEllipse)/sqrt(a_closestEllipse);
