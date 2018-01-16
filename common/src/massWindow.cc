@@ -105,9 +105,12 @@ double massWindow::getValue (int n, int m, pair_d point){
     double interpolation = m_matrix[n][m].Interpolate(point.first, point.second);
     if (interpolation != 0) std::cout << "NON-ZERO INTERP: " << interpolation << std::endl;
 
+    double a_closestEllipse = 0;
+    double b_closestEllipse = 0;
+    double theta_closestEllipse = 0;
     double dist = 0;
     if (interpolation == 0) {
-        dist = 1000000;
+        dist = 1000000000;
         std::ifstream ifile(m_filename);
         Json::Reader reader;
         Json::Value text;
@@ -124,6 +127,30 @@ double massWindow::getValue (int n, int m, pair_d point){
                     double distance = sqrt(pow(point.first-mbb, 2)+pow(point.second-mllbb, 2));
                     std::cout << "distance: " << distance << std::endl;
                     std::cout << "mbb, mllbb: " << mbb << ", " << mllbb << std::endl;
+                    if (distance < dist){
+                        dist = distance;
+                        std::cout << "Distance: " << distance << std::endl;
+                        std::cout << "a, b, theta: " << a << ", " << b << ", " << theta << std::endl;
+                        a_closestEllipse = a;
+                        b_closestEllipse = b;
+                        theta_closetsEllipse = theta;
+                    }
+                }
+                std::cout << "Min distance: " << dist << std::endl;
+                std::cout << "Min a, min b, min theta: " << a_closestEllipse << ", " << b_closestEllipse << ", " << theta_closestEllipse << std::endl;
+                // If no min dist found:
+                if (dist = 1000000000) interpolation == 0.;
+                else {
+                    if (n==0 && m==0) interpolation = cos(theta_closestEllipse)/sqrt(a_closestEllipse);
+                    else if (n==0 && m==1) interpolation = sin(theta_closestEllipse)/sqrt(a_closestEllipse);
+                    else if (n==1 && m==0) interpolation = -sin(theta_closestEllipse)/sqrt(b_closestEllipse);
+                    else if (n==1 && m==1) interpolation = cos(theta_closestEllipse)/sqrt(b_closestEllipse);
+                }
+                /*
+                if (MA > 0 && MH > 0 && theta > 0 && a > 0 && b > 0 && MH <= 1000) {
+                    double distance = sqrt(pow(point.first-mbb, 2)+pow(point.second-mllbb, 2));
+                    std::cout << "distance: " << distance << std::endl;
+                    std::cout << "mbb, mllbb: " << mbb << ", " << mllbb << std::endl;
                     if (distance < dist) {
                         if (n==0 && m==0) interpolation = cos(theta)/sqrt(a);
                         else if (n==0 && m==1) interpolation = sin(theta)/sqrt(a);
@@ -135,6 +162,7 @@ double massWindow::getValue (int n, int m, pair_d point){
                         dist = distance;
                     }
                 }
+                */
             }
         }
     }
