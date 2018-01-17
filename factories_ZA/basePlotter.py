@@ -1,8 +1,6 @@
 import copy, sys, os
 import numpy as np
 import json
-#sys.path.insert(0, '/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/')
-#import cutWindow
 
 def get_scram_tool_info(tool, tag):
     import subprocess
