@@ -26,5 +26,4 @@ class massWindow {
     private:
         std::string m_filename;
         std::vector<std::vector<TGraph2D>> m_matrix;
-
 };

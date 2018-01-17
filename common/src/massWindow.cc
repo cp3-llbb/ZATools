@@ -38,7 +38,7 @@ massWindow::massWindow(std::string filename) : m_filename(filename) {
     std::cout << "n_ellipse: " << n_ellipse << std::endl;
     */
 
-    // Declare TGraphs
+    // Declare TGraphs (the number of entries is set to 21 because the we have 21 signal samples)
     TGraph2D M11g(21);
     M11g.SetNameTitle("M11g", "M11");
  
@@ -60,20 +60,20 @@ massWindow::massWindow(std::string filename) : m_filename(filename) {
  
             //CHECK THE VALUES
             const double mbb = text[i][0].asDouble();
-            std::cout << "mbb: " << mbb << std::endl;
+            //std::cout << "mbb: " << mbb << std::endl;
             const double mllbb = text[i][1].asDouble();
-            std::cout << "mllbb: " << mllbb << std::endl;
+            //std::cout << "mllbb: " << mllbb << std::endl;
             const double a = text[i][2].asDouble();
-            std::cout << "a: " << a << std::endl;
+            //std::cout << "a: " << a << std::endl;
             const double b = text[i][3].asDouble();
-            std::cout << "b: " << b << std::endl;
+            //std::cout << "b: " << b << std::endl;
             const double theta = text[i][4].asDouble();
-            std::cout << "theta: " << theta << std::endl;
+            //std::cout << "theta: " << theta << std::endl;
             const double MA = text[i][5].asDouble();
-            std::cout << "MA: " << MA << std::endl;
+            //std::cout << "MA: " << MA << std::endl;
             const double MH = text[i][6].asDouble();
-            std::cout << "MH: " << MH << std::endl;
-            if (MA > 0 && MH > 0 && theta > 0 && a > 0 && b > 0 && MH <= 1000) {
+            //std::cout << "MH: " << MH << std::endl;
+            if (MA > 0 && MH > 0 && theta > 0 && a > 0 && b > 0) {
                 double M11 = cos(theta)/sqrt(a);
                 double M12 = sin(theta)/sqrt(a);
                 double M21 = -sin(theta)/sqrt(b);
@@ -94,7 +94,6 @@ massWindow::massWindow(std::string filename) : m_filename(filename) {
         matrix.push_back(line2);
 
         m_matrix = matrix;
-
     }
 }
 
@@ -103,7 +102,6 @@ massWindow::massWindow(std::string filename) : m_filename(filename) {
 double massWindow::getValue (int n, int m, pair_d point){
     
     double interpolation = m_matrix[n][m].Interpolate(point.first, point.second);
-    if (interpolation != 0) std::cout << "NON-ZERO INTERP: " << interpolation << std::endl;
 
     double a_closestEllipse = 0;
     double b_closestEllipse = 0;
@@ -123,21 +121,15 @@ double massWindow::getValue (int n, int m, pair_d point){
                 const double theta = text[i][4].asDouble();
                 const double MA = text[i][5].asDouble();
                 const double MH = text[i][6].asDouble();
-                if (MA > 0 && MH > 0 && theta > 0 && a > 0 && b > 0 && MH <= 1000) {
+                if (MA > 0 && MH > 0 && theta > 0 && a > 0 && b > 0) {
                     double distance = sqrt(pow(point.first-mbb, 2)+pow(point.second-mllbb, 2));
-                    std::cout << "distance: " << distance << std::endl;
-                    std::cout << "mbb, mllbb: " << mbb << ", " << mllbb << std::endl;
                     if (distance < dist){
                         dist = distance;
-                        std::cout << "Distance: " << distance << std::endl;
-                        std::cout << "a, b, theta: " << a << ", " << b << ", " << theta << std::endl;
                         a_closestEllipse = a;
                         b_closestEllipse = b;
                         theta_closestEllipse = theta;
                     }
                 }
-                std::cout << "Min distance: " << dist << std::endl;
-                std::cout << "Min a, min b, min theta: " << a_closestEllipse << ", " << b_closestEllipse << ", " << theta_closestEllipse << std::endl;
                 // If no min dist found:
                 if (dist == 1000000000) interpolation = 0.;
                 else {
@@ -146,23 +138,6 @@ double massWindow::getValue (int n, int m, pair_d point){
                     else if (n==1 && m==0) interpolation = -sin(theta_closestEllipse)/sqrt(b_closestEllipse);
                     else if (n==1 && m==1) interpolation = cos(theta_closestEllipse)/sqrt(b_closestEllipse);
                 }
-                /*
-                if (MA > 0 && MH > 0 && theta > 0 && a > 0 && b > 0 && MH <= 1000) {
-                    double distance = sqrt(pow(point.first-mbb, 2)+pow(point.second-mllbb, 2));
-                    std::cout << "distance: " << distance << std::endl;
-                    std::cout << "mbb, mllbb: " << mbb << ", " << mllbb << std::endl;
-                    if (distance < dist) {
-                        if (n==0 && m==0) interpolation = cos(theta)/sqrt(a);
-                        else if (n==0 && m==1) interpolation = sin(theta)/sqrt(a);
-                        else if (n==1 && m==0) interpolation = -sin(theta)/sqrt(b);
-                        else if (n==1 && m==1) interpolation = cos(theta)/sqrt(b);
-                    }
-                    else {
-                        interpolation = 0.;
-                        dist = distance;
-                    }
-                }
-                */
             }
         }
     }

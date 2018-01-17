@@ -13,7 +13,8 @@ def get_scram_tool_info(tool, tag):
 
 def default_code_before_loop():
     return r"""
-    massWindow window("/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipseParam.json");
+    massWindow window_MuMu("/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_MuMu.json");
+    massWindow window_ElEl("/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_ElEl.json");
     """
 
 def default_code_in_loop():
@@ -84,7 +85,8 @@ class BasePlotter:
         self.jet_coll_str = "hZA_jets"
         self.lepton_coll_str = "hZA_leptons"
         self.sys_fwk = ""
-        self.filename = "/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipseParam.json"
+        self.filename_MuMu = "/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_MuMu.json"
+        self.filename_ElEl = "/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_ElEl.json"
         self.plotInEllipse = True
         self.plotOutOfEllipse = True
 
@@ -314,7 +316,8 @@ class BasePlotter:
 
             catCut = self.dict_cat_cut[cat]
             self.totalCut = self.joinCuts(cuts, catCut, self.dict_stage_cut[stage], *appendCuts)
-            
+            self.cutWithoutStagesAndCat = self.joinCuts(cuts, *appendCuts)
+
             self.llFlav = cat
             self.extraString = stage + extraString
 
@@ -324,7 +327,7 @@ class BasePlotter:
                         'plot_cut': self.totalCut,
                         'binning': '(40, 10, 1000)'
                 })
-            
+
             # Plot to compute yields (ensure we have not over/under flow)
             #self.isElEl_plot.append({
             #            'name': 'isElEl_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
@@ -563,18 +566,27 @@ class BasePlotter:
                         'binning': '(50, 0, 1)'
                 }
             ])
-            
+
+
             #PLOTS IN ELLIPSE
+            if cat == "MuEl":
+                continue
             if self.plotInEllipse:
-                with open(self.filename) as f:
-                    parameters = json.load(f)
+                if cat == "MuMu":
+                    with open(self.filename_MuMu) as f:
+                        parameters = json.load(f)
+                elif cat == "ElEl":
+                    with open(self.filename_ElEl) as f:
+                        parameters = json.load(f)
                 for j, line in enumerate(parameters):
-                    #discard points with MH > 1000 GeV, if any
-                    if line[6] > 1000:
-                        continue
-                    inWindowCut = "window.isInWindow({0}, {1}, 2., {2}, {3})".format(float(line[0]), float(line[1]), self.jj_str + ".M()", self.baseObject+".p4.M()")
-                    self.ellCut = self.joinCuts(self.totalCut, inWindowCut)
-                    self.extraString = "inEllipse_{0}_{1}_{2}".format(j, round(line[0], 1), round(line[1], 1))
+                    if cat == "MuMu":
+                        inWindowCut = "window_MuMu.isInWindow({0}, {1}, 2., {2}, {3})".format(float(line[0]), float(line[1]), self.jj_str + ".M()", self.baseObject+".p4.M()")
+                        self.ellCut = self.joinCuts(self.cutWithoutStagesAndCat, self.dict_cat_cut["MuMu"], self.dict_stage_cut["mll_and_met_cut"], inWindowCut)
+                    elif cat == "ElEl":
+                        inWindowCut = "window_ElEl.isInWindow({0}, {1}, 2., {2}, {3})".format(float(line[0]), float(line[1]), self.jj_str + ".M()", self.baseObject+".p4.M()")
+                        self.ellCut = self.joinCuts(self.cutWithoutStagesAndCat, self.dict_cat_cut["ElEl"], self.dict_stage_cut["mll_and_met_cut"], inWindowCut)
+                    self.extraString = "inEllipse_{0}_{1}_{2}".format(j, round(line[0], 1), round(line[1], 1)) #Labelling each of the 21 ellipses with its index. The histograms will be named with this label and the reco mbb and mllbb. Will need to write down which ellipse corresponds to which index.
+                    self.extraStringForInOut = "{0}_{1}_{2}".format(j, round(line[0], 1), round(line[1], 1))
                     self.inEllipse_plot.extend([
                         {
                             'name': 'll_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
@@ -601,25 +613,29 @@ class BasePlotter:
                             'binning': '(50, 100, 1500)'
                         },
                         {
-                            'name': 'isInOrOut_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                            'variable': "window.isInWindow({0}, {1}, 2., {2}, {3})".format(line[0], line[1], self.jj_str + ".M()", self.baseObject+".p4.M()"),
+                            'name': 'isInOrOut_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraStringForInOut, self.systematicString),
+                            'variable': "window_{0}.isInWindow({1}, {2}, 2., {3}, {4})".format(cat, line[0], line[1], self.jj_str + ".M()", self.baseObject+".p4.M()"),
                             'plot_cut': self.totalCut,
                             'binning': '(2, 0, 2)'
                         }
-                    ])
+                ])
 
-            
             #PLOTS OUT OF ELLIPSE
             if self.plotOutOfEllipse:
-                with open(self.filename) as f:
-                    parameters = json.load(f)
+                if cat == "MuMu":
+                    with open(self.filename_MuMu) as f:
+                        parameters = json.load(f)
+                elif cat == "ElEl":
+                    with open(self.filename_ElEl) as f:
+                        parameters = json.load(f)
                 for j, line in enumerate(parameters):
-                    #discard points with MH > 1000 GeV
-                    if line[6] > 1000:
-                        continue
-                    notInWindowCut = "window.isNoise({0}, {1}, 2., {2}, {3})".format(line[0], line[1], self.jj_str + ".M()", self.baseObject+".p4.M()")
-                    self.outOfEllCut = self.joinCuts(self.totalCut, notInWindowCut)
-                    self.extraString = "outOfEllipse_{0}_{1}_{2}".format(j, round(line[0], 1), round(line[1], 1))
+                    if cat == "MuMu":
+                        notInWindowCut = "window_MuMu.isNoise({0}, {1}, 2., {2}, {3})".format(line[0], line[1], self.jj_str + ".M()", self.baseObject+".p4.M()")
+                        self.outOfEllCut = self.joinCuts(self.cutWithoutStagesAndCat, self.dict_cat_cut["MuMu"], self.dict_stage_cut["mll_and_met_cut"], notInWindowCut)
+                    elif cat == "ElEl":
+                        notInWindowCut = "window_ElEl.isNoise({0}, {1}, 2., {2}, {3})".format(line[0], line[1], self.jj_str + ".M()", self.baseObject+".p4.M()")
+                        self.outOfEllCut = self.joinCuts(self.cutWithoutStagesAndCat, self.dict_cat_cut["ElEl"], self.dict_stage_cut["mll_and_met_cut"], notInWindowCut)
+                    self.extraString = "outOfEllipse_{0}_{1}_{2}".format(j, round(line[0], 1), round(line[1], 1)) #Labelling each of the 21 ellipses with its index. The histograms wi    ll be named with this label and the reco mbb and mllbb. Will need to write down which ellipse corresponds to which index.
                     self.outOfEllipse_plot.extend([
                         {
                             'name': 'll_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
@@ -655,16 +671,14 @@ class BasePlotter:
             #        tempPlot["name"] = "gen"+tempPlot["name"]
             #        self.plots_gen.append(tempPlot)
             
-            self.gen_plot.extend([
-                {
-                    'name': 'gen_mZA',
-                    'variable': 'hZA_gen_mZA',
-                    'plot_cut': self.totalCut,
-                    'binning': '(50, 0, 1200)'
-                },
-            ])
-            
-            
+            #self.gen_plot.extend([
+            #    {
+            #        'name': 'gen_mZA',
+            #        'variable': 'hZA_gen_mZA',
+            #        'plot_cut': self.totalCut,
+            #        'binning': '(50, 0, 1200)'
+            #    },
+            #])
 
         plotsToReturn = []
         
