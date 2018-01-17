@@ -581,10 +581,10 @@ class BasePlotter:
                 for j, line in enumerate(parameters):
                     if cat == "MuMu":
                         inWindowCut = "window_MuMu.isInWindow({0}, {1}, 2., {2}, {3})".format(float(line[0]), float(line[1]), self.jj_str + ".M()", self.baseObject+".p4.M()")
-                        self.ellCut = self.joinCuts(self.cutWithoutStagesAndCat, self.dict_cat_cut["MuMu"], self.dict_stage_cut["mll_and_met_cut"], inWindowCut)
+                        self.ellCut = self.joinCuts(self.cutWithoutStagesAndCat, self.dict_cat_cut[cat], self.dict_stage_cut["mll_and_met_cut"], inWindowCut)
                     elif cat == "ElEl":
                         inWindowCut = "window_ElEl.isInWindow({0}, {1}, 2., {2}, {3})".format(float(line[0]), float(line[1]), self.jj_str + ".M()", self.baseObject+".p4.M()")
-                        self.ellCut = self.joinCuts(self.cutWithoutStagesAndCat, self.dict_cat_cut["ElEl"], self.dict_stage_cut["mll_and_met_cut"], inWindowCut)
+                        self.ellCut = self.joinCuts(self.cutWithoutStagesAndCat, self.dict_cat_cut[cat], self.dict_stage_cut["mll_and_met_cut"], inWindowCut)
                     self.extraString = "inEllipse_{0}_{1}_{2}".format(j, round(line[0], 1), round(line[1], 1)) #Labelling each of the 21 ellipses with its index. The histograms will be named with this label and the reco mbb and mllbb. Will need to write down which ellipse corresponds to which index.
                     self.extraStringForInOut = "{0}_{1}_{2}".format(j, round(line[0], 1), round(line[1], 1))
                     self.inEllipse_plot.extend([
@@ -631,10 +631,10 @@ class BasePlotter:
                 for j, line in enumerate(parameters):
                     if cat == "MuMu":
                         notInWindowCut = "window_MuMu.isNoise({0}, {1}, 2., {2}, {3})".format(line[0], line[1], self.jj_str + ".M()", self.baseObject+".p4.M()")
-                        self.outOfEllCut = self.joinCuts(self.cutWithoutStagesAndCat, self.dict_cat_cut["MuMu"], self.dict_stage_cut["mll_and_met_cut"], notInWindowCut)
+                        self.outOfEllCut = self.joinCuts(self.cutWithoutStagesAndCat, self.dict_cat_cut[cat], self.dict_stage_cut["mll_and_met_cut"], notInWindowCut)
                     elif cat == "ElEl":
                         notInWindowCut = "window_ElEl.isNoise({0}, {1}, 2., {2}, {3})".format(line[0], line[1], self.jj_str + ".M()", self.baseObject+".p4.M()")
-                        self.outOfEllCut = self.joinCuts(self.cutWithoutStagesAndCat, self.dict_cat_cut["ElEl"], self.dict_stage_cut["mll_and_met_cut"], notInWindowCut)
+                        self.outOfEllCut = self.joinCuts(self.cutWithoutStagesAndCat, self.dict_cat_cut[cat], self.dict_stage_cut["mll_and_met_cut"], notInWindowCut)
                     self.extraString = "outOfEllipse_{0}_{1}_{2}".format(j, round(line[0], 1), round(line[1], 1)) #Labelling each of the 21 ellipses with its index. The histograms wi    ll be named with this label and the reco mbb and mllbb. Will need to write down which ellipse corresponds to which index.
                     self.outOfEllipse_plot.extend([
                         {
