@@ -20,8 +20,8 @@ class massWindow {
         double getValue (int n, int m, pair_d point);
         pair_d applyGlobalTransformation(pair_d ref, pair_d point);
         pair_d applyLocalTranformation(pair_d point);
-        bool isInWindow(double center_x, double center_y, double size, double point_x, double point_y);
-        bool isNoise(double center_x, double center_y, double size, double point_x, double point_y);
+        bool isInEllipse(double center_x, double center_y, double size, double point_x, double point_y);
+        bool isOutOfEllipse(double center_x, double center_y, double size, double point_x, double point_y);
 
     private:
         std::string m_filename;
