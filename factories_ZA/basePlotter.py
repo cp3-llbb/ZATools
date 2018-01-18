@@ -567,6 +567,8 @@ class BasePlotter:
 
 
             #PLOTS IN ELLIPSE
+            if not self.btag:
+                continue
             if cat == "MuEl":
                 continue
             if self.plotInEllipse:
