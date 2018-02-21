@@ -1,9 +1,11 @@
 ####### Warning: put most recent tags first! ###### 
 analysis_tags = [
+        #'v6.1.0+80X_ZAAnalysis_2017-12-12.v0-2-gf03f531' # back to cut based id for electrons
+        #'v6.1.0+80X_ZAAnalysis_2017-12-12.v0-1-g21432f5' # --> back to cut based id for electrons (wrong, iso cut still included)
         'v6.1.0+80X_ZAAnalysis_2017-12-12.v0' # --> m_electron_mva_wp80_name bug fixed, JEC and JER as systematics, new trigger eff files for electrons from hww 
-        #'v6.1.0+80X_ZAAnalysis_2017-11-10.v0' --> m_electron_mva_wp80_name bug
+        #'v6.1.0+80X_ZAAnalysis_2017-11-10.v0' # --> m_electron_mva_wp80_name bug
         #'v6.0.0+80X_ZAAnalysis_2017-09-27.v1' --> cmva bug, no METsignificance
-        #'v5.0.1+80X-7-g03c2b54_ZAAnalysis_Moriond2015-7-g08c899b'
+        #'v5.0.1+80X-7-g03c2b54_ZAAnalysis_Moriond2015-7-g08c899b' # --> electrons are good
         #'v5.0.1+80X-2-g909e9e2_ZAAnalysis_Moriond2015-5-g0d38378'
         #'v5.0.1+80X-2-g909e9e2_ZAAnalysis_Moriond2015-1-gd479ab9'
         ]
@@ -46,6 +48,12 @@ samples_dict["ZH"] = [
     'ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8_Summer16MiniAODv2',
     'ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8_Summer16MiniAODv2',
     'ggZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8_Summer16MiniAODv2'
+]
+
+#WGamma
+samples_dict["WGamma"] = [
+    'WGToLNuG_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_Summer16MiniAODv2',
+    'WGToLNuG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_plus_ext2_plus_ext3'
 ]
 
 # VV

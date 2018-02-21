@@ -130,6 +130,7 @@ class BasePlotter:
         inverted_met_cut = "({0}.Pt() >= 80)".format(self.met_str, self.met_str)
         inverted_mll_and_met_cut = "({0} && {1})".format(inverted_mll_cut, inverted_met_cut)
         met_cut_and_inverted_mll_cut = "({0} && {1})".format(inverted_mll_cut, met_cut)
+        mll_cut_and_inverted_met_cut = "({0} && {1})".format(mll_cut, inverted_met_cut)
         
         self.dict_stage_cut = {
             "no_cut": "", 
@@ -139,7 +140,8 @@ class BasePlotter:
             "inverted_mll_cut": inverted_mll_cut,
             "inverted_met_cut": inverted_met_cut,
             "inverted_mll_and_met_cut": inverted_mll_and_met_cut,
-            "met_cut_and_inverted_mll_cut": met_cut_and_inverted_mll_cut
+            "met_cut_and_inverted_mll_cut": met_cut_and_inverted_mll_cut,
+            "mll_cut_and_inverted_met_cut": mll_cut_and_inverted_met_cut
         }
 
 
@@ -313,7 +315,7 @@ class BasePlotter:
 
             catCut = self.dict_cat_cut[cat]
             self.totalCut = self.joinCuts(cuts, catCut, self.dict_stage_cut[stage], *appendCuts)
-            self.cutWithoutStagesAndCat = self.joinCuts(cuts, *appendCuts)
+            self.cutWithoutCat = self.joinCuts(cuts, self.dict_stage_cut[stage], *appendCuts)
 
             self.llFlav = cat
             self.extraString = stage + extraString
@@ -499,12 +501,12 @@ class BasePlotter:
                         'plot_cut': self.totalCut,
                         'binning': '(50, 0, 500)'
                 },
-                {
-                        'name': 'met_E_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.met_str + ".E()",
-                        'plot_cut': self.totalCut,
-                        'binning': '(50, 0, 500)'
-                },
+                #{
+                #        'name': 'met_E_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.met_str + ".E()",
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(50, 0, 500)'
+                #},
                 {
                         'name': 'met_significance_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
                         'variable': self.metSig_str,
@@ -564,100 +566,102 @@ class BasePlotter:
                 }
             ])
 
-
+            if self.btag and cat != "MuEl":
             #PLOTS IN ELLIPSE
-            if not self.btag or cat == "MuEl":
-                continue
-            if cat == "MuMu":
-                with open(self.filename_MuMu) as f:
-                    parameters = json.load(f)
-            elif cat == "ElEl":
-                with open(self.filename_ElEl) as f:
-                    parameters = json.load(f)
-            for j, line in enumerate(parameters):
                 if cat == "MuMu":
-                    inWindowCut = "window_MuMu.isInEllipse({0}, {1}, {2}, {3}, {4})".format(float(line[0]), float(line[1]), self.rho, self.jj_str + ".M()", self.baseObject+".p4.M()")
-                    self.ellCut = self.joinCuts(self.cutWithoutStagesAndCat, self.dict_cat_cut[cat], self.dict_stage_cut["mll_and_met_cut"], inWindowCut)
+                    with open(self.filename_MuMu) as f:
+                        parameters = json.load(f)
                 elif cat == "ElEl":
-                    inWindowCut = "window_ElEl.isInEllipse({0}, {1}, {2}, {3}, {4})".format(float(line[0]), float(line[1]), self.rho, self.jj_str + ".M()", self.baseObject+".p4.M()")
-                    self.ellCut = self.joinCuts(self.cutWithoutStagesAndCat, self.dict_cat_cut[cat], self.dict_stage_cut["mll_and_met_cut"], inWindowCut)
-                self.extraString = "inEllipse_{0}_{1}_{2}".format(j, round(line[0], 1), round(line[1], 1)) #Labelling each of the 21 ellipses with its index. The histograms will be named with this label and the reco mbb and mllbb. Will need to write down which ellipse corresponds to which index.
-                self.extraStringForInOut = "{0}_{1}_{2}".format(j, round(line[0], 1), round(line[1], 1))
-                self.inEllipse_plot.extend([
-                    {
-                        'name': 'll_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.ll_str+".M()",
-                        'plot_cut': self.ellCut,
-                        'binning': mll_plot_binning
-                    },
-                    {
-                        'name': 'Mjj_vs_Mlljj_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.jj_str + '.M() ::: '+self.baseObject + '.p4.M()',
-                        'plot_cut': self.ellCut,
-                        'binning': '(100, 0, 1500, 100, 0, 1500)'
-                    },
-                    {
-                        'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.jj_str + ".M()",
-                        'plot_cut': self.ellCut,
-                        'binning': '(40, 10, 1000)'
-                    },
-                    {
-                        'name': 'lljj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.baseObject+".p4.M()",
-                        'plot_cut': self.ellCut,
-                        'binning': '(50, 100, 1500)'
-                    },
-                    {
-                        'name': 'isInOrOut_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraStringForInOut, self.systematicString),
-                        'variable': "window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, line[0], line[1], self.rho, self.jj_str + ".M()", self.baseObject+".p4.M()"),
-                        'plot_cut': self.totalCut,
-                        'binning': '(2, 0, 2)'
-                    }
-            ])
+                    with open(self.filename_ElEl) as f:
+                        parameters = json.load(f)
+                for j, line in enumerate(parameters):
+                    if cat == "MuMu":
+                        inWindowCut = "window_MuMu.isInEllipse({0}, {1}, {2}, {3}, {4})".format(float(line[0]), float(line[1]), self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
+                        self.ellCut = self.joinCuts(self.cutWithoutCat, self.dict_cat_cut[cat], inWindowCut)
+                    elif cat == "ElEl":
+                        inWindowCut = "window_ElEl.isInEllipse({0}, {1}, {2}, {3}, {4})".format(float(line[0]), float(line[1]), self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
+                        self.ellCut = self.joinCuts(self.cutWithoutCat, self.dict_cat_cut[cat], inWindowCut)
+                    self.tempExtraString = "_inEllipse_{0}_{1}_{2}".format(j, round(line[0], 1), round(line[1], 1)) #Labelling each of the 21 ellipses with its index. The histograms will be named with this label and the reco mbb and mllbb. Will need to write down which ellipse corresponds to which index.
+                    self.ellExtraString = self.extraString + self.tempExtraString
+                    self.tempExtraStringForInOut =  "_{0}_{1}_{2}".format(j, round(line[0], 1), round(line[1], 1))
+                    self.extraStringForInOut = self.extraString + self.tempExtraStringForInOut
 
-            #PLOTS OUT OF ELLIPSE
-            if cat == "MuMu":
-                with open(self.filename_MuMu) as f:
-                    parameters = json.load(f)
-            elif cat == "ElEl":
-                with open(self.filename_ElEl) as f:
-                    parameters = json.load(f)
-            for j, line in enumerate(parameters):
-                if cat == "MuMu":
-                    notInWindowCut = "window_MuMu.isOutOfEllipse({0}, {1}, {2}, {3}, {4})".format(line[0], line[1], self.rho, self.jj_str + ".M()", self.baseObject+".p4.M()")
-                    self.outOfEllCut = self.joinCuts(self.cutWithoutStagesAndCat, self.dict_cat_cut[cat], self.dict_stage_cut["mll_and_met_cut"], notInWindowCut)
-                elif cat == "ElEl":
-                    notInWindowCut = "window_ElEl.isOutOfEllipse({0}, {1}, {2}, {3}, {4})".format(line[0], line[1], self.rho, self.jj_str + ".M()", self.baseObject+".p4.M()")
-                    self.outOfEllCut = self.joinCuts(self.cutWithoutStagesAndCat, self.dict_cat_cut[cat], self.dict_stage_cut["mll_and_met_cut"], notInWindowCut)
-                self.extraString = "outOfEllipse_{0}_{1}_{2}".format(j, round(line[0], 1), round(line[1], 1)) #Labelling each of the 21 ellipses with its index. The histograms wi    ll be named with this label and the reco mbb and mllbb. Will need to write down which ellipse corresponds to which index.
-                self.outOfEllipse_plot.extend([
-                    {
-                        'name': 'll_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.ll_str+".M()",
-                        'plot_cut': self.outOfEllCut,
-                        'binning': mll_plot_binning
-                    },
-                    {
-                        'name': 'Mjj_vs_Mlljj_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.jj_str + '.M() ::: '+self.baseObject + '.p4.M()',
-                        'plot_cut': self.outOfEllCut,
-                        'binning': '(100, 0, 1500, 100, 0, 1500)'
-                    },
-                    {
-                        'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.jj_str + ".M()",
-                        'plot_cut': self.outOfEllCut,
-                        'binning': '(40, 10, 1000)'
-                    },
-                    {
-                        'name': 'lljj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.baseObject+".p4.M()",
-                        'plot_cut': self.outOfEllCut,
-                        'binning': '(50, 100, 1500)'
-                    }
+                    self.inEllipse_plot.extend([
+                        {
+                            'name': 'll_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
+                            'variable': self.ll_str+".M()",
+                            'plot_cut': self.ellCut,
+                            'binning': mll_plot_binning
+                        },
+                        {
+                            'name': 'Mjj_vs_Mlljj_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
+                            'variable': self.jj_str + '.M() ::: '+self.baseObject + '.p4.M()',
+                            'plot_cut': self.ellCut,
+                            'binning': '(100, 0, 1500, 100, 0, 1500)'
+                        },
+                        {
+                            'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
+                            'variable': self.jj_str + ".M()",
+                            'plot_cut': self.ellCut,
+                            'binning': '(40, 10, 1000)'
+                        },
+                        {
+                            'name': 'lljj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
+                            'variable': self.baseObject+".p4.M()",
+                            'plot_cut': self.ellCut,
+                            'binning': '(50, 100, 1500)'
+                        },
+                        {
+                            'name': 'isInOrOut_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraStringForInOut, self.systematicString),
+                            'variable': "window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, line[0], line[1], self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()"),
+                            'plot_cut': self.totalCut,
+                            'binning': '(2, 0, 2)'
+                        }
                 ])
-            
+
+                #PLOTS OUT OF ELLIPSE
+                if cat == "MuMu":
+                    with open(self.filename_MuMu) as f:
+                        parameters = json.load(f)
+                elif cat == "ElEl":
+                    with open(self.filename_ElEl) as f:
+                        parameters = json.load(f)
+                for j, line in enumerate(parameters):
+                    if cat == "MuMu":
+                        notInWindowCut = "window_MuMu.isOutOfEllipse({0}, {1}, {2}, {3}, {4})".format(line[0], line[1], self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
+                        self.outOfEllCut = self.joinCuts(self.cutWithoutCat, self.dict_cat_cut[cat], notInWindowCut)
+                    elif cat == "ElEl":
+                        notInWindowCut = "window_ElEl.isOutOfEllipse({0}, {1}, {2}, {3}, {4})".format(line[0], line[1], self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
+                        self.outOfEllCut = self.joinCuts(self.cutWithoutCat, self.dict_cat_cut[cat], notInWindowCut)
+                    self.tempExtraString = "_outOfEllipse_{0}_{1}_{2}".format(j, round(line[0], 1), round(line[1], 1)) #Labelling each of the 21 ellipses with its index. The histograms will be named with this label and the reco mbb and mllbb. Will need to write down which ellipse corresponds to which index.
+                    self.ellExtraString = self.extraString + self.tempExtraString
+                    self.outOfEllipse_plot.extend([
+                        {
+                            'name': 'll_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
+                            'variable': self.ll_str+".M()",
+                            'plot_cut': self.outOfEllCut,
+                            'binning': mll_plot_binning
+                        },
+                        {
+                            'name': 'Mjj_vs_Mlljj_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
+                            'variable': self.jj_str + '.M() ::: '+self.baseObject + '.p4.M()',
+                            'plot_cut': self.outOfEllCut,
+                            'binning': '(100, 0, 1500, 100, 0, 1500)'
+                        },
+                        {
+                            'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
+                            'variable': self.jj_str + ".M()",
+                            'plot_cut': self.outOfEllCut,
+                            'binning': '(40, 10, 1000)'
+                        },
+                        {
+                            'name': 'lljj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
+                            'variable': self.baseObject+".p4.M()",
+                            'plot_cut': self.outOfEllCut,
+                            'binning': '(50, 100, 1500)'
+                        }
+                    ])
+
             # gen level plots for jj 
             #for elt in self.plots_jj:
             #    tempPlot = copy.deepcopy(elt)
