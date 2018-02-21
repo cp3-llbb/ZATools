@@ -52,7 +52,6 @@ samples_dict["ZH"] = [
 
 #WGamma
 samples_dict["WGamma"] = [
-    'WGToLNuG_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_Summer16MiniAODv2',
     'WGToLNuG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_plus_ext2_plus_ext3'
 ]
 
