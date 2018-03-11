@@ -164,7 +164,7 @@ class BasePlotter:
         ###########
 
         # Lepton ID and Iso Scale Factors
-        electron_id_branch = "electron_sf_hww_mva90_wp"
+        electron_id_branch = "electron_sf_id_mediumplushltsafe_hh"
         electron_reco_branch = "electron_sf_reco_moriond17"
         muon_tracking_branch = "muon_sf_tracking"
         muon_id_branch = "muon_sf_id_tight"

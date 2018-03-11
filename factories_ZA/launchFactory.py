@@ -135,26 +135,26 @@ MainPlots_ForMC = Configuration('generatePlots.py', suffix='_for_MCbkg', mode='p
             "ZH",
             "SingleTop",
             "VV",
-            "WJets",
+            #"WJets",
             "TTV",
-            "TTH",
-            "WGamma"
+            "TTH"
+            #"WGamma"
             #"QCD"
         ], generation_args={
             'sample_type': 'MC',
             'lljj_plots': ['basic', 'inEllipse', 'outOfEllipse'],
             'llbb_plots': ['basic', 'inEllipse', 'outOfEllipse'],
             'syst': True,
-            'lljj_stages': ['no_cut', 'mll_and_met_cut', 'inverted_met_cut', 'met_cut_and_inverted_mll_cut', 'mll_cut_and_inverted_met_cut']
-            'llbb_stages': ['no_cut', 'mll_and_met_cut', 'inverted_met_cut', 'met_cut_and_inverted_mll_cut', 'mll_cut_and_inverted_met_cut'],
+            'lljj_stages': ['no_cut', 'mll_and_met_cut', 'inverted_met_cut', 'met_cut_and_inverted_mll_cut', 'mll_cut_and_inverted_met_cut'],
+            'llbb_stages': ['no_cut', 'mll_and_met_cut', 'inverted_met_cut', 'met_cut_and_inverted_mll_cut', 'mll_cut_and_inverted_met_cut']
         })
 MainPlots_ForData = Configuration('generatePlots.py', suffix='_for_data', mode='plots', samples=['Data'], generation_args={
             'sample_type': 'Data',
             'lljj_plots': ['basic', 'inEllipse', 'outOfEllipse'],
             'llbb_plots': ['basic', 'inEllipse', 'outOfEllipse'],
             'syst': True,
-            'lljj_stages': ['no_cut', 'mll_and_met_cut', 'inverted_met_cut', 'met_cut_and_inverted_mll_cut', 'mll_cut_and_inverted_met_cut']
-            'llbb_stages': ['no_cut', 'mll_and_met_cut', 'inverted_met_cut', 'met_cut_and_inverted_mll_cut', 'mll_cut_and_inverted_met_cut'],
+            'lljj_stages': ['no_cut', 'mll_and_met_cut', 'inverted_met_cut', 'met_cut_and_inverted_mll_cut', 'mll_cut_and_inverted_met_cut'],
+            'llbb_stages': ['no_cut', 'mll_and_met_cut', 'inverted_met_cut', 'met_cut_and_inverted_mll_cut', 'mll_cut_and_inverted_met_cut']
         })
 MainPlots_ForSignal = Configuration('generatePlots.py', suffix='_for_signal', mode='plots', samples=['Signal'], generation_args={
             'sample_type': 'Signal',
