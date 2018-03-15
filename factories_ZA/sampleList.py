@@ -36,9 +36,9 @@ samples_dict["TTBar"] = [
 
 # ZZ
 samples_dict["ZZ"] = [
-#     'ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8',
-     'ZZTo2L2Nu_13TeV_powheg_pythia8'
-#     'ZZTo4L_13TeV_powheg_pythia8'
+     'ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8',
+     'ZZTo2L2Nu_13TeV_powheg_pythia8',
+     'ZZTo4L_13TeV_powheg_pythia8'
 ]
 
 # ZH
@@ -51,18 +51,19 @@ samples_dict["ZH"] = [
 ]
 
 #WGamma
-#samples_dict["WGamma"] = [
-#    'WGToLNuG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_plus_ext2_plus_ext3'
-#]
+samples_dict["WGamma"] = [
+    'WGToLNuG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_plus_ext2_plus_ext3'
+]
 
 # VV
 samples_dict["VV"] = [
     # WW
     'WWToLNuQQ_13TeV-powheg_Summer16MiniAODv2',
-    #'WWTo2L2Nu_13TeV-powheg_Summer16MiniAODv2',
+    'WWTo2L2Nu_13TeV-powheg_Summer16MiniAODv2',
+    'WWTo4Q_13TeV-powheg_Summer16MiniAODv2',
     # WZ
-    #'WZTo3LNu_TuneCUETP8M1_13TeV-powheg-pythia8_Summer16MiniAODv2',
-    #'WZTo1L3Nu_13TeV_amcatnloFXFX_madspin_pythia8_Summer16MiniAODv2',
+    'WZTo3LNu_TuneCUETP8M1_13TeV-powheg-pythia8_Summer16MiniAODv2',
+    'WZTo1L3Nu_13TeV_amcatnloFXFX_madspin_pythia8_Summer16MiniAODv2',
     #'WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_Summer16MiniAODv2',
     'WZTo1L1Nu2Q_13TeV_amcatnloFXFX_madspin_pythia8_Summer16MiniAODv2',
     # WZZ
@@ -76,9 +77,9 @@ samples_dict["VV"] = [
 ]
 
 # WJets 
-#samples_dict["WJets"] = [
-#    'WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2'
-#]
+samples_dict["WJets"] = [
+    'WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2'
+]
 
 # TTV
 samples_dict["TTV"] = [

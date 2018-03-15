@@ -69,15 +69,19 @@ def main():
         if str(split_filename[-1]).startswith("HToZA"):
             prefix.append(split_filename[-1])
     
-    legend=ROOT.TLegend(0.2,0.2,0.8,0.8)
     
-    for cat in category:
+    c = []
+    legend = []
+    for k, cat in enumerate(category):
 
+        legend.append(ROOT.TLegend(0.85,0.55,0.95,0.95))
+        #legend[k]=ROOT.TLegend(0.85,0.55,1.0,1.0)
+        #legend.SetTextFont(36)
+        legend[k].SetHeader("{0} category".format(cat))
         histo_met_bkg = getHisto(path, isBkg=True, prefix="", cat=cat)
 
         i=0
         graphs = []
-        legends = []
         for pref in prefix:
             split_prefix = pref.split("_")
             significance = []
@@ -98,25 +102,22 @@ def main():
             significance_array = np.array(significance)
             xAxis_array = np.array(xAxis)
             graph = ROOT.TGraph(int(21), xAxis_array, significance_array)
-            graph.SetTitle(pref)
             graph.SetName(split_prefix[1]+"_"+split_prefix[2])
-            graph.GetXaxis().SetTitle("MET cut value")
-            graph.GetYaxis().SetTitle("2*(\sqrt{S+B} - \sqrt{B})")
             graphs.append(graph)
 
         print len(graphs)
-        c1 = TCanvas("c1","c1",800,600)
-        c1.DrawFrame(40,0.0016,160,0.02)
+        c.append(TCanvas("c{0}".format(k),"c{0}".format(k),800,600))
+        c[k].DrawFrame(40,0.0012,160,0.02).SetTitle("Significance vs MET cut; MET cut (GeV); 2(\sqrt{S+B} - \sqrt{B})")
         for i, gr in enumerate(graphs):
-            legend.AddEntry(gr, gr.GetName(), "l")
+            legend[k].AddEntry(gr, gr.GetName(), "l")
             gr.Draw("*L")
             gr.SetMarkerColor(i*5+2-i)
             gr.SetLineColor(i*5+2-i)
-        legend.Draw()
-        c1.cd() 
+        legend[k].Draw()
+        c[k].cd() 
 
-        c1.SaveAs("optimizeMETcut_{0}.root".format(cat))
-        del c1
+        c[k].SaveAs("optimizeMETcut_{0}.root".format(cat))
+        #del c1
 
 
 #main
