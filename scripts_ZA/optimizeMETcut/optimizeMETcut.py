@@ -107,7 +107,7 @@ def main():
 
         print len(graphs)
         c.append(TCanvas("c{0}".format(k),"c{0}".format(k),800,600))
-        c[k].DrawFrame(40,0.0012,160,0.02).SetTitle("Significance vs MET cut; MET cut (GeV); 2(\sqrt{S+B} - \sqrt{B})")
+        c[k].DrawFrame(40,0.0012,160,0.02).SetTitle("Significance vs MET cut; MET cut (GeV); 2(#sqrt{S+B} - #sqrt{B})")
         for i, gr in enumerate(graphs):
             legend[k].AddEntry(gr, gr.GetName(), "l")
             gr.Draw("*L")
