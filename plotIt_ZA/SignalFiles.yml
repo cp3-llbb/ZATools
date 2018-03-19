@@ -1,6 +1,7 @@
 # Signal
 
-'HToZATo2L2B_MH-500_MA-100_13TeV-madgraph_*_histos.root':
+#'HToZATo2L2B_MH-500_MA-100_13TeV-madgraph_*_histos.root':
+'rhoSteps_HToZATo2L2B_MH-500_MA-100_13TeV-madgraph_*_histos.root':
   type: signal
   scale: 1000 #it should be "scale" instead of "cross-section". This is a factor that goes to multiply the x-sec in the databse (1 fb for the signal)
   line-color: '#d62728' #red
@@ -10,17 +11,19 @@
   line-width: 2.7
   line-type: 1
 
-'HToZATo2L2B_MH-500_MA-300_13TeV-madgraph_*_histos.root':
+#'HToZATo2L2B_MH-500_MA-300_13TeV-madgraph_*_histos.root':
+'rhoSteps_HToZATo2L2B_MH-800_MA-200_13TeV-madgraph_*_histos.root':
   type: signal
   scale: 1000
   line-color: '#bcbd22' #yellow
   #line-color: '#2ca02c' # from https://github.com/vega/vega/wiki/Scales#scale-range-literals
-  legend: '2HDM (500,300)'
+  legend: '2HDM (800,200)'
   legend-order: 15
   line-width: 2.7
   line-type: 1
 
-'HToZATo2L2B_MH-650_MA-50_13TeV-madgraph_*_histos.root':
+#'HToZATo2L2B_MH-650_MA-50_13TeV-madgraph_*_histos.root':
+'rhoSteps_HToZATo2L2B_MH-650_MA-50_13TeV-madgraph_*_histos.root':
   type: signal
   scale: 1000
   line-color: '#2ca02c' #green

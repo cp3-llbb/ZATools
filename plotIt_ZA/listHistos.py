@@ -94,6 +94,22 @@ defaultStyle_events.update({
         'y-axis-format': '%1% / %2$.2f',
         })
 
+
+defaultStyle_noOverflow = {
+        'log-y': logY,
+        'save-extensions': ['pdf', 'png'],
+        'legend-columns': 2,
+        'show-ratio': True,
+        'show-overflow': False,
+        'show-errors': True
+        }
+
+defaultStyle_events_noOverflow = defaultStyle_noOverflow.copy()
+defaultStyle_events_noOverflow.update({
+        'y-axis': 'Events',
+        'y-axis-format': '%1% / %2$.2f',
+        })
+
 nHistos = 0
 
 def should_be_blind(name):
@@ -145,6 +161,7 @@ for key in keys:
                 }
         plot['labels'] = []
 
+        
         if "lep1_pt" in key_name:
             plot['x-axis'] = "Leading lepton p_{T} (GeV)"
             plot.update(defaultStyle_events_per_gev)
@@ -309,7 +326,18 @@ for key in keys:
         elif "cosThetaStar" in key_name:
             plot['x-axis'] = "cos(#theta^{*}_{CS})_{lljj#slash{E}_{T}}"
             plot.update(defaultStyle_events)
- 
+        elif "isInOrOut" in key_name:
+            plot['x-axis'] = "out or in"
+            plot.update(defaultStyle_events)
+            if should_be_blind(key_name):
+                plot['blinded-range'] = [1, 2]
+        elif "rho_steps" in key_name:
+            print "HERE"
+            plot['x-axis'] = "out or in"
+            plot.update(defaultStyle_events_noOverflow)
+            if should_be_blind(key_name):
+                plot['blinded-range'] = [0, 6]
+
         #elif "MT2" in key_name:
         #    plot['x-axis'] = "MT2"
         #    plot.update(defaultStyle_events)
