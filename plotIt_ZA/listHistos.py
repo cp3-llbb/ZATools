@@ -12,6 +12,7 @@ parser = argparse.ArgumentParser(description='Facility to produce the yml with p
 parser.add_argument('--yields', help='If you just want to produce the yields and systematics.', action="store_true")
 parser.add_argument('-d', '--directory', required=True, help='Directory of the input rootfiles.')
 parser.add_argument('--unblinded', help='If you want to produce unblinded plots', action="store_true")
+parser.add_argument('-ell', '--ell_index', help='Pass the index of a given ellipse')
 
 group = parser.add_mutually_exclusive_group(required=True)
 group.add_argument('--lljj', help='Produce plots for lljj stage', action="store_true")
@@ -39,8 +40,8 @@ for file in root_files:
 
 print("Listing histograms found in %r" % fileName)
 
-#if args.unblinded:
-#    print("WARNING -- PRODUCING UNBLINDED PLOTS")
+if args.unblinded:
+    print("WARNING -- PRODUCING UNBLINDED PLOTS")
 
 print "OPENING THE FOLLOWING FILE:"
 print fileName
@@ -55,9 +56,14 @@ with open('ZA_plotter_all.yml.tpl') as tpl_handle:
     if args.lljj:
         tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml']", legend="position: [0.61, 0.61, 0.94, 0.89]")
     if args.llbb:
-        tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml', 'SignalFiles.yml']", legend="include: ['legendPosition.yml']")
+        if args.ell_index is None:
+            tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml', 'SignalFiles.yml']", legend="include: ['legendPosition.yml']")
+        else:
+            signal = 'singleSignals/SignalFiles_{0}.yml'.format(args.ell_index)
+            tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml', "+'"'+signal+'"'+"]", legend="include: ['legendPosition.yml']")
     with open('ZA_plotter_all.yml', 'w') as f:
         f.write(tpl)
+
 
 # Create 'centralConfig.yml':
 # Configure root directory
@@ -161,7 +167,10 @@ for key in keys:
                 }
         plot['labels'] = []
 
-        
+        if not args.ell_index is None:
+            if "rho_steps" not in key_name:
+                continue
+
         if "lep1_pt" in key_name:
             plot['x-axis'] = "Leading lepton p_{T} (GeV)"
             plot.update(defaultStyle_events_per_gev)
@@ -332,17 +341,11 @@ for key in keys:
             if should_be_blind(key_name):
                 plot['blinded-range'] = [1, 2]
         elif "rho_steps" in key_name:
-            print "HERE"
-            plot['x-axis'] = "out or in"
-            plot.update(defaultStyle_events_noOverflow)
+            plot['x-axis'] = "0.5 #times #rho"
+            plot.update(defaultStyle_noOverflow)
             if should_be_blind(key_name):
-                plot['blinded-range'] = [0, 6]
+                plot['blinded-range'] = [0, 5]
 
-        #elif "MT2" in key_name:
-        #    plot['x-axis'] = "MT2"
-        #    plot.update(defaultStyle_events)
-        #    if should_be_blind(key_name):
-        #        plot['blinded-range'] = [150, 500]
 
         elif "lljj_M_" in key_name:
             plot['x-axis'] = "m_{lljj} (GeV)"
@@ -386,7 +389,6 @@ for key in keys:
             plot['x-axis'] = "m_{jj} (GeV)"
             plot.update(defaultStyle_events_per_gev)
             if should_be_blind(key_name):
-                #plot['blinded-range'] = [75, 140]
                 plot['blinded-range'] = [0, 1500]
 
         # Default:
@@ -438,6 +440,7 @@ for key in keys:
                 'position': [label_x, label_y],
                 'size': 24
                 }]
+
 
         # Finally, save what we have
         plots[key_name] = plot

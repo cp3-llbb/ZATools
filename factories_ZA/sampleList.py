@@ -1,6 +1,7 @@
 ####### Warning: put most recent tags first! ###### 
 analysis_tags = [
-        'v6.1.0+80X_ZAAnalysis_2017-12-12.v0-2-gf03f531' # back to cut based id for electrons
+        #'v6.1.0+80X_ZAAnalysis_2017-12-12.v0-3-g6e23962' # unblind 1/10 of data (tag used for the 3rd version of the AN only for data)
+        'v6.1.0+80X_ZAAnalysis_2017-12-12.v0-2-gf03f531' # back to cut based id for electrons (tag used for the 3rd version of the AN)
         #'v6.1.0+80X_ZAAnalysis_2017-12-12.v0-1-g21432f5' # --> back to cut based id for electrons (wrong, iso cut still included)
         #'v6.1.0+80X_ZAAnalysis_2017-12-12.v0' # --> m_electron_mva_wp80_name bug fixed, JEC and JER as systematics, new trigger eff files for electrons from hww 
         #'v6.1.0+80X_ZAAnalysis_2017-11-10.v0' # --> m_electron_mva_wp80_name bug

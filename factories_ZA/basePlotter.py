@@ -429,18 +429,6 @@ class BasePlotter:
                         'plot_cut': self.totalCut,
                         'binning': '(50, -4, 4)'
                 },
-                #{
-                #        'name': 'ht_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.prefix + "HT",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, 65, 1500)'
-                #},
-                #{
-                #        'name': 'llmetjj_MT2_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.baseObject+".MT2",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, 0, 500)'
-                #},
                 {
                         'name': 'lljj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
                         'variable': self.baseObject+".p4.M()",
@@ -573,9 +561,9 @@ class BasePlotter:
                 for j, line in enumerate(parameters):
                     inWindowCut = "window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, float(line[0]), float(line[1]), self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
                     self.ellCut = self.joinCuts(self.cutWithoutCat, self.dict_cat_cut[cat], inWindowCut)
-                    self.tempExtraString = "_inEllipse_{0}_{1}_{2}".format(j, round(line[0], 1), round(line[1], 1)) #Labelling each of the 21 ellipses with its index. The histograms will be named with this label and the reco mbb and mllbb. Will need to write down which ellipse corresponds to which index.
+                    self.tempExtraString = "_inEllipse_{0}".format(j) #Labelling each of the 21 ellipses with its index. Will need to write down which ellipse corresponds to which index.
                     self.ellExtraString = self.extraString + self.tempExtraString
-                    self.tempExtraStringForInOut =  "_{0}_{1}_{2}".format(j, round(line[0], 1), round(line[1], 1))
+                    self.tempExtraStringForInOut =  "_{0}".format(j)
                     self.extraStringForInOut = self.extraString + self.tempExtraStringForInOut
 
                     self.inEllipse_plot.extend([
@@ -642,7 +630,7 @@ class BasePlotter:
                 for j, line in enumerate(parameters):
                     notInWindowCut = "window_{0}.isOutOfEllipse({1}, {2}, {3}, {4}, {5})".format(cat, line[0], line[1], self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
                     self.outOfEllCut = self.joinCuts(self.cutWithoutCat, self.dict_cat_cut[cat], notInWindowCut)
-                    self.tempExtraString = "_outOfEllipse_{0}_{1}_{2}".format(j, round(line[0], 1), round(line[1], 1)) #Labelling each of the 21 ellipses with its index. The histograms will be named with this label and the reco mbb and mllbb. Will need to write down which ellipse corresponds to which index.
+                    self.tempExtraString = "_outOfEllipse_{0}".format(j) #Labelling each of the 21 ellipses with its index. Will need to write down which ellipse corresponds to which index.
                     self.ellExtraString = self.extraString + self.tempExtraString
                     self.outOfEllipse_plot.extend([
                         {

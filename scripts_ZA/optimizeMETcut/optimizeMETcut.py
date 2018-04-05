@@ -43,7 +43,8 @@ def getHisto(path, isBkg, prefix, cat):
         _files.add(f)
         for j, key in enumerate(f.GetListOfKeys()):
             cl = ROOT.gROOT.GetClass(key.GetClassName())
-            if key.ReadObj().GetName() == "met_pt_{0}_hZA_lljj_deepCSV_btagM_mll_cut".format(cat):
+            #if key.ReadObj().GetName() == "met_pt_{0}_hZA_lljj_deepCSV_btagM_mll_cut".format(cat):
+            if key.ReadObj().GetName() == "met_pt_{0}_hZA_lljj_deepCSV_btagM_no_cut".format(cat):
                 key.ReadObj().SetDirectory(0)
                 integral = integral + key.ReadObj().Integral()
                 histo_met.Add(key.ReadObj(), 1)
@@ -51,7 +52,8 @@ def getHisto(path, isBkg, prefix, cat):
 
     #print "INTEGRAL: ", integral*lumi
     # Scale by the luminosity if MC histograms
-    histo_met.Scale(lumi)
+    if not isBkg:
+        histo_met.Scale(50*1000)
     
     return histo_met
 
@@ -75,8 +77,6 @@ def main():
     for k, cat in enumerate(category):
 
         legend.append(ROOT.TLegend(0.85,0.55,0.95,0.95))
-        #legend[k]=ROOT.TLegend(0.85,0.55,1.0,1.0)
-        #legend.SetTextFont(36)
         legend[k].SetHeader("{0} category".format(cat))
         histo_met_bkg = getHisto(path, isBkg=True, prefix="", cat=cat)
 
@@ -84,35 +84,87 @@ def main():
         graphs = []
         for pref in prefix:
             split_prefix = pref.split("_")
+            if "2000" in pref or "3000" in pref:
+                continue
             significance = []
             xAxis = []
-            for j, i in enumerate(range(50, 151, 5)):
-                histo_met_bkg.GetXaxis().SetRangeUser(0, i)
+            for i in range(0, 201, 5):
+                histo_met_bkg.GetXaxis().SetRangeUser(11, i)
                 #Check why for different i, the integral is the same
                 histo_met_bkg.SetDirectory(0)
                 histo_met_sig = getHisto(path, isBkg=False, prefix=pref, cat=cat)
-                histo_met_sig.GetXaxis().SetRangeUser(0, i)
+                histo_met_sig.GetXaxis().SetRangeUser(11, i)
                 histo_met_sig.SetDirectory(0)
                 #significance = 2*(SQRT(S+B)-SQRT(B))
-                signif = 2*(math.sqrt(histo_met_sig.Integral() + histo_met_bkg.Integral()) - math.sqrt(histo_met_bkg.Integral()))
+                #signif = 2*(math.sqrt(histo_met_sig.Integral() + histo_met_bkg.Integral()) - math.sqrt(histo_met_bkg.Integral()))
+                S = histo_met_sig.Integral()
+                B = histo_met_bkg.Integral()
+                signif = math.sqrt(2*( (S+B)*math.log(1+S/B) -S ))
                 print "prefix: ", pref, "   i: ", i, "   significance: ", signif
                 significance.append(float(signif))
                 xAxis.append(float(i))
 
             significance_array = np.array(significance)
             xAxis_array = np.array(xAxis)
-            graph = ROOT.TGraph(int(21), xAxis_array, significance_array)
+            graph = ROOT.TGraph(int(40), xAxis_array, significance_array)
             graph.SetName(split_prefix[1]+"_"+split_prefix[2])
             graphs.append(graph)
 
         print len(graphs)
         c.append(TCanvas("c{0}".format(k),"c{0}".format(k),800,600))
-        c[k].DrawFrame(40,0.0012,160,0.02).SetTitle("Significance vs MET cut; MET cut (GeV); 2(#sqrt{S+B} - #sqrt{B})")
+        #c[k].DrawFrame(40,0.0012,160,0.02).SetTitle("Significance vs MET cut; MET cut (GeV); 2(#sqrt{S+B} - #sqrt{B})")
+        #c[k].DrawFrame(0,0.0012,160,0.02).SetTitle("Significance vs MET cut; MET cut (GeV); #sqrt{2((S+B)ln(1+S/B)-S)}")
+        c[k].DrawFrame(0,0,210,3.5).SetTitle("Significance vs MET cut; MET cut (GeV); #sqrt{2((S+B)ln(1+S/B)-S)}")
         for i, gr in enumerate(graphs):
             legend[k].AddEntry(gr, gr.GetName(), "l")
             gr.Draw("*L")
-            gr.SetMarkerColor(i*5+2-i)
-            gr.SetLineColor(i*5+2-i)
+            if i==0:
+                color = ROOT.kRed
+            elif i==1:
+                color = ROOT.kTeal-5
+            elif i==2:
+                color = ROOT.kYellow
+            elif i==3:
+                color = ROOT.kRed-7
+            elif i==4:
+                color = ROOT.kOrange
+            elif i==5:
+                color = ROOT.kOrange-3
+            elif i==6:
+                color = ROOT.kOrange+2
+            elif i==7:
+                color= ROOT.kGreen-4
+            elif i==8:
+                color= ROOT.kMagenta-2 
+            elif i==9:
+                color= ROOT.kMagenta-6 
+            elif i==10:
+                color= ROOT.kMagenta-9 
+            elif i==11:
+                color= ROOT.kGreen 
+            elif i==12:
+                color= ROOT.kGreen+3 
+            elif i==13:
+                color= ROOT.kGreen-2 
+            elif i==14:
+                color= ROOT.kGreen-5
+            elif i==15:
+                color= ROOT.kCyan+1
+            elif i==16:
+                color= ROOT.kCyan+3
+            elif i==17:
+                color= ROOT.kBlue
+            elif i==18:
+                color= ROOT.kBlue+2
+            elif i==19:
+                color= ROOT.kBlue-9
+            elif i==20:
+                color= ROOT.kYellow+3
+            gr.SetMarkerColor(color)
+            gr.SetLineColor(color)
+            #ROOT.kMagenta = ROOT.kMagenta+2
+            #gr.SetMarkerColor(i*5+2-i)
+            #gr.SetLineColor(i*5+2-i)
         legend[k].Draw()
         c[k].cd() 
 

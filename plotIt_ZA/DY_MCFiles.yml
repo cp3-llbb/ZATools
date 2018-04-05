@@ -41,27 +41,27 @@
 #  group: DY
   
 # NLO
-#'DYToLL_0J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_*_histos.root':
-'rhoSteps_DYToLL_0J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_*_histos.root':
+'DYToLL_0J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_*_histos.root':
   type: mc
+  #scale: 0.1   #if unblinding with 1/10 of data
   group: DY
   yields-group: 'Drell-Yan'
 
-#'DYToLL_1J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_*_histos.root':
-'rhoSteps_DYToLL_1J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_*_histos.root':
+'DYToLL_1J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_*_histos.root':
   type: mc
+  #scale: 0.1   #if unblinding with 1/10 of data
   group: DY
   yields-group: 'Drell-Yan'
 
-#'DYToLL_2J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_*_histos.root':
-'rhoSteps_DYToLL_2J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_*_histos.root':
+'DYToLL_2J_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_*_histos.root':
   type: mc
+  #scale: 0.1   #if unblinding with 1/10 of data
   group: DY
   yields-group: 'Drell-Yan'
 
-#'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_*_histos.root':
-'rhoSteps_DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_*_histos.root':
+'DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_extended_ext0_plus_ext1_*_histos.root':
   type: mc
+  #scale: 0.1   #if unblinding with 1/10 of data
   group: DY
   yields-group: 'Drell-Yan'
 
