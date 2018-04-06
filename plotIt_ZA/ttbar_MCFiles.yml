@@ -1,0 +1,25 @@
+# TTbar            
+
+#TT from MC
+'TTTo2L2Nu_13TeV-powheg_*_histos.root':
+  type: mc
+  #scale: 0.1   #if unbliding with 1/10 of data
+  group: tt
+
+'TT_Other_TuneCUETP8M2T4_13TeV-powheg-pythia8_extended_ext0_plus_ext1_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: tt
+
+#'dataMuEl_minus_SingleTop_inHighMET.root': #  type: mc # (These histos have been scaled by 1/L)
+#  type: mc # (These histos have been scaled by 1/L)
+#  group: tt
+
+#'ttbar_from_data_final.root':
+#  type: mc # (These histos have been scaled by 1/L)
+#  group: tt
+
+# Don't use this
+#'TT_TuneCUETP8M2T4_13TeV-powheg-pythia8_extended_ext0_plus_ext1_*_histos.root':
+#  type: mc
+#  group: tt
