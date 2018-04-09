@@ -1,0 +1,195 @@
+# ZZ
+'ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1   #if unblinding with 1/10 of data
+  group: ZZ
+
+'ZZTo2L2Nu_13TeV_powheg_pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: ZZ
+
+'ZZTo4L_13TeV_powheg_pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: ZZ
+
+
+# Higgs
+'ggZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Higgs 
+
+'ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Higgs 
+
+'GluGluZH_HToWWTo2L2Nu_ZTo2L_M125_13TeV_powheg_pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Higgs 
+
+'HZJ_HToWW_M125_13TeV_powheg_pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Higgs 
+
+'ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Higgs 
+
+'ttHToNonbb_M125_TuneCUETP8M2_13TeV_powheg_pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Higgs 
+
+'ttHTobb_M125_TuneCUETP8M2_13TeV_powheg_pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Higgs 
+
+
+# SingleTop
+'ST_s-channel_4f_leptonDecays_13TeV-amcatnlo_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: SingleTop
+
+'ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powheg-pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: SingleTop
+
+'ST_t-channel_top_4f_inclusiveDecays_13TeV-powheg-pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: SingleTop
+
+'ST_tW_antitop_5f_noFullyHadronicDecays_13TeV-powheg_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: SingleTop
+
+'ST_tW_top_5f_noFullyHadronicDecays_13TeV-powheg_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: SingleTop
+
+
+# QCD
+#'QCD_Pt-30to50_EMEnriched_TuneCUETP8M1_13TeV_pythia8_extended_ext0_plus_ext1_*_histos.root':
+#  type: mc
+#  group: QCD
+
+#'QCD_Pt-50to80_EMEnriched_TuneCUETP8M1_13TeV_pythia8_extended_ext0_plus_ext1_*_histos.root':
+#  type: mc
+#  group: QCD
+
+#'QCD_Pt-80to120_EMEnriched_TuneCUETP8M1_13TeV_pythia8_extended_ext0_plus_ext1_*_histos.root':
+#  type: mc
+#  group: QCD
+
+#'QCD_Pt-120to170_EMEnriched_TuneCUETP8M1_13TeV_pythia8_extended_ext0_plus_ext1_*_histos.root':
+#  type: mc
+#  group: QCD
+
+#'QCD_Pt-170to300_EMEnriched_TuneCUETP8M1_13TeV_pythia8_Summer16MiniAODv2_*_histos.root':
+#  type: mc
+#  group: QCD
+
+#'QCD_Pt-300toInf_EMEnriched_TuneCUETP8M1_13TeV_pythia8_Faill15MiniAODv2_*_histos.root':   #keep it?
+#  type: mc
+#  group: QCD
+
+#'QCD_Pt-20toInf_MuEnrichedPt15_TuneCUETP8M1_13TeV_pythia8_Summer16MiniAODv2_*_histos.root':
+#  type: mc
+#  group: QCD
+
+
+# Others
+'WWToLNuQQ_13TeV-powheg_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Others
+
+'WWTo2L2Nu_13TeV-powheg_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Others
+
+'WZTo3LNu_TuneCUETP8M1_13TeV-powheg-pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Others
+
+'WZTo1L3Nu_13TeV_amcatnloFXFX_madspin_pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Others
+
+'WZTo1L1Nu2Q_13TeV_amcatnloFXFX_madspin_pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Others
+
+'WWTo4Q_13TeV-powheg_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Others
+
+#'WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_Summer16MiniAODv2_*_histos.root':
+#  type: mc
+#  group: Others
+
+'WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Others
+
+'WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Others
+
+'WWW_TuneCUETP8M1_13TeV-amcatnlo-pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Others
+
+'ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Others
+
+'WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Others
+
+'TTZToQQ_TuneCUETP8M1_13TeV-amcatnlo-pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Others
+
+'TTWJetsToQQ_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Others
+
+'TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Others
+
+'TTZToLLNuNu_M-10_TuneCUETP8M1_13TeV-amcatnlo-pythia8_Summer16MiniAODv2_*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Others
+
+'WGToLNuG_TuneCUETP8M1_13TeV*_histos.root':
+  type: mc
+  #scale: 0.1
+  group: Others

@@ -1,8 +1,9 @@
 ####### Warning: put most recent tags first! ###### 
 analysis_tags = [
-        #'v6.1.0+80X_ZAAnalysis_2017-12-12.v0-2-gf03f531' # back to cut based id for electrons
+        #'v6.1.0+80X_ZAAnalysis_2017-12-12.v0-3-g6e23962' # unblind 1/10 of data (tag used for the 3rd version of the AN only for data)
+        'v6.1.0+80X_ZAAnalysis_2017-12-12.v0-2-gf03f531' # back to cut based id for electrons (tag used for the 3rd version of the AN)
         #'v6.1.0+80X_ZAAnalysis_2017-12-12.v0-1-g21432f5' # --> back to cut based id for electrons (wrong, iso cut still included)
-        'v6.1.0+80X_ZAAnalysis_2017-12-12.v0' # --> m_electron_mva_wp80_name bug fixed, JEC and JER as systematics, new trigger eff files for electrons from hww 
+        #'v6.1.0+80X_ZAAnalysis_2017-12-12.v0' # --> m_electron_mva_wp80_name bug fixed, JEC and JER as systematics, new trigger eff files for electrons from hww 
         #'v6.1.0+80X_ZAAnalysis_2017-11-10.v0' # --> m_electron_mva_wp80_name bug
         #'v6.0.0+80X_ZAAnalysis_2017-09-27.v1' --> cmva bug, no METsignificance
         #'v5.0.1+80X-7-g03c2b54_ZAAnalysis_Moriond2015-7-g08c899b' # --> electrons are good
@@ -60,10 +61,11 @@ samples_dict["VV"] = [
     # WW
     'WWToLNuQQ_13TeV-powheg_Summer16MiniAODv2',
     'WWTo2L2Nu_13TeV-powheg_Summer16MiniAODv2',
+    'WWTo4Q_13TeV-powheg_Summer16MiniAODv2',
     # WZ
     'WZTo3LNu_TuneCUETP8M1_13TeV-powheg-pythia8_Summer16MiniAODv2',
     'WZTo1L3Nu_13TeV_amcatnloFXFX_madspin_pythia8_Summer16MiniAODv2',
-    'WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_Summer16MiniAODv2',
+    #'WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_Summer16MiniAODv2',
     'WZTo1L1Nu2Q_13TeV_amcatnloFXFX_madspin_pythia8_Summer16MiniAODv2',
     # WZZ
     'WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8_Summer16MiniAODv2',

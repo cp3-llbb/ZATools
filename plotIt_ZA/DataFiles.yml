@@ -1,8 +1,10 @@
 'DoubleMuon_Run2016*':
+#'DoubleMuon_Run2016*_2017-12-12.v0-3-g6e23962*':   #if unblinding with 1/10 of data
   type: data
   group: "Data"
 
 'DoubleEG_Run2016*':
+#'DoubleEG_Run2016*_2017-12-12.v0-3-g6e23962*':   #if unblinding with 1/10 of data
   type: data
   group: "Data"
 
