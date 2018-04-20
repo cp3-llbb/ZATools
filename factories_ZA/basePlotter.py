@@ -16,7 +16,11 @@ def default_code_before_loop():
     """
 
 def default_code_in_loop():
-    return ""
+    return r"""
+    float gsfReco_err_lep1_el = 0.;
+    if (hZA_leptons[hZA_lljj_deepCSV[0].ilep1]) 
+    
+    """
 
 def default_code_after_loop():
     return ""
@@ -172,8 +176,8 @@ class BasePlotter:
         llIdIso_sf_dict = {
                 "sf_lep1_el": "{id}[{0}][0] * {reco}[{0}][0]".format(self.lep1_fwkIdx, id=electron_id_branch, reco=electron_reco_branch),
                 "sf_lep2_el": "{id}[{0}][0] * {reco}[{0}][0]".format(self.lep2_fwkIdx, id=electron_id_branch, reco=electron_reco_branch),
-                "sf_lep1_mu": "{tracking}[{0}][0] * {id}[{0}][0] * {iso}[{0}][0]".format(self.lep1_fwkIdx, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch),
-                "sf_lep2_mu": "{tracking}[{0}][0] * {id}[{0}][0] * {iso}[{0}][0]".format(self.lep2_fwkIdx, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch),
+                "sf_lep1_mu": "{tracking}[{0}][0] * {id}[{0}][0] * {iso}[{0}][0] * 0.5".format(self.lep1_fwkIdx, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch),
+                "sf_lep2_mu": "{tracking}[{0}][0] * {id}[{0}][0] * {iso}[{0}][0] * 0.5".format(self.lep2_fwkIdx, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch),
                 "err_lep1_el": "0.",
                 "err_lep1_mu": "0.",
                 "err_lep2_el": "0.",
