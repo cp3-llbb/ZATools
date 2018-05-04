@@ -341,10 +341,10 @@ for key in keys:
             if should_be_blind(key_name):
                 plot['blinded-range'] = [1, 2]
         elif "rho_steps" in key_name:
-            plot['x-axis'] = "0.5 #times #rho"
+            plot['x-axis'] = "#rho"
             plot.update(defaultStyle_noOverflow)
             if should_be_blind(key_name):
-                plot['blinded-range'] = [0, 5.3]
+                plot['blinded-range'] = [0, 2.99]
 
 
         elif "lljj_M_" in key_name:

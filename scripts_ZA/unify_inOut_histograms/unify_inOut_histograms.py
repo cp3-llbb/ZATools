@@ -28,8 +28,7 @@ def getHisto(path, cat, ell_index, systematics_string, prefix):
     _files = set()
     histos_sameEllipse = []
 
-    ell_idx = "cut_" + str(ell_index) + "_"
-
+    ell_idx = "cut_" + str(ell_index)
 
     for i, filename in enumerate(glob.glob(os.path.join(path, '*.root'))):
         split_filename = filename.split('/')
@@ -39,7 +38,8 @@ def getHisto(path, cat, ell_index, systematics_string, prefix):
         _files.add(f)
         #loop over files
         for key in f.GetListOfKeys():
-            pass_basic_cut = cat in key.ReadObj().GetName() and "hZA_lljj_deepCSV_btagM_mll_and_met_cut" in key.ReadObj().GetName() and ell_idx in key.ReadObj().GetName() 
+            #pass_basic_cut = cat in key.ReadObj().GetName() and "hZA_lljj_deepCSV_btagM_mll_and_met_cut" in key.ReadObj().GetName() and ell_idx in key.ReadObj().GetName() 
+            pass_basic_cut = cat in key.ReadObj().GetName() and "hZA_lljj_deepCSV_btagM_no_cut" in key.ReadObj().GetName() and ell_idx in key.ReadObj().GetName() 
             cl = ROOT.gROOT.GetClass(key.GetClassName())
             if systematics_string=='noSyst':
                 if pass_basic_cut and "isInOrOut" in key.ReadObj().GetName() and "__" not in key.ReadObj().GetName():
@@ -122,7 +122,7 @@ def main():
         for ell_index in range(0, 21):
             print "ell_index: ", ell_index
             for syst_string in systematics_string:
-           
+
                 histos = getHisto(args.path, cat, ell_index, syst_string, prefix=split_filename[-1])
 
                 integral=0
@@ -130,18 +130,27 @@ def main():
                     h.GetXaxis().SetRangeUser(1,2) #true bin
                     h.SetDirectory(0)
                     integral = integral + h.Integral()
-                print "Integral from sum: ", integral
+                #print "Integral from sum: ", integral
 
                 if syst_string == 'noSyst':
                     rho_steps_histo = TH1F("rho_steps_histo_{0}_hZA_lljj_deepCSV_btagM_mll_and_met_cut_{1}".format(cat, ell_index), "rho_steps_histo_{0}_hZA_lljj_deepCSV_btagM_mll_and_met_cut_{1}".format(cat, ell_index), 7, 0, 7)
                 else:
                     rho_steps_histo = TH1F("rho_steps_histo_{0}_hZA_lljj_deepCSV_btagM_mll_and_met_cut_{1}__{2}".format(cat, ell_index, syst_string), "rho_steps_histo_{0}_hZA_lljj_deepCSV_btagM_mll_and_met_cut_{1}__{2}".format(cat, ell_index, syst_string), 7, 0, 7)
                 for i, h in enumerate(histos):
-                    h.GetXaxis().SetRangeUser(1,2) #true bin
+                    #h.GetXaxis().SetRangeUser(1,2) #true bin
                     h.SetDirectory(0)
+                    if syst_string == 'scaleUncorrup':
+                        print "SYST = ScaleUncorrUp"
+                        print "Integral: ", h.Integral(2,2)
+                    elif syst_string == 'noSyst':
+                        print "SYST = NO SYST"
+                        print "Integral: ", h.Integral(2,2)
+                    elif syst_string == 'elidisodown':
+                        print "SYST = elidisodown"
+                        print "Integral: ", h.Integral(2,2)
                     rho_steps_histo.SetBinContent(rho_steps_histo.FindBin(i), h.Integral())
 
-                print "Integral from final histo: ", rho_steps_histo.Integral()
+                #print "Integral from final histo: ", rho_steps_histo.Integral()
 
                 r_file = ROOT.TFile.Open(new_filename+".root", "update")
                 rho_steps_histo.SetDirectory(0)

@@ -181,4 +181,15 @@ bool massWindow::isOutOfEllipse(double center_x, double center_y, double size, d
 }
 
 
-
+double massWindow::isInEllipse_noSize(double center_x, double center_y, double point_x, double point_y){
+    
+    double m1diff = point_x - center_x;
+    double m2diff = point_y - center_y;
+    pair_d mdiff = std::make_pair(m1diff, m2diff);
+    pair_d center = std::make_pair(center_x, center_y);
+    pair_d param = this->applyGlobalTransformation(center, mdiff);
+    double dist = sqrt(pow(param.first,2) + pow(param.second,2));
+    if (dist > 3.)
+        dist = 3.2; //This is for the overflow bin. Set a value that falls into the last bin (between 3 and 3.5)
+    return dist;
+}
