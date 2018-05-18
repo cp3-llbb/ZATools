@@ -610,7 +610,7 @@ class BasePlotter:
                 }
             ])
 
-            if self.btag: #and (cat == "MuMu" or cat == "ElEl"):
+            if self.btag:
                 #PLOTS IN ELLIPSE
                 if cat=='MuEl':  #Load the MuMu file for the MuEl category
                     with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_ElEl.json') as f:

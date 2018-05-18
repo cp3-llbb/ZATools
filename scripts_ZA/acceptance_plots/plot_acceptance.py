@@ -71,65 +71,6 @@ def main():
     plt.text(0.72, 0.95, r"35.9 " + r"$\mathrm{fb^{-1}}$" + r" (13 TeV)", fontsize=30, transform=ax0.transAxes)
     plt.title("Acceptance (\%)", fontsize=34)
 
-    '''
-    axx = plt.subplot(gs[0,0], sharex=ax0)
-    xedges = np.linspace(0, 1500, 150)
-    yedges = np.linspace(0, 1500, 150)
-    H, xedges, yedges = np.histogram2d(xedges, yedges, bins=(xedges, yedges))
-    print (len(df.iloc[:,2]))
-    H = df.iloc[:,2].reshape(150,150).T
-    xcenters = np.linspace(5.0, 1495.0, 150) 
-    ycenters = np.linspace(5.0, 1495.0, 150)
-    hx, hy = H.sum(axis=0), H.sum(axis=1)
-    projx = []
-    for i, x_cent in enumerate(xcenters):
-        if int(hx[i]) == 0:
-            continue
-        projx.extend(np.repeat(x_cent, int(hx[i])))
-    projx = np.asarray(projx)
-    print (len(projx))
-    axx.hist(projx, bins=40, range=(50, 450), normed=True, histtype='bar', facecolor="#4CB391", rwidth=1, align='mid', alpha=0.75)
-    plt.xlim(70,430)
-    axx.axis('off')
-
-    axy = plt.subplot(gs[1,1], sharey=ax0)
-    projy = []
-    for i, y_cent in enumerate(ycenters):
-        if int(hy[i]) == 0:
-            continue
-        projy.extend(np.repeat(y_cent, int(hy[i])))
-    projy = np.asarray(projy)
-    #print (len(projy))
-    axy.hist(projy, bins=40, range=(230,630), normed=True, orientation=u'horizontal', histtype='bar', facecolor="#4CB391", rwidth=1, align='mid', alpha=0.75)
-    plt.ylim(250,630)
-    axy.axis('off')
-    
-    jet= plt.get_cmap('jet')
-    rhos = [0.5, 1., 1.5, 2, 2.5, 3.] 
-    colors = iter(jet(np.linspace(0.64,1,6)))
-    with open('ellipseParam_{0}.json'.format(args.category)) as f1:
-        parameters = json.load(f1)
-    ells = [] 
-    for (mbb, mllbb, a_squared, b_squared, theta_rad, mA, mH) in parameters:
-        if (mA == 300 and mH == 500):
-            x = mbb
-            y = mllbb
-            print (mA, mH)
-            for i, rho in enumerate(rhos):
-                a = math.sqrt(a_squared)
-                b = math.sqrt(b_squared)
-                theta = theta_rad * 57.29   #conversion from radiants to degrees
-                ells.append(Ellipse((x, y), rho*a, rho*b, theta, edgecolor=next(colors), linewidth=1, facecolor='none'))
-
-    for ell in ells: 
-        ax0.add_artist(ell)
-
-    #params = {'legend.fontsize': 20,'legend.handlelength': 30} 
-    #plt.rcParams.update(params)
-    
-    ax0.legend(ells, [r'$\rho$ = {}'.format(rho) for rho in rhos], loc='upper left', bbox_to_anchor=(0.1, 0.9), prop={'size': 20}, labelspacing=0.7)
-    '''
-
     fig.savefig("acceptance.pdf")
     fig.savefig("acceptance.png")
     
