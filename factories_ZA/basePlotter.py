@@ -249,15 +249,10 @@ class BasePlotter:
                 if sf == "elreco": 
                     llIdIso_sf_dict["err_lep1_el"] = "({lep1}.isEl && (({lep1}.p4.Pt() < 20.) || ({lep1}.p4.Pt() > 80.)})) ? ({id}[{0}][0] * std::sqrt({reco}[{0}][{1}] * {reco}[{0}][{1}] + 0.01*{reco[{0}][{0}]} * 0.01*{reco[{0}][{0}]})) : ({id}[{0}][0] * {reco}[{0}][{1}])".format(self.lep1_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch, lep1=self.lep1_str)
                     llIdIso_sf_dict["err_lep2_el"] = "({lep2}.isEl && (({lep2}.p4.Pt() < 20.) || ({lep2}.p4.Pt() > 80.)})) ? ({id}[{0}][0] * std::sqrt({reco}[{0}][{1}] * {reco}[{0}][{1}] + 0.01*{reco[{0}][{0}]} * 0.01*{reco[{0}][{0}]})) : ({id}[{0}][0] * {reco}[{0}][{1}])".format(self.lep2_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch, lep2=self.lep2_str)
-                    #llIdIso_sf_dict["err_lep1_el"] = "{id}[{0}][0] * std::sqrt({reco}[{0}][{1}] * {reco}[{0}][{1}] + gsf_err_lep1*{reco[{0}][{0}]} * gsf_err_lep1*{reco[{0}][{0}]})".format(self.lep1_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
-                    #llIdIso_sf_dict["err_lep2_el"] = "{id}[{0}][0] * std::sqrt({reco}[{0}][{1}] * {reco}[{0}][{1}] + gsf_err_lep2*{reco[{0}][{0}]} * gsf_err_lep2*{reco[{0}][{0}]})".format(self.lep2_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
 
                 if sf == "mutracking":
                     llIdIso_sf_dict["err_lep1_mu"] = "{lep1}.isMu ? (std::sqrt({tracking}[{0}][{1}] * {tracking}[{0}][{1}] + 0.005*{tracking}[{0}][{0}] * 0.005*{tracking}[{0}][{0}]) * {id}[{0}][0] * {iso}[{0}][0]) : ({tracking}[{0}][{1}] * {id}[{0}][0] * {iso}[{0}][0])".format(self.lep1_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch, lep1=self.lep1_str)
                     llIdIso_sf_dict["err_lep2_mu"] = "{lep2}.isMu ? (std::sqrt({tracking}[{0}][{1}] * {tracking}[{0}][{1}] + 0.005*{tracking}[{0}][{0}] * 0.005*{tracking}[{0}][{0}]) * {id}[{0}][0] * {iso}[{0}][0]) : ({tracking}[{0}][{1}] * {id}[{0}][0] * {iso}[{0}][0])".format(self.lep2_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch, lep2=self.lep2_str)
-                    
-                    #llIdIso_sf_dict["err_lep1_mu"] = "std::sqrt({tracking}[{0}][{1}] * {tracking}[{0}][{1}] + addTracking_err_lep1*{tracking}[{0}][{0}] * addTracking_err_lep1*{tracking}[{0}][{0}]) * {id}[{0}][0] * {iso}[{0}][0]".format(self.lep1_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
-                    #llIdIso_sf_dict["err_lep2_mu"] = "std::sqrt({tracking}[{0}][{1}] * {tracking}[{0}][{1}] + addTracking_err_lep2*{tracking}[{0}][{0}] * addTracking_err_lep2*{tracking}[{0}][{0}]) * {id}[{0}][0] * {iso}[{0}][0]".format(self.lep2_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
 
                 if sf == "muid":
                     llIdIso_sf_dict["err_lep1_mu"] = "{tracking}[{0}][0] * {id}[{0}][{1}] * {iso}[{0}][0]".format(self.lep1_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
