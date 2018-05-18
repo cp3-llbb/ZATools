@@ -610,12 +610,19 @@ class BasePlotter:
                 }
             ])
 
-            if self.btag and (cat == "MuMu" or cat == "ElEl"):
+            if self.btag: #and (cat == "MuMu" or cat == "ElEl"):
                 #PLOTS IN ELLIPSE
-                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_{0}.json'.format(cat)) as f:
-                    parameters = json.load(f)
+                if cat=='MuEl':  #Load the MuMu file for the MuEl category
+                    with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_ElEl.json') as f:
+                        parameters = json.load(f)
+                else:
+                    with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_{0}.json'.format(cat)) as f:
+                        parameters = json.load(f)
                 for j, line in enumerate(parameters):
-                    inWindowCut = "window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, float(line[0]), float(line[1]), self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
+                    if cat=='MuEl':
+                        inWindowCut = "window_ElEl.isInEllipse({1}, {2}, {3}, {4})".format(float(line[0]), float(line[1]), self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
+                    else:
+                        inWindowCut = "window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, float(line[0]), float(line[1]), self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
                     self.ellCut = self.joinCuts(self.cutWithoutCat, self.dict_cat_cut[cat], inWindowCut)
                     self.tempExtraString = "_inEllipse_{0}".format(j) #Labelling each of the 21 ellipses with its index. Will need to write down which ellipse corresponds to which index.
                     self.ellExtraString = self.extraString + self.tempExtraString
@@ -652,11 +659,10 @@ class BasePlotter:
                     self.inOut_plot.extend([
                         {
                             'name': 'rho_steps_histo_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraStringForInOut, self.systematicString),
-                            'variable': "window_{0}.isInEllipse_noSize({1}, {2}, {3}, {4})".format(cat, line[0], line[1], self.jj_str + ".M()", self.baseObject + ".p4.M()"),
+                            'variable': "window_{0}.isInEllipse_noSize({1}, {2}, {3}, {4})".format((cat if cat!='MuEl' else 'ElEl'), line[0], line[1], self.jj_str + ".M()", self.baseObject + ".p4.M()"),
                             'plot_cut': self.totalCut,
                             'binning': '(7, 0, 3.5)'
                         }
-
                 ])
                 '''
                     for i, dist in enumerate(self.distances):
@@ -691,10 +697,17 @@ class BasePlotter:
                 '''
 
                 #PLOTS OUT OF ELLIPSE
-                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_{0}.json'.format(cat)) as f:
-                    parameters = json.load(f)
+                if cat=='MuEl':
+                    with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_ElEl.json'.format(cat)) as f:
+                        parameters = json.load(f)
+                else:
+                    with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_{0}.json'.format(cat)) as f:
+                        parameters = json.load(f)
                 for j, line in enumerate(parameters):
-                    notInWindowCut = "window_{0}.isOutOfEllipse({1}, {2}, {3}, {4}, {5})".format(cat, line[0], line[1], self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
+                    if cat=='MuEl':
+                        notInWindowCut = "window_ElEl.isOutOfEllipse({1}, {2}, {3}, {4})".format(line[0], line[1], self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
+                    else:
+                        notInWindowCut = "window_{0}.isOutOfEllipse({1}, {2}, {3}, {4}, {5})".format(cat, line[0], line[1], self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
                     self.outOfEllCut = self.joinCuts(self.cutWithoutCat, self.dict_cat_cut[cat], notInWindowCut)
                     self.tempExtraString = "_outOfEllipse_{0}".format(j) #Labelling each of the 21 ellipses with its index. Will need to write down which ellipse corresponds to which index.
                     self.ellExtraString = self.extraString + self.tempExtraString
