@@ -17,6 +17,56 @@ def default_code_before_loop():
 
 def default_code_in_loop():
     return ""
+    #return r"""
+    #float gsf_err_lep1 = 0.;
+    #if (hZA_leptons[hZA_lljj_deepCSV[0].ilep1].isEl) {
+    #    if ((hZA_leptons[hZA_lljj_deepCSV[0].ilep1].p4.Pt() < 20.) || (hZA_leptons[hZA_lljj_deepCSV[0].ilep1].p4.Pt() > 80.) ) {
+    #        gsf_err_lep1 = 0.01;
+    #    }
+    #}
+    #if (hZA_leptons[hZA_lljj_cmva[0].ilep1].isEl) {
+    #    if ((hZA_leptons[hZA_lljj_cmva[0].ilep1].p4.Pt() < 20.) || (hZA_leptons[hZA_lljj_cmva[0].ilep1].p4.Pt() > 80.) ) {
+    #        gsf_err_lep1 = 0.01;
+    #    }
+    #}
+    #else
+    #    gsf_err_lep1 = 0;
+    # 
+    #float gsf_err_lep2 = 0.;
+    #if (hZA_leptons[hZA_lljj_deepCSV[0].ilep2].isEl) {
+    #    if ((hZA_leptons[hZA_lljj_deepCSV[0].ilep2].p4.Pt() < 20.) || (hZA_leptons[hZA_lljj_deepCSV[0].ilep2].p4.Pt() > 80.) ) {
+    #        gsf_err_lep2 = 0.01;
+    #    }
+    #}
+    #if (hZA_leptons[hZA_lljj_cmva[0].ilep2].isEl) {
+    #    if ((hZA_leptons[hZA_lljj_cmva[0].ilep2].p4.Pt() < 20.) || (hZA_leptons[hZA_lljj_cmva[0].ilep2].p4.Pt() > 80.) ) {
+    #        gsf_err_lep2 = 0.01;
+    #    }
+    #}
+    #else
+    #    gsf_err_lep2 = 0;
+
+    #addTracking_err_lep1 = 0.;
+    #if (hZA_leptons[hZA_lljj_deepCSV[0].ilep1].isMu) {
+    #    addTracking_err_lep1 = 0.005;
+    #}
+    #if (hZA_leptons[hZA_lljj_cmva[0].ilep1].isMu) {
+    #    addTracking_err_lep1= 0.005;
+    #}
+    #else
+    #    addTracking_err_lep1 = 0;
+
+    #addTracking_err_lep2 = 0.;
+    #if (hZA_leptons[hZA_lljj_deepCSV[0].ilep2].isMu) {
+    #    addTracking_err_lep2 = 0.005;
+    #}
+    #if (hZA_leptons[hZA_lljj_cmva[0].ilep2].isMu) {
+    #    addTracking_err_lep2= 0.005;
+    #}
+    #else
+    #    addTracking_err_lep2 = 0;
+
+    #"""
 
 def default_code_after_loop():
     return ""
@@ -180,7 +230,7 @@ class BasePlotter:
                 "err_lep2_mu": "0.",
             }
         llIdIso_var = "NOMINAL"
-        
+
         for sf in ["elidiso", "elreco", "mutracking", "muid", "muiso"]:
             if sf in systematic:
                 if "up" in systematic:
@@ -196,13 +246,13 @@ class BasePlotter:
                     llIdIso_sf_dict["err_lep1_el"] = "{id}[{0}][{1}] * {reco}[{0}][0]".format(self.lep1_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
                     llIdIso_sf_dict["err_lep2_el"] = "{id}[{0}][{1}] * {reco}[{0}][0]".format(self.lep2_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
 
-                if sf == "elreco":
-                    llIdIso_sf_dict["err_lep1_el"] = "{id}[{0}][0] * {reco}[{0}][{1}]".format(self.lep1_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
-                    llIdIso_sf_dict["err_lep2_el"] = "{id}[{0}][0] * {reco}[{0}][{1}]".format(self.lep2_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
+                if sf == "elreco": 
+                    llIdIso_sf_dict["err_lep1_el"] = "({lep1}.isEl && (({lep1}.p4.Pt() < 20.) || ({lep1}.p4.Pt() > 80.)})) ? ({id}[{0}][0] * std::sqrt({reco}[{0}][{1}] * {reco}[{0}][{1}] + 0.01*{reco[{0}][{0}]} * 0.01*{reco[{0}][{0}]})) : ({id}[{0}][0] * {reco}[{0}][{1}])".format(self.lep1_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch, lep1=self.lep1_str)
+                    llIdIso_sf_dict["err_lep2_el"] = "({lep2}.isEl && (({lep2}.p4.Pt() < 20.) || ({lep2}.p4.Pt() > 80.)})) ? ({id}[{0}][0] * std::sqrt({reco}[{0}][{1}] * {reco}[{0}][{1}] + 0.01*{reco[{0}][{0}]} * 0.01*{reco[{0}][{0}]})) : ({id}[{0}][0] * {reco}[{0}][{1}])".format(self.lep2_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch, lep2=self.lep2_str)
 
                 if sf == "mutracking":
-                    llIdIso_sf_dict["err_lep1_mu"] = "{tracking}[{0}][{1}] * {id}[{0}][0] * {iso}[{0}][0]".format(self.lep1_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
-                    llIdIso_sf_dict["err_lep2_mu"] = "{tracking}[{0}][{1}] * {id}[{0}][0] * {iso}[{0}][0]".format(self.lep2_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
+                    llIdIso_sf_dict["err_lep1_mu"] = "{lep1}.isMu ? (std::sqrt({tracking}[{0}][{1}] * {tracking}[{0}][{1}] + 0.005*{tracking}[{0}][{0}] * 0.005*{tracking}[{0}][{0}]) * {id}[{0}][0] * {iso}[{0}][0]) : ({tracking}[{0}][{1}] * {id}[{0}][0] * {iso}[{0}][0])".format(self.lep1_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch, lep1=self.lep1_str)
+                    llIdIso_sf_dict["err_lep2_mu"] = "{lep2}.isMu ? (std::sqrt({tracking}[{0}][{1}] * {tracking}[{0}][{1}] + 0.005*{tracking}[{0}][{0}] * 0.005*{tracking}[{0}][{0}]) * {id}[{0}][0] * {iso}[{0}][0]) : ({tracking}[{0}][{1}] * {id}[{0}][0] * {iso}[{0}][0])".format(self.lep2_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch, lep2=self.lep2_str)
 
                 if sf == "muid":
                     llIdIso_sf_dict["err_lep1_mu"] = "{tracking}[{0}][0] * {id}[{0}][{1}] * {iso}[{0}][0]".format(self.lep1_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
@@ -308,6 +358,7 @@ class BasePlotter:
         self.genht_plot = []
         self.inEllipse_plot = []
         self.outOfEllipse_plot = []
+        self.inOut_plot = []
 
         self.forSkimmer_plot = []
 
@@ -554,12 +605,19 @@ class BasePlotter:
                 }
             ])
 
-            if self.btag and (cat == "MuMu" or cat == "ElEl"):
+            if self.btag:
                 #PLOTS IN ELLIPSE
-                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_{0}.json'.format(cat)) as f:
-                    parameters = json.load(f)
+                if cat=='MuEl':  #Load the MuMu file for the MuEl category
+                    with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_ElEl.json') as f:
+                        parameters = json.load(f)
+                else:
+                    with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_{0}.json'.format(cat)) as f:
+                        parameters = json.load(f)
                 for j, line in enumerate(parameters):
-                    inWindowCut = "window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, float(line[0]), float(line[1]), self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
+                    if cat=='MuEl':
+                        inWindowCut = "window_ElEl.isInEllipse({1}, {2}, {3}, {4})".format(float(line[0]), float(line[1]), self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
+                    else:
+                        inWindowCut = "window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, float(line[0]), float(line[1]), self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
                     self.ellCut = self.joinCuts(self.cutWithoutCat, self.dict_cat_cut[cat], inWindowCut)
                     self.tempExtraString = "_inEllipse_{0}".format(j) #Labelling each of the 21 ellipses with its index. Will need to write down which ellipse corresponds to which index.
                     self.ellExtraString = self.extraString + self.tempExtraString
@@ -593,10 +651,19 @@ class BasePlotter:
                         }
                 ])
 
+                    self.inOut_plot.extend([
+                        {
+                            'name': 'rho_steps_histo_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraStringForInOut, self.systematicString),
+                            'variable': "window_{0}.isInEllipse_noSize({1}, {2}, {3}, {4})".format((cat if cat!='MuEl' else 'ElEl'), line[0], line[1], self.jj_str + ".M()", self.baseObject + ".p4.M()"),
+                            'plot_cut': self.totalCut,
+                            'binning': '(7, 0, 3.5)'
+                        }
+                ])
+                '''
                     for i, dist in enumerate(self.distances):
                         #after these histos are filled, take only the true bin and put the together
                         if i==0:
-                            self.inEllipse_plot.extend([
+                            self.inOut_plot.extend([
                                     {
                                         'name': 'isInOrOut_%s_%s_%s_%s%s'%(dist, self.llFlav, self.suffix, self.extraStringForInOut, self.systematicString),
                                         'variable': "window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, line[0], line[1], dist, self.jj_str + ".M()", self.baseObject + ".p4.M()"),
@@ -605,7 +672,7 @@ class BasePlotter:
                                     }
                         ])
                         else:
-                            self.inEllipse_plot.extend([
+                            self.inOut_plot.extend([
                                     {
                                         'name': 'isInOrOut_%s_%s_%s_%s%s'%(dist, self.llFlav, self.suffix, self.extraStringForInOut, self.systematicString),
                                         'variable': "window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, line[0], line[1], dist, self.jj_str + ".M()", self.baseObject + ".p4.M()") + " && " + "!(window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5}))".format(cat, line[0], line[1], self.distances[i-1], self.jj_str + ".M()", self.baseObject + ".p4.M()"),
@@ -614,7 +681,7 @@ class BasePlotter:
                                     }
                         ])
                         
-                    self.inEllipse_plot.extend([
+                    self.inOut_plot.extend([
                             {
                                 'name': 'overFlow_%s_%s_%s_%s%s'%(self.distances[-1], self.llFlav, self.suffix, self.extraStringForInOut, self.systematicString),
                                 'variable': "window_{0}.isOutOfEllipse({1}, {2}, {3}, {4}, {5})".format(cat, line[0], line[1], self.distances[-1], self.jj_str + ".M()", self.baseObject + ".p4.M()"),
@@ -622,13 +689,20 @@ class BasePlotter:
                                 'binning': '(2, 0, 2)'
                             }
                     ])
-
+                '''
 
                 #PLOTS OUT OF ELLIPSE
-                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_{0}.json'.format(cat)) as f:
-                    parameters = json.load(f)
+                if cat=='MuEl':
+                    with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_ElEl.json'.format(cat)) as f:
+                        parameters = json.load(f)
+                else:
+                    with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_{0}.json'.format(cat)) as f:
+                        parameters = json.load(f)
                 for j, line in enumerate(parameters):
-                    notInWindowCut = "window_{0}.isOutOfEllipse({1}, {2}, {3}, {4}, {5})".format(cat, line[0], line[1], self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
+                    if cat=='MuEl':
+                        notInWindowCut = "window_ElEl.isOutOfEllipse({1}, {2}, {3}, {4})".format(line[0], line[1], self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
+                    else:
+                        notInWindowCut = "window_{0}.isOutOfEllipse({1}, {2}, {3}, {4}, {5})".format(cat, line[0], line[1], self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
                     self.outOfEllCut = self.joinCuts(self.cutWithoutCat, self.dict_cat_cut[cat], notInWindowCut)
                     self.tempExtraString = "_outOfEllipse_{0}".format(j) #Labelling each of the 21 ellipses with its index. Will need to write down which ellipse corresponds to which index.
                     self.ellExtraString = self.extraString + self.tempExtraString

@@ -22,6 +22,7 @@ class massWindow {
         pair_d applyLocalTranformation(pair_d point);
         bool isInEllipse(double center_x, double center_y, double size, double point_x, double point_y);
         bool isOutOfEllipse(double center_x, double center_y, double size, double point_x, double point_y);
+        double isInEllipse_noSize(double center_x, double center_y, double point_x, double point_y);
 
     private:
         std::string m_filename;

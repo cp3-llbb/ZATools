@@ -91,6 +91,8 @@ if "inEllipse" in lljj_plot_families:
     plots_lljj += ["inEllipse"]
 if "outOfEllipse" in lljj_plot_families:
     plots_lljj += ["outOfEllipse"]
+if "inOut" in lljj_plot_families:
+    plots_lljj += ["inOut"]
 if "weights" in lljj_plot_families:
     plots_lljj += ["llidisoWeight", "trigeffWeight", "puWeight"]
 
@@ -106,6 +108,8 @@ if "inEllipse" in llbb_plot_families:
     plots_llbb += ["inEllipse"]
 if "outOfEllipse" in llbb_plot_families:
     plots_llbb += ["outOfEllipse"]
+if "inOut" in llbb_plot_families:
+    plots_llbb += ["inOut"]
 if "weights" in llbb_plot_families:
     plots_llbb += ["llidisoWeight", "trigeffWeight", "puWeight", "jjbtagWeight"]
 
