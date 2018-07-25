@@ -175,7 +175,9 @@ class BasePlotter:
         # Possible stages (selection)
         mll_cut = "({0}.M() > 70) && ({0}.M() < 110)".format(self.ll_str, self.ll_str)
         met_cut = "({0}.Pt() > 0) && ({0}.Pt() < 80)".format(self.met_str, self.met_str)
+        mbb_cut = "({0}.M() > 30)".format(self.jj_str)
         mll_and_met_cut = "({0} && {1})".format(mll_cut, met_cut)
+        mll_and_met_cut_and_mbb_cut = "({0} && {1} && {2})".format(mll_cut, met_cut, mbb_cut)
         inverted_mll_cut = "({0}.M() <= 70 || {0}.M() >= 110)".format(self.ll_str, self.ll_str)
         inverted_met_cut = "({0}.Pt() >= 80)".format(self.met_str, self.met_str)
         inverted_mll_and_met_cut = "({0} && {1})".format(inverted_mll_cut, inverted_met_cut)
@@ -187,6 +189,7 @@ class BasePlotter:
             "mll_cut": mll_cut,
             "met_cut": met_cut,
             "mll_and_met_cut": mll_and_met_cut,
+            "mll_and_met_cut_and_mbb_cut": mll_and_met_cut_and_mbb_cut,
             "inverted_mll_cut": inverted_mll_cut,
             "inverted_met_cut": inverted_met_cut,
             "inverted_mll_and_met_cut": inverted_mll_and_met_cut,
@@ -406,7 +409,7 @@ class BasePlotter:
                         'name': 'Mjj_vs_Mlljj_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
                         'variable': self.jj_str + '.M() ::: '+self.baseObject + '.p4.M()',
                         'plot_cut': self.totalCut,
-                        'binning': '(60, 0, 1500, 60, 0, 1500)'
+                        'binning': '(150, 0, 1500, 150, 0, 1500)'
                 },
                 {
                         'name': 'lep1_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
@@ -635,7 +638,7 @@ class BasePlotter:
                             'name': 'Mjj_vs_Mlljj_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
                             'variable': self.jj_str + '.M() ::: '+self.baseObject + '.p4.M()',
                             'plot_cut': self.ellCut,
-                            'binning': '(100, 0, 1500, 100, 0, 1500)'
+                            'binning': '(150, 0, 1500, 150, 0, 1500)'
                         },
                         {
                             'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
@@ -717,7 +720,7 @@ class BasePlotter:
                             'name': 'Mjj_vs_Mlljj_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
                             'variable': self.jj_str + '.M() ::: '+self.baseObject + '.p4.M()',
                             'plot_cut': self.outOfEllCut,
-                            'binning': '(100, 0, 1500, 100, 0, 1500)'
+                            'binning': '(150, 0, 1500, 150, 0, 1500)'
                         },
                         {
                             'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
