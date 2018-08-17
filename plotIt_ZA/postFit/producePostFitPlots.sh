@@ -50,47 +50,10 @@ for flavor in $flavors; do
 
     cp postfitPlots.yml postfitPlots_${signal}_${flavor}.yml
 
-    ../../../plotIt/plotIt -o ${output} -- hh_plotter_all_shapes_postfit.yml
-
-    #rm postfitPlots.yml
+    ../../../plotIt/plotIt -o ${output} -- ZA_plotter_all_shapes_postfit.yml
 
     rm postfitPlots.yml
     rm MCFiles_shapes_postfit.yml
     rm centralConfig_shapes_postfit.yml
   done
 done
-
-# Do ptjj & mjj for 400 GeV
-#for signal in $signals; do
-
-#    input="${root}"
-
-#    sed "s|#ROOT#|${input}|g" centralConfig_shapes_postfit.yml.tpl > centralConfig_shapes_postfit.yml
-
-#    cp MCFiles_shapes_postfit.yml.tpl MCFiles_shapes_postfit.yml
-
-#    # Uncomment signal points
-#    for other_signal in $signals; do
-#        sed -i "/${other_signal}/,+7 s/#//" MCFiles_shapes_postfit.yml
-#    done
-#
-#    # MuMu
-
-#    # Uncomment pt jj plots
-#    sed "/ptjj_/,+13 s/#//" postfitPlots.yml.tpl > postfitPlots.yml
-#    sed -i "/mjj_/,+13 s/#//" postfitPlots.yml
-
-#    # Comment all the rest NN plots
-#    sed -i "/#SIGNAL#/,$ s/^/#/" postfitPlots.yml
-
-#    sed -i "s/#CHANNEL#/#mu#mu channel/" postfitPlots.yml
-
-#    cat postfitPlots.yml
-
-#    ../../../plotIt/plotIt -o ${output} -- hh_plotter_all_shapes_postfit.yml
-
-#    # Restore
-#    rm postfitPlots.yml
-#    rm MCFiles_shapes_postfit.yml
-#    rm centralConfig_shapes_postfit.yml
-#done

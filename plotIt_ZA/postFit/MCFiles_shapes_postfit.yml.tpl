@@ -1,3 +1,5 @@
+#FIXME: Add other minor backgrounds one run in Combine
+
 # HIGGS
 
 'SMHiggs_postfit_histos.root':
