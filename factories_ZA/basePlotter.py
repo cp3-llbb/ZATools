@@ -133,8 +133,7 @@ class BasePlotter:
         self.jet_coll_str = "hZA_jets"
         self.lepton_coll_str = "hZA_leptons"
         self.sys_fwk = ""
-        self.rho = 2.
-        self.distances = [0.5, 1., 1.5, 2., 2.5, 3]
+        self.rho = 1. #put here the desired value of rho (from 0.5 to 3)
 
 
         if objects != "nominal":
@@ -250,12 +249,12 @@ class BasePlotter:
                     llIdIso_sf_dict["err_lep2_el"] = "{id}[{0}][{1}] * {reco}[{0}][0]".format(self.lep2_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
 
                 if sf == "elreco": 
-                    llIdIso_sf_dict["err_lep1_el"] = "({lep1}.isEl && (({lep1}.p4.Pt() < 20.) || ({lep1}.p4.Pt() > 80.)})) ? ({id}[{0}][0] * std::sqrt({reco}[{0}][{1}] * {reco}[{0}][{1}] + 0.01*{reco[{0}][{0}]} * 0.01*{reco[{0}][{0}]})) : ({id}[{0}][0] * {reco}[{0}][{1}])".format(self.lep1_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch, lep1=self.lep1_str)
-                    llIdIso_sf_dict["err_lep2_el"] = "({lep2}.isEl && (({lep2}.p4.Pt() < 20.) || ({lep2}.p4.Pt() > 80.)})) ? ({id}[{0}][0] * std::sqrt({reco}[{0}][{1}] * {reco}[{0}][{1}] + 0.01*{reco[{0}][{0}]} * 0.01*{reco[{0}][{0}]})) : ({id}[{0}][0] * {reco}[{0}][{1}])".format(self.lep2_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch, lep2=self.lep2_str)
+                    llIdIso_sf_dict["err_lep1_el"] = "(({lep1}.p4.Pt() < 20.) || ({lep1}.p4.Pt() > 80.)) ? ({id}[{0}][0] * std::sqrt({reco}[{0}][{1}] * {reco}[{0}][{1}] + 0.01*{reco}[{0}][{0}] * 0.01*{reco}[{0}][{0}])) : ({id}[{0}][0] * {reco}[{0}][{1}])".format(self.lep1_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch, lep1=self.lep1_str)
+                    llIdIso_sf_dict["err_lep2_el"] = "(({lep2}.p4.Pt() < 20.) || ({lep2}.p4.Pt() > 80.)) ? ({id}[{0}][0] * std::sqrt({reco}[{0}][{1}] * {reco}[{0}][{1}] + 0.01*{reco}[{0}][{0}] * 0.01*{reco}[{0}][{0}])) : ({id}[{0}][0] * {reco}[{0}][{1}])".format(self.lep2_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch, lep2=self.lep2_str)
 
                 if sf == "mutracking":
-                    llIdIso_sf_dict["err_lep1_mu"] = "{lep1}.isMu ? (std::sqrt({tracking}[{0}][{1}] * {tracking}[{0}][{1}] + 0.005*{tracking}[{0}][{0}] * 0.005*{tracking}[{0}][{0}]) * {id}[{0}][0] * {iso}[{0}][0]) : ({tracking}[{0}][{1}] * {id}[{0}][0] * {iso}[{0}][0])".format(self.lep1_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch, lep1=self.lep1_str)
-                    llIdIso_sf_dict["err_lep2_mu"] = "{lep2}.isMu ? (std::sqrt({tracking}[{0}][{1}] * {tracking}[{0}][{1}] + 0.005*{tracking}[{0}][{0}] * 0.005*{tracking}[{0}][{0}]) * {id}[{0}][0] * {iso}[{0}][0]) : ({tracking}[{0}][{1}] * {id}[{0}][0] * {iso}[{0}][0])".format(self.lep2_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch, lep2=self.lep2_str)
+                    llIdIso_sf_dict["err_lep1_mu"] = "(std::sqrt({tracking}[{0}][{1}] * {tracking}[{0}][{1}] + 0.005*{tracking}[{0}][{0}] * 0.005*{tracking}[{0}][{0}]) * {id}[{0}][0] * {iso}[{0}][0])".format(self.lep1_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch, lep1=self.lep1_str)
+                    llIdIso_sf_dict["err_lep2_mu"] = "(std::sqrt({tracking}[{0}][{1}] * {tracking}[{0}][{1}] + 0.005*{tracking}[{0}][{0}] * 0.005*{tracking}[{0}][{0}]) * {id}[{0}][0] * {iso}[{0}][0])".format(self.lep2_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch, lep2=self.lep2_str)
 
                 if sf == "muid":
                     llIdIso_sf_dict["err_lep1_mu"] = "{tracking}[{0}][0] * {id}[{0}][{1}] * {iso}[{0}][0]".format(self.lep1_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
@@ -558,59 +557,43 @@ class BasePlotter:
             ])
                 
 
-            if self.btag:
-                self.basic_plot.extend([
-                    {
-                            'name': 'jet1_deepCSV_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                            'variable': self.jet1_str+".deepCSV",
-                            'plot_cut': self.totalCut,
-                            'binning': '(50, -1, 1)'
-                    },
-                    {
-                            'name': 'jet2_deepCSV_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                            'variable': self.jet2_str+".deepCSV",
-                            'plot_cut': self.totalCut,
-                            'binning': '(50, -1, 1)'
-                    },
-                    {
-                            'name': 'jj_deepCSV_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                            'variable': self.baseObject+".sumDeepCSV",
-                            'plot_cut': self.totalCut,
-                            'binning': '(50, -2, 2)'
-                    },
-                    {
-                            'name': 'jet1_deepCSV_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                            'variable': self.jet1_str+".btag_deepCSV_M",
-                            'plot_cut': self.totalCut,
-                            'binning': '(50, -1, 1)'
-                    },
-                    {
-                            'name': 'jj_deepCSV_MM_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                            'variable': self.baseObject+".btag_deepCSV_MM",
-                            'plot_cut': self.totalCut,
-                            'binning': '(50, -1, 1)'
-                    }
-                ])
-
-
-            self.csv_plot.extend([
-                {
-                        'name': 'jet1_CSV_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.jet1_str+".CSV",
-                        'plot_cut': self.totalCut,
-                        'binning': '(50, 0, 1)'
-                },
-                {
-                        'name': 'jet2_CSV_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.jet2_str+".CSV",
-                        'plot_cut': self.totalCut,
-                        'binning': '(50, 0, 1)'
-                }
-            ])
+#            if self.btag:
+#                self.basic_plot.extend([
+#                    {
+#                            'name': 'jet1_deepCSV_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+#                            'variable': self.jet1_str+".deepCSV",
+#                            'plot_cut': self.totalCut,
+#                            'binning': '(50, -1, 1)'
+#                    },
+#                    {
+#                            'name': 'jet2_deepCSV_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+#                            'variable': self.jet2_str+".deepCSV",
+#                            'plot_cut': self.totalCut,
+#                            'binning': '(50, -1, 1)'
+#                    },
+#                    {
+#                            'name': 'jj_deepCSV_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+#                            'variable': self.baseObject+".sumDeepCSV",
+#                            'plot_cut': self.totalCut,
+#                            'binning': '(50, -2, 2)'
+#                    },
+#                    {
+#                            'name': 'jet1_deepCSV_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+#                            'variable': self.jet1_str+".btag_deepCSV_M",
+#                            'plot_cut': self.totalCut,
+#                            'binning': '(50, -1, 1)'
+#                    },
+#                    {
+#                            'name': 'jj_deepCSV_MM_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+#                            'variable': self.baseObject+".btag_deepCSV_MM",
+#                            'plot_cut': self.totalCut,
+#                            'binning': '(50, -1, 1)'
+#                    }
+#                ])
 
             if self.btag:
                 #PLOTS IN ELLIPSE
-                if cat=='MuEl':  #Load the MuMu file for the MuEl category
+                if cat=='MuEl':  #Load the ElEl file for the MuEl category
                     with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_ElEl.json') as f:
                         parameters = json.load(f)
                 else:
@@ -618,28 +601,28 @@ class BasePlotter:
                         parameters = json.load(f)
                 for j, line in enumerate(parameters):
                     if cat=='MuEl':
-                        inWindowCut = "window_ElEl.isInEllipse({1}, {2}, {3}, {4})".format(float(line[0]), float(line[1]), self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
+                        inWindowCut = "window_ElEl.isInEllipse({0}, {1}, {2}, {3}, {4})".format(float(line[0]), float(line[1]), self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
                     else:
                         inWindowCut = "window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, float(line[0]), float(line[1]), self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
                     self.ellCut = self.joinCuts(self.cutWithoutCat, self.dict_cat_cut[cat], inWindowCut)
-                    self.tempExtraString = "_inEllipse_{0}".format(j) #Labelling each of the 21 ellipses with its index. Will need to write down which ellipse corresponds to which index.
+                    rho_string = str(self.rho).replace('.','p')
+                    #Labelling each of the 21 ellipses with its index. Will need to write down which ellipse corresponds to which index.
+                    self.tempExtraString = "_inEllipse_{0}_rho{1}".format(j, rho_string) 
                     self.ellExtraString = self.extraString + self.tempExtraString
-                    self.tempExtraStringForInOut =  "_{0}".format(j)
-                    self.extraStringForInOut = self.extraString + self.tempExtraStringForInOut
 
                     self.inEllipse_plot.extend([
-                        {
-                            'name': 'll_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                            'variable': self.ll_str+".M()",
-                            'plot_cut': self.ellCut,
-                            'binning': mll_plot_binning
-                        },
-                        {
-                            'name': 'Mjj_vs_Mlljj_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                            'variable': self.jj_str + '.M() ::: '+self.baseObject + '.p4.M()',
-                            'plot_cut': self.ellCut,
-                            'binning': '(150, 0, 1500, 150, 0, 1500)'
-                        },
+                        #{
+                        #    'name': 'll_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
+                        #    'variable': self.ll_str+".M()",
+                        #    'plot_cut': self.ellCut,
+                        #    'binning': mll_plot_binning
+                        #},
+                        #{
+                        #    'name': 'Mjj_vs_Mlljj_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
+                        #    'variable': self.jj_str + '.M() ::: '+self.baseObject + '.p4.M()',
+                        #    'plot_cut': self.ellCut,
+                        #    'binning': '(150, 0, 1500, 150, 0, 1500)'
+                        #},
                         {
                             'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
                             'variable': self.jj_str + ".M()",
@@ -652,106 +635,19 @@ class BasePlotter:
                             'plot_cut': self.ellCut,
                             'binning': '(50, 100, 1500)'
                         }
-                ])
+                    ])
 
+                    self.tempExtraStringForInOut =  "_{0}".format(j)
+                    self.extraStringForInOut = self.extraString + self.tempExtraStringForInOut
                     self.inOut_plot.extend([
                         {
                             'name': 'rho_steps_histo_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraStringForInOut, self.systematicString),
                             'variable': "window_{0}.isInEllipse_noSize({1}, {2}, {3}, {4})".format((cat if cat!='MuEl' else 'ElEl'), line[0], line[1], self.jj_str + ".M()", self.baseObject + ".p4.M()"),
                             'plot_cut': self.totalCut,
-                            'binning': '(7, 0, 3.5)'
+                            'binning': '(6, 0, 3)'
                         }
                 ])
-                '''
-                    for i, dist in enumerate(self.distances):
-                        #after these histos are filled, take only the true bin and put the together
-                        if i==0:
-                            self.inOut_plot.extend([
-                                    {
-                                        'name': 'isInOrOut_%s_%s_%s_%s%s'%(dist, self.llFlav, self.suffix, self.extraStringForInOut, self.systematicString),
-                                        'variable': "window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, line[0], line[1], dist, self.jj_str + ".M()", self.baseObject + ".p4.M()"),
-                                        'plot_cut': self.totalCut,
-                                        'binning': '(2, 0, 2)'
-                                    }
-                        ])
-                        else:
-                            self.inOut_plot.extend([
-                                    {
-                                        'name': 'isInOrOut_%s_%s_%s_%s%s'%(dist, self.llFlav, self.suffix, self.extraStringForInOut, self.systematicString),
-                                        'variable': "window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, line[0], line[1], dist, self.jj_str + ".M()", self.baseObject + ".p4.M()") + " && " + "!(window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5}))".format(cat, line[0], line[1], self.distances[i-1], self.jj_str + ".M()", self.baseObject + ".p4.M()"),
-                                        'plot_cut': self.totalCut,
-                                        'binning': '(2, 0, 2)'
-                                    }
-                        ])
-                        
-                    self.inOut_plot.extend([
-                            {
-                                'name': 'overFlow_%s_%s_%s_%s%s'%(self.distances[-1], self.llFlav, self.suffix, self.extraStringForInOut, self.systematicString),
-                                'variable': "window_{0}.isOutOfEllipse({1}, {2}, {3}, {4}, {5})".format(cat, line[0], line[1], self.distances[-1], self.jj_str + ".M()", self.baseObject + ".p4.M()"),
-                                'plot_cut': self.totalCut,
-                                'binning': '(2, 0, 2)'
-                            }
-                    ])
-                '''
 
-                #PLOTS OUT OF ELLIPSE
-                if cat=='MuEl':
-                    with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_ElEl.json'.format(cat)) as f:
-                        parameters = json.load(f)
-                else:
-                    with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_{0}.json'.format(cat)) as f:
-                        parameters = json.load(f)
-                for j, line in enumerate(parameters):
-                    if cat=='MuEl':
-                        notInWindowCut = "window_ElEl.isOutOfEllipse({1}, {2}, {3}, {4})".format(line[0], line[1], self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
-                    else:
-                        notInWindowCut = "window_{0}.isOutOfEllipse({1}, {2}, {3}, {4}, {5})".format(cat, line[0], line[1], self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
-                    self.outOfEllCut = self.joinCuts(self.cutWithoutCat, self.dict_cat_cut[cat], notInWindowCut)
-                    self.tempExtraString = "_outOfEllipse_{0}".format(j) #Labelling each of the 21 ellipses with its index. Will need to write down which ellipse corresponds to which index.
-                    self.ellExtraString = self.extraString + self.tempExtraString
-                    self.outOfEllipse_plot.extend([
-                        {
-                            'name': 'll_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                            'variable': self.ll_str+".M()",
-                            'plot_cut': self.outOfEllCut,
-                            'binning': mll_plot_binning
-                        },
-                        {
-                            'name': 'Mjj_vs_Mlljj_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                            'variable': self.jj_str + '.M() ::: '+self.baseObject + '.p4.M()',
-                            'plot_cut': self.outOfEllCut,
-                            'binning': '(150, 0, 1500, 150, 0, 1500)'
-                        },
-                        {
-                            'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                            'variable': self.jj_str + ".M()",
-                            'plot_cut': self.outOfEllCut,
-                            'binning': '(40, 10, 1000)'
-                        },
-                        {
-                            'name': 'lljj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                            'variable': self.baseObject+".p4.M()",
-                            'plot_cut': self.outOfEllCut,
-                            'binning': '(50, 100, 1500)'
-                        }
-                    ])
-
-            # gen level plots for jj 
-            #for elt in self.plots_jj:
-            #    tempPlot = copy.deepcopy(elt)
-            #    if "p4" in tempPlot["variable"]:
-            #        tempPlot["variable"] = tempPlot["variable"].replace(self.jj_str,"hZA_gen_BB")
-            #        tempPlot["name"] = "gen"+tempPlot["name"]
-            #        self.plots_gen.append(tempPlot)
-            
-            #self.gen_plot.extend([
-            #    {
-            #        'name': 'gen_mZA',
-            #        'variable': 'hZA_gen_mZA',
-            #        'plot_cut': self.totalCut,
-            #        'binning': '(50, 0, 1200)'
-            #    },
-            #])
 
         plotsToReturn = []
         

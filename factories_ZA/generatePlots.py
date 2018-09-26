@@ -174,9 +174,8 @@ else:
                 "puup", "pudown",
                 "trigeffup", "trigeffdown",
                 "pdfup", "pdfdown",
-                #"dyStatup", "dyStatdown"  this comes from DY data-driven
-                #"elrecoup", "elrecodown",
-                #"mutrackingup", "mutrackingdown",
+                "elrecoup", "elrecodown",
+                "mutrackingup", "mutrackingdown"
                 #"hdampup", "hdampdown",
                 ]
             }

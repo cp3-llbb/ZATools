@@ -13,11 +13,10 @@
 // |x'|     |M11  M12|   |x|      x' = M11*x + M12*y
 // |  |  =  |        | * | | --> 
 // |y'|     |M21  M22|   |y|      y' = M21*x + M22*y
-// - Default constructor massWindow(...):       computes the elements of the transformation matrix.
-// - getValue(...):     returns the interpolated value of the transformation matrix in a given point.
-// - applyGlobalTransformation(...):    returns the coordinates (x', y').
-// - isInEllipse(...):   returns true if a point is inside the circle (false if outside).
-// - isOutOfEllipse(...):   returns true if a point is outside the circle (false if inside).
+// - Default constructor massWindow(...):    computes the elements of the transformation matrix.
+// - getValue(...):                          returns the interpolated value of the transformation matrix in a given point.
+// - applyGlobalTransformation(...):         returns the coordinates (x', y').
+// - isInEllipse(...):                       returns true if a point is inside the circle (false if outside).
 
 massWindow::massWindow(std::string filename) : m_filename(filename) {
 
@@ -167,17 +166,6 @@ bool massWindow::isInEllipse(double center_x, double center_y, double size, doub
     pair_d center = std::make_pair(center_x, center_y);
     pair_d param = this->applyGlobalTransformation(center, mdiff);
     return sqrt(pow(param.first,2) + pow(param.second,2)) <= size;
-}
-
-
-bool massWindow::isOutOfEllipse(double center_x, double center_y, double size, double point_x, double point_y) {
-    
-    double m1diff = point_x - center_x;
-    double m2diff = point_y - center_y;
-    pair_d mdiff = std::make_pair(m1diff, m2diff);
-    pair_d center = std::make_pair(center_x, center_y);
-    pair_d param = this->applyGlobalTransformation(center, mdiff);
-    return sqrt(pow(param.first,2) + pow(param.second,2)) > size;
 }
 
 
