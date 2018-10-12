@@ -128,8 +128,19 @@ class Configuration:
 ####### Different configurations for possible workflows ###### 
 
 # General plots
-MainPlots_ForMC = Configuration('generatePlots.py', suffix='_for_MCbkg', mode='plots', samples=[
-            "DY_NLO",
+MainPlots_ForDY = Configuration('generatePlots.py', suffix='_for_DY', mode='plots', samples=[
+            "DY_NLO"
+        ], generation_args={
+            'sample_type': 'MC',
+            'lljj_plots': ['basic', 'inOut'],
+            'llbb_plots': ['basic', 'inOut'],
+            'syst': True,
+            'syst_split_jec': False,
+            'reweight_DY': True,
+            'lljj_stages': ['mll_and_met_cut'],
+            'llbb_stages': ['mll_and_met_cut'],
+        })
+MainPlots_ForMCminusDY = Configuration('generatePlots.py', suffix='_for_MCbkgminusDY', mode='plots', samples=[
             "TTBar",
             "ZZ",
             "ZH",
@@ -142,28 +153,31 @@ MainPlots_ForMC = Configuration('generatePlots.py', suffix='_for_MCbkg', mode='p
             #"QCD"
         ], generation_args={
             'sample_type': 'MC',
-            'lljj_plots': ['basic', 'inEllipse', 'outOfEllipse', 'inOut'],
-            'llbb_plots': ['basic', 'inEllipse', 'outOfEllipse', 'inOut'],
+            'lljj_plots': ['basic', 'inOut'],
+            'llbb_plots': ['basic', 'inOut'],
             'syst': True,
             'syst_split_jec': False,
-            'lljj_stages': ['no_cut', 'mll_and_met_cut', 'inverted_met_cut', 'met_cut_and_inverted_mll_cut', 'mll_cut_and_inverted_met_cut', 'mll_and_met_cut_and_mbb_cut'],
-            'llbb_stages': ['no_cut', 'mll_and_met_cut', 'inverted_met_cut', 'met_cut_and_inverted_mll_cut', 'mll_cut_and_inverted_met_cut', 'mll_and_met_cut_and_mbb_cut'],
+            'reweight_DY': False,
+            'lljj_stages': ['mll_and_met_cut'],
+            'llbb_stages': ['mll_and_met_cut'],
         })
 MainPlots_ForData = Configuration('generatePlots.py', suffix='_for_data', mode='plots', samples=['Data'], generation_args={
             'sample_type': 'Data',
-            'lljj_plots': ['basic', 'inEllipse', 'outOfEllipse', 'inOut'],
-            'llbb_plots': ['basic', 'inEllipse', 'outOfEllipse', 'inOut'],
+            'lljj_plots': ['basic', 'inOut'],
+            'llbb_plots': ['basic', 'inOut'],
             'syst': True,
             'syst_split_jec': False,
-            'lljj_stages': ['no_cut', 'mll_and_met_cut', 'inverted_met_cut', 'met_cut_and_inverted_mll_cut', 'mll_cut_and_inverted_met_cut', 'mll_and_met_cut_and_mbb_cut'],
-            'llbb_stages': ['no_cut', 'mll_and_met_cut', 'inverted_met_cut', 'met_cut_and_inverted_mll_cut', 'mll_cut_and_inverted_met_cut', 'mll_and_met_cut_and_mbb_cut'],
+            'reweight_DY': False,
+            'lljj_stages': ['mll_and_met_cut'],
+            'llbb_stages': ['mll_and_met_cut'],
         })
 MainPlots_ForSignal = Configuration('generatePlots.py', suffix='_for_signal', mode='plots', samples=['Signal'], generation_args={
             'sample_type': 'Signal',
-            'llbb_plots': ['basic', 'inEllipse', 'outOfEllipse', 'inOut'],
+            'llbb_plots': ['basic', 'inOut'],
             'syst': True,
             'syst_split_jec': False,
-            'llbb_stages': ['no_cut', 'mll_and_met_cut', 'inverted_met_cut', 'met_cut_and_inverted_mll_cut', 'mll_cut_and_inverted_met_cut', 'mll_and_met_cut_and_mbb_cut'],
+            'reweight_DY': False,
+            'llbb_stages': ['mll_and_met_cut'],
         })
 
 """
@@ -207,7 +221,8 @@ parser.add_argument('--skip', help='Skip the building part.', action="store_true
 
 args = parser.parse_args()
 
-configurations.append(MainPlots_ForMC)
+configurations.append(MainPlots_ForDY)
+configurations.append(MainPlots_ForMCminusDY)
 configurations.append(MainPlots_ForData)
 configurations.append(MainPlots_ForSignal)
 

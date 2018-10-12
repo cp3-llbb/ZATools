@@ -331,12 +331,28 @@ class BasePlotter:
         if systematic == "trigeffdown":
             trigEff = "({0}.trigger_efficiency_downVariated)".format(self.baseObject)
 
+        # MJJ REWEIGHTING - TO BE USED ONLY FOR DRELL-YAN, ENABLE IT IN THE CONFIG FILE
+        mjj_weight = "(1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5))".format(self.jj_str + ".M()")
+        if systematic == "mjj_weightup":
+            mjj_weight = "((1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5)) + std::abs( (1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5) ) - 1) )".format(self.jj_str + ".M()")
+        if systematic == "mjj_weightdown":
+            mjj_weight = "((1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5)) - std::abs( (1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5) ) - 1) )".format(self.jj_str + ".M()")
+        
+        # MLLJJ REWEIGHTING - TO BE USED ONLY FOR DRELL-YAN, ENABLE IT IN THE CONFIG FILE
+        #mlljj_weight = "( 1.66082 + (-0.0094554)*{0} + (5.17947e-05)*pow({0},2) + (-1.43083e-07)*pow({0},3) + (2.18911e-10)*pow({0},4) + (-1.87651e-13)*pow({0},5) + (8.41761e-17)*pow({0},6) + (-1.53674e-20)*pow({0},7) )".format(self.baseObject+".p4.M()")
+        #if systematic == "mlljj_weightup":
+        #    mlljj_weight = "( ( 1.66082 + (-0.0094554)*{0} + (5.17947e-05)*pow({0},2) + (-1.43083e-07)*pow({0},3) + (2.18911e-10)*pow({0},4) + (-1.87651e-13)*pow({0},5) + (8.41761e-17)*pow({0},6) + (-1.53674e-20)*pow({0},7) ) + std::abs( ( 1.66082 + (-0.0094554)*{0} + (5.17947e-05)*pow({0},2) + (-1.43083e-07)*pow({0},3) + (2.18911e-10)*pow({0},4) + (-1.87651e-13)*pow({0},5) + (8.41761e-17)*pow({0},6) + (-1.53674e-20)*pow({0},7) ) - 1) )".format(self.baseObject+".p4.M()")
+        #if systematic == "mlljj_weightdown":
+        #    mlljj_weight = "( ( 1.66082 + (-0.0094554)*{0} + (5.17947e-05)*pow({0},2) + (-1.43083e-07)*pow({0},3) + (2.18911e-10)*pow({0},4) + (-1.87651e-13)*pow({0},5) + (8.41761e-17)*pow({0},6) + (-1.53674e-20)*pow({0},7) ) - std::abs( ( 1.66082 + (-0.0094554)*{0} + (5.17947e-05)*pow({0},2) + (-1.43083e-07)*pow({0},3) + (2.18911e-10)*pow({0},4) + (-1.87651e-13)*pow({0},5) + (8.41761e-17)*pow({0},6) + (-1.53674e-20)*pow({0},7) ) - 1) )".format(self.baseObject+".p4.M()")
+
         available_weights = {
                 'trigeff': trigEff,
                 'jjbtag_heavy': jjBtag_heavyjet_sf,
                 'jjbtag_light': jjBtag_lightjet_sf,
                 'llidiso': llIdIso_sf,
-                'pu': puWeight
+                'pu': puWeight,
+                'mjj_weight': mjj_weight
+                #'mlljj_weight': mlljj_weight
                 }
         
         # Append the proper extension to the name plot if needed
@@ -350,7 +366,6 @@ class BasePlotter:
         self.basic_plot = []
         self.csv_plot = []
         self.isElEl_plot = []
-        self.mjj_plot = []
  
         self.gen_plot = []
         self.evt_plot = []
@@ -372,13 +387,6 @@ class BasePlotter:
 
             self.llFlav = cat
             self.extraString = stage + extraString
-
-            self.mjj_plot.append({
-                        'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.jj_str + ".M()",
-                        'plot_cut': self.totalCut,
-                        'binning': '(40, 10, 1000)'
-                })
 
             # Plot to compute yields (ensure we have not over/under flow)
             #self.isElEl_plot.append({
@@ -493,6 +501,12 @@ class BasePlotter:
                         'variable': "(" + self.ll_str + "+" + self.jj_str + ").M()",
                         'plot_cut': self.totalCut,
                         'binning': '(50, 100, 1500)'
+                },
+                {
+                        'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.jj_str + ".M()",
+                        'plot_cut': self.totalCut,
+                        'binning': '(40, 10, 1000)'
                 },
                 {
                         'name': 'll_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),

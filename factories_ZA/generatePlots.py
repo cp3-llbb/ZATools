@@ -50,6 +50,7 @@ use_syst = get_cfg('syst')
 syst_split_jec = get_cfg('syst_split_jec', False)
 syst_only_jec = get_cfg('syst_only_jec', False)
 syst_split_pdf = get_cfg('syst_split_pdf', False)
+reweight_DY = get_cfg('reweight_DY', False)
 
 lljj_categories = get_cfg('lljj_categories', ['MuMu', 'ElEl', 'MuEl'])
 llbb_categories = get_cfg('llbb_categories', ['MuMu', 'ElEl', 'MuEl'])
@@ -80,9 +81,13 @@ sources = default_sources(scriptDir)
 #### lljj
 weights_lljj = ['trigeff', 'llidiso', 'pu']
 
+if reweight_DY:
+    weights_lljj.append('mjj_weight')
+    #weights_lljj.append('mlljj_weight')
+
 plots_lljj = []
 if "basic" in lljj_plot_families:
-    plots_lljj += ["mjj", "basic"]
+    plots_lljj += ["basic"]
 if "other" in lljj_plot_families:
     plots_lljj += ["other"]
 if "btag_efficiencies" in lljj_plot_families:
@@ -99,9 +104,13 @@ if "weights" in lljj_plot_families:
 #### llbb
 weights_llbb = ['trigeff', 'llidiso', 'pu', 'jjbtag_heavy', 'jjbtag_light']
 
+if reweight_DY:
+    weights_llbb.append('mjj_weight')
+    #weights_llbb.append('mlljj_weight')
+
 plots_llbb = []
 if "basic" in llbb_plot_families:
-    plots_llbb += ["mjj", "basic"]
+    plots_llbb += ["basic"]
 if "other" in llbb_plot_families:
     plots_llbb += ["other"]
 if "inEllipse" in llbb_plot_families:
@@ -179,6 +188,13 @@ else:
                 #"hdampup", "hdampdown",
                 ]
             }
+
+    if reweight_DY:
+        systematics["SF"].append("mjj_weightup")
+        systematics["SF"].append("mjj_weightdown")
+        #systematics["SF"].append("mlljj_weightup")
+        #systematics["SF"].append("mlljj_weightdown")
+
     # Scale uncertainties
     for i in range(6):
         systematics["SF"].append("scaleUncorr{}".format(i))
