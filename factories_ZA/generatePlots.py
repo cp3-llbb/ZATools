@@ -83,7 +83,7 @@ weights_lljj = ['trigeff', 'llidiso', 'pu']
 
 if reweight_DY:
     weights_lljj.append('mjj_weight')
-    #weights_lljj.append('mlljj_weight')
+    weights_lljj.append('mlljj_weight')
 
 plots_lljj = []
 if "basic" in lljj_plot_families:
@@ -106,7 +106,7 @@ weights_llbb = ['trigeff', 'llidiso', 'pu', 'jjbtag_heavy', 'jjbtag_light']
 
 if reweight_DY:
     weights_llbb.append('mjj_weight')
-    #weights_llbb.append('mlljj_weight')
+    weights_llbb.append('mlljj_weight')
 
 plots_llbb = []
 if "basic" in llbb_plot_families:
@@ -192,8 +192,8 @@ else:
     if reweight_DY:
         systematics["SF"].append("mjj_weightup")
         systematics["SF"].append("mjj_weightdown")
-        #systematics["SF"].append("mlljj_weightup")
-        #systematics["SF"].append("mlljj_weightdown")
+        systematics["SF"].append("mlljj_weightup")
+        systematics["SF"].append("mlljj_weightdown")
 
     # Scale uncertainties
     for i in range(6):

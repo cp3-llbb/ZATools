@@ -332,27 +332,50 @@ class BasePlotter:
             trigEff = "({0}.trigger_efficiency_downVariated)".format(self.baseObject)
 
         # MJJ REWEIGHTING - TO BE USED ONLY FOR DRELL-YAN, ENABLE IT IN THE CONFIG FILE
-        mjj_weight = "(1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5))".format(self.jj_str + ".M()")
+        #with norm, to fix with sum of norms
+        #mjj_weight = "((1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5))/1.009577814)".format(self.jj_str + ".M()")
+        #if systematic == "mjj_weightup":
+        #    mjj_weight = "( 2*((1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5))/1.009577814) - 1 )".format(self.jj_str + ".M()")
+        #if systematic == "mjj_weightdown":
+        #    mjj_weight = "1."
+        
+        
+        mjj_weight = "((1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5)))".format(self.jj_str + ".M()")
         if systematic == "mjj_weightup":
-            mjj_weight = "((1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5)) + std::abs( (1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5) ) - 1) )".format(self.jj_str + ".M()")
+            mjj_weight = "( 2*((1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5))) - 1 )".format(self.jj_str + ".M()")
         if systematic == "mjj_weightdown":
-            mjj_weight = "((1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5)) - std::abs( (1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5) ) - 1) )".format(self.jj_str + ".M()")
+            mjj_weight = "1."
         
         # MLLJJ REWEIGHTING - TO BE USED ONLY FOR DRELL-YAN, ENABLE IT IN THE CONFIG FILE
         #mlljj_weight = "( 1.66082 + (-0.0094554)*{0} + (5.17947e-05)*pow({0},2) + (-1.43083e-07)*pow({0},3) + (2.18911e-10)*pow({0},4) + (-1.87651e-13)*pow({0},5) + (8.41761e-17)*pow({0},6) + (-1.53674e-20)*pow({0},7) )".format(self.baseObject+".p4.M()")
         #if systematic == "mlljj_weightup":
-        #    mlljj_weight = "( ( 1.66082 + (-0.0094554)*{0} + (5.17947e-05)*pow({0},2) + (-1.43083e-07)*pow({0},3) + (2.18911e-10)*pow({0},4) + (-1.87651e-13)*pow({0},5) + (8.41761e-17)*pow({0},6) + (-1.53674e-20)*pow({0},7) ) + std::abs( ( 1.66082 + (-0.0094554)*{0} + (5.17947e-05)*pow({0},2) + (-1.43083e-07)*pow({0},3) + (2.18911e-10)*pow({0},4) + (-1.87651e-13)*pow({0},5) + (8.41761e-17)*pow({0},6) + (-1.53674e-20)*pow({0},7) ) - 1) )".format(self.baseObject+".p4.M()")
+        #    mlljj_weight = "( 2*(1.66082 + (-0.0094554)*{0} + (5.17947e-05)*pow({0},2) + (-1.43083e-07)*pow({0},3) + (2.18911e-10)*pow({0},4) + (-1.87651e-13)*pow({0},5) + (8.41761e-17)*pow({0},6) + (-1.53674e-20)*pow({0},7)) - 1 )".format(self.baseObject+".p4.M()")
         #if systematic == "mlljj_weightdown":
-        #    mlljj_weight = "( ( 1.66082 + (-0.0094554)*{0} + (5.17947e-05)*pow({0},2) + (-1.43083e-07)*pow({0},3) + (2.18911e-10)*pow({0},4) + (-1.87651e-13)*pow({0},5) + (8.41761e-17)*pow({0},6) + (-1.53674e-20)*pow({0},7) ) - std::abs( ( 1.66082 + (-0.0094554)*{0} + (5.17947e-05)*pow({0},2) + (-1.43083e-07)*pow({0},3) + (2.18911e-10)*pow({0},4) + (-1.87651e-13)*pow({0},5) + (8.41761e-17)*pow({0},6) + (-1.53674e-20)*pow({0},7) ) - 1) )".format(self.baseObject+".p4.M()")
+        #    mlljj_weight = "1." 
 
+        #with norm to fix
+        #mlljj_weight = "(({0} < 1400.) ? ((1.3976 + (-0.00503213)*{0} + (2.31508e-05)*pow({0},2) + (-5.03318e-08)*pow({0},3) + (5.57681e-11)*pow({0},4) + (-3.03564e-14)*pow({0},5) + (6.40372e-18)*pow({0},6))/1.009577814) : 1.)".format(self.baseObject+".p4.M()")
+        #if systematic == "mlljj_weightup":
+        #    mlljj_weight = "( 2*({0} < 1400. ? ((1.3976 + (-0.00503213)*{0} + (2.31508e-05)*pow({0},2) + (-5.03318e-08)*pow({0},3) + (5.57681e-11)*pow({0},4) + (-3.03564e-14)*pow({0},5) + (6.40372e-18)*pow({0},6))/1.009577814)) - 1 )".format(self.baseObject+".p4.M()")
+        #if systematic == "mlljj_weightdown":
+        #    mlljj_weight = "1." 
+        
+        
+        
+        mlljj_weight = "(({0} < 1400.) ? (1.3976 + (-0.00503213)*{0} + (2.31508e-05)*pow({0},2) + (-5.03318e-08)*pow({0},3) + (5.57681e-11)*pow({0},4) + (-3.03564e-14)*pow({0},5) + (6.40372e-18)*pow({0},6)) : 1.)".format(self.baseObject+".p4.M()")
+        if systematic == "mlljj_weightup":
+            mlljj_weight = "( 2*(({0} < 1400.) ? (1.3976 + (-0.00503213)*{0} + (2.31508e-05)*pow({0},2) + (-5.03318e-08)*pow({0},3) + (5.57681e-11)*pow({0},4) + (-3.03564e-14)*pow({0},5) + (6.40372e-18)*pow({0},6)) : 1.) - 1 )".format(self.baseObject+".p4.M()")
+        if systematic == "mlljj_weightdown":
+            mlljj_weight = "1." 
+        
         available_weights = {
                 'trigeff': trigEff,
                 'jjbtag_heavy': jjBtag_heavyjet_sf,
                 'jjbtag_light': jjBtag_lightjet_sf,
                 'llidiso': llIdIso_sf,
                 'pu': puWeight,
-                'mjj_weight': mjj_weight
-                #'mlljj_weight': mlljj_weight
+                'mjj_weight': mjj_weight,
+                'mlljj_weight': mlljj_weight
                 }
         
         # Append the proper extension to the name plot if needed
