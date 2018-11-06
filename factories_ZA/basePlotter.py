@@ -16,8 +16,13 @@ def default_code_before_loop():
     """
 
 def default_code_in_loop():
-    return ""
-    #return r"""
+    #return ""
+    return r"""
+    float mjj_weight = (1.13022 + (-0.00206761)*hZA_lljj_cmva[0].jj_p4.M() + (7.0697e-06)*pow(hZA_lljj_cmva[0].jj_p4.M(),2) + (-6.26383e-09)*pow(hZA_lljj_cmva[0].jj_p4.M(),3) + (-2.42928e-12)*pow(hZA_lljj_cmva[0].jj_p4.M(),4) + (3.84415e-15)*pow(hZA_lljj_cmva[0].jj_p4.M(),5));
+
+    float mlljj_weight = ((hZA_lljj_cmva[0].p4.M() < 1400.) ? (1.3976 + (-0.00503213)*hZA_lljj_cmva[0].p4.M() + (2.31508e-05)*pow(hZA_lljj_cmva[0].p4.M(),2) + (-5.03318e-08)*pow(hZA_lljj_cmva[0].p4.M(),3) + (5.57681e-11)*pow(hZA_lljj_cmva[0].p4.M(),4) + (-3.03564e-14)*pow(hZA_lljj_cmva[0].p4.M(),5) + (6.40372e-18)*pow(hZA_lljj_cmva[0].p4.M(),6)) : 1.);
+
+    /*
     #float gsf_err_lep1 = 0.;
     #if (hZA_leptons[hZA_lljj_deepCSV[0].ilep1].isEl) {
     #    if ((hZA_leptons[hZA_lljj_deepCSV[0].ilep1].p4.Pt() < 20.) || (hZA_leptons[hZA_lljj_deepCSV[0].ilep1].p4.Pt() > 80.) ) {
@@ -65,8 +70,9 @@ def default_code_in_loop():
     #}
     #else
     #    addTracking_err_lep2 = 0;
+    */
 
-    #"""
+    """
 
 def default_code_after_loop():
     return ""
@@ -332,13 +338,21 @@ class BasePlotter:
             trigEff = "({0}.trigger_efficiency_downVariated)".format(self.baseObject)
 
 
-        #NOMINAL: w_up=2*w-1
+        #100%: w_up=2*w-1
         #         w_down=1
         #50%: w_up=   (3*w-1)/2
         #     w_down= (w+1)/2
+        #200%: w_up=   3*w-2
+        #      w_down= 2-w
         # MJJ REWEIGHTING - TO BE USED ONLY FOR DRELL-YAN, ENABLE IT IN THE CONFIG FILE
-        mjj_weight = "(1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5))".format(self.jj_str + ".M()")
-        #NOMINAL
+        mjj_weight = "mjj_weight"
+        if systematic == "mjj_weightup":
+            mjj_weight = "(2*mjj_weight-1)"
+        if systematic == "mjj_weightdown":
+            mjj_weight = "1."
+        
+        #mjj_weight = "(1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5))".format(self.jj_str + ".M()")
+        #100%
         #if systematic == "mjj_weightup":
         #    mjj_weight = "( 2*(1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5)) - 1 )".format(self.jj_str + ".M()")
         #if systematic == "mjj_weightdown":
@@ -349,14 +363,20 @@ class BasePlotter:
         #if systematic == "mjj_weightdown":
         #    mjj_weight = "( 0.5*(1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5)) + 0.5 )".format(self.jj_str + ".M()")
         #UNC=200%
-        if systematic == "mjj_weightup":
-            mjj_weight = "( 3*(1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5)) - 2 )".format(self.jj_str + ".M()")
-        if systematic == "mjj_weightdown":
-            mjj_weight = "( -(1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5)) + 2 )".format(self.jj_str + ".M()")
+        #if systematic == "mjj_weightup":
+        #    mjj_weight = "( 3*(1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5)) - 2 )".format(self.jj_str + ".M()")
+        #if systematic == "mjj_weightdown":
+        #    mjj_weight = "( -(1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5)) + 2 )".format(self.jj_str + ".M()")
         
         # MLLJJ REWEIGHTING - TO BE USED ONLY FOR DRELL-YAN, ENABLE IT IN THE CONFIG FILE
-        mlljj_weight = "(({0} < 1400.) ? (1.3976 + (-0.00503213)*{0} + (2.31508e-05)*pow({0},2) + (-5.03318e-08)*pow({0},3) + (5.57681e-11)*pow({0},4) + (-3.03564e-14)*pow({0},5) + (6.40372e-18)*pow({0},6)) : 1.)".format(self.baseObject+".p4.M()")
-        #NOMINAL
+        mlljj_weight = "mlljj_weight"
+        if systematic == "mlljj_weightup":
+            mlljj_weight = "(2*mlljj_weight-1)"
+        if systematic == "mlljj_weightdown":
+            mlljj_weight = "1."
+        
+        #mlljj_weight = "(({0} < 1400.) ? (1.3976 + (-0.00503213)*{0} + (2.31508e-05)*pow({0},2) + (-5.03318e-08)*pow({0},3) + (5.57681e-11)*pow({0},4) + (-3.03564e-14)*pow({0},5) + (6.40372e-18)*pow({0},6)) : 1.)".format(self.baseObject+".p4.M()")
+        #100%
         #if systematic == "mlljj_weightup":
         #    mlljj_weight = "( 2*(({0} < 1400.) ? (1.3976 + (-0.00503213)*{0} + (2.31508e-05)*pow({0},2) + (-5.03318e-08)*pow({0},3) + (5.57681e-11)*pow({0},4) + (-3.03564e-14)*pow({0},5) + (6.40372e-18)*pow({0},6)) : 1.) - 1 )".format(self.baseObject+".p4.M()")
         #if systematic == "mlljj_weightdown":
@@ -367,10 +387,10 @@ class BasePlotter:
         #if systematic == "mlljj_weightdown":
         #    mlljj_weight = "( 0.5*(({0} < 1400.) ? (1.3976 + (-0.00503213)*{0} + (2.31508e-05)*pow({0},2) + (-5.03318e-08)*pow({0},3) + (5.57681e-11)*pow({0},4) + (-3.03564e-14)*pow({0},5) + (6.40372e-18)*pow({0},6)) : 1.) + 0.5 )".format(self.baseObject+".p4.M()")
         #UNC=200%
-        if systematic == "mlljj_weightup":
-            mlljj_weight = "( 3*(({0} < 1400.) ? (1.3976 + (-0.00503213)*{0} + (2.31508e-05)*pow({0},2) + (-5.03318e-08)*pow({0},3) + (5.57681e-11)*pow({0},4) + (-3.03564e-14)*pow({0},5) + (6.40372e-18)*pow({0},6)) : 1.) - 2 )".format(self.baseObject+".p4.M()")
-        if systematic == "mlljj_weightdown":
-            mlljj_weight = "( -(({0} < 1400.) ? (1.3976 + (-0.00503213)*{0} + (2.31508e-05)*pow({0},2) + (-5.03318e-08)*pow({0},3) + (5.57681e-11)*pow({0},4) + (-3.03564e-14)*pow({0},5) + (6.40372e-18)*pow({0},6)) : 1.) + 2 )".format(self.baseObject+".p4.M()")
+        #if systematic == "mlljj_weightup":
+        #    mlljj_weight = "( 3*(({0} < 1400.) ? (1.3976 + (-0.00503213)*{0} + (2.31508e-05)*pow({0},2) + (-5.03318e-08)*pow({0},3) + (5.57681e-11)*pow({0},4) + (-3.03564e-14)*pow({0},5) + (6.40372e-18)*pow({0},6)) : 1.) - 2 )".format(self.baseObject+".p4.M()")
+        #if systematic == "mlljj_weightdown":
+        #    mlljj_weight = "( -(({0} < 1400.) ? (1.3976 + (-0.00503213)*{0} + (2.31508e-05)*pow({0},2) + (-5.03318e-08)*pow({0},3) + (5.57681e-11)*pow({0},4) + (-3.03564e-14)*pow({0},5) + (6.40372e-18)*pow({0},6)) : 1.) + 2 )".format(self.baseObject+".p4.M()")
         
         available_weights = {
                 'trigeff': trigEff,
