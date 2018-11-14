@@ -13,16 +13,28 @@ def default_code_before_loop():
     return r"""
     massWindow window_MuMu("/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_MuMu.json");
     massWindow window_ElEl("/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_ElEl.json");
+
+    //double computeDYweight(double a, double b) {
+    //    mjj_weight = (1.13022 + (-0.00206761)*a + (7.0697e-06)*pow(a,2) + (-6.26383e-09)*pow(a,3) + (-2.42928e-12)*pow(a,4) + (3.84415e-15)*pow(a,5));
+    //    mlljj_weight = ((b < 1400.) ? (1.3976 + (-0.00503213)*b + (2.31508e-05)*pow(b,2) + (-5.03318e-08)*pow(b,3) + (5.57681e-11)*pow(b,4) + (-3.03564e-14)*pow(b,5) + (6.40372e-18)*pow(b,6)) : 1.);
+    //    weight = mjj_weight*mlljj_weight;
+
+    //    return weight;
+    //}
     """
 
 def default_code_in_loop():
-    #return ""
-    return r"""
-    float mjj_weight = (1.13022 + (-0.00206761)*hZA_lljj_cmva[0].jj_p4.M() + (7.0697e-06)*pow(hZA_lljj_cmva[0].jj_p4.M(),2) + (-6.26383e-09)*pow(hZA_lljj_cmva[0].jj_p4.M(),3) + (-2.42928e-12)*pow(hZA_lljj_cmva[0].jj_p4.M(),4) + (3.84415e-15)*pow(hZA_lljj_cmva[0].jj_p4.M(),5));
+    return ""
+    #return r"""
 
-    float mlljj_weight = ((hZA_lljj_cmva[0].p4.M() < 1400.) ? (1.3976 + (-0.00503213)*hZA_lljj_cmva[0].p4.M() + (2.31508e-05)*pow(hZA_lljj_cmva[0].p4.M(),2) + (-5.03318e-08)*pow(hZA_lljj_cmva[0].p4.M(),3) + (5.57681e-11)*pow(hZA_lljj_cmva[0].p4.M(),4) + (-3.03564e-14)*pow(hZA_lljj_cmva[0].p4.M(),5) + (6.40372e-18)*pow(hZA_lljj_cmva[0].p4.M(),6)) : 1.);
+    #//It should be after cut, otherwise if an event doesn't pass a cut, it's not found
+    #//float mjj_weight = 0.;
+    #//mjj_weight = (1.13022 + (-0.00206761)*hZA_lljj_deepCSV[0].jj_p4.M() + (7.0697e-06)*pow(hZA_lljj_deepCSV[0].jj_p4.M(),2) + (-6.26383e-09)*pow(hZA_lljj_deepCSV[0].jj_p4.M(),3) + (-2.42928e-12)*pow(hZA_lljj_deepCSV[0].jj_p4.M(),4) + (3.84415e-15)*pow(hZA_lljj_deepCSV[0].jj_p4.M(),5));
 
-    /*
+    #//float mlljj_weight = 0.;
+    #//mlljj_weight = ((hZA_lljj_deepCSV[0].p4.M() < 1400.) ? (1.3976 + (-0.00503213)*hZA_lljj_deepCSV[0].p4.M() + (2.31508e-05)*pow(hZA_lljj_deepCSV[0].p4.M(),2) + (-5.03318e-08)*pow(hZA_lljj_deepCSV[0].p4.M(),3) + (5.57681e-11)*pow(hZA_lljj_deepCSV[0].p4.M(),4) + (-3.03564e-14)*pow(hZA_lljj_deepCSV[0].p4.M(),5) + (6.40372e-18)*pow(hZA_lljj_deepCSV[0].p4.M(),6)) : 1.);
+
+    #/*
     #float gsf_err_lep1 = 0.;
     #if (hZA_leptons[hZA_lljj_deepCSV[0].ilep1].isEl) {
     #    if ((hZA_leptons[hZA_lljj_deepCSV[0].ilep1].p4.Pt() < 20.) || (hZA_leptons[hZA_lljj_deepCSV[0].ilep1].p4.Pt() > 80.) ) {
@@ -70,9 +82,9 @@ def default_code_in_loop():
     #}
     #else
     #    addTracking_err_lep2 = 0;
-    */
+    #*/
 
-    """
+    #"""
 
 def default_code_after_loop():
     return ""
@@ -81,6 +93,7 @@ def default_headers():
     return [
             "utils.h",
             "massWindow.h",
+            "reweightDY.h",
             ]
 
 def default_include_directories(scriptDir):
@@ -93,6 +106,7 @@ def default_sources(scriptDir):
     files = [
             "utils.cc",
             "massWindow.cc",
+            "reweightDY.cc",
             ]
     files = [ os.path.join(scriptDir, "..", "common", "src", f) for f in files ]
     return files
@@ -119,13 +133,11 @@ class BasePlotter:
 
         # For backwards compatibility with other tools:
         # FIXME: baseObjects to be modified in the next production
+        self.baseObjectName = self.baseObjectName_deepCSV
+        self.baseObject = self.baseObject_deepCSV
         if btag:
-            self.baseObjectName = self.baseObjectName_deepCSV
-            self.baseObject = self.baseObject_deepCSV
             self.suffix = self.baseObjectName + "" + ("_btagM")
         elif not btag:
-            self.baseObjectName = self.baseObjectName_cmva
-            self.baseObject = self.baseObject_cmva
             self.suffix = self.baseObjectName + "" + ("_nobtag")
 
         self.lep1_str = "hZA_leptons[%s.ilep1]" % self.baseObject
@@ -345,11 +357,6 @@ class BasePlotter:
         #200%: w_up=   3*w-2
         #      w_down= 2-w
         # MJJ REWEIGHTING - TO BE USED ONLY FOR DRELL-YAN, ENABLE IT IN THE CONFIG FILE
-        mjj_weight = "mjj_weight"
-        if systematic == "mjj_weightup":
-            mjj_weight = "(2*mjj_weight-1)"
-        if systematic == "mjj_weightdown":
-            mjj_weight = "1."
         
         #mjj_weight = "(1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5))".format(self.jj_str + ".M()")
         #100%
@@ -369,11 +376,6 @@ class BasePlotter:
         #    mjj_weight = "( -(1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5)) + 2 )".format(self.jj_str + ".M()")
         
         # MLLJJ REWEIGHTING - TO BE USED ONLY FOR DRELL-YAN, ENABLE IT IN THE CONFIG FILE
-        mlljj_weight = "mlljj_weight"
-        if systematic == "mlljj_weightup":
-            mlljj_weight = "(2*mlljj_weight-1)"
-        if systematic == "mlljj_weightdown":
-            mlljj_weight = "1."
         
         #mlljj_weight = "(({0} < 1400.) ? (1.3976 + (-0.00503213)*{0} + (2.31508e-05)*pow({0},2) + (-5.03318e-08)*pow({0},3) + (5.57681e-11)*pow({0},4) + (-3.03564e-14)*pow({0},5) + (6.40372e-18)*pow({0},6)) : 1.)".format(self.baseObject+".p4.M()")
         #100%
@@ -392,14 +394,38 @@ class BasePlotter:
         #if systematic == "mlljj_weightdown":
         #    mlljj_weight = "( -(({0} < 1400.) ? (1.3976 + (-0.00503213)*{0} + (2.31508e-05)*pow({0},2) + (-5.03318e-08)*pow({0},3) + (5.57681e-11)*pow({0},4) + (-3.03564e-14)*pow({0},5) + (6.40372e-18)*pow({0},6)) : 1.) + 2 )".format(self.baseObject+".p4.M()")
         
+        
+        
+        #mjj_weight = "(1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5))".format(self.jj_str + ".M()")
+        #if systematic == "mjj_weightup":
+        #    mjj_weight = "( 2*(1.13022 + (-0.00206761)*{0} + (7.0697e-06)*pow({0},2) + (-6.26383e-09)*pow({0},3) + (-2.42928e-12)*pow({0},4) + (3.84415e-15)*pow({0},5)) - 1 )".format(self.jj_str + ".M()")
+        #if systematic == "mjj_weightdown":
+        #    mjj_weight = "1."
+        
+        #mlljj_weight = "(({0} < 1400.) ? (1.3976 + (-0.00503213)*{0} + (2.31508e-05)*pow({0},2) + (-5.03318e-08)*pow({0},3) + (5.57681e-11)*pow({0},4) + (-3.03564e-14)*pow({0},5) + (6.40372e-18)*pow({0},6)) : 1.)".format(self.baseObject+".p4.M()")
+        #if systematic == "mlljj_weightup":
+        #    mlljj_weight = "( 2*(({0} < 1400.) ? (1.3976 + (-0.00503213)*{0} + (2.31508e-05)*pow({0},2) + (-5.03318e-08)*pow({0},3) + (5.57681e-11)*pow({0},4) + (-3.03564e-14)*pow({0},5) + (6.40372e-18)*pow({0},6)) : 1.) - 1 )".format(self.baseObject+".p4.M()")
+        #if systematic == "mlljj_weightdown":
+        #    mlljj_weight = "1."
+
+
+        DY_weight = "computeDYweight({0}, {1})".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weightup":
+            DY_weight = "(computeDYweight({0}, {1}) + abs(computeDYweight({0}, {1}))*sqrt(pow(1-1/{0},2) + pow(1-1/{1},2)))".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weightdown":
+            DY_weight = "(computeDYweight({0}, {1}) - abs(computeDYweight({0}, {1}))*sqrt(pow(1-1/{0},2) + pow(1-1/{1},2)))".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+            
+
+
         available_weights = {
                 'trigeff': trigEff,
                 'jjbtag_heavy': jjBtag_heavyjet_sf,
                 'jjbtag_light': jjBtag_lightjet_sf,
                 'llidiso': llIdIso_sf,
                 'pu': puWeight,
-                'mjj_weight': mjj_weight,
-                'mlljj_weight': mlljj_weight
+                #'mjj_weight': mjj_weight,
+                #'mlljj_weight': mlljj_weight
+                'DY_weight': DY_weight
                 }
         
         # Append the proper extension to the name plot if needed
@@ -411,6 +437,7 @@ class BasePlotter:
         # PLOTS #
         #########
         self.basic_plot = []
+        self.aFewVar_plot = []
         self.csv_plot = []
         self.isElEl_plot = []
  
@@ -455,6 +482,47 @@ class BasePlotter:
                     return "{jets}[{idx}].gen_{flav}".format(jets=self.jet_coll_str, idx=jet_idx, flav=flav)
             
             mll_plot_binning = '(75, 12, 252)'
+
+
+            self.aFewVar_plot.extend([
+                {
+                        'name': 'lljj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.baseObject+".p4.M()",
+                        'plot_cut': self.totalCut,
+                        'binning': '(50, 100, 1500)'
+                },
+                {
+                        'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.jj_str + ".M()",
+                        'plot_cut': self.totalCut,
+                        'binning': '(40, 10, 1000)'
+                },
+                {
+                        'name': 'jj_DR_j_j_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.baseObject+".DR_j_j",
+                        'plot_cut': self.totalCut,
+                        'binning': '(50, 0, 6)'
+                },
+                {
+                        'name': 'll_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.ll_str+".Pt()",
+                        'plot_cut': self.totalCut,
+                        'binning': '(50, 0, 450)'
+                },
+                {
+                        'name': 'jj_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.jj_str+".Pt()",
+                        'plot_cut': self.totalCut,
+                        'binning': '(50, 0, 450)'
+                },
+                {
+                        'name': 'll_DPhi_l_l_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': "abs("+self.baseObject+".DPhi_l_l)",
+                        'plot_cut': self.totalCut,
+                        'binning': '(50, 0, 3.1416)'
+                },
+                
+            ])
 
 
             # BASIC PLOTS
@@ -543,12 +611,12 @@ class BasePlotter:
                         'plot_cut': self.totalCut,
                         'binning': '(50, 100, 1500)'
                 },
-                {
-                        'name': 'llbb_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': "(" + self.ll_str + "+" + self.jj_str + ").M()",
-                        'plot_cut': self.totalCut,
-                        'binning': '(50, 100, 1500)'
-                },
+                #{
+                #        'name': 'llbb_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': "(" + self.ll_str + "+" + self.jj_str + ").M()",
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(50, 100, 1500)'
+                #},
                 {
                         'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
                         'variable': self.jj_str + ".M()",
@@ -602,19 +670,19 @@ class BasePlotter:
                         'variable': self.met_str + ".Pt()",
                         'plot_cut': self.totalCut,
                         'binning': '(50, 0, 500)'
-                },
+                }
                 #{
                 #        'name': 'met_E_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
                 #        'variable': self.met_str + ".E()",
                 #        'plot_cut': self.totalCut,
                 #        'binning': '(50, 0, 500)'
                 #},
-                {
-                        'name': 'met_significance_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.metSig_str,
-                        'plot_cut': self.totalCut,
-                        'binning': '(300, 0, 500)'
-                }
+                #{
+                #        'name': 'met_significance_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.metSig_str,
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(300, 0, 500)'
+                #}
             ])
                 
 
