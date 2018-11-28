@@ -82,12 +82,23 @@ sources = default_sources(scriptDir)
 weights_lljj = ['trigeff', 'llidiso', 'pu']
 
 if reweight_DY:
-    weights_lljj.append('mjj_weight')
-    weights_lljj.append('mlljj_weight')
+    weights_lljj.append('DY_weight11')
+    weights_lljj.append('DY_weight12')
+    weights_lljj.append('DY_weight13')
+    weights_lljj.append('DY_weight21')
+    weights_lljj.append('DY_weight22')
+    weights_lljj.append('DY_weight23')
+    weights_lljj.append('DY_weight31')
+    weights_lljj.append('DY_weight32')
+    weights_lljj.append('DY_weight33')
+    #weights_lljj.append('mjj_weight')
+    #weights_lljj.append('mlljj_weight')
 
 plots_lljj = []
 if "basic" in lljj_plot_families:
     plots_lljj += ["basic"]
+if "aFewVar" in lljj_plot_families:
+    plots_lljj += ["aFewVar"]
 if "other" in lljj_plot_families:
     plots_lljj += ["other"]
 if "btag_efficiencies" in lljj_plot_families:
@@ -105,12 +116,23 @@ if "weights" in lljj_plot_families:
 weights_llbb = ['trigeff', 'llidiso', 'pu', 'jjbtag_heavy', 'jjbtag_light']
 
 if reweight_DY:
-    weights_llbb.append('mjj_weight')
-    weights_llbb.append('mlljj_weight')
+    weights_llbb.append('DY_weight11')
+    weights_llbb.append('DY_weight12')
+    weights_llbb.append('DY_weight13')
+    weights_llbb.append('DY_weight21')
+    weights_llbb.append('DY_weight22')
+    weights_llbb.append('DY_weight23')
+    weights_llbb.append('DY_weight31')
+    weights_llbb.append('DY_weight32')
+    weights_llbb.append('DY_weight33')
+    #weights_llbb.append('mjj_weight')
+    #weights_llbb.append('mlljj_weight')
 
 plots_llbb = []
 if "basic" in llbb_plot_families:
     plots_llbb += ["basic"]
+if "aFewVar" in llbb_plot_families:
+    plots_llbb += ["aFewVar"]
 if "other" in llbb_plot_families:
     plots_llbb += ["other"]
 if "inEllipse" in llbb_plot_families:
@@ -190,10 +212,24 @@ else:
             }
 
     if reweight_DY:
-        systematics["SF"].append("mjj_weightup")
-        systematics["SF"].append("mjj_weightdown")
-        systematics["SF"].append("mlljj_weightup")
-        systematics["SF"].append("mlljj_weightdown")
+        systematics["SF"].append("DY_weight11up")
+        systematics["SF"].append("DY_weight11down")
+        systematics["SF"].append("DY_weight12up")
+        systematics["SF"].append("DY_weight12down")
+        systematics["SF"].append("DY_weight13up")
+        systematics["SF"].append("DY_weight13down")
+        systematics["SF"].append("DY_weight21up")
+        systematics["SF"].append("DY_weight21down")
+        systematics["SF"].append("DY_weight22up")
+        systematics["SF"].append("DY_weight22down")
+        systematics["SF"].append("DY_weight23up")
+        systematics["SF"].append("DY_weight23down")
+        systematics["SF"].append("DY_weight31up")
+        systematics["SF"].append("DY_weight31down")
+        systematics["SF"].append("DY_weight32up")
+        systematics["SF"].append("DY_weight32down")
+        systematics["SF"].append("DY_weight33up")
+        systematics["SF"].append("DY_weight33down")
 
     # Scale uncertainties
     for i in range(6):

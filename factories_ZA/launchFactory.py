@@ -132,9 +132,9 @@ MainPlots_ForDY = Configuration('generatePlots.py', suffix='_for_DY', mode='plot
             "DY_NLO"
         ], generation_args={
             'sample_type': 'MC',
-            'lljj_plots': ['basic', 'inOut'],
-            'llbb_plots': ['basic', 'inOut'],
-            'syst': True,
+            'lljj_plots': ['inEllipse','inOut'],
+            'llbb_plots': ['inEllipse','inOut'],
+            'syst': False,
             'syst_split_jec': False,
             'reweight_DY': True,
             'lljj_stages': ['mll_and_met_cut'],
@@ -153,9 +153,9 @@ MainPlots_ForMCminusDY = Configuration('generatePlots.py', suffix='_for_MCbkgmin
             #"QCD"
         ], generation_args={
             'sample_type': 'MC',
-            'lljj_plots': ['basic', 'inOut'],
-            'llbb_plots': ['basic', 'inOut'],
-            'syst': True,
+            'lljj_plots': ['inEllipse','inOut'],
+            'llbb_plots': ['inEllipse','inOut'],
+            'syst': False,
             'syst_split_jec': False,
             'reweight_DY': False,
             'lljj_stages': ['mll_and_met_cut'],
@@ -163,9 +163,9 @@ MainPlots_ForMCminusDY = Configuration('generatePlots.py', suffix='_for_MCbkgmin
         })
 MainPlots_ForData = Configuration('generatePlots.py', suffix='_for_data', mode='plots', samples=['Data'], generation_args={
             'sample_type': 'Data',
-            'lljj_plots': ['basic', 'inOut'],
-            'llbb_plots': ['basic', 'inOut'],
-            'syst': True,
+            'lljj_plots': ['inEllipse','inOut'],
+            'llbb_plots': ['inEllipse','inOut'],
+            'syst': False,
             'syst_split_jec': False,
             'reweight_DY': False,
             'lljj_stages': ['mll_and_met_cut'],
@@ -173,8 +173,8 @@ MainPlots_ForData = Configuration('generatePlots.py', suffix='_for_data', mode='
         })
 MainPlots_ForSignal = Configuration('generatePlots.py', suffix='_for_signal', mode='plots', samples=['Signal'], generation_args={
             'sample_type': 'Signal',
-            'llbb_plots': ['basic', 'inOut'],
-            'syst': True,
+            'llbb_plots': ['inEllipse','inOut'],
+            'syst': False,
             'syst_split_jec': False,
             'reweight_DY': False,
             'llbb_stages': ['mll_and_met_cut'],
