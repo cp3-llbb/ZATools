@@ -16,11 +16,11 @@ legend:
 systematics:
   - lumi: 1.025
   - pu
-  - elreco
   - elidiso
-  - mutracking
   - muiso
   - muid
+  #- elreco
+  #- mutracking
   - jjbtaglight
   - jjbtagheavy
   - jec
@@ -28,7 +28,16 @@ systematics:
   - trigeff
   - scaleUncorr
   - pdf
-  - hdamp
-  #- pdfqq
-  #- pdfgg
-  #- pdfqg
+  - DY_weight11
+  - DY_weight12
+  - DY_weight13
+  - DY_weight21
+  - DY_weight22
+  - DY_weight23
+  - DY_weight31
+  - DY_weight32
+  - DY_weight33
+  ##- hdamp
+  ##- pdfqq
+  ##- pdfgg
+  ##- pdfqg

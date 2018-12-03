@@ -57,7 +57,7 @@ with open('ZA_plotter_all.yml.tpl') as tpl_handle:
         tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml']", legend="position: [0.61, 0.61, 0.94, 0.89]")
     if args.llbb:
         if args.ell_index is None:
-            tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml', 'SignalFiles.yml']", legend="include: ['legendPosition.yml']")
+            tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml']", legend="include: ['legendPosition.yml']")
         else:
             signal = 'singleSignals/SignalFiles_{0}.yml'.format(args.ell_index)
             tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml', "+'"'+signal+'"'+"]", legend="include: ['legendPosition.yml']")
@@ -75,6 +75,8 @@ with open('centralConfig.yml.tpl') as tpl_handle:
 
 # Dictionary containing all the plots
 plots = {}
+
+rhobins = ["0p5","1p0","1p5","2p0","2p5","3p0"]
 
 logY = 'both'
 if args.yields:
@@ -167,9 +169,9 @@ for key in keys:
                 }
         plot['labels'] = []
 
-        if not args.ell_index is None:
-            if "rho_steps" not in key_name:
-                continue
+        #if not args.ell_index is None:
+            #if "rho_steps" not in key_name:
+            #    continue
 
         if "lep1_pt" in key_name:
             plot['x-axis'] = "Leading lepton p_{T} (GeV)"
@@ -344,8 +346,7 @@ for key in keys:
             plot['x-axis'] = "#rho"
             plot.update(defaultStyle_noOverflow)
             if should_be_blind(key_name):
-                plot['blinded-range'] = [0, 0.99]
-
+                plot['blinded-range'] = [0, 2.99]
 
         elif "lljj_M_" in key_name:
             plot['x-axis'] = "m_{lljj} (GeV)"
@@ -441,6 +442,10 @@ for key in keys:
                 'size': 24
                 }]
 
+        for rhobin in rhobins:
+            elif "DYweight" in key_name and "inrho"+rhobin in key_name:
+                plot['x-axis'] = "DYweight_inrho{0}".format(rhobin)
+                plot.update(defaultStyle_events)
 
         # Finally, save what we have
         plots[key_name] = plot
