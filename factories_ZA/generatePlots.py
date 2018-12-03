@@ -50,6 +50,7 @@ use_syst = get_cfg('syst')
 syst_split_jec = get_cfg('syst_split_jec', False)
 syst_only_jec = get_cfg('syst_only_jec', False)
 syst_split_pdf = get_cfg('syst_split_pdf', False)
+reweight_DY = get_cfg('reweight_DY', False)
 
 lljj_categories = get_cfg('lljj_categories', ['MuMu', 'ElEl', 'MuEl'])
 llbb_categories = get_cfg('llbb_categories', ['MuMu', 'ElEl', 'MuEl'])
@@ -80,9 +81,22 @@ sources = default_sources(scriptDir)
 #### lljj
 weights_lljj = ['trigeff', 'llidiso', 'pu']
 
+if reweight_DY:
+    weights_lljj.append('DY_weight11')
+    weights_lljj.append('DY_weight12')
+    weights_lljj.append('DY_weight13')
+    weights_lljj.append('DY_weight21')
+    weights_lljj.append('DY_weight22')
+    weights_lljj.append('DY_weight23')
+    weights_lljj.append('DY_weight31')
+    weights_lljj.append('DY_weight32')
+    weights_lljj.append('DY_weight33')
+
 plots_lljj = []
 if "basic" in lljj_plot_families:
-    plots_lljj += ["mjj", "basic"]
+    plots_lljj += ["basic"]
+if "aFewVar" in lljj_plot_families:
+    plots_lljj += ["aFewVar"]
 if "other" in lljj_plot_families:
     plots_lljj += ["other"]
 if "btag_efficiencies" in lljj_plot_families:
@@ -99,9 +113,22 @@ if "weights" in lljj_plot_families:
 #### llbb
 weights_llbb = ['trigeff', 'llidiso', 'pu', 'jjbtag_heavy', 'jjbtag_light']
 
+if reweight_DY:
+    weights_llbb.append('DY_weight11')
+    weights_llbb.append('DY_weight12')
+    weights_llbb.append('DY_weight13')
+    weights_llbb.append('DY_weight21')
+    weights_llbb.append('DY_weight22')
+    weights_llbb.append('DY_weight23')
+    weights_llbb.append('DY_weight31')
+    weights_llbb.append('DY_weight32')
+    weights_llbb.append('DY_weight33')
+
 plots_llbb = []
 if "basic" in llbb_plot_families:
-    plots_llbb += ["mjj", "basic"]
+    plots_llbb += ["basic"]
+if "aFewVar" in llbb_plot_families:
+    plots_llbb += ["aFewVar"]
 if "other" in llbb_plot_families:
     plots_llbb += ["other"]
 if "inEllipse" in llbb_plot_families:
@@ -179,6 +206,27 @@ else:
                 #"hdampup", "hdampdown",
                 ]
             }
+
+    if reweight_DY:
+        systematics["SF"].append("DY_weight11up")
+        systematics["SF"].append("DY_weight11down")
+        systematics["SF"].append("DY_weight12up")
+        systematics["SF"].append("DY_weight12down")
+        systematics["SF"].append("DY_weight13up")
+        systematics["SF"].append("DY_weight13down")
+        systematics["SF"].append("DY_weight21up")
+        systematics["SF"].append("DY_weight21down")
+        systematics["SF"].append("DY_weight22up")
+        systematics["SF"].append("DY_weight22down")
+        systematics["SF"].append("DY_weight23up")
+        systematics["SF"].append("DY_weight23down")
+        systematics["SF"].append("DY_weight31up")
+        systematics["SF"].append("DY_weight31down")
+        systematics["SF"].append("DY_weight32up")
+        systematics["SF"].append("DY_weight32down")
+        systematics["SF"].append("DY_weight33up")
+        systematics["SF"].append("DY_weight33down")
+
     # Scale uncertainties
     for i in range(6):
         systematics["SF"].append("scaleUncorr{}".format(i))

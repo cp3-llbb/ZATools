@@ -8,6 +8,7 @@ import numpy as np
 import math
 import glob
 import re
+import argparse
 import ROOT
 from ROOT import TCanvas, TPad, TLine, TH1F
 
@@ -116,6 +117,7 @@ def UpdateFileFromFileRegex(file, regex, veto=None):
     Returns: Dictionary with (key, value) = (name, histogram)
     """
 
+    _files = set()
     myRe = re.compile(regex)
     try:
         myReVeto = re.compile(veto)
@@ -127,13 +129,17 @@ def UpdateFileFromFileRegex(file, regex, veto=None):
     nHistos=0
 
     r_file = ROOT.TFile.Open(file, "update")
+    _files.add(r_file)
     if not r_file or not r_file.IsOpen():
         raise Exception("Could not open file {}".format(file))
 
+    print file
     content = r_file.GetListOfKeys()
-    
+    print type(content)
+
     for key in content:
         name = key.GetName()
+        print "name: ", name
 
         if myRe.match(name) is not None:
             if myReVeto is not None:
@@ -158,8 +164,8 @@ def UpdateFileFromFileRegex(file, regex, veto=None):
             for down in downs:
                 down.Write()
 
-    del ups
-    del downs
+            del ups
+            del downs
 
     r_file.Close()
 
@@ -168,11 +174,20 @@ def UpdateFileFromFileRegex(file, regex, veto=None):
 
 if __name__ == "__main__":
 
-    dir = "../factories_ZA/JECsplitting_rho_0_to_2_copyForBinByBinTTbarUnc/slurm/output/"
-    for filename in os.listdir(dir):
+
+    parser = argparse.ArgumentParser(description='Modify the ttbar histograms for add a bin by bin uncertainty of 5.3%')
+    parser.add_argument('-d', '--directory', required=True, help='Name of the folder that contains the histograms')
+    
+    args = parser.parse_args()
+
+    rootDir = args.directory
+    slurmDir = os.path.join(rootDir, "slurm/output/")
+
+    #slurmDir = "../factories_ZA/DYreweightedMjj_plus_data_plus_signal_updown_copyForTTbarUnc/slurm/output/"
+    #slurmDir = "../factories_ZA/JECsplitting_rho_0_to_2_copyForBinByBinTTbarUnc/slurm/output/"
+    for filename in os.listdir(slurmDir):
         #no systematics for data
         if not filename.startswith("DoubleEG") and not filename.startswith("DoubleMuon") and not filename.startswith("MuonEG"):
             #only for ttbar
             if filename.startswith("TTTo2L2Nu_13TeV") or filename.startswith("TT_Other_TuneCUETP8M2T4"):
-                UpdateFileFromFileRegex(dir+filename, "rho_steps_histo_.*_hZA_lljj_deepCSV_btagM_mll_and_met_cut_.*")
-
+                UpdateFileFromFileRegex(slurmDir+filename, "rho_steps_histo_.*_hZA_lljj_deepCSV_btagM_mll_and_met_cut_.*")

@@ -73,20 +73,12 @@ for d in ${directories[*]}; do
 done
 
 mkdir -p $1/slurm/output
-if [[ ${directories[*]} =~ $1_for_signal ]]; then echo "Moving signal files to main folder..."; cp $1_for_signal/slurm/output/*.root $1/slurm/output ; fi
-if [[ ${directories[*]} =~ $1_for_data ]]; then echo "Moving data files to main folder..."; cp $1_for_data/slurm/output/*.root $1/slurm/output ; fi
-if [[ ${directories[*]} =~ $1_for_MCbkg ]]; then echo "Moving MC bkg files to main folder..."; cp $1_for_MCbkg/slurm/output/*.root $1/slurm/output ; fi
+if [[ ${directories[*]} =~ $1_for_signal ]]; then echo "Moving signal files to main folder..."; mv $1_for_signal/slurm/output/*.root $1/slurm/output ; fi
+if [[ ${directories[*]} =~ $1_for_data ]]; then echo "Moving data files to main folder..."; mv $1_for_data/slurm/output/*.root $1/slurm/output ; fi
+if [[ ${directories[*]} =~ $1_for_MCbkgminusDY ]]; then echo "Moving MC bkg files to main folder..."; mv $1_for_MCbkg/slurm/output/*.root $1/slurm/output ; fi
+if [[ ${directories[*]} =~ $1_for_DY ]]; then echo "Moving MC DY files to main folder..."; mv $1_for_DY/slurm/output/*.root $1/slurm/output ; fi
 
-## subtract MC from data for DY estimation
-#pushd $1/slurm/output/
-#
-#echo "Subtracting things for DY"
-##../../../../DYEstimation/estimateDYfromData.py -d DoubleMuon* DoubleEG* --mc TTTo2L2Nu*.root ST_tW* W* Z* --dy DY*.root -o dyEstimation.root
-##../../../../DYEstimation/estimateDYfromData.py -d DoubleMuon* DoubleEG* --mc TT_Tune* TTZ* TTW* WJets* ST* WW* ZZ* WZ* bbH* ggZ* Wm* Wp* VBF* GluGluH* H* --dy DY*.root -o dyEstimation.root
-#../../../../DYEstimation/estimateDYfromData.py -d DoubleMuon* DoubleEG* --mc TT* WJets* ST* Higgs_merged.root VV_merged.root --dy DY*.root -o dyEstimation.root
-#
-#popd
-
-#if [[ ${directories[*]} =~ $1_for_signal ]]; echo "Removing empty signal folders..."; then rm -r $1_for_signal/ ; fi
-#if [[ ${directories[*]} =~ $1_for_data ]]; echo "Removing empty data folders..."; then rm -r $1_for_data/ ; fi
-#if [[ ${directories[*]} =~ $1_for_MCbkg ]]; echo "Removing empty MC bkg folders..."; then rm -r $1_for_MCbkg/ ; fi
+if [[ ${directories[*]} =~ $1_for_signal ]]; echo "Removing empty signal folders..."; then rm -r $1_for_signal/ ; fi
+if [[ ${directories[*]} =~ $1_for_data ]]; echo "Removing empty data folders..."; then rm -r $1_for_data/ ; fi
+if [[ ${directories[*]} =~ $1_for_MCbkgminusDY ]]; echo "Removing empty MCbkgminusDY folders..."; then rm -r $1_for_MCbkgminusDY/ ; fi
+if [[ ${directories[*]} =~ $1_for_DY ]]; echo "Removing empty DY folders..."; then rm -r $1_for_DY/ ; fi
