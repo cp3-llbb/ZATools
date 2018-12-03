@@ -91,8 +91,6 @@ if reweight_DY:
     weights_lljj.append('DY_weight31')
     weights_lljj.append('DY_weight32')
     weights_lljj.append('DY_weight33')
-    #weights_lljj.append('mjj_weight')
-    #weights_lljj.append('mlljj_weight')
 
 plots_lljj = []
 if "basic" in lljj_plot_families:
@@ -125,8 +123,6 @@ if reweight_DY:
     weights_llbb.append('DY_weight31')
     weights_llbb.append('DY_weight32')
     weights_llbb.append('DY_weight33')
-    #weights_llbb.append('mjj_weight')
-    #weights_llbb.append('mlljj_weight')
 
 plots_llbb = []
 if "basic" in llbb_plot_families:
