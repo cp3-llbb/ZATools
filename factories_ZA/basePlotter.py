@@ -700,7 +700,7 @@ class BasePlotter:
                 rho_string = str(self.rho).replace('.','p')
                 #Labelling each of the 21 ellipses with its index. Will need to write down which ellipse corresponds to which index.
                 #self.tempExtraString = "_inEllipse_{0}_rho{1}".format(j, rho_string) 
-                self.tempExtraString = "_inEllipse_{0}".format(j, rho_string) 
+                self.tempExtraString = "_inEllipse_{0}".format(j) 
                 self.ellExtraString = self.extraString + self.tempExtraString
 
                 self.inEllipse_plot.extend([
@@ -716,18 +716,18 @@ class BasePlotter:
                     #    'plot_cut': self.ellCut,
                     #    'binning': '(150, 0, 1500, 150, 0, 1500)'
                     #},
-                    #{
-                    #    'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                    #    'variable': self.jj_str + ".M()",
-                    #    'plot_cut': self.ellCut,
-                    #    'binning': '(40, 10, 1000)'
-                    #},
-                    #{
-                    #    'name': 'lljj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                    #    'variable': self.baseObject+".p4.M()",
-                    #    'plot_cut': self.ellCut,
-                    #    'binning': '(50, 100, 1500)'
-                    #},
+                    {
+                        'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString+"_inrho"+rho_string, self.systematicString),
+                        'variable': self.jj_str + ".M()",
+                        'plot_cut': self.ellCut,
+                        'binning': '(40, 10, 1000)'
+                    },
+                    {
+                        'name': 'lljj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString+"_inrho"+rho_string, self.systematicString),
+                        'variable': self.baseObject+".p4.M()",
+                        'plot_cut': self.ellCut,
+                        'binning': '(50, 100, 1500)'
+                    },
                     {
                         'name': 'DYweight_%s_%s_%s%s_inrho0p5'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
                         'variable': "computeDYweight({0}, {1})".format(self.jj_str+".M()", self.baseObject+".p4.M()"),
@@ -764,80 +764,6 @@ class BasePlotter:
                         'plot_cut': self.ellCut3p0,
                         'binning': '(100, 0.5, 1.5)'
                     },
-
-                    {
-                        'name': 'Mjjweight_%s_%s_%s%s_inrho0p5'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                        'variable': "computeMjjweight({0})".format(self.jj_str+".M()"),
-                        'plot_cut': self.ellCut0p5,
-                        'binning': '(100, 0.5, 1.5)'
-                    },
-                    {
-                        'name': 'Mjjweight_%s_%s_%s%s_inrho1p0'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                        'variable': "computeMjjweight({0})".format(self.jj_str+".M()"),
-                        'plot_cut': self.ellCut1p0,
-                        'binning': '(100, 0.5, 1.5)'
-                    },
-                    {
-                        'name': 'Mjjweight_%s_%s_%s%s_inrho1p5'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                        'variable': "computeMjjweight({0})".format(self.jj_str+".M()"),
-                        'plot_cut': self.ellCut1p5,
-                        'binning': '(100, 0.5, 1.5)'
-                    },
-                    {
-                        'name': 'Mjjweight_%s_%s_%s%s_inrho2p0'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                        'variable': "computeMjjweight({0})".format(self.jj_str+".M()"),
-                        'plot_cut': self.ellCut2p0,
-                        'binning': '(100, 0.5, 1.5)'
-                    },
-                    {
-                        'name': 'Mjjweight_%s_%s_%s%s_inrho2p5'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                        'variable': "computeMjjweight({0})".format(self.jj_str+".M()"),
-                        'plot_cut': self.ellCut2p5,
-                        'binning': '(100, 0.5, 1.5)'
-                    },
-                    {
-                        'name': 'Mjjweight_%s_%s_%s%s_inrho3p0'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                        'variable': "computeMjjweight({0})".format(self.jj_str+".M()"),
-                        'plot_cut': self.ellCut3p0,
-                        'binning': '(100, 0.5, 1.5)'
-                    },
-                    
-                    {
-                        'name': 'Mlljjweight_%s_%s_%s%s_inrho0p5'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                        'variable': "computeMlljjweight({0})".format(self.baseObject+".p4.M()"),
-                        'plot_cut': self.ellCut0p5,
-                        'binning': '(100, 0.5, 1.5)'
-                    },
-                    {
-                        'name': 'Mlljjweight_%s_%s_%s%s_inrho1p0'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                        'variable': "computeMlljjweight({0})".format(self.baseObject+".p4.M()"),
-                        'plot_cut': self.ellCut1p0,
-                        'binning': '(100, 0.5, 1.5)'
-                    },
-                    {
-                        'name': 'Mlljjweight_%s_%s_%s%s_inrho1p5'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                        'variable': "computeMlljjweight({0})".format(self.baseObject+".p4.M()"),
-                        'plot_cut': self.ellCut1p5,
-                        'binning': '(100, 0.5, 1.5)'
-                    },
-                    {
-                        'name': 'Mlljjweight_%s_%s_%s%s_inrho2p0'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                        'variable': "computeMlljjweight({0})".format(self.baseObject+".p4.M()"),
-                        'plot_cut': self.ellCut2p0,
-                        'binning': '(100, 0.5, 1.5)'
-                    },
-                    {
-                        'name': 'Mlljjweight_%s_%s_%s%s_inrho2p5'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                        'variable': "computeMlljjweight({0})".format(self.baseObject+".p4.M()"),
-                        'plot_cut': self.ellCut2p5,
-                        'binning': '(100, 0.5, 1.5)'
-                    },
-                    {
-                        'name': 'Mlljjweight_%s_%s_%s%s_inrho3p0'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                        'variable': "computeMlljjweight({0})".format(self.baseObject+".p4.M()"),
-                        'plot_cut': self.ellCut3p0,
-                        'binning': '(100, 0.5, 1.5)'
-                    }
 
                 ])
 
