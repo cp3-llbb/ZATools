@@ -443,7 +443,7 @@ for key in keys:
                 }]
 
         for rhobin in rhobins:
-            elif "DYweight" in key_name and "inrho"+rhobin in key_name:
+            if "DYweight" in key_name and "inrho"+rhobin in key_name:
                 plot['x-axis'] = "DYweight_inrho{0}".format(rhobin)
                 plot.update(defaultStyle_events)
 
