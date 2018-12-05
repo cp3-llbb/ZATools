@@ -75,7 +75,7 @@ done
 mkdir -p $1/slurm/output
 if [[ ${directories[*]} =~ $1_for_signal ]]; then echo "Moving signal files to main folder..."; mv $1_for_signal/slurm/output/*.root $1/slurm/output ; fi
 if [[ ${directories[*]} =~ $1_for_data ]]; then echo "Moving data files to main folder..."; mv $1_for_data/slurm/output/*.root $1/slurm/output ; fi
-if [[ ${directories[*]} =~ $1_for_MCbkgminusDY ]]; then echo "Moving MC bkg files to main folder..."; mv $1_for_MCbkg/slurm/output/*.root $1/slurm/output ; fi
+if [[ ${directories[*]} =~ $1_for_MCbkgminusDY ]]; then echo "Moving MC bkg files to main folder..."; mv $1_for_MCbkgminusDY/slurm/output/*.root $1/slurm/output ; fi
 if [[ ${directories[*]} =~ $1_for_DY ]]; then echo "Moving MC DY files to main folder..."; mv $1_for_DY/slurm/output/*.root $1/slurm/output ; fi
 
 if [[ ${directories[*]} =~ $1_for_signal ]]; echo "Removing empty signal folders..."; then rm -r $1_for_signal/ ; fi

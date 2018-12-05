@@ -23,7 +23,6 @@ def default_code_after_loop():
 
 def default_headers():
     return [
-            "utils.h",
             "massWindow.h",
             "reweightDY.h",
             ]
@@ -36,7 +35,6 @@ def default_include_directories(scriptDir):
 
 def default_sources(scriptDir):
     files = [
-            "utils.cc",
             "massWindow.cc",
             "reweightDY.cc",
             ]
