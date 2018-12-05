@@ -132,8 +132,8 @@ MainPlots_ForDY = Configuration('generatePlots.py', suffix='_for_DY', mode='plot
             "DY_NLO"
         ], generation_args={
             'sample_type': 'MC',
-            'lljj_plots': ['inEllipse','inOut'],
-            'llbb_plots': ['inEllipse','inOut'],
+            'lljj_plots': ['inOut'],
+            'llbb_plots': ['inOut'],
             'syst': True,
             'syst_split_jec': False,
             'reweight_DY': True,
@@ -153,8 +153,8 @@ MainPlots_ForMCminusDY = Configuration('generatePlots.py', suffix='_for_MCbkgmin
             #"QCD"
         ], generation_args={
             'sample_type': 'MC',
-            'lljj_plots': ['inEllipse','inOut'],
-            'llbb_plots': ['inEllipse','inOut'],
+            'lljj_plots': ['inOut'],
+            'llbb_plots': ['inOut'],
             'syst': True,
             'syst_split_jec': False,
             'reweight_DY': False,
@@ -163,8 +163,8 @@ MainPlots_ForMCminusDY = Configuration('generatePlots.py', suffix='_for_MCbkgmin
         })
 MainPlots_ForData = Configuration('generatePlots.py', suffix='_for_data', mode='plots', samples=['Data'], generation_args={
             'sample_type': 'Data',
-            'lljj_plots': ['inEllipse','inOut'],
-            'llbb_plots': ['inEllipse','inOut'],
+            'lljj_plots': ['inOut'],
+            'llbb_plots': ['inOut'],
             'syst': True,
             'syst_split_jec': False,
             'reweight_DY': False,
@@ -173,7 +173,7 @@ MainPlots_ForData = Configuration('generatePlots.py', suffix='_for_data', mode='
         })
 MainPlots_ForSignal = Configuration('generatePlots.py', suffix='_for_signal', mode='plots', samples=['Signal'], generation_args={
             'sample_type': 'Signal',
-            'llbb_plots': ['inEllipse','inOut'],
+            'llbb_plots': ['inOut'],
             'syst': True,
             'syst_split_jec': False,
             'reweight_DY': False,
