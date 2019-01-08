@@ -288,60 +288,260 @@ class BasePlotter:
         #      w_down=2-w
         # DY REWEIGHTING - TO BE USED ONLY FOR DRELL-YAN, ENABLE IT IN THE CONFIG FILE
 
-        DY_weight11 = "(({0}>0 && {0}<60 && {1}>400 && {1}<1000) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        DY_weight11 = "(({0}>0 && {0}<100 && {1}>750 && {1}<1000) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
         if systematic == "DY_weight11up":
-            DY_weight11 = "( ({0}>0 && {0}<60 && {1}>400 && {1}<1000) ? (computeDYweight({0}, {1}) + abs(computeDYweight({0}, {1}))*sqrt(pow((1-1/computeMjjweight({0})),2) + pow((1-1/computeMlljjweight({1})),2))) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+            DY_weight11 = "( ({0}>0 && {0}<100 && {1}>750 && {1}<1000) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
         if systematic == "DY_weight11down":
-            DY_weight11 = "( ({0}>0 && {0}<60 && {1}>400 && {1}<1000) ? (computeDYweight({0}, {1}) - abs(computeDYweight({0}, {1}))*sqrt(pow((1-1/computeMjjweight({0})),2) + pow((1-1/computeMlljjweight({1})),2))) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
-            
-        DY_weight12 = "(({0}>=60 && {0}<300 && {1}>400 && {1}<1000) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+            DY_weight11 = "( ({0}>0 && {0}<100 && {1}>750 && {1}<1000) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+           
+        DY_weight12 = "(({0}>=100 && {0}<250 && {1}>750 && {1}<1000) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
         if systematic == "DY_weight12up":
-            DY_weight12 = "( ({0}>=60 && {0}<300 && {1}>400 && {1}<1000) ? (computeDYweight({0}, {1}) + abs(computeDYweight({0}, {1}))*sqrt(pow((1-1/computeMjjweight({0})),2) + pow((1-1/computeMlljjweight({1})),2))) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+            DY_weight12 = "( ({0}>=100 && {0}<250 && {1}>750 && {1}<1000) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
         if systematic == "DY_weight12down":
-            DY_weight12 = "( ({0}>=60 && {0}<300 && {1}>400 && {1}<1000) ? (computeDYweight({0}, {1}) - abs(computeDYweight({0}, {1}))*sqrt(pow((1-1/computeMjjweight({0})),2) + pow((1-1/computeMlljjweight({1})),2))) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+            DY_weight12 = "( ({0}>=100 && {0}<250 && {1}>750 && {1}<1000) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
 
-        DY_weight13 = "(({0}>=300 && {0}<1000 && {1}>400 && {1}<1000) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        DY_weight13 = "(({0}>=250 && {0}<400 && {1}>750 && {1}<1000) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
         if systematic == "DY_weight13up":
-            DY_weight13 = "( ({0}>=300 && {0}<1000 && {1}>400 && {1}<1000) ? (computeDYweight({0}, {1}) + abs(computeDYweight({0}, {1}))*sqrt(pow((1-1/computeMjjweight({0})),2) + pow((1-1/computeMlljjweight({1})),2))) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+            DY_weight13 = "( ({0}>=250 && {0}<400 && {1}>750 && {1}<1000) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
         if systematic == "DY_weight13down":
-            DY_weight13 = "( ({0}>=300 && {0}<1000 && {1}>400 && {1}<1000) ? (computeDYweight({0}, {1}) - abs(computeDYweight({0}, {1}))*sqrt(pow((1-1/computeMjjweight({0})),2) + pow((1-1/computeMlljjweight({1})),2))) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+            DY_weight13 = "( ({0}>=250 && {0}<400 && {1}>750 && {1}<1000) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
 
-        DY_weight21 = "(({0}>0 && {0}<60 && {1}>150 && {1}<=400) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        DY_weight14 = "(({0}>=400 && {0}<550 && {1}>750 && {1}<1000) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight14up":
+            DY_weight14 = "( ({0}>=400 && {0}<550 && {1}>750 && {1}<1000) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight14down":
+            DY_weight14 = "( ({0}>=400 && {0}<550 && {1}>750 && {1}<1000) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight15 = "(({0}>=550 && {0}<700 && {1}>750 && {1}<1000) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight15up":
+            DY_weight15 = "( ({0}>=550 && {0}<700 && {1}>750 && {1}<1000) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight15down":
+            DY_weight15 = "( ({0}>=550 && {0}<700 && {1}>750 && {1}<1000) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight16 = "(({0}>=700 && {0}<850 && {1}>750 && {1}<1000) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight16up":
+            DY_weight16 = "( ({0}>=700 && {0}<850 && {1}>750 && {1}<1000) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight16down":
+            DY_weight16 = "( ({0}>=700 && {0}<850 && {1}>750 && {1}<1000) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight17 = "(({0}>=850 && {0}<1000 && {1}>750 && {1}<1000) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight17up":
+            DY_weight17 = "( ({0}>=850 && {0}<1000 && {1}>750 && {1}<1000) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight17down":
+            DY_weight17 = "( ({0}>=850 && {0}<1000 && {1}>750 && {1}<1000) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+
+        DY_weight21 = "(({0}>0 && {0}<100 && {1}>600 && {1}<=750) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
         if systematic == "DY_weight21up":
-            DY_weight21 = "( ({0}>0 && {0}<60 && {1}>150 && {1}<=400) ? (computeDYweight({0}, {1}) + abs(computeDYweight({0}, {1}))*sqrt(pow((1-1/computeMjjweight({0})),2) + pow((1-1/computeMlljjweight({1})),2))) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+            DY_weight21 = "( ({0}>0 && {0}<100 && {1}>600 && {1}<=750) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
         if systematic == "DY_weight21down":
-            DY_weight21 = "( ({0}>0 && {0}<60 && {1}>150 && {1}<=400) ? (computeDYweight({0}, {1}) - abs(computeDYweight({0}, {1}))*sqrt(pow((1-1/computeMjjweight({0})),2) + pow((1-1/computeMlljjweight({1})),2))) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
-            
-        DY_weight22 = "(({0}>=60 && {0}<300 && {1}>150 && {1}<=400) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+            DY_weight21 = "( ({0}>0 && {0}<100 && {1}>600 && {1}<=750) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+           
+        DY_weight22 = "(({0}>=100 && {0}<250 && {1}>600 && {1}<=750) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
         if systematic == "DY_weight22up":
-            DY_weight22 = "( ({0}>=60 && {0}<300 && {1}>150 && {1}<=400) ? (computeDYweight({0}, {1}) + abs(computeDYweight({0}, {1}))*sqrt(pow((1-1/computeMjjweight({0})),2) + pow((1-1/computeMlljjweight({1})),2))) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+            DY_weight22 = "( ({0}>=100 && {0}<250 && {1}>600 && {1}<=750) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
         if systematic == "DY_weight22down":
-            DY_weight22 = "( ({0}>=60 && {0}<300 && {1}>150 && {1}<=400) ? (computeDYweight({0}, {1}) - abs(computeDYweight({0}, {1}))*sqrt(pow((1-1/computeMjjweight({0})),2) + pow((1-1/computeMlljjweight({1})),2))) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+            DY_weight22 = "( ({0}>=100 && {0}<250 && {1}>600 && {1}<=750) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
 
-        DY_weight23 = "(({0}>=300 && {0}<1000 && {1}>150 && {1}<=400) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        DY_weight23 = "(({0}>=250 && {0}<400 && {1}>600 && {1}<=750) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
         if systematic == "DY_weight23up":
-            DY_weight23 = "( ({0}>=300 && {0}<1000 && {1}>150 && {1}<=400) ? (computeDYweight({0}, {1}) + abs(computeDYweight({0}, {1}))*sqrt(pow((1-1/computeMjjweight({0})),2) + pow((1-1/computeMlljjweight({1})),2))) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+            DY_weight23 = "( ({0}>=250 && {0}<400 && {1}>600 && {1}<=750) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
         if systematic == "DY_weight23down":
-            DY_weight23 = "( ({0}>=300 && {0}<1000 && {1}>150 && {1}<=400) ? (computeDYweight({0}, {1}) - abs(computeDYweight({0}, {1}))*sqrt(pow((1-1/computeMjjweight({0})),2) + pow((1-1/computeMlljjweight({1})),2))) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+            DY_weight23 = "( ({0}>=250 && {0}<400 && {1}>600 && {1}<=750) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
 
+        DY_weight24 = "(({0}>=400 && {0}<550 && {1}>600 && {1}<=750) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight24up":
+            DY_weight24 = "( ({0}>=400 && {0}<550 && {1}>600 && {1}<=750) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight24down":
+            DY_weight24 = "( ({0}>=400 && {0}<550 && {1}>600 && {1}<=750) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
 
-        DY_weight31 = "(({0}>0 && {0}<60 && {1}>0 && {1}<=150) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        DY_weight25 = "(({0}>=550 && {0}<700 && {1}>600 && {1}<=750) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight25up":
+            DY_weight25 = "( ({0}>=550 && {0}<700 && {1}>600 && {1}<=750) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight25down":
+            DY_weight25 = "( ({0}>=550 && {0}<700 && {1}>600 && {1}<=750) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight26 = "(({0}>=700 && {0}<850 && {1}>600 && {1}<=750) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight26up":
+            DY_weight26 = "( ({0}>=700 && {0}<850 && {1}>600 && {1}<=750) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight26down":
+            DY_weight26 = "( ({0}>=700 && {0}<850 && {1}>600 && {1}<=750) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight27 = "(({0}>=850 && {0}<1000 && {1}>600 && {1}<=750) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight27up":
+            DY_weight27 = "( ({0}>=850 && {0}<1000 && {1}>600 && {1}<=750) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight27down":
+            DY_weight27 = "( ({0}>=850 && {0}<1000 && {1}>600 && {1}<=750) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight31 = "(({0}>0 && {0}<100 && {1}>450 && {1}<=600) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
         if systematic == "DY_weight31up":
-            DY_weight31 = "( ({0}>0 && {0}<60 && {1}>0 && {1}<=150) ? (computeDYweight({0}, {1}) + abs(computeDYweight({0}, {1}))*sqrt(pow((1-1/computeMjjweight({0})),2) + pow((1-1/computeMlljjweight({1})),2))) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+            DY_weight31 = "( ({0}>0 && {0}<100 && {1}>450 && {1}<=600) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
         if systematic == "DY_weight31down":
-            DY_weight31 = "( ({0}>0 && {0}<60 && {1}>0 && {1}<=150) ? (computeDYweight({0}, {1}) - abs(computeDYweight({0}, {1}))*sqrt(pow((1-1/computeMjjweight({0})),2) + pow((1-1/computeMlljjweight({1})),2))) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
-            
-        DY_weight32 = "(({0}>=60 && {0}<300 && {1}>0 && {1}<=150) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+            DY_weight31 = "( ({0}>0 && {0}<100 && {1}>450 && {1}<=600) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+           
+        DY_weight32 = "(({0}>=100 && {0}<250 && {1}>450 && {1}<=600) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
         if systematic == "DY_weight32up":
-            DY_weight32 = "( ({0}>=60 && {0}<300 && {1}>0 && {1}<=150) ? (computeDYweight({0}, {1}) + abs(computeDYweight({0}, {1}))*sqrt(pow((1-1/computeMjjweight({0})),2) + pow((1-1/computeMlljjweight({1})),2))) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+            DY_weight32 = "( ({0}>=100 && {0}<250 && {1}>450 && {1}<=600) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
         if systematic == "DY_weight32down":
-            DY_weight32 = "( ({0}>=60 && {0}<300 && {1}>0 && {1}<=150) ? (computeDYweight({0}, {1}) - abs(computeDYweight({0}, {1}))*sqrt(pow((1-1/computeMjjweight({0})),2) + pow((1-1/computeMlljjweight({1})),2))) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+            DY_weight32 = "( ({0}>=100 && {0}<250 && {1}>450 && {1}<=600) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
 
-        DY_weight33 = "(({0}>=300 && {0}<1000 && {1}>0 && {1}<=150) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        DY_weight33 = "(({0}>=250 && {0}<400 && {1}>450 && {1}<=600) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
         if systematic == "DY_weight33up":
-            DY_weight33 = "( ({0}>=300 && {0}<1000 && {1}>0 && {1}<=150) ? (computeDYweight({0}, {1}) + abs(computeDYweight({0}, {1}))*sqrt(pow((1-1/computeMjjweight({0})),2) + pow((1-1/computeMlljjweight({1})),2))) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+            DY_weight33 = "( ({0}>=250 && {0}<400 && {1}>450 && {1}<=600) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
         if systematic == "DY_weight33down":
-            DY_weight33 = "( ({0}>=300 && {0}<1000 && {1}>0 && {1}<=150) ? (computeDYweight({0}, {1}) - abs(computeDYweight({0}, {1}))*sqrt(pow((1-1/computeMjjweight({0})),2) + pow((1-1/computeMlljjweight({1})),2))) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+            DY_weight33 = "( ({0}>=250 && {0}<400 && {1}>450 && {1}<=600) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight34 = "(({0}>=400 && {0}<550 && {1}>450 && {1}<=600) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight34up":
+            DY_weight34 = "( ({0}>=400 && {0}<550 && {1}>450 && {1}<=600) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight34down":
+            DY_weight34 = "( ({0}>=400 && {0}<550 && {1}>450 && {1}<=600) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight35 = "(({0}>=550 && {0}<700 && {1}>450 && {1}<=600) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight35up":
+            DY_weight35 = "( ({0}>=550 && {0}<700 && {1}>450 && {1}<=600) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight35down":
+            DY_weight35 = "( ({0}>=550 && {0}<700 && {1}>450 && {1}<=600) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight36 = "(({0}>=700 && {0}<850 && {1}>450 && {1}<=600) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight36up":
+            DY_weight36 = "( ({0}>=700 && {0}<850 && {1}>450 && {1}<=600) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight36down":
+            DY_weight36 = "( ({0}>=700 && {0}<850 && {1}>450 && {1}<=600) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight37 = "(({0}>=850 && {0}<1000 && {1}>450 && {1}<=600) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight37up":
+            DY_weight37 = "( ({0}>=850 && {0}<1000 && {1}>450 && {1}<=600) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight37down":
+            DY_weight37 = "( ({0}>=850 && {0}<1000 && {1}>450 && {1}<=600) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight41 = "(({0}>0 && {0}<100 && {1}>300 && {1}<=450) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight41up":
+            DY_weight41 = "( ({0}>0 && {0}<100 && {1}>300 && {1}<=450) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight41down":
+            DY_weight41 = "( ({0}>0 && {0}<100 && {1}>300 && {1}<=450) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+           
+        DY_weight42 = "(({0}>=100 && {0}<250 && {1}>300 && {1}<=450) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight42up":
+            DY_weight42 = "( ({0}>=100 && {0}<250 && {1}>300 && {1}<=450) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight42down":
+            DY_weight42 = "( ({0}>=100 && {0}<250 && {1}>300 && {1}<=450) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight43 = "(({0}>=250 && {0}<400 && {1}>300 && {1}<=450) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight43up":
+            DY_weight43 = "( ({0}>=250 && {0}<400 && {1}>300 && {1}<=450) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight43down":
+            DY_weight43 = "( ({0}>=250 && {0}<400 && {1}>300 && {1}<=450) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight44 = "(({0}>=400 && {0}<550 && {1}>300 && {1}<=450) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight44up":
+            DY_weight44 = "( ({0}>=400 && {0}<550 && {1}>300 && {1}<=450) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight44down":
+            DY_weight44 = "( ({0}>=400 && {0}<550 && {1}>300 && {1}<=450) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight45 = "(({0}>=550 && {0}<700 && {1}>300 && {1}<=450) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight45up":
+            DY_weight45 = "( ({0}>=550 && {0}<700 && {1}>300 && {1}<=450) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight45down":
+            DY_weight45 = "( ({0}>=550 && {0}<700 && {1}>300 && {1}<=450) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight46 = "(({0}>=700 && {0}<850 && {1}>300 && {1}<=450) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight46up":
+            DY_weight46 = "( ({0}>=700 && {0}<850 && {1}>300 && {1}<=450) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight46down":
+            DY_weight46 = "( ({0}>=700 && {0}<850 && {1}>300 && {1}<=450) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight47 = "(({0}>=850 && {0}<1000 && {1}>300 && {1}<=450) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight47up":
+            DY_weight47 = "( ({0}>=850 && {0}<1000 && {1}>300 && {1}<=450) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight47down":
+            DY_weight47 = "( ({0}>=850 && {0}<1000 && {1}>300 && {1}<=450) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight51 = "(({0}>0 && {0}<100 && {1}>150 && {1}<=300) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight51up":
+            DY_weight51 = "( ({0}>0 && {0}<100 && {1}>150 && {1}<=300) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight51down":
+            DY_weight51 = "( ({0}>0 && {0}<100 && {1}>150 && {1}<=300) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+           
+        DY_weight52 = "(({0}>=100 && {0}<250 && {1}>150 && {1}<=300) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight52up":
+            DY_weight52 = "( ({0}>=100 && {0}<250 && {1}>150 && {1}<=300) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight52down":
+            DY_weight52 = "( ({0}>=100 && {0}<250 && {1}>150 && {1}<=300) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight53 = "(({0}>=250 && {0}<400 && {1}>150 && {1}<=300) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight53up":
+            DY_weight53 = "( ({0}>=250 && {0}<400 && {1}>150 && {1}<=300) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight53down":
+            DY_weight53 = "( ({0}>=250 && {0}<400 && {1}>150 && {1}<=300) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight54 = "(({0}>=400 && {0}<550 && {1}>150 && {1}<=300) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight54up":
+            DY_weight54 = "( ({0}>=400 && {0}<550 && {1}>150 && {1}<=300) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight54down":
+            DY_weight54 = "( ({0}>=400 && {0}<550 && {1}>150 && {1}<=300) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight55 = "(({0}>=550 && {0}<700 && {1}>150 && {1}<=300) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight55up":
+            DY_weight55 = "( ({0}>=550 && {0}<700 && {1}>150 && {1}<=300) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight55down":
+            DY_weight55 = "( ({0}>=550 && {0}<700 && {1}>150 && {1}<=300) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight56 = "(({0}>=700 && {0}<850 && {1}>150 && {1}<=300) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight56up":
+            DY_weight56 = "( ({0}>=700 && {0}<850 && {1}>150 && {1}<=300) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight56down":
+            DY_weight56 = "( ({0}>=700 && {0}<850 && {1}>150 && {1}<=300) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight57 = "(({0}>=850 && {0}<1000 && {1}>150 && {1}<=300) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight57up":
+            DY_weight57 = "( ({0}>=850 && {0}<1000 && {1}>150 && {1}<=300) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight57down":
+            DY_weight57 = "( ({0}>=850 && {0}<1000 && {1}>150 && {1}<=300) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight61 = "(({0}>0 && {0}<100 && {1}>0 && {1}<=150) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight61up":
+            DY_weight61 = "( ({0}>0 && {0}<100 && {1}>0 && {1}<=150) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight61down":
+            DY_weight61 = "( ({0}>0 && {0}<100 && {1}>0 && {1}<=150) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+           
+        DY_weight62 = "(({0}>=100 && {0}<250 && {1}>0 && {1}<=150) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight62up":
+            DY_weight62 = "( ({0}>=100 && {0}<250 && {1}>0 && {1}<=150) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight62down":
+            DY_weight62 = "( ({0}>=100 && {0}<250 && {1}>0 && {1}<=150) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight63 = "(({0}>=250 && {0}<400 && {1}>0 && {1}<=150) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight63up":
+            DY_weight63 = "( ({0}>=250 && {0}<400 && {1}>0 && {1}<=150) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight63down":
+            DY_weight63 = "( ({0}>=250 && {0}<400 && {1}>0 && {1}<=150) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight64 = "(({0}>=400 && {0}<550 && {1}>0 && {1}<=150) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight64up":
+            DY_weight64 = "( ({0}>=400 && {0}<550 && {1}>0 && {1}<=150) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight64down":
+            DY_weight64 = "( ({0}>=400 && {0}<550 && {1}>0 && {1}<=150) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight65 = "(({0}>=550 && {0}<700 && {1}>0 && {1}<=150) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight65up":
+            DY_weight65 = "( ({0}>=550 && {0}<700 && {1}>0 && {1}<=150) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight65down":
+            DY_weight65 = "( ({0}>=550 && {0}<700 && {1}>0 && {1}<=150) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight66 = "(({0}>=700 && {0}<850 && {1}>0 && {1}<=150) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight66up":
+            DY_weight66 = "( ({0}>=700 && {0}<850 && {1}>0 && {1}<=150) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight66down":
+            DY_weight66 = "( ({0}>=700 && {0}<850 && {1}>0 && {1}<=150) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+        DY_weight67 = "(({0}>=850 && {0}<1000 && {1}>0 && {1}<=150) ? computeDYweight({0}, {1}) : 1.)".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight67up":
+            DY_weight67 = "( ({0}>=850 && {0}<1000 && {1}>0 && {1}<=150) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})+std::max(1.03,computeDYweight({0},{1}))-1.) : (computeDYweight({0},{1})+std::min(0.97,computeDYweight({0},{1}))-1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+        if systematic == "DY_weight67down":
+            DY_weight67 = "( ({0}>=850 && {0}<1000 && {1}>0 && {1}<=150) ? ( (computeDYweight({0},{1})>=1.) ? (computeDYweight({0},{1})-std::max(1.03,computeDYweight({0},{1}))+1.) : (computeDYweight({0},{1})-std::min(0.97,computeDYweight({0},{1}))+1.) ) : 1. )".format(self.jj_str+".M()", self.baseObject+".p4.M()")
+
+
         
         
         available_weights = {
@@ -353,12 +553,45 @@ class BasePlotter:
                 'DY_weight11': DY_weight11,
                 'DY_weight12': DY_weight12,
                 'DY_weight13': DY_weight13,
+                'DY_weight14': DY_weight14,
+                'DY_weight15': DY_weight15,
+                'DY_weight16': DY_weight16,
+                'DY_weight17': DY_weight17,
                 'DY_weight21': DY_weight21,
                 'DY_weight22': DY_weight22,
                 'DY_weight23': DY_weight23,
+                'DY_weight24': DY_weight24,
+                'DY_weight25': DY_weight25,
+                'DY_weight26': DY_weight26,
+                'DY_weight27': DY_weight27,
                 'DY_weight31': DY_weight31,
                 'DY_weight32': DY_weight32,
-                'DY_weight33': DY_weight33
+                'DY_weight33': DY_weight33,
+                'DY_weight34': DY_weight34,
+                'DY_weight35': DY_weight35,
+                'DY_weight36': DY_weight36,
+                'DY_weight37': DY_weight37,
+                'DY_weight41': DY_weight41,
+                'DY_weight42': DY_weight42,
+                'DY_weight43': DY_weight43,
+                'DY_weight44': DY_weight44,
+                'DY_weight45': DY_weight45,
+                'DY_weight46': DY_weight46,
+                'DY_weight47': DY_weight47,
+                'DY_weight51': DY_weight51,
+                'DY_weight52': DY_weight52,
+                'DY_weight53': DY_weight53,
+                'DY_weight54': DY_weight54,
+                'DY_weight55': DY_weight55,
+                'DY_weight56': DY_weight56,
+                'DY_weight57': DY_weight57,
+                'DY_weight61': DY_weight61,
+                'DY_weight62': DY_weight62,
+                'DY_weight63': DY_weight63,
+                'DY_weight64': DY_weight64,
+                'DY_weight65': DY_weight65,
+                'DY_weight66': DY_weight66,
+                'DY_weight67': DY_weight67
                 }
         
         # Append the proper extension to the name plot if needed
@@ -771,7 +1004,7 @@ class BasePlotter:
                         'name': 'rho_steps_histo_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraStringForInOut, self.systematicString),
                         'variable': "window_{0}.isInEllipse_noSize({1}, {2}, {3}, {4})".format((cat if cat!='MuEl' else 'ElEl'), line[0], line[1], self.jj_str + ".M()", self.baseObject + ".p4.M()"),
                         'plot_cut': self.totalCut,
-                        'binning': '(1, 0, 0.5)'
+                        'binning': '(4, 0, 2)'
                     }
             ])
 

@@ -7,6 +7,6 @@ flavors="MuMu ElEl MuEl"
 for flavor in $flavors; do
   for mass_point in $mass_points; do
     mkdir -p $mass_point/$flavor
-    cp /nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/ZAStatAnalysis/Cards_DYreweightingSplitIn9_sx1_MuEl_fakedata_fakeExcesses/ZA/postfit/fit/$mass_point/plotIt_$flavor/*root ./$mass_point/$flavor
+    cp /nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/ZAStatAnalysis/Cards/ZA/postfit/fit/$mass_point/plotIt_$flavor/*root ./$mass_point/$flavor
   done
 done

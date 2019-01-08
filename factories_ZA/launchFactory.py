@@ -71,7 +71,7 @@ def get_sample_splitting(sample, factor=2):
 # Factor is passed as argument to script
 # `sample` is DB name
 def get_sample_events_per_job(sample, factor=1):
-    nevents = 100000
+    nevents = 50000
     return nevents * factor
 
 #workflows = {}
@@ -132,7 +132,7 @@ MainPlots_ForDY = Configuration('generatePlots.py', suffix='_for_DY', mode='plot
             "DY_NLO"
         ], generation_args={
             'sample_type': 'MC',
-            'lljj_plots': ['inOut'],
+            #'lljj_plots': ['inOut'],
             'llbb_plots': ['inOut'],
             'syst': True,
             'syst_split_jec': False,
@@ -153,7 +153,7 @@ MainPlots_ForMCminusDY = Configuration('generatePlots.py', suffix='_for_MCbkgmin
             #"QCD"
         ], generation_args={
             'sample_type': 'MC',
-            'lljj_plots': ['inOut'],
+            #'lljj_plots': ['inOut'],
             'llbb_plots': ['inOut'],
             'syst': True,
             'syst_split_jec': False,
@@ -163,7 +163,7 @@ MainPlots_ForMCminusDY = Configuration('generatePlots.py', suffix='_for_MCbkgmin
         })
 MainPlots_ForData = Configuration('generatePlots.py', suffix='_for_data', mode='plots', samples=['Data'], generation_args={
             'sample_type': 'Data',
-            'lljj_plots': ['inOut'],
+            #'lljj_plots': ['inOut'],
             'llbb_plots': ['inOut'],
             'syst': True,
             'syst_split_jec': False,
