@@ -247,10 +247,10 @@ parser.add_argument('--skip', help='Skip the building part.', action="store_true
 
 args = parser.parse_args()
 
-#configurations.append(MainPlots_ForDY)
-#configurations.append(MainPlots_ForMCminusDY)
-#configurations.append(MainPlots_ForData)
-configurations.append(SkimmedPlots_ForMC)
+configurations.append(MainPlots_ForDY)
+configurations.append(MainPlots_ForMCminusDY)
+configurations.append(MainPlots_ForData)
+#configurations.append(SkimmedPlots_ForMC)
 #configurations.append(MainPlots_ForSignal)
 
 for c in configurations:
