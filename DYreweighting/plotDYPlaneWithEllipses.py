@@ -92,9 +92,10 @@ def main():
         line_mjj_1 = ROOT.TLine(100,0,100,1000)
         line_mjj_2 = ROOT.TLine(250,0,250,1000)
         line_mjj_3 = ROOT.TLine(400,0,400,1000)
-        line_mjj_4 = ROOT.TLine(650,0,650,1000)
-        line_mjj_5 = ROOT.TLine(800,0,800,1000)
-        line_mjj_6 = ROOT.TLine(1000,0,1000,1000)
+        line_mjj_4 = ROOT.TLine(550,0,550,1000)
+        line_mjj_5 = ROOT.TLine(700,0,700,1000)
+        line_mjj_6 = ROOT.TLine(850,0,850,1000)
+        line_mjj_7 = ROOT.TLine(1000,0,1000,1000)
         line_mlljj_1 = ROOT.TLine(0,150,1000,150)
         line_mlljj_2 = ROOT.TLine(0,300,1000,300)
         line_mlljj_3 = ROOT.TLine(0,450,1000,450)
@@ -107,6 +108,7 @@ def main():
         line_mjj_4.SetLineColor(ROOT.kGreen+1)
         line_mjj_5.SetLineColor(ROOT.kGreen+1)
         line_mjj_6.SetLineColor(ROOT.kGreen+1)
+        line_mjj_7.SetLineColor(ROOT.kGreen+1)
         line_mlljj_1.SetLineColor(ROOT.kGreen+1)
         line_mlljj_2.SetLineColor(ROOT.kGreen+1)
         line_mlljj_3.SetLineColor(ROOT.kGreen+1)
@@ -114,7 +116,8 @@ def main():
         line_mlljj_5.SetLineColor(ROOT.kGreen+1)
         line_mlljj_6.SetLineColor(ROOT.kGreen+1)
 
-        with open("../scripts_ZA/ellipsesScripts/ellipseParam_{0}.json".format(cat)) as f:
+        #with open("../scripts_ZA/ellipsesScripts/ellipseParam_{0}.json".format(cat)) as f:
+        with open("../scripts_ZA/ellipsesScripts/fullEllipseParamWindowFit_{0}_newSim_old21Points.json".format(cat)) as f:
             parameters = json.load(f)
         
             gStyle.SetOptStat("")
@@ -132,6 +135,7 @@ def main():
                 line_mjj_4.Draw("same")
                 line_mjj_5.Draw("same")
                 line_mjj_6.Draw("same")
+                line_mjj_7.Draw("same")
                 line_mlljj_1.Draw("same")
                 line_mlljj_2.Draw("same")
                 line_mlljj_3.Draw("same")
@@ -147,6 +151,7 @@ def main():
                 line_mjj_4.Draw("same")
                 line_mjj_5.Draw("same")
                 line_mjj_6.Draw("same")
+                line_mjj_7.Draw("same")
                 line_mlljj_1.Draw("same")
                 line_mlljj_2.Draw("same")
                 line_mlljj_3.Draw("same")
@@ -169,7 +174,8 @@ def main():
                     e.Draw("same")
                     c2.cd()
                     e.Draw("same")
-                c.SaveAs("DYplusEllipses_nobtag_36weights/DYplane_nobtag_{0}_ell_{1}_{2}.png".format(cat, mH, mA), "png")
+                c.SaveAs("DYplusEllipses_nobtag_42weights/DYplane_nobtag_{0}_ell_{1}_{2}.png".format(cat, mH, mA), "png")
+                #c.SaveAs("DYplusEllipses_nobtag_36weights/DYplane_nobtag_{0}_ell_{1}_{2}.png".format(cat, mH, mA), "png")
                 #c2.SaveAs("DYplusEllipses_nobtag/DYweights_nobtag_{0}_ell_{1}_{2}.png".format(cat, mH, mA), "png")
                 del c
                 del ell_list[:]

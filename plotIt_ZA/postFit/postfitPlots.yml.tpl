@@ -9,6 +9,6 @@ rho_steps:
   show-overflow: false
   show-ratio: true
   log-y: both
-  x-axis: rho
+  x-axis: '#rho'
   y-axis: Events
   y-axis-format: '%1% / %2$.2f GeV'

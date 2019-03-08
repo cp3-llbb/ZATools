@@ -9,7 +9,7 @@ if [[ "$1" == "-h" || -z "$1" ]]; then
     exit 0
 fi
 
-directories=(`ls . | grep $1`)
+directories=(`ls . | grep $1"_"`)
 
 echo "Found directories: ${directories[*]}"
 

@@ -261,6 +261,17 @@ def getMassAndWidth(massHisto, mass, cat, centroid, use_fit=False):
         else:
             m_reco = 0    
         sigma = 0
+    massHisto.SetTitle("MH=800 GeV, MA=100GeV")
+    if "lljj_M" in massHisto.GetName():
+        massHisto.GetXaxis().SetTitle("mlljj (GeV)")
+    else: 
+        print massHisto.GetName()
+        massHisto.GetXaxis().SetTitle("mjj (GeV)")
+    c = ROOT.TCanvas("c", "c", 800,600)
+    massHisto.Draw()
+    c.SaveAs("{0}.pdf".format(massHisto.GetName()))
+    c.SaveAs("{0}.png".format(massHisto.GetName()))
+    del c
 
     # return the result
     return (m_reco, sigma, pvalue, fit)

@@ -54,7 +54,7 @@ reweight_DY = get_cfg('reweight_DY', False)
 
 lljj_categories = get_cfg('lljj_categories', ['MuMu', 'ElEl', 'MuEl'])
 llbb_categories = get_cfg('llbb_categories', ['MuMu', 'ElEl', 'MuEl'])
-lljj_stages = get_cfg('lljj_stages', ['no_cut', 'mll_and_met_cut', 'mbb_cut', 'mll_and_met_cut_and_mbb_cut', 'inverted_met_cut', 'met_cut_and_inverted_mll_cut'])
+lljj_stages = get_cfg('lljj_stages', ['no_cut', 'mll_and_met_cut', 'mll_and_met_cut_and_mbb_cut', 'inverted_met_cut', 'met_cut_and_inverted_mll_cut'])
 llbb_stages = get_cfg('llbb_stages', ['no_cut', 'mll_and_met_cut', 'mbb_cut', 'mll_and_met_cut_and_mbb_cut', 'inverted_met_cut', 'met_cut_and_inverted_mll_cut'])
 lljj_plot_families = get_cfg('lljj_plots', [])
 llbb_plot_families = get_cfg('llbb_plots', [])
@@ -66,6 +66,7 @@ optimize_plots = True
 plots = []
 library_directories = []
 sample_weights = {}
+
 
 code_before_loop = default_code_before_loop()
 code_in_loop = default_code_in_loop()
@@ -439,5 +440,5 @@ for systematicType in systematics.keys():
                 plots.extend(basePlotter_lljj.generatePlots(this_categories, stage, systematic=systematic, weights=weights_lljj, requested_plots=plots_lljj))
 
 
-for plot in plots:
-    print plot
+#for plot in plots:
+#    print plot

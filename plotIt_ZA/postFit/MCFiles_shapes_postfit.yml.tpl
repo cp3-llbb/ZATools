@@ -4,13 +4,19 @@
 
 'SMHiggs_postfit_histos.root':
   type: mc
-  group: Higgs
+  group: Others
 
 # VV
 
 'VV_postfit_histos.root':
   type: mc
-  group: VV
+  group: VV(V)
+
+# VVV
+
+'VV_postfit_histos.root':
+  type: mc
+  group: VV(V)
 
 # Single top
 
