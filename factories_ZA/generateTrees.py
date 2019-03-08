@@ -22,7 +22,8 @@ reweight_signal = get_cfg("reweight_signal")
 
 do_lljj = get_cfg("do_lljj", False)
 do_llbb = get_cfg("do_llbb", True)
-flavour = get_cfg("flavour", "All")
+#flavour = get_cfg("flavour", "All")
+flavour = get_cfg("flavour", [])
 stage = get_cfg("stage", "no_cut")
 branch_families = get_cfg("branches", [])
 
@@ -58,12 +59,16 @@ if reweight_signal:
 
 ######### Plot configuration ###########
 
-flavour = "All"
-categories = [flavour]
+#flavour = "All"
+#categories = [flavour]
+categories = []
+categories.append(flav for flav in flavour)
 
 plots_for_branches = []
 if "basic" in branch_families:
-    plots_for_branches += ["mjj", "basic", "nn_inputs", "other", "forSkimmer", "cmva", "evt"]
+    plots_for_branches += ["mjj", "basic"]
+if "forSkimmer" in branch_families:
+    plots_for_branches += ["forSkimmer"]
 if "gen" in branch_families:
     plots_for_branches += ["gen"]
 if "inEllipse" in branch_families:

@@ -231,12 +231,12 @@ class BasePlotter:
                     llIdIso_sf_dict["err_lep2_el"] = "{id}[{0}][{1}] * {reco}[{0}][0]".format(self.lep2_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
 
                 if sf == "elreco": 
-                    llIdIso_sf_dict["err_lep1_el"] = "( {lep1}.isEl ? ((({lep1}.p4.Pt() < 20.) || ({lep1}.p4.Pt() > 80.)) ? ({id}[{0}][0] * std::sqrt({reco}[{0}][{1}] * {reco}[{0}][{1}] + 0.01*{reco}[{0}][{0}] * 0.01*{reco}[{0}][{0}])) : ({id}[{0}][0] * {reco}[{0}][{1}])) : 0. )".format(self.lep1_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch, lep1=self.lep1_str)
-                    llIdIso_sf_dict["err_lep2_el"] = "( {lep2}.isEl ? ((({lep2}.p4.Pt() < 20.) || ({lep2}.p4.Pt() > 80.)) ? ({id}[{0}][0] * std::sqrt({reco}[{0}][{1}] * {reco}[{0}][{1}] + 0.01*{reco}[{0}][{0}] * 0.01*{reco}[{0}][{0}])) : ({id}[{0}][0] * {reco}[{0}][{1}])) : 0. )".format(self.lep2_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch, lep2=self.lep2_str)
+                    llIdIso_sf_dict["err_lep1_el"] = "{id}[{0}][0] * {reco}[{0}][{1}]".format(self.lep1_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
+                    llIdIso_sf_dict["err_lep2_el"] = "{id}[{0}][0] * {reco}[{0}][{1}]".format(self.lep2_fwkIdx, var_index, id=electron_id_branch, reco=electron_reco_branch)
 
                 if sf == "mutracking":
-                    llIdIso_sf_dict["err_lep1_mu"] = "(std::sqrt({tracking}[{0}][{1}] * {tracking}[{0}][{1}] + 0.005*{tracking}[{0}][{0}] * 0.005*{tracking}[{0}][{0}]) * {id}[{0}][0] * {iso}[{0}][0])".format(self.lep1_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch, lep1=self.lep1_str)
-                    llIdIso_sf_dict["err_lep2_mu"] = "(std::sqrt({tracking}[{0}][{1}] * {tracking}[{0}][{1}] + 0.005*{tracking}[{0}][{0}] * 0.005*{tracking}[{0}][{0}]) * {id}[{0}][0] * {iso}[{0}][0])".format(self.lep2_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch, lep2=self.lep2_str)
+                    llIdIso_sf_dict["err_lep1_mu"] = "{tracking}[{0}][{1}] * {id}[{0}][0] * {iso}[{0}][0]".format(self.lep1_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
+                    llIdIso_sf_dict["err_lep2_mu"] = "{tracking}[{0}][{1}] * {id}[{0}][0] * {iso}[{0}][0]".format(self.lep2_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
 
                 if sf == "muid":
                     llIdIso_sf_dict["err_lep1_mu"] = "{tracking}[{0}][0] * {id}[{0}][{1}] * {iso}[{0}][0]".format(self.lep1_fwkIdx, var_index, tracking=muon_tracking_branch, id=muon_id_branch, iso=muon_iso_branch)
@@ -731,6 +731,8 @@ class BasePlotter:
             ])
 
 
+
+
             # BASIC PLOTS
             self.basic_plot.extend([
                 {
@@ -929,10 +931,10 @@ class BasePlotter:
             #if self.btag:
             #PLOTS IN ELLIPSE
             if cat=='MuEl':  #Load the ElEl file for the MuEl category
-                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_ElEl_part10.json') as f:
+                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_ElEl_part33.json') as f:
                     parameters = json.load(f)
             else:
-                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_{0}_part10.json'.format(cat)) as f:
+                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_{0}_part33.json'.format(cat)) as f:
                     parameters = json.load(f)
             for j, line in enumerate(parameters, 0): 
                 if cat=='MuEl':
@@ -1034,12 +1036,47 @@ class BasePlotter:
                 self.tempExtraStringForInOut =  "_{0}".format(j)
                 self.extraStringForInOut = self.extraString + self.tempExtraStringForInOut
                 self.inOut_plot.extend([
+                    #{
+                    #    'name': 'rho_steps_histo_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraStringForInOut, self.systematicString),
+                    #    'variable': "window_{0}.isInEllipse_noSize({1}, {2}, {3}, {4})".format((cat if cat!='MuEl' else 'ElEl'), line[0], line[1], self.jj_str + ".M()", self.baseObject + ".p4.M()"),
+                    #    'plot_cut': self.totalCut,
+                    #    'binning': '(6, 0, 3)'
+                    #}
                     {
                         'name': 'rho_steps_histo_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraStringForInOut, self.systematicString),
-                        'variable': "window_{0}.isInEllipse_noSize({1}, {2}, {3}, {4})".format((cat if cat!='MuEl' else 'ElEl'), line[0], line[1], self.jj_str + ".M()", self.baseObject + ".p4.M()"),
+                        'variable': "windows_{0}.at({1}).radius({2}, {3})".format((cat if cat!='MuEl' else 'ElEl'), j, self.jj_str + ".M()", self.baseObject + ".p4.M()"),
                         'plot_cut': self.totalCut,
                         'binning': '(6, 0, 3)'
                     }
+            ])
+
+            # FOR SKIMMER
+            totalWeight = "event_weight * (%s) * (%s) * (%s) * (%s) * (%s)" % (available_weights["llidiso"], available_weights["pu"], available_weights["trigeff"], available_weights["jjbtag_heavy"], available_weights["jjbtag_light"])
+            self.forSkimmer_plot.extend([
+                {
+                        'name': 'Mjj_vs_Mlljj_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.jj_str + '.M() ::: '+self.baseObject + '.p4.M()',
+                        'plot_cut': self.totalCut,
+                        'binning': '(150, 0, 1500, 150, 0, 1500)'
+                },
+                {
+                        'name': 'lljj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.baseObject+".p4.M()",
+                        'plot_cut': self.totalCut,
+                        'binning': '(50, 100, 1500)'
+                },
+                {
+                        'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.jj_str + ".M()",
+                        'plot_cut': self.totalCut,
+                        'binning': '(40, 10, 1000)'
+                },
+                {
+                        'name': 'weight_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': totalWeight,
+                        'plot_cut': self.totalCut,
+                        'binning': '(5, -2, 2)'
+                },
             ])
 
 
