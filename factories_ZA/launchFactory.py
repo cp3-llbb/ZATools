@@ -220,19 +220,6 @@ TestPlots_ForSignal = Configuration('generatePlots.py', suffix='_for_signal', mo
         })
 """
 
-#For MC toys
-SkimmedPlots_ForMC = Configuration('generateTrees.py', suffix='', mode='skim', samples=[
-            "TTBar",
-            "DY_NLO",
-            "ZZ",
-        ], generation_args={
-            #'sample_type': 'MC',
-            'flavour': ['MuMu','ElEl','MuEl']
-            'do_llbb': True,
-            'stage': 'mll_and_met_cut',
-            'branches': ['forSkimmer']
-        })
-
 
 ##### Parse arguments and do actual work ####
 
@@ -250,7 +237,6 @@ args = parser.parse_args()
 configurations.append(MainPlots_ForDY)
 configurations.append(MainPlots_ForMCminusDY)
 configurations.append(MainPlots_ForData)
-#configurations.append(SkimmedPlots_ForMC)
 #configurations.append(MainPlots_ForSignal)
 
 for c in configurations:
