@@ -931,10 +931,10 @@ class BasePlotter:
             #if self.btag:
             #PLOTS IN ELLIPSE
             if cat=='MuEl':  #Load the ElEl file for the MuEl category
-                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_ElEl_part35.json') as f:
+                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_ElEl_part19.json') as f:
                     parameters = json.load(f)
             else:
-                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_{0}_part35.json'.format(cat)) as f:
+                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_{0}_part19.json'.format(cat)) as f:
                     parameters = json.load(f)
             for j, line in enumerate(parameters, 0): 
                 if cat=='MuEl':

@@ -134,6 +134,17 @@ class massWindow:
     m2diff = massPoint[1] - center[1]
     (u,v)  = self.applyGlobalTransformation(center,(m1diff,m2diff))
     return sqrt(u**2+v**2)<size
+  
+  def getRho(self, center, massPoint):
+    """Returns a boolean stating if the mass point is contained in the mass ellipse around center.
+       Size is the cut value in #sigmas."""
+    m1diff = massPoint[0] - center[0]
+    m2diff = massPoint[1] - center[1]
+    (u,v)  = self.applyGlobalTransformation(center,(m1diff,m2diff))
+    rho = sqrt(u**2+v**2)
+    if rho > 3.:
+        rho = 3.2 #overflow bin
+    return rho
 
   def isNoise(self, center, size, massPoint):
     """Test: returns a bool for a ring of noize around signal ellipse"""
