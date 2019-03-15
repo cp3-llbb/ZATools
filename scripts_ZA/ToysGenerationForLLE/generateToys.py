@@ -1,9 +1,14 @@
 import ROOT
 import json
+import argparse
 import sys
 sys.path.insert(0, '/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts')
 import cutWindow
 
+parser = argparse.ArgumentParser(description='Generate toys from smoothed histogram') 
+parser.add_argument('-cat', '--category', action='store', type=str, help='Category that you want to process. Can be either MuMu, ElEl, or MuEl.')
+
+options = parser.parse_args()
 #h2 = ROOT.TH2F("h2","h2",100,-20,20,100,-20,20)
 #f2 = ROOT.TF2("f2","[0]*TMath::Gaus(x,[1],[2])*TMath::Gaus(y,[3],[4])",0,10,0,10)
 #f2.SetParameters(1,0,5,0,7)
@@ -17,7 +22,7 @@ import cutWindow
 
 #DY10-50 NAN
 #fin = ROOT.TFile.Open("/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/factories_ZA/skimmerForToys_DT_TT_ZZ_MuMu/slurm/output/smoothed_histo_variableN_histos_0.root", "r")
-fin = ROOT.TFile.Open("smoothed_histo_variableN_histos_0.root", "r")
+fin = ROOT.TFile.Open("./{0}/smoothed_histo_histos_0.root".format(options.category), "r")
 
 #DY0J NAN
 #fin = ROOT.TFile.Open("/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/factories_ZA/skimmerForToys_DT_TT_ZZ_MuMu/slurm/output/smoothed_histo_variableN_histos_1.root", "r")
@@ -82,14 +87,13 @@ del c2
 
 
 #Fill rho histograms
-filename_mumu  = "/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/fullEllipseParamWindowFit_MuMu.json"
-filename_elel  = "/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/fullEllipseParamWindowFit_ElEl.json"
+filename  = "/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/fullEllipseParamWindowFit_{0}.json".format(options.category if options.category == "MuMu" else "ElEl") #Use ElEl ellipse file for MuEl category 
 
 print "defining massWindow"
-window = cutWindow.massWindow(filename_mumu)
+window = cutWindow.massWindow(filename)
 
 print "opening ellipse file"
-with open(filename_mumu, "r") as f:
+with open(filename, "r") as f:
     parameters = json.load(f)
 
 rho_histos = []
@@ -118,7 +122,7 @@ for i, param in enumerate(parameters):
 
 print len(rho_histos)
 
-fout = ROOT.TFile.Open("test_DY2J_toys_fromsmoothed.root", "recreate")
+fout = ROOT.TFile.Open("toys_fromsmoothed.root", "recreate")
 for i, h in enumerate(rho_histos):
     h.SetName("rho_steps_histo_MuMu_hZA_lljj_deepCSV_btagM_mll_and_met_cut_{0}".format(i))
     h.Write()
