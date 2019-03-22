@@ -148,12 +148,6 @@ for i in range(t.GetEntries()):
         #print f2.Eval(x,y), x, y
         h2_smoothed.Fill(x, y, w/nThrownPoints)
 
-
-#for xbin in range(h2_smoothed.GetNbinsX()):
-#    for ybin in range(h2_smoothed.GetNbinsY()):
-#        if h2_smoothed.GetBinContent(xbin,ybin) < 0:
-#            print "Neg, bincontent: ", h2_smoothed.GetBinContent(xbin,ybin), xbin,ybin
-
 print "non smoothed integral: ", h2.Integral()
 print "smoothed integral: ", h2_smoothed.Integral()
 
@@ -162,7 +156,6 @@ h2.SetMinimum(0)
 h2.Draw("COLZ")
 h2.SaveAs(outputDir+"non_smoothed_histo_{0}.root".format(options.skimmedRootFileSuffix.split('.')[0]))
 c1.SaveAs(outputDir+"non_smoothed_histo_{0}.png".format(options.skimmedRootFileSuffix.split('.')[0]))
-#c1.SaveAs("non_smoothed_histo.root")
 del c1
 
 c2.cd()
@@ -170,22 +163,9 @@ h2_smoothed.SetMinimum(0)
 h2_smoothed.Draw("COLZ")
 h2_smoothed.SaveAs(outputDir+"smoothed_histo_{0}.root".format(options.skimmedRootFileSuffix.split('.')[0]))
 c2.SaveAs(outputDir+"smoothed_histo_{0}.png".format(options.skimmedRootFileSuffix.split('.')[0]))
-#c2.SaveAs("smoothed_histo.root")
 del c2
-    #f2.Draw("LEGO")
-    #canvas.SaveAs("gaus2D.png")
-    #del canvas
 
 #FROM TH2 use: GetRandom2 (Double_t &x, Double_t &y) 15 times (for 15 toys).
 #for i in range(n_events_MuMu_data):
 #    h2_smoother.GetRandom2(Double_t &x, Double_t &y)
-
-
-
-#for i in range(5):
-#    f2.GetRandom2(x,y)
-#    #Apply variable tranformation to x,y
-#    
-#    z = f2.Eval(x,y)
-#    #print z, x, y
 
