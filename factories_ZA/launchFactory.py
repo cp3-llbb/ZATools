@@ -29,8 +29,7 @@ from sampleList import samples_dict, number_of_bases, analysis_tags
 dbstore = DbStore()
 
 def build_sample_name(name, tag):
-    return name
-    #return "{}*{}".format(name, tag)
+    return "{}*{}".format(name, tag)
 
 def get_sample_ids_from_name(name):
     results = dbstore.find(Sample, Sample.name.like(unicode(name.replace('*', '%'))))
