@@ -78,8 +78,10 @@ if not os.path.exists(outputDir):
     os.makedirs(outputDir)
 
 #Fill rho histograms
-for fileIndex in range(0,9): #part0 to part8 of ellipse file
-    filename  = "/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/fullEllipseParamWindowFit_{0}_part{1}.json".format(options.category if options.category == "MuMu" else "ElEl", fileIndex) #Use ElEl ellipse file for MuEl category 
+#for fileIndex in range(0,9): #part0 to part8 of ellipse file
+for fileIndex in range(10,35): #part0 to part34 of pavement for p-value, excluding region MH>800GeV
+    #filename  = "/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/fullEllipseParamWindowFit_{0}_part{1}.json".format(options.category if options.category == "MuMu" else "ElEl", fileIndex) #Use ElEl ellipse file for MuEl category 
+    filename  = "/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_{0}_part{1}.json".format(options.category if options.category == "MuMu" else "ElEl", fileIndex) #Use ElEl ellipse file for MuEl category 
     window = cutWindow.massWindow(filename)
 
     print "Working on: ", filename
@@ -99,7 +101,9 @@ for fileIndex in range(0,9): #part0 to part8 of ellipse file
                 #if bincontent != 0.:
                 #    print "Non-negative bincontent: ", bincontent
                 event = (x,y)
+                print "event: ", event
                 rho = window.getRho(center, event)
+                print "rho: ", rho
                 rho_histo.Fill(rho, bincontent)
         rho_histos.append(rho_histo)
         del rho_histo
