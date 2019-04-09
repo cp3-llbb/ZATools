@@ -1,35 +1,35 @@
 # Signal
 
-'HToZATo2L2B_1000p00_200p00*histos.root':
-  type: signal
-  scale: 1000    #The x-sec in the databse is 1fb for the signal. Here we are scaling it by 1000, bringing it up to 1pb
-  #scale: 100   #if unblinding with 1/10 of data
-  line-color: '#d62728' #red
-  #line-color: '#2ca02c' # from https://github.com/vega/vega/wiki/Scales#scale-range-literals
-  legend: '2HDM (1000,200)'
-  legend-order: 14
-  line-width: 2.7
-  line-type: 1
+#'HToZATo2L2B_1000p00_200p00*histos.root':
+#  type: signal
+#  scale: 1000    #The x-sec in the databse is 1fb for the signal. Here we are scaling it by 1000, bringing it up to 1pb
+#  #scale: 100   #if unblinding with 1/10 of data
+#  line-color: '#d62728' #red
+#  #line-color: '#2ca02c' # from https://github.com/vega/vega/wiki/Scales#scale-range-literals
+#  legend: '2HDM (1000,200)'
+#  legend-order: 14
+#  line-width: 2.7
+#  line-type: 1
 'HToZATo2L2B_500p00_300p00*histos.root':
   type: signal
   scale: 1000    #The x-sec in the databse is 1fb for the signal. Here we are scaling it by 1000, bringing it up to 1pb
   #scale: 100   #if unblinding with 1/10 of data
-  line-color: '#2ca02c' #green
+  line-color: '#bcbd22' #yellow '#2ca02c' #green
   #line-color: '#2ca02c' # from https://github.com/vega/vega/wiki/Scales#scale-range-literals
   legend: '2HDM (500,300)'
   legend-order: 14
   line-width: 2.7
   line-type: 1
-'HToZATo2L2B_300p00_100p00*histos.root':
-  type: signal
-  scale: 1000    #The x-sec in the databse is 1fb for the signal. Here we are scaling it by 1000, bringing it up to 1pb
-  #scale: 100   #if unblinding with 1/10 of data
-  line-color: '#bcbd22' #yellow
-  #line-color: '#2ca02c' # from https://github.com/vega/vega/wiki/Scales#scale-range-literals
-  legend: '2HDM (300,100)'
-  legend-order: 14
-  line-width: 2.7
-  line-type: 1
+#'HToZATo2L2B_300p00_100p00*histos.root':
+#  type: signal
+#  scale: 1000    #The x-sec in the databse is 1fb for the signal. Here we are scaling it by 1000, bringing it up to 1pb
+#  #scale: 100   #if unblinding with 1/10 of data
+#  line-color: '#bcbd22' #yellow
+#  #line-color: '#2ca02c' # from https://github.com/vega/vega/wiki/Scales#scale-range-literals
+#  legend: '2HDM (300,100)'
+#  legend-order: 14
+#  line-width: 2.7
+#  line-type: 1
 'HToZATo2L2B_300p00_50p00*histos.root':
   type: signal
   scale: 1000    #The x-sec in the databse is 1fb for the signal. Here we are scaling it by 1000, bringing it up to 1pb
@@ -43,7 +43,7 @@
   type: signal
   scale: 1000    #The x-sec in the databse is 1fb for the signal. Here we are scaling it by 1000, bringing it up to 1pb
   #scale: 100   #if unblinding with 1/10 of data
-  line-color: '#17becf' #azurre
+  line-color: '#d62728' #red,  '#17becf' #azurre
   legend: '2HDM (800,700)'
   legend-order: 14
   line-width: 2.7

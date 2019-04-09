@@ -59,16 +59,16 @@ def get_sample_splitting(sample, factor=1):
     #nfiles = 10
     nfiles = 1
     if "TTTo2L2Nu" in sample:
-        nfiles = 2.5
+        nfiles = 3.5
     if "DYToLL_0J" in sample or "DYToLL_1J" in sample or"DYToLL_2J" in sample:
-        nfiles = 3
+        nfiles = 3.5
     if "WZ" in sample or "ZZ" in sample:
         nfiles = 2
     if "WJets" in sample:
         nfiles = 3
     if "DoubleMu" in sample or "DoubleEG" in sample or "MuonEG" in sample:
-        #nfiles = 20
-        nfiles = 5
+        nfiles = 20
+        #nfiles = 5
     return nfiles * factor
 
 # Configure number of events processed by each slurm job
@@ -140,7 +140,7 @@ MainPlots_ForDY = Configuration('generatePlots.py', suffix='_for_DY', mode='plot
         ], generation_args={
             'sample_type': 'MC',
             #'lljj_plots': ['inOut'],
-            'llbb_plots': ['inOut'],
+            'llbb_plots': ['aFewVar'],
             'syst': True,
             'syst_split_jec': True,
             'syst_split_pdf': False,
@@ -162,7 +162,7 @@ MainPlots_ForMCminusDY = Configuration('generatePlots.py', suffix='_for_MCbkgmin
         ], generation_args={
             'sample_type': 'MC',
             #'lljj_plots': ['inOut'],
-            'llbb_plots': ['inOut'],
+            'llbb_plots': ['aFewVar'],
             'syst': True,
             'syst_split_jec': True,
             'syst_split_pdf': False,
@@ -173,7 +173,7 @@ MainPlots_ForMCminusDY = Configuration('generatePlots.py', suffix='_for_MCbkgmin
 MainPlots_ForData = Configuration('generatePlots.py', suffix='_for_data', mode='plots', samples=['Data'], generation_args={
             'sample_type': 'Data',
             #'lljj_plots': ['inOut'],
-            'llbb_plots': ['inOut'],
+            'llbb_plots': ['aFewVar'],
             'syst': True,
             'syst_split_jec': True,
             'syst_split_pdf': False,
@@ -181,9 +181,9 @@ MainPlots_ForData = Configuration('generatePlots.py', suffix='_for_data', mode='
             #'lljj_stages': ['mll_and_met_cut'],
             'llbb_stages': ['mll_and_met_cut'],
         })
-MainPlots_ForSignal = Configuration('generatePlots.py', suffix='_for_signal', mode='plots', samples=['Signal_part1'], generation_args={
+MainPlots_ForSignal = Configuration('generatePlots.py', suffix='_for_signal', mode='plots', samples=['Signal_part0'], generation_args={
             'sample_type': 'Signal',
-            'llbb_plots': ['inOut'],
+            'llbb_plots': ['aFewVar'],
             'syst': True,
             'syst_split_jec': True,
             'syst_split_pdf': False,
@@ -234,9 +234,9 @@ parser.add_argument('--skip', help='Skip the building part.', action="store_true
 
 args = parser.parse_args()
 
-configurations.append(MainPlots_ForDY)
+#configurations.append(MainPlots_ForDY)
 configurations.append(MainPlots_ForMCminusDY)
-configurations.append(MainPlots_ForData)
+#configurations.append(MainPlots_ForData)
 #configurations.append(MainPlots_ForSignal)
 
 for c in configurations:
@@ -460,7 +460,7 @@ for c in configurations:
     slurm_samples = []
     for id in c.sample_ids:
         #slurm_samples.append({'ID': id, 'events_per_job': get_sample_events_per_job(get_sample(id).name, args.factor)})
-        print "Splitting ", get_sample(id).name, " in jobs of ", get_sample_events_per_job(get_sample(id).name, get_sample_splitting(get_sample(id).name, factor=1)), " events."
+        #print "Splitting ", get_sample(id).name, " in jobs of ", get_sample_events_per_job(get_sample(id).name, get_sample_splitting(get_sample(id).name, factor=1)), " events."
         slurm_samples.append({'ID': id, 'events_per_job': get_sample_events_per_job(get_sample(id).name, get_sample_splitting(get_sample(id).name, factor=1))})
 
     create_slurm(slurm_samples, args.output + c.suffix, c.executable)

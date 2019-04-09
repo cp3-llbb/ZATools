@@ -24,7 +24,8 @@ if not os.path.exists(args.directory):
     parser.error("%r does not exists" % args.directory)
 
 rootDir = args.directory
-slurmDir = os.path.join(rootDir, "slurm/output")
+#slurmDir = os.path.join(rootDir, "slurm/output")
+slurmDir = os.path.join(rootDir, ".")
 
 # Find a ROOT file in slurm output directory
 root_files = glob.glob(os.path.join(slurmDir, "*.root"))
@@ -57,8 +58,8 @@ with open('ZA_plotter_all.yml.tpl') as tpl_handle:
         tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml']", legend="position: [0.61, 0.61, 0.94, 0.89]")
     if args.llbb:
         if args.ell_index is None:
-            #tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml', 'SignalFiles.yml']", legend="include: ['legendPosition.yml']")
-            tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml']", legend="include: ['legendPosition.yml']")
+            tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml', 'SignalFiles.yml']", legend="include: ['legendPosition.yml']")
+            #tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml']", legend="include: ['legendPosition.yml']")
         else:
             signal = 'singleSignals/SignalFiles_{0}.yml'.format(args.ell_index)
             tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml', "+'"'+signal+'"'+"]", legend="include: ['legendPosition.yml']")

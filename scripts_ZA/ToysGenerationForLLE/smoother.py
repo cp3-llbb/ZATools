@@ -58,15 +58,17 @@ options = parser.parse_args()
 
 
 ROOT.gStyle.SetOptStat(0)
-filename_mumu  = "/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/fullEllipseParamWindowFit_MuMu.json"
-filename_elel  = "/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/fullEllipseParamWindowFit_ElEl.json"
+#filename_mumu  = "/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/fullEllipseParamWindowFit_MuMu.json"
+#filename_elel  = "/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/fullEllipseParamWindowFit_ElEl.json"
+filename_mumu  = "/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_0p3_0p3.json"
+filename_elel  = "/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_0p3_0p3.json"
 
 filename = filename_mumu if options.category=="MuMu" else filename_elel
 
 print "Ellipse file used: ", filename
 
 inputDir = '/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/factories_ZA/skimmerForToys_DT_TT_ZZ_{0}/slurm/output/'.format(options.category)
-outputDir = './{0}/output/'.format(options.category)
+outputDir = './{0}/output/pointsOfPvalueScan/'.format(options.category)
 
 for f in glob.glob(inputDir+"*gd29729a_histos*.root"):
     if options.skimmedRootFileSuffix in f:
@@ -139,7 +141,10 @@ for i in range(t.GetEntries()):
     if jj > 50 and jj < 150 and lljj > 160 and lljj < 300:
         nThrownPoints=10
     else:
-        nThrownPoints=60
+        if options.category == "MuMu" or options.category == "ElEl":
+            nThrownPoints=60
+        else:
+            nThrownPoints=30  #mostly ttbar in MuEl, don't smooth it that much, there's already high stat
     #Do the smoothing:
     for _ in range(nThrownPoints):
         x = ROOT.Double()

@@ -100,9 +100,9 @@ def Points():
     str_stepx = str_stepx.replace('.', 'p')
     str_stepy = str(round(step_y, 2))
     str_stepy = str_stepy.replace('.', 'p')
-    f2 = open('pavementForPValue_{0}_{1}.json'.format(str_stepx, str_stepy),'w')
-    json.dump(points,f2)
-    f2.close()
+    #f2 = open('pavementForPValue_{0}_{1}.json'.format(str_stepx, str_stepy),'w')
+    #json.dump(points,f2)
+    #f2.close()
     return points
 
 # control plots: draw the centers
@@ -133,6 +133,21 @@ def Control(points):
         str_stepy = str_stepy.replace('.', 'p')
         canvas.SaveAs("control_points_{0}_{1}.root".format(str_stepx, str_stepy))
         canvas.SaveAs("control_points_{0}_{1}.pdf".format(str_stepx, str_stepy))
+    else:
+        print "Number of centers: ", len(points)
+        centers = ROOT.TGraph(len(points))
+        for i,(mA,mH,a,b,theta,mbb,mllbb) in enumerate(points):
+            centers.SetPoint(i,mA,mH)
+        hpx.Draw();
+        line.Draw();
+        centers.Draw("p")
+        canvas.Update()
+        str_stepx = str(round(step_x, 2))
+        str_stepx = str_stepx.replace('.', 'p')
+        str_stepy = str(round(step_y, 2))
+        str_stepy = str_stepy.replace('.', 'p')
+        canvas.SaveAs("control_points_{0}_{1}_pvalueScan.root".format(str_stepx, str_stepy))
+        canvas.SaveAs("control_points_{0}_{1}_pvalueScan.pdf".format(str_stepx, str_stepy))
 
 # draw ellipses
 #def ellipse(points,w,rho):

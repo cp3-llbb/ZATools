@@ -685,12 +685,12 @@ class BasePlotter:
 
 
             self.aFewVar_plot.extend([
-                {
-                        'name': 'Mjj_vs_Mlljj_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.jj_str + '.M() ::: '+self.baseObject + '.p4.M()',
-                        'plot_cut': self.totalCut,
-                        'binning': '(150, 0, 1500, 150, 0, 1500)'
-                },
+                #{
+                #        'name': 'Mjj_vs_Mlljj_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.jj_str + '.M() ::: '+self.baseObject + '.p4.M()',
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(150, 0, 1500, 150, 0, 1500)'
+                #},
                 {
                         'name': 'lljj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
                         'variable': self.baseObject+".p4.M()",
@@ -709,18 +709,18 @@ class BasePlotter:
                 #        'plot_cut': self.totalCut,
                 #        'binning': '(50, 0, 6)'
                 #},
-                {
-                        'name': 'll_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.ll_str+".Pt()",
-                        'plot_cut': self.totalCut,
-                        'binning': '(50, 0, 450)'
-                },
-                {
-                        'name': 'jj_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.jj_str+".Pt()",
-                        'plot_cut': self.totalCut,
-                        'binning': '(50, 0, 450)'
-                },
+                #{
+                #        'name': 'll_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.ll_str+".Pt()",
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(50, 0, 450)'
+                #},
+                #{
+                #        'name': 'jj_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.jj_str+".Pt()",
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(50, 0, 450)'
+                #},
                 #{
                 #        'name': 'll_DPhi_l_l_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
                 #        'variable': "abs("+self.baseObject+".DPhi_l_l)",
@@ -931,10 +931,10 @@ class BasePlotter:
             #if self.btag:
             #PLOTS IN ELLIPSE
             if cat=='MuEl':  #Load the ElEl file for the MuEl category
-                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_ElEl_part21.json') as f:
+                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_ElEl_part42.json') as f:
                     parameters = json.load(f)
             else:
-                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_{0}_part21.json'.format(cat)) as f:
+                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_{0}_part42.json'.format(cat)) as f:
                     parameters = json.load(f)
             for j, line in enumerate(parameters, 0): 
                 if cat=='MuEl':
