@@ -2,6 +2,14 @@ import json
 import ROOT
 from math import sqrt
 
+
+####IMPORTANT#####
+#This script defines the functions to compute rho.
+#This works, but it is obsolete. The much faster version can be found here:
+# ../../common/src/massWindow.cc (in C++)
+# and the extraction of the matrix parameters is instead here:
+# ../../factories_ZA/basePlotter.py 
+
 class massWindow:
   """A class to construct and apply elliptic mass cuts 
      where the orientation and axes are function of the mass"""

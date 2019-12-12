@@ -11,7 +11,7 @@ def get_scram_tool_info(tool, tag):
 
 def default_code_before_loop():
     return r"""
-    std::ifstream ifile_mumu("/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_MuMu_part42.json");
+    std::ifstream ifile_mumu("/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/fullEllipseParamWindowFit_MuMu_part0.json");
     Json::Reader reader_mumu;
     Json::Value text_mumu;
     std::vector<massWindow> windows_MuMu;
@@ -29,7 +29,7 @@ def default_code_before_loop():
         }   
     }
     
-    std::ifstream ifile_elel("/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_ElEl_part42.json");
+    std::ifstream ifile_elel("/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/fullEllipseParamWindowFit_ElEl_part0.json");
     Json::Reader reader_elel;
     Json::Value text_elel;
     std::vector<massWindow> windows_ElEl;
@@ -905,10 +905,10 @@ class BasePlotter:
 
             #PLOTS IN ELLIPSE
             if cat=='MuEl':  #Load the ElEl file for the MuEl category
-                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_ElEl_part42.json') as f:
+                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/fullEllipseParamWindowFit_MuMu_part0.json') as f:
                     parameters = json.load(f)
             elif cat=='MuMu' or cat=='ElEl':
-                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_{0}_part42.json'.format(cat)) as f:
+                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/fullEllipseParamWindowFit_{0}_part0.json'.format(cat)) as f:
                     parameters = json.load(f)
             else:
                 continue
