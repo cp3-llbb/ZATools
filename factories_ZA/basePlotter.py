@@ -11,8 +11,42 @@ def get_scram_tool_info(tool, tag):
 
 def default_code_before_loop():
     return r"""
-    massWindow window_MuMu("/home/ucl/cp3/fbury/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/fullEllipseParamWindowFit_MuMu.json");
-    massWindow window_ElEl("/home/ucl/cp3/fbury/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/fullEllipseParamWindowFit_ElEl.json");
+    std::ifstream ifile_mumu("/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_MuMu_part42.json");
+    Json::Reader reader_mumu;
+    Json::Value text_mumu;
+    std::vector<massWindow> windows_MuMu;
+    if (!ifile_mumu) std::cout << "ERROR OPENING FILE" << std::endl;
+    if (ifile_mumu && reader_mumu.parse(ifile_mumu, text_mumu)) {
+        for (int i=0; i<text_mumu.size(); i++) {
+            const double a = text_mumu[i][2].asDouble();
+            const double b = text_mumu[i][3].asDouble();
+            const double theta = text_mumu[i][4].asDouble();
+            double M11 = cos(theta)/sqrt(a);
+            double M12 = sin(theta)/sqrt(a);
+            double M21 = -sin(theta)/sqrt(b);
+            double M22 = cos(theta)/sqrt(b);
+            windows_MuMu.push_back(massWindow(text_mumu[i][0].asDouble(), text_mumu[i][1].asDouble(), M11, M12, M21, M22)); 
+        }   
+    }
+    
+    std::ifstream ifile_elel("/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_ElEl_part42.json");
+    Json::Reader reader_elel;
+    Json::Value text_elel;
+    std::vector<massWindow> windows_ElEl;
+    if (!ifile_elel) std::cout << "ERROR OPENING FILE" << std::endl;
+    if (ifile_elel && reader_elel.parse(ifile_elel, text_elel)) {
+        for (int i=0; i<text_elel.size(); i++) {
+            const double a = text_elel[i][2].asDouble();
+            const double b = text_elel[i][3].asDouble();
+            const double theta = text_elel[i][4].asDouble();
+            double M11 = cos(theta)/sqrt(a);
+            double M12 = sin(theta)/sqrt(a);
+            double M21 = -sin(theta)/sqrt(b);
+            double M22 = cos(theta)/sqrt(b);
+            windows_ElEl.push_back(massWindow(text_elel[i][0].asDouble(), text_elel[i][1].asDouble(), M11, M12, M21, M22)); 
+        
+        }
+    }
     """
 
 def default_code_in_loop():
@@ -669,12 +703,12 @@ class BasePlotter:
                         'plot_cut': self.totalCut,
                         'binning': '(40, 10, 1000)'
                 },
-                {
-                        'name': 'jj_DR_j_j_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.baseObject+".DR_j_j",
-                        'plot_cut': self.totalCut,
-                        'binning': '(50, 0, 6)'
-                },
+                #{
+                #        'name': 'jj_DR_j_j_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.baseObject+".DR_j_j",
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(50, 0, 6)'
+                #},
                 {
                         'name': 'll_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
                         'variable': self.ll_str+".Pt()",
@@ -687,12 +721,12 @@ class BasePlotter:
                         'plot_cut': self.totalCut,
                         'binning': '(50, 0, 450)'
                 },
-                {
-                        'name': 'll_DPhi_l_l_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': "abs("+self.baseObject+".DPhi_l_l)",
-                        'plot_cut': self.totalCut,
-                        'binning': '(50, 0, 3.1416)'
-                },
+                #{
+                #        'name': 'll_DPhi_l_l_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': "abs("+self.baseObject+".DPhi_l_l)",
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(50, 0, 3.1416)'
+                #},
                 
             ])
 
@@ -895,12 +929,12 @@ class BasePlotter:
             #if self.btag:
             #PLOTS IN ELLIPSE
             if cat=='MuEl':  #Load the ElEl file for the MuEl category
-                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_ElEl.json') as f:
+                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_ElEl_part10.json') as f:
                     parameters = json.load(f)
             else:
-                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_{0}.json'.format(cat)) as f:
+                with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_{0}_part10.json'.format(cat)) as f:
                     parameters = json.load(f)
-            for j, line in enumerate(parameters):
+            for j, line in enumerate(parameters, 0): 
                 if cat=='MuEl':
                     inWindowCut = "window_ElEl.isInEllipse({0}, {1}, {2}, {3}, {4})".format(float(line[0]), float(line[1]), self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
                     
@@ -1004,7 +1038,7 @@ class BasePlotter:
                         'name': 'rho_steps_histo_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraStringForInOut, self.systematicString),
                         'variable': "window_{0}.isInEllipse_noSize({1}, {2}, {3}, {4})".format((cat if cat!='MuEl' else 'ElEl'), line[0], line[1], self.jj_str + ".M()", self.baseObject + ".p4.M()"),
                         'plot_cut': self.totalCut,
-                        'binning': '(4, 0, 2)'
+                        'binning': '(6, 0, 3)'
                     }
             ])
 

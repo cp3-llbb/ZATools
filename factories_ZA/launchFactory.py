@@ -55,14 +55,15 @@ def get_sample(iSample):
 # Configure number of files processed by each slurm job -- NOT used
 # Factor is passed as argument to script
 # `sample` is DB name
-def get_sample_splitting(sample, factor=2):
+def get_sample_splitting(sample, factor=1):
     nfiles = 10
     if "TTTo2L2Nu" in sample:
         nfiles = 2
-    if "DYToLL_2J" in sample:
-        nfiles = 4
-    if "WZ" in sample or "ZZ" in sample:
+    #if "DYToLL_2J" in sample:
+    if "DYToLL_1J" in sample or "DYToLL_2J" in sample:
         nfiles = 3
+    if "WZ" in sample or "ZZ" in sample:
+        nfiles = 2
     if "DoubleMu" in sample or "DoubleEG" in sample or "MuonEG" in sample:
         nfiles = 20
     return nfiles * factor
@@ -71,7 +72,7 @@ def get_sample_splitting(sample, factor=2):
 # Factor is passed as argument to script
 # `sample` is DB name
 def get_sample_events_per_job(sample, factor=1):
-    nevents = 50000
+    nevents = 100000
     return nevents * factor
 
 #workflows = {}
@@ -116,7 +117,10 @@ class Configuration:
             for sample in samples_dict[sample_class]:
                 found = False
                 for tag in analysis_tags:
-                    ids_ = get_sample_ids_from_name(build_sample_name(sample, tag))
+                    if "Signal" in sample_class:
+                        ids_ = get_sample_ids_from_name(sample)
+                    else:
+                        ids_ = get_sample_ids_from_name(build_sample_name(sample, tag))
                     if ids_:
                         found = True
                         self.sample_ids.extend(ids_)
@@ -135,9 +139,10 @@ MainPlots_ForDY = Configuration('generatePlots.py', suffix='_for_DY', mode='plot
             #'lljj_plots': ['inOut'],
             'llbb_plots': ['inOut'],
             'syst': True,
-            'syst_split_jec': False,
+            'syst_split_jec': True,
+            'syst_split_pdf': False,
             'reweight_DY': True,
-            'lljj_stages': ['mll_and_met_cut'],
+            #'lljj_stages': ['mll_and_met_cut'],
             'llbb_stages': ['mll_and_met_cut'],
         })
 MainPlots_ForMCminusDY = Configuration('generatePlots.py', suffix='_for_MCbkgminusDY', mode='plots', samples=[
@@ -156,9 +161,10 @@ MainPlots_ForMCminusDY = Configuration('generatePlots.py', suffix='_for_MCbkgmin
             #'lljj_plots': ['inOut'],
             'llbb_plots': ['inOut'],
             'syst': True,
-            'syst_split_jec': False,
+            'syst_split_jec': True,
+            'syst_split_pdf': False,
             'reweight_DY': False,
-            'lljj_stages': ['mll_and_met_cut'],
+            #'lljj_stages': ['mll_and_met_cut'],
             'llbb_stages': ['mll_and_met_cut'],
         })
 MainPlots_ForData = Configuration('generatePlots.py', suffix='_for_data', mode='plots', samples=['Data'], generation_args={
@@ -166,16 +172,18 @@ MainPlots_ForData = Configuration('generatePlots.py', suffix='_for_data', mode='
             #'lljj_plots': ['inOut'],
             'llbb_plots': ['inOut'],
             'syst': True,
-            'syst_split_jec': False,
+            'syst_split_jec': True,
+            'syst_split_pdf': False,
             'reweight_DY': False,
-            'lljj_stages': ['mll_and_met_cut'],
+            #'lljj_stages': ['mll_and_met_cut'],
             'llbb_stages': ['mll_and_met_cut'],
         })
-MainPlots_ForSignal = Configuration('generatePlots.py', suffix='_for_signal', mode='plots', samples=['Signal'], generation_args={
+MainPlots_ForSignal = Configuration('generatePlots.py', suffix='_for_signal', mode='plots', samples=['Signal_part8'], generation_args={
             'sample_type': 'Signal',
             'llbb_plots': ['inOut'],
             'syst': True,
-            'syst_split_jec': False,
+            'syst_split_jec': True,
+            'syst_split_pdf': False,
             'reweight_DY': False,
             'llbb_stages': ['mll_and_met_cut'],
         })
@@ -224,7 +232,7 @@ args = parser.parse_args()
 configurations.append(MainPlots_ForDY)
 configurations.append(MainPlots_ForMCminusDY)
 configurations.append(MainPlots_ForData)
-configurations.append(MainPlots_ForSignal)
+#configurations.append(MainPlots_ForSignal)
 
 for c in configurations:
     c.get_sample_ids()
@@ -446,6 +454,7 @@ for c in configurations:
 
     slurm_samples = []
     for id in c.sample_ids:
-        slurm_samples.append({'ID': id, 'events_per_job': get_sample_events_per_job(get_sample(id).name, args.factor)})
+        #slurm_samples.append({'ID': id, 'events_per_job': get_sample_events_per_job(get_sample(id).name, args.factor)})
+        slurm_samples.append({'ID': id, 'events_per_job': get_sample_events_per_job(get_sample(id).name, get_sample_splitting(get_sample(id).name, factor=1))})
 
     create_slurm(slurm_samples, args.output + c.suffix, c.executable)
