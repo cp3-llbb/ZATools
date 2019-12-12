@@ -11,8 +11,8 @@ def get_scram_tool_info(tool, tag):
 
 def default_code_before_loop():
     return r"""
-    massWindow window_MuMu("/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_MuMu.json");
-    massWindow window_ElEl("/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/ellipseParam_ElEl.json");
+    massWindow window_MuMu("/home/ucl/cp3/fbury/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/fullEllipseParamWindowFit_MuMu.json");
+    massWindow window_ElEl("/home/ucl/cp3/fbury/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/fullEllipseParamWindowFit_ElEl.json");
     """
 
 def default_code_in_loop():
@@ -130,7 +130,7 @@ class BasePlotter:
         inverted_mll_and_met_cut = "({0} && {1})".format(inverted_mll_cut, inverted_met_cut)
         met_cut_and_inverted_mll_cut = "({0} && {1})".format(inverted_mll_cut, met_cut)
         mll_cut_and_inverted_met_cut = "({0} && {1})".format(mll_cut, inverted_met_cut)
-        
+
         self.dict_stage_cut = {
             "no_cut": "", 
             "mll_cut": mll_cut,
@@ -762,7 +762,6 @@ class BasePlotter:
                         'plot_cut': self.ellCut3p0,
                         'binning': '(100, 0.5, 1.5)'
                     },
-
                 ])
 
                 self.tempExtraStringForInOut =  "_{0}".format(j)
