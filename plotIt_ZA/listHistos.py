@@ -24,7 +24,8 @@ if not os.path.exists(args.directory):
     parser.error("%r does not exists" % args.directory)
 
 rootDir = args.directory
-slurmDir = os.path.join(rootDir, "slurm/output")
+#slurmDir = os.path.join(rootDir, "slurm/output")
+slurmDir = os.path.join(rootDir, ".")
 
 # Find a ROOT file in slurm output directory
 root_files = glob.glob(os.path.join(slurmDir, "*.root"))
@@ -54,12 +55,12 @@ alreadyIn = []
 with open('ZA_plotter_all.yml.tpl') as tpl_handle:
     tpl = tpl_handle.read()
     if args.lljj:
-        tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml']", legend="position: [0.61, 0.61, 0.94, 0.89]")
+        tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml']", legend="include: ['legendPosition.yml']")
     if args.llbb:
         if args.ell_index is None:
             tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml', 'SignalFiles.yml']", legend="include: ['legendPosition.yml']")
         else:
-            signal = 'singleSignals/SignalFiles_{0}.yml'.format(args.ell_index)
+            signal = 'singleSignals_FORTHESIS/SignalFiles_{0}.yml'.format(args.ell_index)
             tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml', "+'"'+signal+'"'+"]", legend="include: ['legendPosition.yml']")
     with open('ZA_plotter_all.yml', 'w') as f:
         f.write(tpl)
@@ -93,7 +94,7 @@ defaultStyle = {
 defaultStyle_events_per_gev = defaultStyle.copy()
 defaultStyle_events_per_gev.update({
         'y-axis': 'Events',
-        'y-axis-format': '%1% / %2$.2f GeV',
+        'y-axis-format': '%1% / %2% GeV',
         })
 
 defaultStyle_events = defaultStyle.copy()
@@ -158,8 +159,6 @@ for key in keys:
         # if llbb (for background and signal), plot only the btagged plots
         if args.llbb and 'nobtag' in key_name: continue
 
-        #if not "no_cut" in key_name:
-        #    continue
 
         ## Update all the plots with title, ...
 
@@ -169,27 +168,27 @@ for key in keys:
                 }
         plot['labels'] = []
 
-        #if not args.ell_index is None:
-            #if "rho_steps" not in key_name:
-            #    continue
+        if not args.ell_index is None:
+            if "rho_steps" not in key_name:
+                continue
 
         if "lep1_pt" in key_name:
-            plot['x-axis'] = "Leading lepton p_{T} (GeV)"
+            plot['x-axis'] = "Leading lepton p_{T} [GeV]"
             plot.update(defaultStyle_events_per_gev)
         elif "lep2_pt" in key_name:
-            plot['x-axis'] = "Sub-leading lepton p_{T} (GeV)"
+            plot['x-axis'] = "Sub-leading lepton p_{T} [GeV]"
             plot.update(defaultStyle_events_per_gev)
         elif "jet1_pt" in key_name:
-            plot['x-axis'] = "Leading jet p_{T} (GeV)"
+            plot['x-axis'] = "Leading jet p_{T} [GeV]"
             plot.update(defaultStyle_events_per_gev)
         elif "jet2_pt" in key_name:
-            plot['x-axis'] = "Sub-leading jet p_{T} (GeV)"
+            plot['x-axis'] = "Sub-leading jet p_{T} [GeV]"
             plot.update(defaultStyle_events_per_gev)
         elif "lep1_eta" in key_name:
-            plot['x-axis'] = "Leading jet #eta"
+            plot['x-axis'] = "Leading lepton #eta"
             plot.update(defaultStyle_events)
         elif "lep2_eta" in key_name:
-            plot['x-axis'] = "Sub-leading jet #eta"
+            plot['x-axis'] = "Sub-leading lepton #eta"
             plot.update(defaultStyle_events)
         elif "jet1_eta" in key_name:
             plot['x-axis'] = "Leading jet #eta"
@@ -234,14 +233,14 @@ for key in keys:
             plot['x-axis'] = "Sub-leading jet JP discriminant"
             plot.update(defaultStyle_events)
         elif "ll_pt_" in key_name:
-            plot['x-axis'] = "Dilepton system p_{T} (GeV)"
+            plot['x-axis'] = "Dilepton system p_{T} [GeV]"
             plot.update(defaultStyle_events_per_gev)
         elif "jj_pt_" in key_name:
-            plot['x-axis'] = "Dijet system p_{T} (GeV)"
+            plot['x-axis'] = "Dijet system p_{T} [GeV]"
             plot.update(defaultStyle_events_per_gev)
         #elif "met_pt" in key_name:
         elif "met_pt" in key_name and "inverted_met_cut" not in key_name:
-            plot['x-axis'] = "#slash{E}_{T} (GeV)"
+            plot['x-axis'] = "#slash{E}_{T} [GeV]"
             plot.update(defaultStyle_events_per_gev)
         elif "met_phi" in key_name:
             plot['x-axis'] = "#phi_{#slash{E}_{T}}"
@@ -346,16 +345,18 @@ for key in keys:
             plot['x-axis'] = "#rho"
             plot.update(defaultStyle_noOverflow)
             if should_be_blind(key_name):
-                plot['blinded-range'] = [0, 2.99]
+                plot['blinded-range'] = [0.0001, 2.99]
 
         elif "lljj_M_" in key_name:
-            plot['x-axis'] = "m_{lljj} (GeV)"
+            plot['x-axis'] = "m_{lljj} [GeV]"
             plot.update(defaultStyle_events_per_gev)
+            #plot['x-axis-range'] = [0, 1000]
+            #plot['x-axis-range'] = [0, 800]
             if should_be_blind(key_name):
                 plot['blinded-range'] = [0, 1500]
 
         elif "ll_M_" in key_name:
-            plot['x-axis'] = "m_{ll} (GeV)"
+            plot['x-axis'] = "m_{ll} [GeV]"
             plot.update(defaultStyle_events_per_gev)
  
             #### Do the yields here
@@ -372,7 +373,7 @@ for key in keys:
 
         ### YIELDS FOR ttbar NORMALIZATION
         elif "met_pt_" in key_name and "inverted_met_cut" in key_name:
-            plot['x-axis'] = "MET (GeV)"
+            plot['x-axis'] = "MET [GeV]"
             plot.update(defaultStyle_events_per_gev)
             btag_stage = ""
             if "btagM" in key_name:
@@ -387,8 +388,10 @@ for key in keys:
 
 
         elif "jj_M_" in key_name and "_vs_" not in key_name and ("jj_deepCSV" not in key_name or "jj_cmva" not in key_name):
-            plot['x-axis'] = "m_{jj} (GeV)"
+            plot['x-axis'] = "m_{jj} [GeV]"
             plot.update(defaultStyle_events_per_gev)
+            #plot['x-axis-range'] = [0, 800]
+            #plot['x-axis-range'] = [0, 600]
             if should_be_blind(key_name):
                 plot['blinded-range'] = [0, 1000]
 
@@ -413,33 +416,35 @@ for key in keys:
         label_y = 0.895
         if get_flavour(key_name) == "MuMu":
             plot['labels'] += [{
-                'text': '#mu#mu channel',
+                #'text': '#mu#mu channel',
+                'text': '#mu#mu',
                 'position': [label_x, label_y],
-                'size': 24
+                'size': 35
                 }]
         elif get_flavour(key_name) == "MuEl":
             plot['labels'] += [{
-                'text': '#mue + e#mu channels',
+                'text': '#mue + e#mu',
                 'position': [label_x, label_y],
-                'size': 24
+                'size': 35
                 }]
         elif get_flavour(key_name) == "ElEl":
             plot['labels'] += [{
-                'text': 'ee channel',
+                #'text': 'ee channel',
+                'text': 'ee',
                 'position': [label_x, label_y],
-                'size': 24
+                'size': 35
                 }]
         elif get_flavour(key_name) == "SF":
             plot['labels'] += [{
-                'text': '#mu#mu + ee channels',
+                'text': '#mu#mu + ee',
                 'position': [label_x, label_y],
-                'size': 24
+                'size': 35 
                 }]
         elif get_flavour(key_name) == "All":
             plot['labels'] += [{
                 'text': '#mu#mu + ee + #mue + e#mu channels',
                 'position': [label_x, label_y],
-                'size': 24
+                'size': 35
                 }]
 
         for rhobin in rhobins:

@@ -2,54 +2,54 @@
 'ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1   #if unblinding with 1/10 of data
-  group: ZZ
+  group: VV(V) #ZZ
 
 'ZZTo2L2Nu_13TeV_powheg_pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: ZZ
+  group: VV(V) #ZZ
 
 'ZZTo4L_13TeV_powheg_pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: ZZ
+  group: VV(V) #ZZ
 
 
 # Higgs
 'ggZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Higgs 
+  group: Other #Higgs 
 
 'ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Higgs 
+  group: Other #Higgs 
 
 'GluGluZH_HToWWTo2L2Nu_ZTo2L_M125_13TeV_powheg_pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Higgs 
+  group: Other #Higgs 
 
 'HZJ_HToWW_M125_13TeV_powheg_pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Higgs 
+  group: Other #Higgs 
 
 'ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Higgs 
+  group: Other #Higgs 
 
 'ttHToNonbb_M125_TuneCUETP8M2_13TeV_powheg_pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Higgs 
+  group: Other #Higgs 
 
 'ttHTobb_M125_TuneCUETP8M2_13TeV_powheg_pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Higgs 
+  group: Other #Higgs 
 
 
 # SingleTop
@@ -109,87 +109,87 @@
 #  group: QCD
 
 
-# Others
+# Other
 'WWToLNuQQ_13TeV-powheg_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Others
+  group: VV(V) #Other
 
 'WWTo2L2Nu_13TeV-powheg_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Others
+  group: VV(V) #Other
 
-'WZTo3LNu_TuneCUETP8M1_13TeV-powheg-pythia8_Summer16MiniAODv2_*_histos.root':
-  type: mc
-  #scale: 0.1
-  group: Others
+#'WZTo3LNu_TuneCUETP8M1_13TeV-powheg-pythia8_Summer16MiniAODv2_*_histos.root': INCLUDE IT AGAIN!
+#  type: mc
+#  #scale: 0.1
+#  group: Other
 
 'WZTo1L3Nu_13TeV_amcatnloFXFX_madspin_pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Others
+  group: VV(V) #Other
 
 'WZTo1L1Nu2Q_13TeV_amcatnloFXFX_madspin_pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Others
+  group: VV(V) #Other
 
 'WWTo4Q_13TeV-powheg_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Others
+  group: VV(V) #Other
 
 #'WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8_Summer16MiniAODv2_*_histos.root':
 #  type: mc
-#  group: Others
+#  group: Other
 
 'WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Others
+  group: VV(V) #Other
 
 'WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Others
+  group: VV(V) #Other
 
 'WWW_TuneCUETP8M1_13TeV-amcatnlo-pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Others
+  group: VV(V) #Other
 
 'ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Others
+  group: VV(V) #Other
 
 'WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Others
+  group: Other
 
 'TTZToQQ_TuneCUETP8M1_13TeV-amcatnlo-pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Others
+  group: Other
 
 'TTWJetsToQQ_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Others
+  group: Other
 
 'TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Others
+  group: Other
 
 'TTZToLLNuNu_M-10_TuneCUETP8M1_13TeV-amcatnlo-pythia8_Summer16MiniAODv2_*_histos.root':
   type: mc
   #scale: 0.1
-  group: Others
+  group: Other
 
 'WGToLNuG_TuneCUETP8M1_13TeV*_histos.root':
   type: mc
   #scale: 0.1
-  group: Others
+  group: Other

@@ -9,7 +9,7 @@ if [[ "$1" == "-h" || -z "$1" ]]; then
     exit 0
 fi
 
-directories=(`ls . | grep $1`)
+directories=(`ls . | grep $1"_"`)
 
 echo "Found directories: ${directories[*]}"
 
@@ -78,7 +78,7 @@ if [[ ${directories[*]} =~ $1_for_data ]]; then echo "Moving data files to main 
 if [[ ${directories[*]} =~ $1_for_MCbkgminusDY ]]; then echo "Moving MC bkg files to main folder..."; mv $1_for_MCbkgminusDY/slurm/output/*.root $1/slurm/output ; fi
 if [[ ${directories[*]} =~ $1_for_DY ]]; then echo "Moving MC DY files to main folder..."; mv $1_for_DY/slurm/output/*.root $1/slurm/output ; fi
 
-if [[ ${directories[*]} =~ $1_for_signal ]]; echo "Removing empty signal folders..."; then rm -r $1_for_signal/ ; fi
-if [[ ${directories[*]} =~ $1_for_data ]]; echo "Removing empty data folders..."; then rm -r $1_for_data/ ; fi
-if [[ ${directories[*]} =~ $1_for_MCbkgminusDY ]]; echo "Removing empty MCbkgminusDY folders..."; then rm -r $1_for_MCbkgminusDY/ ; fi
-if [[ ${directories[*]} =~ $1_for_DY ]]; echo "Removing empty DY folders..."; then rm -r $1_for_DY/ ; fi
+#if [[ ${directories[*]} =~ $1_for_signal ]]; echo "Removing empty signal folders..."; then rm -r $1_for_signal/ ; fi
+#if [[ ${directories[*]} =~ $1_for_data ]]; echo "Removing empty data folders..."; then rm -r $1_for_data/ ; fi
+#if [[ ${directories[*]} =~ $1_for_MCbkgminusDY ]]; echo "Removing empty MCbkgminusDY folders..."; then rm -r $1_for_MCbkgminusDY/ ; fi
+#if [[ ${directories[*]} =~ $1_for_DY ]]; echo "Removing empty DY folders..."; then rm -r $1_for_DY/ ; fi

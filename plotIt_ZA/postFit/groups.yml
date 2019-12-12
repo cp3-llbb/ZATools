@@ -1,29 +1,27 @@
-#FIXME: Add other minor backgrounds one run in Combine
-
-'tt':
-  legend: ' t#bar{t}'
-  legend-order: 6
-  fill-color: '#EB6841'
-'t':
-  legend: 'Single top'
-  legend-order: 4
-  fill-color: '#C02942'
 'DY':
   legend: 'Drell-Yan'
-  legend-order: 5
+  legend-order: 4
   fill-color: '#00A0B0'
+'tt':
+  legend: ' t#bar{t}'
+  legend-order: 3
+  fill-color: '#EB6841'
+'t':
+  legend: 'Single t'
+  legend-order: 2
+  fill-color: '#C02942'
+'VV(V)':
+  fill-color: '#ECD078'
+  legend: 'VV(V)'
+  legend-order: 1
 'Data':
   legend: 'Data'
-'Higgs':
-  legend: 'SM Higgs'
-  legend-order: 1
-  fill-color: '#A8DBA8'
-#'Other':
-#  legend: 'Other'
-#  legend-order: 0 
-#  fill-color: '#774F38' #'#6A4A3C'
-'VV':
-  fill-color: '#ECD078'
-  legend: 'VV'
-  legend-order: 3
+#'Higgs':
+#  legend: 'SM Higgs'
+#  legend-order: 1
+#  fill-color: '#A8DBA8'
+'Other':
+  legend: 'Other'
+  legend-order: 0 
+  fill-color: '#A8DBA8' #'#6A4A3C'
     

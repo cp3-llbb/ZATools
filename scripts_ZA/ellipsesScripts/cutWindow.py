@@ -2,19 +2,35 @@ import json
 import ROOT
 from math import sqrt
 
+
+####IMPORTANT#####
+#This script defines the functions to compute rho.
+#This works, but it is obsolete. The much faster version can be found here:
+# ../../common/src/massWindow.cc (in C++)
+# and the extraction of the matrix parameters is instead here:
+# ../../factories_ZA/basePlotter.py 
+
 class massWindow:
   """A class to construct and apply elliptic mass cuts 
      where the orientation and axes are function of the mass"""
+  #def __init__(self,xc,yc,M11,M12,M21,M22):
+  #  self.m_xc = xc
+  #  self.m_yc = yc
+  #  self.m_p00 = M11
+  #  self.m_p01 = M12
+  #  self.m_p10 = M21
+  #  self.m_p11 = M22
+  #  self.instance = ROOT.gRandom.Rndm()
+
   def __init__(self,filename):
     self.filename = filename
     self.instance = ROOT.gRandom.Rndm()
-
     # read data
     with open(self.filename) as data_file:    
       self.data = json.load(data_file)
-
+  
     # store the gauge in four TGraph2D used for interpolation
-
+  
     # Go from ellipses to circles via the rotation matrix |M11, M12| to favour the couting of the points inside the ellipse
     #                                                     |M21, M22|
     self.M11g = ROOT.TGraph2D(len(self.data))
@@ -37,7 +53,7 @@ class massWindow:
         self.M12g.SetPoint(i, mbb, mllbb, M12)
         self.M21g.SetPoint(i, mbb, mllbb, M21)
         self.M22g.SetPoint(i, mbb, mllbb, M22)
-
+  
     self.matrix = [ [self.M11g, self.M12g] , [self.M21g, self.M22g] ] 
 
   def showBareMaps(self):
@@ -93,7 +109,9 @@ class massWindow:
 
   def getValue(self,n,m,massPoint):
     """Returns the [n,m] component of the gauge matrix at point (mA,mH)."""
+    print "Computing interpolation..."
     interpolation = self.matrix[n][m].Interpolate(massPoint[0],massPoint[1])
+    print "interpolation: ", interpolation
     if interpolation==0:
        # handle cases that we cannot interpolate (close to the edges)
        # use the value from the closest point
@@ -123,6 +141,13 @@ class massWindow:
   def applyGlobalTransformation(self,referencePoint,massPoint):
     """Returns the result of the a global transformation applied to a (mA,mH) mass point.
        The transformation matrix is computed at a reference point."""
+    print "In applyGlobalTransformation"
+    #print "getValue(0,1,referencePoint): ", self.getValue(0,1,referencePoint)
+    #print "getValue(0,0,referencePoint): ", self.getValue(0,0,referencePoint)
+    #print "getValue(1,0,referencePoint): ", self.getValue(1,0,referencePoint)
+    #print "getValue(1,1,referencePoint): ", self.getValue(1,1,referencePoint)
+    print "massPoint[0]: ", massPoint[0]
+    print "massPoint[1]: ", massPoint[1]
     m1 = self.getValue(0,0,referencePoint)*massPoint[0] + self.getValue(0,1,referencePoint)*massPoint[1]
     m2 = self.getValue(1,0,referencePoint)*massPoint[0] + self.getValue(1,1,referencePoint)*massPoint[1]
     return (m1,m2)
@@ -142,5 +167,13 @@ class massWindow:
     (u,v)  = self.applyGlobalTransformation(center,(m1diff,m2diff))
     isN = sqrt(u**2+v**2)>size and sqrt(u**2+v**2)<size*2**0.5
     return isN
+
+  ##def radius(self, px, py):
+  ##    dx = px - self.m_xc
+  ##    dy = py - self.m_yc
+  ##    p1 = self.m_p00*dx + self.m_p01*dy
+  ##    p2 = self.m_p10*dx + self.m_p11*dy
+  ##    dist = sqrt(p1*p1 + p2*p2)
+  ##    return (3.2 if dist > 3 else dist)  #This is for the overflow bin. Set a value that falls into the last bin (betwen 3 and 3.5)
 
 

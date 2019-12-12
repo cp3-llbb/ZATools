@@ -1,6 +1,12 @@
-position: [0.61, 0.61, 0.94, 0.89]
-entries:
-  -
-    label: 'Signal (1 pb)'
-    type: signal
-    order: 1000  # Always on top
+position: [0.42, 0.52, 0.93, 0.89]
+#position: [0.53, 0.81, 0.97, 0.95]
+#position: [0.46, 0.53, 0.93, 0.89] #used for all Control plots in the thesis
+#position: [0.36, 0.6, 0.85, 0.89]
+#position: [0.36, 0.64, 0.83, 0.89]  #for rho plots mumu and elel separately
+#position: [0.42, 0.64, 0.83, 0.89]  #for rho plots muel
+size: 100
+#entries:
+  #-
+    #label: 'Signal (1 pb)'
+    #type: signal
+    #order: 1000  # Always on top
