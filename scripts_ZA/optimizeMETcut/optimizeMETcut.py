@@ -62,7 +62,8 @@ def main():
 
     global lumi
     lumi = 35922. 
-    path = '/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/factories_ZA/backToCutBased_ellipses_NoSystematics_someMinorBkgsStillMissing/slurm/output'
+    #path = '/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/factories_ZA/backToCutBased_ellipses_NoSystematics_someMinorBkgsStillMissing/slurm/output'
+    path = '/nfs/user/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/factories_ZA/backToCutBased_ellipses_NoSystematics_someMinorBkgsStillMissing/slurm/output'
 
     category = ["MuMu", "ElEl"]
     prefix = []
@@ -96,7 +97,6 @@ def main():
                 histo_met_sig.GetXaxis().SetRangeUser(11, i)
                 histo_met_sig.SetDirectory(0)
                 #significance = 2*(SQRT(S+B)-SQRT(B))
-                #signif = 2*(math.sqrt(histo_met_sig.Integral() + histo_met_bkg.Integral()) - math.sqrt(histo_met_bkg.Integral()))
                 S = histo_met_sig.Integral()
                 B = histo_met_bkg.Integral()
                 signif = math.sqrt(2*( (S+B)*math.log(1+S/B) -S ))
@@ -168,7 +168,7 @@ def main():
         legend[k].Draw()
         c[k].cd() 
 
-        c[k].SaveAs("optimizeMETcut_{0}.root".format(cat))
+        #c[k].SaveAs("optimizeMETcut_{0}.root".format(cat))
         #del c1
 
 

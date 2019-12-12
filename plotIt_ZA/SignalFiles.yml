@@ -1,5 +1,42 @@
 # Signal
 
+#'HToZATo2L2B_800p00_100p00*histos.root':
+#  type: signal
+#  scale: 1000    #The x-sec in the databse is 1fb for the signal. Here we are scaling it by 1000, bringing it up to 1pb
+#  #scale: 100   #if unblinding with 1/10 of data
+#  line-color: '#d62728' #red
+#  legend: 'M_{H},M_{A} = 800,100 GeV'
+#  legend-order: 49
+#  line-width: 3.2
+#  line-type: 1
+#'HToZATo2L2B_1000p00_500p00*histos.root':
+#  type: signal
+#  scale: 1000    #The x-sec in the databse is 1fb for the signal. Here we are scaling it by 1000, bringing it up to 1pb
+#  #scale: 100   #if unblinding with 1/10 of data
+#  line-color: '#d62728' #red
+#  legend: 'M_{H},M_{A} = 1000,500 GeV'
+#  legend-order: 49
+#  line-width: 3.2
+#  line-type: 1
+#'HToZATo2L2B_200p00_50p00*histos.root':
+#  type: signal
+#  scale: 1000    #The x-sec in the databse is 1fb for the signal. Here we are scaling it by 1000, bringing it up to 1pb
+#  #scale: 100   #if unblinding with 1/10 of data
+#  line-color: '#d62728' #red
+#  legend: 'M_{H},M_{A} = 200,50 GeV'
+#  legend-order: 49
+#  line-width: 3.2
+#  line-type: 1
+#'HToZATo2L2B_500p00_400p00*histos.root':
+#  type: signal
+#  scale: 1000    #The x-sec in the databse is 1fb for the signal. Here we are scaling it by 1000, bringing it up to 1pb
+#  #scale: 100   #if unblinding with 1/10 of data
+#  line-color: '#d62728' #red
+#  legend: 'M_{H},M_{A} = 500,400 GeV'
+#  legend-order: 49
+#  line-width: 3.2
+#  line-type: 1
+
 #'HToZATo2L2B_1000p00_200p00*histos.root':
 #  type: signal
 #  scale: 1000    #The x-sec in the databse is 1fb for the signal. Here we are scaling it by 1000, bringing it up to 1pb
@@ -10,15 +47,15 @@
 #  legend-order: 14
 #  line-width: 2.7
 #  line-type: 1
-'HToZATo2L2B_500p00_300p00*histos.root':
+'HToZATo2L2B_500p00_300p00*histos.root':  # for paper
   type: signal
-  scale: 1000    #The x-sec in the databse is 1fb for the signal. Here we are scaling it by 1000, bringing it up to 1pb
+  scale: 2000    #The x-sec in the databse is 1fb for the signal. Here we are scaling it by 2000, bringing it up to 2pb
   #scale: 100   #if unblinding with 1/10 of data
   line-color: '#bcbd22' #yellow '#2ca02c' #green
   #line-color: '#2ca02c' # from https://github.com/vega/vega/wiki/Scales#scale-range-literals
-  legend: '2HDM (500,300)'
-  legend-order: 14
-  line-width: 2.7
+  legend: 'M_{H},M_{A} = 500,300 GeV'
+  legend-order: 49
+  line-width: 3.2
   line-type: 1
 #'HToZATo2L2B_300p00_100p00*histos.root':
 #  type: signal
@@ -30,23 +67,24 @@
 #  legend-order: 14
 #  line-width: 2.7
 #  line-type: 1
-'HToZATo2L2B_300p00_50p00*histos.root':
+'HToZATo2L2B_300p00_50p00*histos.root':  # for paper
   type: signal
-  scale: 1000    #The x-sec in the databse is 1fb for the signal. Here we are scaling it by 1000, bringing it up to 1pb
+  scale: 2000    #The x-sec in the databse is 1fb for the signal. Here we are scaling it by 2000, bringing it up to 2pb
   #scale: 100   #if unblinding with 1/10 of data
-  line-color: '#9467bd' #purple
-  legend: '2HDM (300,50)'
-  legend-order: 14
-  line-width: 2.7
+  #line-color: '#9467bd' #purple
+  line-color: '#393b79' #dark blue
+  legend: 'M_{H},M_{A} = 300,50 GeV'
+  legend-order: 50
+  line-width: 3.2
   line-type: 1
-'HToZATo2L2B_800p00_700p00*histos.root':
+'HToZATo2L2B_800p00_700p00*histos.root':  # for paper
   type: signal
-  scale: 1000    #The x-sec in the databse is 1fb for the signal. Here we are scaling it by 1000, bringing it up to 1pb
+  scale: 2000    #The x-sec in the databse is 1fb for the signal. Here we are scaling it by 2000, bringing it up to 2pb
   #scale: 100   #if unblinding with 1/10 of data
   line-color: '#d62728' #red,  '#17becf' #azurre
-  legend: '2HDM (800,700)'
-  legend-order: 14
-  line-width: 2.7
+  legend: 'M_{H},M_{A} = 800,700 GeV'
+  legend-order: 48
+  line-width: 3.2
   line-type: 1
 
 #Part 1

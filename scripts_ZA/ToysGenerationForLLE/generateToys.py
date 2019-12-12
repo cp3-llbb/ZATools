@@ -29,64 +29,9 @@ ROOT.gStyle.SetOptStat(0)
 cat = options.category
 baseDir = "/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ToysGenerationForLLE/"
 
-#smoothed_histo_histos_0.root  #DYJetsToLL_M-10to50, sigma = 18610,    SumEvW = 2.11704792387e+12
-#smoothed_histo_histos_1.root  #DYToLL_0J,    sigma = 4620.52,  SumEvW = 5.3846640017e+11
-#smoothed_histo_histos_2.root  #DYToLL_1J,    sigma = 859.589 , SumEvW = 4.07544622836e+11
-#smoothed_histo_histos_3.root  #DYToLL_2J,    sigma = 338.259,  SumEvW = 2.1875875838e+11
-#smoothed_histo_histos_4.root  #TTTo2L2Nu,    sigma = 87.31,    SumEvW = 77215440.0
-#smoothed_histo_histos_5.root  #TT_Other,     sigma = 744.45 (should be the difference:
-#                                                                                     #sigma_incl - sigma_fullylept = 831.76 - 87.31 = 744.45)
-#                                                                                     #SumEvW = 154384189.0 (incl.) - 77215440.0 (fully-lept) = 77168749
-#                                                                                     #(again the difference?)
-#smoothed_histo_histos_6.root  #ZZTo2L2Nu,    sigma = 0.564,    SumEvW = 7867000.0
-#smoothed_histo_histos_7.root  #ZZTo2L2Q,     sigma = 3.22,     SumEvW = 77869959.0547
-#smoothed_histo_histos_8.root  #ZZTo4L,       sigma = 1.212,    SumEvW = 5982472.0
+fin = ROOT.TFile.Open(baseDir+"{0}/output/pointsOfPvalueScan/smoothed_{0}.root".format(options.category), "r")
 
-
-
-#bkg_array = []
-#for i in range(0,9):  #FIXME get back to this
-#    fin = ROOT.TFile.Open(baseDir+"{0}/output/pointsOfPvalueScan/smoothed_histo_histos_{1}.root".format(cat,i), "r")
-#    h2_temp = fin.Get("h2_smoothed")
-#    if i==0:
-#        h2_temp.Scale(18610/2.11704792387e+12)
-#    elif i==1:
-#        h2_temp.Scale(4620.52/5.3846640017e+11)
-#    elif i==2:
-#        h2_temp.Scale(859.589/4.07544622836e+11)
-#    elif i==3:
-#        h2_temp.Scale(338.259/2.1875875838e+11)
-#    elif i==4:
-#        fin_other = ROOT.TFile.Open(baseDir+"{0}/output/pointsOfPvalueScan/smoothed_histo_histos_5.root".format(cat), "r")
-#        h2_other = fin_other.Get("h2_smoothed")
-#        h2_temp.Add(h2_other)
-#        h2_temp.Scale(831.76/(154384189.0+77215440.0+100000000000))
-#    elif i==5:
-#        continue
-#    elif i==6:
-#        h2_temp.Scale(0.564/7867000.0)
-#    elif i==7:
-#        h2_temp.Scale(3.22/77869959.0547)
-#    elif i==8:
-#        h2_temp.Scale(1.212/5982472.0)
-#    bkg_array.append(h2_temp)
-#    del h2_temp
-#
-#h2 = fin.Get("h2_smoothed").Clone()
-#h2.Reset()
-#print "h2 entries after Clone: ", h2.GetEntries()
-#for i,h in enumerate(bkg_array):
-#    h2.Add(h)
-#    print "in loop: h, h2: ", h.GetEntries(), h2.GetEntries()
-#print "h2 entries after Add: ", h2.GetEntries()
-
-#FIXME: before it was done like the following:
-if cat == "MuMu" or cat == "ElEl":
-    fin = ROOT.TFile.Open(baseDir+"{0}/output/pointsOfPvalueScan/smoothed_{0}.root".format(options.category), "r")
-else:  #use non smoothed TTbar for MuEl
-    fin = ROOT.TFile.Open(baseDir+"{0}/output/pointsOfPvalueScan/non_smoothed_TT_{0}.root".format(options.category), "r")
-
-h2 = fin.Get("h2" if cat == "MuEl" else "h2_smoothed")
+h2 = fin.Get("h2_smoothed")
 
 print h2.GetEntries(), h2.Integral()
 neg_counter=0
@@ -125,7 +70,6 @@ for i in range(n_events_forToy):
     randomh2.Fill(x,y)
 
 print "randomh2: ", randomh2.GetEntries(), randomh2.Integral()
-#h2.Scale(n_events_forToy/h2.GetEntries())   #WRONG
 h2.Scale(n_events_forToy/h2.Integral())
 
 outputDir = baseDir+"{0}/toys/pointsOfPvalueScan/".format(options.category)
@@ -134,9 +78,7 @@ if not os.path.exists(outputDir):
 
 #Fill rho histograms
 #for fileIndex in range(0,9): #part0 to part8 of ellipse file
-#for fileIndex in range(0,35): #part0 to part34 of pavement for p-value, excluding region MH>800GeV  #FIXME get back to this!!!!
-for fileIndex in range(22,23): #part0 to part34 of pavement for p-value, excluding region MH>800GeV
-#for fileIndex in range(1,2): 
+for fileIndex in range(0,35): #part0 to part34 of pavement for p-value, excluding region MH>800GeV
     #filename  = "/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/fullEllipseParamWindowFit_{0}_part{1}.json".format(options.category if options.category == "MuMu" else "ElEl", fileIndex) #Use ElEl ellipse file for MuEl category 
     filename  = "/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_{0}_part{1}.json".format(options.category if options.category == "MuMu" else "ElEl", fileIndex) #Use ElEl ellipse file for MuEl category 
 
@@ -156,8 +98,6 @@ for fileIndex in range(22,23): #part0 to part34 of pavement for p-value, excludi
         rho_histo_base = ROOT.TH1F("rho_steps_base", "rho_steps_base", 6, 0, 3)
         if i%3==0:
             print "Filling histo # ", i
-        if i>3:   #FIXME!!
-            break
         for binx in np.arange(1,randomh2.GetNbinsX()+1,1):
             for biny in np.arange(1,randomh2.GetNbinsY()+1,1):
                 x = randomh2.GetXaxis().GetBinCenter(binx)
@@ -165,8 +105,6 @@ for fileIndex in range(22,23): #part0 to part34 of pavement for p-value, excludi
                 bincontent = randomh2.GetBinContent(binx,biny)
                 rho = window.radius(x, y)
                 rho_histo.Fill(rho, bincontent)
-                #if cat == "MuEl":
-                #    rho_histo.Scale(0.9)
                 
                 bincontent_base = h2.GetBinContent(binx,biny)
                 rho_histo_base.Fill(rho, bincontent_base)

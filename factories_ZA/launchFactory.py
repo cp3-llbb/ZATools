@@ -140,13 +140,20 @@ MainPlots_ForDY = Configuration('generatePlots.py', suffix='_for_DY', mode='plot
         ], generation_args={
             'sample_type': 'MC',
             #'lljj_plots': ['inOut'],
+            'lljj_plots': ['aFewVar'],
+            #'lljj_categories': ['SF', 'ElEl', 'MuMu', 'MuEl'],
+            'lljj_categories': ['SF', 'ElEl', 'MuMu'],
             'llbb_plots': ['aFewVar'],
+            #'llbb_categories': ['SF', 'ElEl', 'MuMu', 'MuEl'],
+            'llbb_categories': ['SF', 'ElEl', 'MuMu'],
             'syst': True,
-            'syst_split_jec': True,
+            'syst_split_jec': False, #for plots for thesis, otherwise True
             'syst_split_pdf': False,
             'reweight_DY': True,
-            #'lljj_stages': ['mll_and_met_cut'],
-            'llbb_stages': ['mll_and_met_cut'],
+            'lljj_stages': ['mll_and_met_cut'],
+            'llbb_stages': ['mll_and_met_cut']
+            #'lljj_stages': ['mll_and_met_cut', 'no_cut'],
+            #'llbb_stages': ['mll_and_met_cut', 'no_cut'],
         })
 MainPlots_ForMCminusDY = Configuration('generatePlots.py', suffix='_for_MCbkgminusDY', mode='plots', samples=[
             "TTBar",
@@ -162,34 +169,69 @@ MainPlots_ForMCminusDY = Configuration('generatePlots.py', suffix='_for_MCbkgmin
         ], generation_args={
             'sample_type': 'MC',
             #'lljj_plots': ['inOut'],
+            'lljj_plots': ['aFewVar'],
+            #'lljj_categories': ['SF', 'ElEl', 'MuMu', 'MuEl'],
+            'lljj_categories': ['SF', 'ElEl', 'MuMu'],
             'llbb_plots': ['aFewVar'],
+            #'llbb_categories': ['SF', 'ElEl', 'MuMu', 'MuEl'],
+            'llbb_categories': ['SF', 'ElEl', 'MuMu'],
             'syst': True,
-            'syst_split_jec': True,
+            'syst_split_jec': False,
             'syst_split_pdf': False,
             'reweight_DY': False,
-            #'lljj_stages': ['mll_and_met_cut'],
-            'llbb_stages': ['mll_and_met_cut'],
+            'lljj_stages': ['mll_and_met_cut'],
+            'llbb_stages': ['mll_and_met_cut']
+            #'lljj_stages': ['mll_and_met_cut', 'no_cut'],
+            #'llbb_stages': ['mll_and_met_cut', 'no_cut'],
         })
 MainPlots_ForData = Configuration('generatePlots.py', suffix='_for_data', mode='plots', samples=['Data'], generation_args={
             'sample_type': 'Data',
             #'lljj_plots': ['inOut'],
+            'lljj_plots': ['aFewVar'],
+            'lljj_categories': ['SF', 'ElEl', 'MuMu', 'MuEl'],
             'llbb_plots': ['aFewVar'],
+            'llbb_categories': ['SF', 'ElEl', 'MuMu', 'MuEl'],
             'syst': True,
-            'syst_split_jec': True,
+            'syst_split_jec': False,
             'syst_split_pdf': False,
             'reweight_DY': False,
-            #'lljj_stages': ['mll_and_met_cut'],
-            'llbb_stages': ['mll_and_met_cut'],
+            'lljj_stages': ['mll_and_met_cut'],
+            'llbb_stages': ['mll_and_met_cut']
+            #'lljj_stages': ['mll_and_met_cut', 'no_cut'],
+            #'llbb_stages': ['mll_and_met_cut', 'no_cut'],
         })
 MainPlots_ForSignal = Configuration('generatePlots.py', suffix='_for_signal', mode='plots', samples=['Signal_part0'], generation_args={
             'sample_type': 'Signal',
             'llbb_plots': ['aFewVar'],
+            'llbb_categories': ['SF', 'ElEl', 'MuMu', 'MuEl'],
             'syst': True,
-            'syst_split_jec': True,
+            'syst_split_jec': False,
             'syst_split_pdf': False,
             'reweight_DY': False,
-            'llbb_stages': ['mll_and_met_cut'],
+            'llbb_stages': ['mll_and_met_cut', 'no_cut'],
         })
+
+
+
+#SKIMMED
+SkimmedPlots_ForSignal = Configuration('generateTrees.py', suffix='', mode='skim', samples=['Signals_all_together'],
+generation_args={
+            #'sample_type': 'MC',
+            'flavour': 'SF',
+            'do_llbb': True,
+            'stage': 'no_cut',
+            'branches': ['forSkimmer']
+        })
+
+SkimmedPlots_ForBkg = Configuration('generateTrees.py', suffix='', mode='skim', samples=['DY_NLO', 'TTBar'],
+generation_args={
+            #'sample_type': 'MC',
+            'flavour': 'SF',
+            'do_llbb': True,
+            'stage': 'no_cut',
+            'branches': ['forSkimmer']
+        })
+
 
 """
 # Testing area
@@ -234,10 +276,12 @@ parser.add_argument('--skip', help='Skip the building part.', action="store_true
 
 args = parser.parse_args()
 
-#configurations.append(MainPlots_ForDY)
+configurations.append(MainPlots_ForDY)
 configurations.append(MainPlots_ForMCminusDY)
-#configurations.append(MainPlots_ForData)
+configurations.append(MainPlots_ForData)
 #configurations.append(MainPlots_ForSignal)
+#configurations.append(SkimmedPlots_ForSignal)
+#configurations.append(SkimmedPlots_ForBkg)
 
 for c in configurations:
     c.get_sample_ids()

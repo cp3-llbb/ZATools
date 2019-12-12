@@ -14,3 +14,35 @@
 #'MuonEG_Run2016*':
   type: data
   group: "Data"
+
+#TOYS
+#'toy5_part22_*MuMu*':
+#    type: data
+#    group: "Data"
+#'toy5_part22_*ElEl*':
+#    type: data
+#    group: "Data"
+#'toy5_part22_*MuEl*':
+#    type: data
+#    group: "Data"
+#
+#'toy14_part22_*MuMu*':
+#    type: data
+#    group: "Data"
+#'toy14_part22_*ElEl*':
+#    type: data
+#    group: "Data"
+#'toy14_part22_*MuEl*':
+#    type: data
+#    group: "Data"
+
+#'toy3_part22_*MuMu*':
+#    type: data
+#    group: "Data"
+#'toy3_part22_*ElEl*':
+#    type: data
+#    group: "Data"
+#'toy3_part22_*MuEl*':
+#    type: data
+#    group: "Data"
+

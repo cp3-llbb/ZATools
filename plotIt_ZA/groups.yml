@@ -4,7 +4,7 @@
   #order: 5
   fill-color: '#00A0B0'
 'tt':
-  legend: ' t#bar{t}'
+  legend: 't#bar{t}'
   legend-order: 3
   #order: 10
   fill-color: '#EB6841'
@@ -13,7 +13,7 @@
 #  legend-order: 2
 #  fill-color: '#53777A'
 'SingleTop':
-  legend: 'Single top'
+  legend: 'Single t'
   legend-order: 2
   fill-color: '#C02942'
 'Data':
@@ -22,8 +22,8 @@
   legend: 'VV(V)'
   legend-order: 1 
   fill-color: '#ECD078' #<--yellow  '#774F38' '#6A4A3C'
-'Others':
-  legend: 'Others'
+'Other':
+  legend: 'Other'
   legend-order: 0
   fill-color: '#A8DBA8' #<--green    #'#A8DBA8'
 #'ZZ':
@@ -38,7 +38,7 @@
 #  fill-color: '#ECD078'
 #  legend: 'QCD'
 #  legend-order: 1
-#'Others':
+#'Other':
 #  fill-color: '#53777A'
-#  legend: 'Others'
+#  legend: 'Other'
 #  legend-order: 9

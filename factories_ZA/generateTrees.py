@@ -22,7 +22,8 @@ reweight_signal = get_cfg("reweight_signal")
 
 do_lljj = get_cfg("do_lljj", False)
 do_llbb = get_cfg("do_llbb", True)
-flavour = get_cfg("flavour", "All")
+#flavour = get_cfg("flavour", "All")
+flavour = get_cfg("flavour", "SF")
 stage = get_cfg("stage", "no_cut")
 branch_families = get_cfg("branches", [])
 
@@ -58,7 +59,7 @@ if reweight_signal:
 
 ######### Plot configuration ###########
 
-flavour = "All"
+flavour = "SF"
 categories = [flavour]
 
 plots_for_branches = []

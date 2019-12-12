@@ -2,7 +2,8 @@ width: 800
 height: 800
 luminosity-label: '%1$.1f fb^{{-1}} (13 TeV)'
 experiment: "CMS"
-extra-label: "Preliminary"
+extra-label: ""
+#extra-label: "Preliminary"
 
 root: '{root}'
 

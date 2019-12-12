@@ -7,7 +7,7 @@
   legend-order: 3
   fill-color: '#EB6841'
 't':
-  legend: 'Single top'
+  legend: 'Single t'
   legend-order: 2
   fill-color: '#C02942'
 'VV(V)':
@@ -20,8 +20,8 @@
 #  legend: 'SM Higgs'
 #  legend-order: 1
 #  fill-color: '#A8DBA8'
-'Others':
-  legend: 'Others'
+'Other':
+  legend: 'Other'
   legend-order: 0 
   fill-color: '#A8DBA8' #'#6A4A3C'
     

@@ -19,8 +19,8 @@ systematics:
   - elidiso
   - muiso
   - muid
-  #- elreco
-  #- mutracking
+  ##- elreco
+  ##- mutracking
   - jjbtaglight
   - jjbtagheavy
   - jec
@@ -64,12 +64,13 @@ systematics:
   - DY_weight64
   - DY_weight65
   - DY_weight66
-  - ttbarNormBin1
-  - ttbarNormBin2
-  - ttbarNormBin3
-  - ttbarNormBin4
-  - ttbarNormBin5
-  - ttbarNormBin6
+
+  #- ttbarNormBin1
+  #- ttbarNormBin2
+  #- ttbarNormBin3
+  #- ttbarNormBin4
+  #- ttbarNormBin5
+  #- ttbarNormBin6
   ##- hdamp
   ##- pdfqq
   ##- pdfgg

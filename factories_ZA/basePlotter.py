@@ -59,6 +59,7 @@ def default_headers():
     return [
             "massWindow.h",
             "reweightDY.h",
+            "TLorentzVector.h"
             ]
 
 def default_include_directories(scriptDir):
@@ -686,6 +687,18 @@ class BasePlotter:
 
             self.aFewVar_plot.extend([
                 #{
+                #        'name': 'll_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.ll_str+".M()",
+                #        'plot_cut': self.totalCut,
+                #        'binning': mll_plot_binning
+                #},
+                #{
+                #        'name': 'met_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.met_str + ".Pt()",
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(50, 0, 500)'
+                #}
+                #{
                 #        'name': 'Mjj_vs_Mlljj_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
                 #        'variable': self.jj_str + '.M() ::: '+self.baseObject + '.p4.M()',
                 #        'plot_cut': self.totalCut,
@@ -701,14 +714,8 @@ class BasePlotter:
                         'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
                         'variable': self.jj_str + ".M()",
                         'plot_cut': self.totalCut,
-                        'binning': '(40, 10, 1000)'
-                },
-                #{
-                #        'name': 'jj_DR_j_j_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.baseObject+".DR_j_j",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, 0, 6)'
-                #},
+                        'binning': '(40, 0, 1000)'
+                }
                 #{
                 #        'name': 'll_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
                 #        'variable': self.ll_str+".Pt()",
@@ -720,6 +727,78 @@ class BasePlotter:
                 #        'variable': self.jj_str+".Pt()",
                 #        'plot_cut': self.totalCut,
                 #        'binning': '(50, 0, 450)'
+                #},
+                #{
+                #        'name': 'lep1_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.lep1_str+".p4.Pt()",
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(50, 20, 400)'
+                #},
+                #{
+                #        'name': 'lep2_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.lep2_str+".p4.Pt()",
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(50, 10, 200)'
+                #},
+                #{
+                #        'name': 'jet1_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.jet1_str+".p4.Pt()",
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(50, 20, 500)'
+                #},
+                #{
+                #        'name': 'jet2_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.jet2_str+".p4.Pt()",
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(50, 20, 300)'
+                #},
+                #{
+                #        'name': 'lep1_eta_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.lep1_str+".p4.Eta()",
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(50, -4, 4)'
+                #},
+                #{
+                #        'name': 'lep2_eta_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.lep2_str+".p4.Eta()",
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(50, -4, 4)'
+                #},
+                #{
+                #        'name': 'jet1_eta_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.jet1_str+".p4.Eta()",
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(50, -4, 4)'
+                #},
+                #{
+                #        'name': 'jet2_eta_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.jet2_str+".p4.Eta()",
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(50, -4, 4)'
+                #},
+                #{
+                #        'name': 'lep1_phi_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.lep1_str+".p4.Phi()",
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(50, -4, 4)'
+                #},
+                #{
+                #        'name': 'lep2_phi_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.lep2_str+".p4.Phi()",
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(50, -4, 4)'
+                #},
+                #{
+                #        'name': 'jet1_phi_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.jet1_str+".p4.Phi()",
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(50, -4, 4)'
+                #},
+                #{
+                #        'name': 'jet2_phi_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                #        'variable': self.jet2_str+".p4.Phi()",
+                #        'plot_cut': self.totalCut,
+                #        'binning': '(50, -4, 4)'
                 #},
                 #{
                 #        'name': 'll_DPhi_l_l_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
@@ -928,14 +1007,15 @@ class BasePlotter:
 #                    }
 #                ])
 
-            #if self.btag:
             #PLOTS IN ELLIPSE
             if cat=='MuEl':  #Load the ElEl file for the MuEl category
                 with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_ElEl_part42.json') as f:
                     parameters = json.load(f)
-            else:
+            elif cat=='MuMu' or cat=='ElEl':
                 with open('/home/ucl/cp3/asaggio/scratch/CMSSW_8_0_30/src/cp3_llbb/ZATools/scripts_ZA/ellipsesScripts/pavementForPValue/pavementForPValue_{0}_part42.json'.format(cat)) as f:
                     parameters = json.load(f)
+            else:
+                continue
             for j, line in enumerate(parameters, 0): 
                 if cat=='MuEl':
                     inWindowCut = "window_ElEl.isInEllipse({0}, {1}, {2}, {3}, {4})".format(float(line[0]), float(line[1]), self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
@@ -1054,28 +1134,68 @@ class BasePlotter:
             totalWeight = "event_weight * (%s) * (%s) * (%s) * (%s) * (%s)" % (available_weights["llidiso"], available_weights["pu"], available_weights["trigeff"], available_weights["jjbtag_heavy"], available_weights["jjbtag_light"])
             self.forSkimmer_plot.extend([
                 {
-                        'name': 'Mjj_vs_Mlljj_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                        'variable': self.jj_str + '.M() ::: '+self.baseObject + '.p4.M()',
-                        'plot_cut': self.totalCut,
-                        'binning': '(150, 0, 1500, 150, 0, 1500)'
+                        'name': 'jet1_p4_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.jet1_str+".p4",
+                        'cut': self.totalCut,
+                        'type': 'ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiE4D<float>>'
+                },
+                {
+                        'name': 'jet2_p4_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.jet2_str+".p4",
+                        'cut': self.totalCut,
+                        'type': 'ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiE4D<float>>'
+                },
+                {
+                        'name': 'lep1_p4_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.lep1_str+".p4",
+                        'cut': self.totalCut,
+                        'type': 'ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiE4D<float>>'
+                },
+                {
+                        'name': 'lep2_p4_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.lep2_str+".p4",
+                        'cut': self.totalCut,
+                        'type': 'ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiE4D<float>>'
+                },
+                {
+                        'name': 'lep1_charge_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.lep1_str+".charge",
+                        'cut': self.totalCut,
+                },
+                {
+                        'name': 'lep2_charge_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.lep2_str+".charge",
+                        'cut': self.totalCut,
                 },
                 {
                         'name': 'lljj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
                         'variable': self.baseObject+".p4.M()",
-                        'plot_cut': self.totalCut,
-                        'binning': '(50, 100, 1500)'
+                        'cut': self.totalCut,
                 },
                 {
                         'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
                         'variable': self.jj_str + ".M()",
-                        'plot_cut': self.totalCut,
-                        'binning': '(40, 10, 1000)'
+                        'cut': self.totalCut,
                 },
                 {
-                        'name': 'weight_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'name': 'll_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.ll_str+".M()",
+                        'cut': self.totalCut,
+                },
+                {
+                        'name': 'met_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.met_str + ".Pt()",
+                        'cut': self.totalCut,
+                },
+                {
+                        'name': 'met_phi_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.met_str+".Phi()",
+                        'cut': self.totalCut,
+                },
+                {
+                        'name': 'total_weight_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
                         'variable': totalWeight,
-                        'plot_cut': self.totalCut,
-                        'binning': '(5, -2, 2)'
+                        'cut': self.totalCut,
                 },
             ])
 

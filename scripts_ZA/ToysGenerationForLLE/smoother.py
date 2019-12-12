@@ -67,7 +67,7 @@ filename = filename_mumu if options.category=="MuMu" else filename_elel
 
 print "Ellipse file used: ", filename
 
-inputDir = '/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/factories_ZA/skimmerForToys_DT_TT_ZZ_{0}/slurm/output/'.format(options.category)
+inputDir = '/nfs/scratch/fynu/asaggio/CMSSW_8_0_30/src/cp3_llbb/ZATools/factories_ZA/skimmerForToys_DY_TT_{0}_WITHCUT/slurm/output/'.format(options.category)
 outputDir = './{0}/output/pointsOfPvalueScan/'.format(options.category)
 
 for f in glob.glob(inputDir+"*gd29729a_histos*.root"):
@@ -152,6 +152,35 @@ for i in range(t.GetEntries()):
         f2.GetRandom2(x,y)
         #print f2.Eval(x,y), x, y
         h2_smoothed.Fill(x, y, w/nThrownPoints)
+
+fileSuff = options.skimmedRootFileSuffix
+
+#Give each sample the correct normalization:
+# x_sec/SumEventWeights taken from Samadhi
+#DY_M10-50
+if "0" in fileSuff:
+    h2.Scale(18610/2117047923870)
+    h2_smoothed.Scale(18610/2117047923870)
+#DY_0J
+elif "1" in fileSuff:
+    h2.Scale(4620.52/538466400170)
+    h2_smoothed.Scale(4620.52/538466400170)
+#DY_1J
+elif "2" in fileSuff:
+    h2.Scale(859.589/407544622836)
+    h2_smoothed.Scale(859.589/407544622836)
+#DY_2J
+elif "3" in fileSuff:
+    h2.Scale(338.259/218758758380)
+    h2_smoothed.Scale(338.259/218758758380)
+#TT fully lept
+elif "4" in fileSuff:
+    h2.Scale(87.31/77215440)
+    h2_smoothed.Scale(87.31/77215440)
+#TT inclusive
+elif "5" in fileSuff:
+    h2.Scale(831.76/154384189.0)
+    h2_smoothed.Scale(831.76/154384189.0)
 
 print "non smoothed integral: ", h2.Integral()
 print "smoothed integral: ", h2_smoothed.Integral()

@@ -2,7 +2,7 @@
 
 get_legend() {
 
-    local legend=""
+    local legend="HELLO"
     case $1 in
         800_400)
             legend="rho steps for 800,400" ;;
@@ -18,8 +18,13 @@ get_legend_2d() {
 }
 
 #signals="MH-800_MA-200 MH-1000_MA-200 MH-800_MA-50 MH-500_MA-400 MH-800_MA-100 MH-650_MA-50 MH-250_MA-50 MH-1000_MA-50 MH-500_MA-50 MH-800_MA-400 MH-500_MA-300 MH-300_MA-100 MH-500_MA-200 MH-250_MA-100 MH-1000_MA-500 MH-300_MA-50 MH-800_MA-700 MH-200_MA-100 MH-200_MA-50 MH-300_MA-200 MH-500_MA-100"
-#signals="300p00_200p00 300p00_100p00 200p00_100p00"
-signals="261p40_150p50 609p21_505p93"
+#signals="500p00_200p00"
+#signals="626p90_162p55"
+#signals="717p96_183p48"
+#signals="261p40_150p50"
+#signals="371p06_56p95"
+signals="442p63_193p26"
+#signals="609p21_505p93"
 #signals="1000p00_200p00
 #1000p00_500p00
 #1000p00_50p00
@@ -228,13 +233,20 @@ signals="261p40_150p50 609p21_505p93"
 #997p14_779p83
 #997p14_87p10"
 
-flavors="MuMu ElEl MuEl"
+#flavors="MuMu"
+#flavors="MuMu ElEl"
+flavors="MuMu_ElEl"
+#flavors="MuEl"
 
 for flavor in $flavors; do
+  echo $flavor
+  
+  echo $signals
   for signal in $signals; do
+    echo $signal
 
     root="postFitShapes/${signal}/$flavor"
-    output="postFitPlots/$signal/$flavor"
+    output="postFitPlots/${signal}/$flavor"
 
     input="${root}"
 
@@ -257,11 +269,14 @@ for flavor in $flavors; do
       sed -i "s/#CHANNEL#/#mu#mu channel/" postfitPlots.yml
     elif [ $flavor = "ElEl" ]; then
       sed -i "s/#CHANNEL#/ee channel/" postfitPlots.yml
+    elif [ $flavor = "MuMu_ElEl" ]; then
+        sed -i "s/#CHANNEL#/#mu#mu + ee/" postfitPlots.yml
     else
-      sed -i "s/#CHANNEL#/#mue + e#mu channel/" postfitPlots.yml
+      sed -i "s/#CHANNEL#/#mue + e#mu/" postfitPlots.yml
     fi
 
     cp postfitPlots.yml postfitPlots_${signal}_${flavor}.yml
+    echo ${output}
 
     ../../../plotIt/plotIt -o ${output} -- ZA_plotter_all_shapes_postfit.yml
 

@@ -5,22 +5,24 @@ from math import sqrt
 class massWindow:
   """A class to construct and apply elliptic mass cuts 
      where the orientation and axes are function of the mass"""
-  def __init__(self,xc,yc,M11,M12,M21,M22):
-    self.m_xc = xc
-    self.m_yc = yc
-    self.m_p00 = M11
-    self.m_p01 = M12
-    self.m_p10 = M21
-    self.m_p11 = M22
-    self.instance = ROOT.gRandom.Rndm()
+  #def __init__(self,xc,yc,M11,M12,M21,M22):
+  #  self.m_xc = xc
+  #  self.m_yc = yc
+  #  self.m_p00 = M11
+  #  self.m_p01 = M12
+  #  self.m_p10 = M21
+  #  self.m_p11 = M22
+  #  self.instance = ROOT.gRandom.Rndm()
 
-    '''
+  def __init__(self,filename):
+    self.filename = filename
+    self.instance = ROOT.gRandom.Rndm()
     # read data
     with open(self.filename) as data_file:    
       self.data = json.load(data_file)
-
+  
     # store the gauge in four TGraph2D used for interpolation
-
+  
     # Go from ellipses to circles via the rotation matrix |M11, M12| to favour the couting of the points inside the ellipse
     #                                                     |M21, M22|
     self.M11g = ROOT.TGraph2D(len(self.data))
@@ -43,9 +45,8 @@ class massWindow:
         self.M12g.SetPoint(i, mbb, mllbb, M12)
         self.M21g.SetPoint(i, mbb, mllbb, M21)
         self.M22g.SetPoint(i, mbb, mllbb, M22)
-
+  
     self.matrix = [ [self.M11g, self.M12g] , [self.M21g, self.M22g] ] 
-    '''
 
   def showBareMaps(self):
     """Show a canvas with the three inputs (theta, sigma_a, sigma_b) 
@@ -159,12 +160,12 @@ class massWindow:
     isN = sqrt(u**2+v**2)>size and sqrt(u**2+v**2)<size*2**0.5
     return isN
 
-  def radius(self, px, py):
-      dx = px - self.m_xc
-      dy = py - self.m_yc
-      p1 = self.m_p00*dx + self.m_p01*dy
-      p2 = self.m_p10*dx + self.m_p11*dy
-      dist = sqrt(p1*p1 + p2*p2)
-      return (3.2 if dist > 3 else dist)  #This is for the overflow bin. Set a value that falls into the last bin (betwen 3 and 3.5)
+  ##def radius(self, px, py):
+  ##    dx = px - self.m_xc
+  ##    dy = py - self.m_yc
+  ##    p1 = self.m_p00*dx + self.m_p01*dy
+  ##    p2 = self.m_p10*dx + self.m_p11*dy
+  ##    dist = sqrt(p1*p1 + p2*p2)
+  ##    return (3.2 if dist > 3 else dist)  #This is for the overflow bin. Set a value that falls into the last bin (betwen 3 and 3.5)
 
 
