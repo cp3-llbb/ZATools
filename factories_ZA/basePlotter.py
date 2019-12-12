@@ -116,7 +116,6 @@ class BasePlotter:
         self.jet_coll_str = "hZA_jets"
         self.lepton_coll_str = "hZA_leptons"
         self.sys_fwk = ""
-        self.rho = 1. #put here the desired value of rho (from 0.5 to 3)
 
 
         if objects != "nominal":
@@ -663,14 +662,6 @@ class BasePlotter:
             self.llFlav = cat
             self.extraString = stage + extraString
 
-            # Plot to compute yields (ensure we have not over/under flow)
-            #self.isElEl_plot.append({
-            #            'name': 'isElEl_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-            #            'variable': "%s.isElEl"%self.baseObject,
-            #            'plot_cut': self.totalCut,
-            #            'binning': '(2, 0, 2)'
-            #    })
-            
             
             def get_jet_flavour_cut(flav, jet_idx):
                 if flav == "g":
@@ -686,24 +677,24 @@ class BasePlotter:
 
 
             self.aFewVar_plot.extend([
-                #{
-                #        'name': 'll_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.ll_str+".M()",
-                #        'plot_cut': self.totalCut,
-                #        'binning': mll_plot_binning
-                #},
-                #{
-                #        'name': 'met_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.met_str + ".Pt()",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, 0, 500)'
-                #}
-                #{
-                #        'name': 'Mjj_vs_Mlljj_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.jj_str + '.M() ::: '+self.baseObject + '.p4.M()',
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(150, 0, 1500, 150, 0, 1500)'
-                #},
+                {
+                        'name': 'll_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.ll_str+".M()",
+                        'plot_cut': self.totalCut,
+                        'binning': mll_plot_binning
+                },
+                {
+                        'name': 'met_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.met_str + ".Pt()",
+                        'plot_cut': self.totalCut,
+                        'binning': '(50, 0, 500)'
+                },
+                {
+                        'name': 'Mjj_vs_Mlljj_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                        'variable': self.jj_str + '.M() ::: '+self.baseObject + '.p4.M()',
+                        'plot_cut': self.totalCut,
+                        'binning': '(150, 0, 1500, 150, 0, 1500)'
+                },
                 {
                         'name': 'lljj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
                         'variable': self.baseObject+".p4.M()",
@@ -716,96 +707,6 @@ class BasePlotter:
                         'plot_cut': self.totalCut,
                         'binning': '(40, 0, 1000)'
                 }
-                #{
-                #        'name': 'll_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.ll_str+".Pt()",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, 0, 450)'
-                #},
-                #{
-                #        'name': 'jj_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.jj_str+".Pt()",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, 0, 450)'
-                #},
-                #{
-                #        'name': 'lep1_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.lep1_str+".p4.Pt()",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, 20, 400)'
-                #},
-                #{
-                #        'name': 'lep2_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.lep2_str+".p4.Pt()",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, 10, 200)'
-                #},
-                #{
-                #        'name': 'jet1_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.jet1_str+".p4.Pt()",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, 20, 500)'
-                #},
-                #{
-                #        'name': 'jet2_pt_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.jet2_str+".p4.Pt()",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, 20, 300)'
-                #},
-                #{
-                #        'name': 'lep1_eta_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.lep1_str+".p4.Eta()",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, -4, 4)'
-                #},
-                #{
-                #        'name': 'lep2_eta_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.lep2_str+".p4.Eta()",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, -4, 4)'
-                #},
-                #{
-                #        'name': 'jet1_eta_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.jet1_str+".p4.Eta()",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, -4, 4)'
-                #},
-                #{
-                #        'name': 'jet2_eta_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.jet2_str+".p4.Eta()",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, -4, 4)'
-                #},
-                #{
-                #        'name': 'lep1_phi_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.lep1_str+".p4.Phi()",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, -4, 4)'
-                #},
-                #{
-                #        'name': 'lep2_phi_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.lep2_str+".p4.Phi()",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, -4, 4)'
-                #},
-                #{
-                #        'name': 'jet1_phi_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.jet1_str+".p4.Phi()",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, -4, 4)'
-                #},
-                #{
-                #        'name': 'jet2_phi_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': self.jet2_str+".p4.Phi()",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, -4, 4)'
-                #},
-                #{
-                #        'name': 'll_DPhi_l_l_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': "abs("+self.baseObject+".DPhi_l_l)",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, 0, 3.1416)'
-                #},
                 
             ])
 
@@ -898,12 +799,6 @@ class BasePlotter:
                         'plot_cut': self.totalCut,
                         'binning': '(50, 100, 1500)'
                 },
-                #{
-                #        'name': 'llbb_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-                #        'variable': "(" + self.ll_str + "+" + self.jj_str + ").M()",
-                #        'plot_cut': self.totalCut,
-                #        'binning': '(50, 100, 1500)'
-                #},
                 {
                         'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
                         'variable': self.jj_str + ".M()",
@@ -973,39 +868,40 @@ class BasePlotter:
             ])
                 
 
-#            if self.btag:
-#                self.basic_plot.extend([
-#                    {
-#                            'name': 'jet1_deepCSV_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-#                            'variable': self.jet1_str+".deepCSV",
-#                            'plot_cut': self.totalCut,
-#                            'binning': '(50, -1, 1)'
-#                    },
-#                    {
-#                            'name': 'jet2_deepCSV_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-#                            'variable': self.jet2_str+".deepCSV",
-#                            'plot_cut': self.totalCut,
-#                            'binning': '(50, -1, 1)'
-#                    },
-#                    {
-#                            'name': 'jj_deepCSV_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-#                            'variable': self.baseObject+".sumDeepCSV",
-#                            'plot_cut': self.totalCut,
-#                            'binning': '(50, -2, 2)'
-#                    },
-#                    {
-#                            'name': 'jet1_deepCSV_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-#                            'variable': self.jet1_str+".btag_deepCSV_M",
-#                            'plot_cut': self.totalCut,
-#                            'binning': '(50, -1, 1)'
-#                    },
-#                    {
-#                            'name': 'jj_deepCSV_MM_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
-#                            'variable': self.baseObject+".btag_deepCSV_MM",
-#                            'plot_cut': self.totalCut,
-#                            'binning': '(50, -1, 1)'
-#                    }
-#                ])
+            if self.btag:
+                # plot b-tagging variables
+                self.basic_plot.extend([
+                    {
+                            'name': 'jet1_deepCSV_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                            'variable': self.jet1_str+".deepCSV",
+                            'plot_cut': self.totalCut,
+                            'binning': '(50, -1, 1)'
+                    },
+                    {
+                            'name': 'jet2_deepCSV_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                            'variable': self.jet2_str+".deepCSV",
+                            'plot_cut': self.totalCut,
+                            'binning': '(50, -1, 1)'
+                    },
+                    {
+                            'name': 'jj_deepCSV_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                            'variable': self.baseObject+".sumDeepCSV",
+                            'plot_cut': self.totalCut,
+                            'binning': '(50, -2, 2)'
+                    },
+                    {
+                            'name': 'jet1_deepCSV_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                            'variable': self.jet1_str+".btag_deepCSV_M",
+                            'plot_cut': self.totalCut,
+                            'binning': '(50, -1, 1)'
+                    },
+                    {
+                            'name': 'jj_deepCSV_MM_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraString, self.systematicString),
+                            'variable': self.baseObject+".btag_deepCSV_MM",
+                            'plot_cut': self.totalCut,
+                            'binning': '(50, -1, 1)'
+                    }
+                ])
 
             #PLOTS IN ELLIPSE
             if cat=='MuEl':  #Load the ElEl file for the MuEl category
@@ -1017,111 +913,9 @@ class BasePlotter:
             else:
                 continue
             for j, line in enumerate(parameters, 0): 
-                if cat=='MuEl':
-                    inWindowCut = "window_ElEl.isInEllipse({0}, {1}, {2}, {3}, {4})".format(float(line[0]), float(line[1]), self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
-                    
-                    inWindowCut0p5 = "window_ElEl.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, float(line[0]), float(line[1]), 0.5, self.jj_str + ".M()", self.baseObject + ".p4.M()")
-                    inWindowCut1p0 = "window_ElEl.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, float(line[0]), float(line[1]), 1., self.jj_str + ".M()", self.baseObject + ".p4.M()")
-                    inWindowCut1p5 = "window_ElEl.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, float(line[0]), float(line[1]), 1.5, self.jj_str + ".M()", self.baseObject + ".p4.M()")
-                    inWindowCut2p0 = "window_ElEl.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, float(line[0]), float(line[1]), 2., self.jj_str + ".M()", self.baseObject + ".p4.M()")
-                    inWindowCut2p5 = "window_ElEl.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, float(line[0]), float(line[1]), 2.5, self.jj_str + ".M()", self.baseObject + ".p4.M()")
-                    inWindowCut3p0 = "window_ElEl.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, float(line[0]), float(line[1]), 3., self.jj_str + ".M()", self.baseObject + ".p4.M()")
-                else:
-                    inWindowCut = "window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, float(line[0]), float(line[1]), self.rho, self.jj_str + ".M()", self.baseObject + ".p4.M()")
-
-                    inWindowCut0p5 = "window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, float(line[0]), float(line[1]), 0.5, self.jj_str + ".M()", self.baseObject + ".p4.M()")
-                    inWindowCut1p0 = "window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, float(line[0]), float(line[1]), 1., self.jj_str + ".M()", self.baseObject + ".p4.M()")
-                    inWindowCut1p5 = "window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, float(line[0]), float(line[1]), 1.5, self.jj_str + ".M()", self.baseObject + ".p4.M()")
-                    inWindowCut2p0 = "window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, float(line[0]), float(line[1]), 2., self.jj_str + ".M()", self.baseObject + ".p4.M()")
-                    inWindowCut2p5 = "window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, float(line[0]), float(line[1]), 2.5, self.jj_str + ".M()", self.baseObject + ".p4.M()")
-                    inWindowCut3p0 = "window_{0}.isInEllipse({1}, {2}, {3}, {4}, {5})".format(cat, float(line[0]), float(line[1]), 3., self.jj_str + ".M()", self.baseObject + ".p4.M()")
-
-                self.ellCut = self.joinCuts(self.cutWithoutCat, self.dict_cat_cut[cat], inWindowCut)
-                
-                self.ellCut0p5 = self.joinCuts(self.cutWithoutCat, self.dict_cat_cut[cat], inWindowCut0p5)
-                self.ellCut1p0 = self.joinCuts(self.cutWithoutCat, self.dict_cat_cut[cat], inWindowCut1p0)
-                self.ellCut1p5 = self.joinCuts(self.cutWithoutCat, self.dict_cat_cut[cat], inWindowCut1p5)
-                self.ellCut2p0 = self.joinCuts(self.cutWithoutCat, self.dict_cat_cut[cat], inWindowCut2p0)
-                self.ellCut2p5 = self.joinCuts(self.cutWithoutCat, self.dict_cat_cut[cat], inWindowCut2p5)
-                self.ellCut3p0 = self.joinCuts(self.cutWithoutCat, self.dict_cat_cut[cat], inWindowCut3p0)
-                rho_string = str(self.rho).replace('.','p')
-                #Labelling each of the 21 ellipses with its index. Will need to write down which ellipse corresponds to which index.
-                #self.tempExtraString = "_inEllipse_{0}_rho{1}".format(j, rho_string) 
-                self.tempExtraString = "_inEllipse_{0}".format(j) 
-                self.ellExtraString = self.extraString + self.tempExtraString
-
-                self.inEllipse_plot.extend([
-                    #{
-                    #    'name': 'll_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                    #    'variable': self.ll_str+".M()",
-                    #    'plot_cut': self.ellCut,
-                    #    'binning': mll_plot_binning
-                    #},
-                    #{
-                    #    'name': 'Mjj_vs_Mlljj_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                    #    'variable': self.jj_str + '.M() ::: '+self.baseObject + '.p4.M()',
-                    #    'plot_cut': self.ellCut,
-                    #    'binning': '(150, 0, 1500, 150, 0, 1500)'
-                    #},
-                    {
-                        'name': 'jj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString+"_inrho"+rho_string, self.systematicString),
-                        'variable': self.jj_str + ".M()",
-                        'plot_cut': self.ellCut,
-                        'binning': '(40, 10, 1000)'
-                    },
-                    {
-                        'name': 'lljj_M_%s_%s_%s%s'%(self.llFlav, self.suffix, self.ellExtraString+"_inrho"+rho_string, self.systematicString),
-                        'variable': self.baseObject+".p4.M()",
-                        'plot_cut': self.ellCut,
-                        'binning': '(50, 100, 1500)'
-                    },
-                    {
-                        'name': 'DYweight_%s_%s_%s%s_inrho0p5'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                        'variable': "computeDYweight({0}, {1})".format(self.jj_str+".M()", self.baseObject+".p4.M()"),
-                        'plot_cut': self.ellCut0p5,
-                        'binning': '(100, 0.5, 1.5)'
-                    },
-                    {
-                        'name': 'DYweight_%s_%s_%s%s_inrho1p0'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                        'variable': "computeDYweight({0}, {1})".format(self.jj_str+".M()", self.baseObject+".p4.M()"),
-                        'plot_cut': self.ellCut1p0,
-                        'binning': '(100, 0.5, 1.5)'
-                    },
-                    {
-                        'name': 'DYweight_%s_%s_%s%s_inrho1p5'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                        'variable': "computeDYweight({0}, {1})".format(self.jj_str+".M()", self.baseObject+".p4.M()"),
-                        'plot_cut': self.ellCut1p5,
-                        'binning': '(100, 0.5, 1.5)'
-                    },
-                    {
-                        'name': 'DYweight_%s_%s_%s%s_inrho2p0'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                        'variable': "computeDYweight({0}, {1})".format(self.jj_str+".M()", self.baseObject+".p4.M()"),
-                        'plot_cut': self.ellCut2p0,
-                        'binning': '(100, 0.5, 1.5)'
-                    },
-                    {
-                        'name': 'DYweight_%s_%s_%s%s_inrho2p5'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                        'variable': "computeDYweight({0}, {1})".format(self.jj_str+".M()", self.baseObject+".p4.M()"),
-                        'plot_cut': self.ellCut2p5,
-                        'binning': '(100, 0.5, 1.5)'
-                    },
-                    {
-                        'name': 'DYweight_%s_%s_%s%s_inrho3p0'%(self.llFlav, self.suffix, self.ellExtraString, self.systematicString),
-                        'variable': "computeDYweight({0}, {1})".format(self.jj_str+".M()", self.baseObject+".p4.M()"),
-                        'plot_cut': self.ellCut3p0,
-                        'binning': '(100, 0.5, 1.5)'
-                    },
-                ])
-
                 self.tempExtraStringForInOut =  "_{0}".format(j)
                 self.extraStringForInOut = self.extraString + self.tempExtraStringForInOut
                 self.inOut_plot.extend([
-                    #{
-                    #    'name': 'rho_steps_histo_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraStringForInOut, self.systematicString),
-                    #    'variable': "window_{0}.isInEllipse_noSize({1}, {2}, {3}, {4})".format((cat if cat!='MuEl' else 'ElEl'), line[0], line[1], self.jj_str + ".M()", self.baseObject + ".p4.M()"),
-                    #    'plot_cut': self.totalCut,
-                    #    'binning': '(6, 0, 3)'
-                    #}
                     {
                         'name': 'rho_steps_histo_%s_%s_%s%s'%(self.llFlav, self.suffix, self.extraStringForInOut, self.systematicString),
                         'variable': "windows_{0}.at({1}).radius({2}, {3})".format((cat if cat!='MuEl' else 'ElEl'), j, self.jj_str + ".M()", self.baseObject + ".p4.M()"),
@@ -1204,7 +998,6 @@ class BasePlotter:
         
         for plotFamily in requested_plots:
             
-            #if "scaleUncorr" in systematic or "dyScale" in systematic:
             if "scaleUncorr" in systematic:
 
                 # will fail if we can't find the scale index

@@ -139,21 +139,16 @@ MainPlots_ForDY = Configuration('generatePlots.py', suffix='_for_DY', mode='plot
             "DY_NLO"
         ], generation_args={
             'sample_type': 'MC',
-            #'lljj_plots': ['inOut'],
-            'lljj_plots': ['aFewVar'],
-            #'lljj_categories': ['SF', 'ElEl', 'MuMu', 'MuEl'],
-            'lljj_categories': ['SF', 'ElEl', 'MuMu'],
-            'llbb_plots': ['aFewVar'],
-            #'llbb_categories': ['SF', 'ElEl', 'MuMu', 'MuEl'],
-            'llbb_categories': ['SF', 'ElEl', 'MuMu'],
+            'lljj_plots': ['basic', 'inOut'],
+            'lljj_categories': ['SF', 'ElEl', 'MuMu', 'MuEl'],
+            'llbb_plots': ['basic', 'inOut'],
+            'llbb_categories': ['SF', 'ElEl', 'MuMu', 'MuEl'],
             'syst': True,
-            'syst_split_jec': False, #for plots for thesis, otherwise True
+            'syst_split_jec': False, #You might want to switch to True for the stat analysis
             'syst_split_pdf': False,
             'reweight_DY': True,
-            'lljj_stages': ['mll_and_met_cut'],
-            'llbb_stages': ['mll_and_met_cut']
-            #'lljj_stages': ['mll_and_met_cut', 'no_cut'],
-            #'llbb_stages': ['mll_and_met_cut', 'no_cut'],
+            'lljj_stages': ['mll_and_met_cut', 'no_cut'],
+            'llbb_stages': ['mll_and_met_cut', 'no_cut'],
         })
 MainPlots_ForMCminusDY = Configuration('generatePlots.py', suffix='_for_MCbkgminusDY', mode='plots', samples=[
             "TTBar",
@@ -168,46 +163,38 @@ MainPlots_ForMCminusDY = Configuration('generatePlots.py', suffix='_for_MCbkgmin
             #"QCD"
         ], generation_args={
             'sample_type': 'MC',
-            #'lljj_plots': ['inOut'],
-            'lljj_plots': ['aFewVar'],
-            #'lljj_categories': ['SF', 'ElEl', 'MuMu', 'MuEl'],
-            'lljj_categories': ['SF', 'ElEl', 'MuMu'],
-            'llbb_plots': ['aFewVar'],
-            #'llbb_categories': ['SF', 'ElEl', 'MuMu', 'MuEl'],
-            'llbb_categories': ['SF', 'ElEl', 'MuMu'],
+            'lljj_plots': ['basic', 'inOut'],
+            'lljj_categories': ['SF', 'ElEl', 'MuMu', 'MuEl'],
+            'llbb_plots': ['basic', 'inOut'],
+            'llbb_categories': ['SF', 'ElEl', 'MuMu', 'MuEl'],
             'syst': True,
             'syst_split_jec': False,
             'syst_split_pdf': False,
-            'reweight_DY': False,
-            'lljj_stages': ['mll_and_met_cut'],
-            'llbb_stages': ['mll_and_met_cut']
-            #'lljj_stages': ['mll_and_met_cut', 'no_cut'],
-            #'llbb_stages': ['mll_and_met_cut', 'no_cut'],
+            'reweight_DY': False, #always leave this to False
+            'lljj_stages': ['mll_and_met_cut', 'no_cut'],
+            'llbb_stages': ['mll_and_met_cut', 'no_cut'],
         })
 MainPlots_ForData = Configuration('generatePlots.py', suffix='_for_data', mode='plots', samples=['Data'], generation_args={
             'sample_type': 'Data',
-            #'lljj_plots': ['inOut'],
-            'lljj_plots': ['aFewVar'],
+            'lljj_plots': ['basic', 'inOut'],
             'lljj_categories': ['SF', 'ElEl', 'MuMu', 'MuEl'],
-            'llbb_plots': ['aFewVar'],
+            'llbb_plots': ['basic', 'inOut'],
             'llbb_categories': ['SF', 'ElEl', 'MuMu', 'MuEl'],
             'syst': True,
             'syst_split_jec': False,
             'syst_split_pdf': False,
-            'reweight_DY': False,
-            'lljj_stages': ['mll_and_met_cut'],
-            'llbb_stages': ['mll_and_met_cut']
-            #'lljj_stages': ['mll_and_met_cut', 'no_cut'],
-            #'llbb_stages': ['mll_and_met_cut', 'no_cut'],
+            'reweight_DY': False, #always leave this to False
+            'lljj_stages': ['mll_and_met_cut', 'no_cut'],
+            'llbb_stages': ['mll_and_met_cut', 'no_cut'],
         })
 MainPlots_ForSignal = Configuration('generatePlots.py', suffix='_for_signal', mode='plots', samples=['Signal_part0'], generation_args={
             'sample_type': 'Signal',
-            'llbb_plots': ['aFewVar'],
+            'llbb_plots': ['basic', 'inOut'],
             'llbb_categories': ['SF', 'ElEl', 'MuMu', 'MuEl'],
             'syst': True,
             'syst_split_jec': False,
             'syst_split_pdf': False,
-            'reweight_DY': False,
+            'reweight_DY': False, #always leave this to False
             'llbb_stages': ['mll_and_met_cut', 'no_cut'],
         })
 

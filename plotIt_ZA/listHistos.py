@@ -55,12 +55,10 @@ alreadyIn = []
 with open('ZA_plotter_all.yml.tpl') as tpl_handle:
     tpl = tpl_handle.read()
     if args.lljj:
-        #tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml']", legend="position: [0.61, 0.61, 0.94, 0.89]")
         tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml']", legend="include: ['legendPosition.yml']")
     if args.llbb:
         if args.ell_index is None:
             tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml', 'SignalFiles.yml']", legend="include: ['legendPosition.yml']")
-            #tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml']", legend="include: ['legendPosition.yml']")
         else:
             signal = 'singleSignals_FORTHESIS/SignalFiles_{0}.yml'.format(args.ell_index)
             tpl = tpl.format(files="['DY_MCFiles.yml', 'ttbar_MCFiles.yml', 'otherBackgrounds_MCFiles.yml', 'DataFiles.yml', "+'"'+signal+'"'+"]", legend="include: ['legendPosition.yml']")
@@ -85,10 +83,8 @@ logY = 'both'
 if args.yields:
     logY = False
 defaultStyle = {
-        #'log-y': logY,
-        'log-y': False,
-        #'save-extensions': ['pdf', 'png'],
-        'save-extensions': ['pdf'],
+        'log-y': logY,
+        'save-extensions': ['pdf', 'png'],
         'legend-columns': 2,
         'show-ratio': True,
         'show-overflow': True,
@@ -109,9 +105,8 @@ defaultStyle_events.update({
 
 
 defaultStyle_noOverflow = {
-        'log-y': False,
-        #'log-y': logY,
-        'save-extensions': ['pdf'],
+        'log-y': logY,
+        'save-extensions': ['pdf', 'png'],
         'legend-columns': 2,
         'show-ratio': True,
         'show-overflow': False,

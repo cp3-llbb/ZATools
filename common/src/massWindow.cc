@@ -13,21 +13,16 @@
 // |x'|     |M11  M12|   |x|      x' = M11*x + M12*y
 // |  |  =  |        | * | | --> 
 // |y'|     |M21  M22|   |y|      y' = M21*x + M22*y
-// - Default constructor massWindow(...):    computes the elements of the transformation matrix.
+// - Default constructor massWindow(...):    initializes the variables.
+// - radius(...):                            computes rho.
+// Next three functions: not used anymore
 // - getValue(...):                          returns the interpolated value of the transformation matrix in a given point.
 // - applyGlobalTransformation(...):         returns the coordinates (x', y').
 // - isInEllipse(...):                       returns true if a point is inside the circle (false if outside).
 
 
 massWindow::massWindow(double xc, double yc, double p00, double p01, double p10, double p11) : m_xc(xc), m_yc(yc), m_p00(p00), m_p01(p01), m_p10(p10), m_p11(p11)
-{
-    //std::cout << "xc: " << m_xc << std::endl;
-    //std::cout << "yc: " << m_yc << std::endl;
-    //std::cout << "M11: " << m_p00 << std::endl;
-    //std::cout << "M12: " << m_p01 << std::endl;
-    //std::cout << "M21: " << m_p10 << std::endl;
-    //std::cout << "M22: " << m_p11 << std::endl;
-}
+{}
 
 int massWindow::getNumberOfEllipses(std::string filename) {
 
@@ -52,103 +47,18 @@ double massWindow::radius(double px, double py)
     const double p1 = m_p00*dx + m_p01*dy;
     const double p2 = m_p10*dx + m_p11*dy;
     const double dist = std::sqrt(p1*p1 + p2*p2);
-    return ( dist > 3 ? 3.2 : dist ); //This is for the overflo w bin. Set a value that falls into the last bin (between 3 and 3.5)
+    return ( dist > 3 ? 3.2 : dist ); //This is for the overflow bin. Set a value that falls into the last bin (between 3 and 3.5)
 }
 
 
-
-//massWindow::massWindow(std::string filename) : m_filename(filename) {
-//
-//    std::cout << "Entered massWindow " << std::endl;
-//
-//    std::vector<std::vector<TGraph2D>> matrix;
-//    std::vector<TGraph2D> line1;
-//    std::vector<TGraph2D> line2;
-//
-//    /*
-//    // Get the number of ellipses for TGraphs
-//    int n_ellipse = 0;
-//    std::ifstream ifile(filename);
-//    Json::Reader reader;
-//    Json::Value text;
-//    if (!ifile) std::cout << "ERROR OPENING FILE" << std::endl;
-//    if (ifile && reader.parse(ifile, text)) {
-//        n_ellipse = text.size();
-//    }
-//    std::cout << "n_ellipse: " << n_ellipse << std::endl;
-//    */
-//
-//    // Declare TGraphs (the number of entries is set to 21 because the we have 21 signal samples)
-//    //int n_ellipse = this->getNumberOfEllipses(filename);
-//    int n_ellipse = 30; 
-//    std::cout << "n_ellipse: " << n_ellipse << std::endl;
-//    TGraph2D M11g(n_ellipse);
-//    M11g.SetNameTitle("M11g", "M11");
-// 
-//    TGraph2D M12g(n_ellipse);
-//    M12g.SetNameTitle("M12g", "M12");
-//
-//    TGraph2D M21g(n_ellipse);
-//    M21g.SetNameTitle("M21g", "M21");
-// 
-//    TGraph2D M22g(n_ellipse);
-//    M22g.SetNameTitle("M22g", "M22");
-//
-//    //Read json file
-//    std::ifstream ifile(filename);
-//    Json::Reader reader;
-//    Json::Value text;
-//    if (ifile && reader.parse(ifile, text)) {
-//        for (int i=0; i<text.size(); i++) {
-// 
-//            //CHECK THE VALUES
-//            const double mbb = text[i][0].asDouble();
-//            std::cout << "mbb: " << mbb << std::endl;
-//            const double mllbb = text[i][1].asDouble();
-//            //std::cout << "mllbb: " << mllbb << std::endl;
-//            const double a = text[i][2].asDouble();
-//            //std::cout << "a: " << a << std::endl;
-//            const double b = text[i][3].asDouble();
-//            //std::cout << "b: " << b << std::endl;
-//            const double theta = text[i][4].asDouble();
-//            //std::cout << "theta: " << theta << std::endl;
-//            const double MA = text[i][5].asDouble();
-//            //std::cout << "MA: " << MA << std::endl;
-//            const double MH = text[i][6].asDouble();
-//            //std::cout << "MH: " << MH << std::endl;
-//            if (MA > 0 && MH > 0 && theta > 0 && a > 0 && b > 0) {
-//                double M11 = cos(theta)/sqrt(a);
-//                double M12 = sin(theta)/sqrt(a);
-//                double M21 = -sin(theta)/sqrt(b);
-//                double M22 = cos(theta)/sqrt(b);
-//                M11g.SetPoint(i, mbb, mllbb, M11);
-//                M12g.SetPoint(i, mbb, mllbb, M12);
-//                M21g.SetPoint(i, mbb, mllbb, M21);
-//                M22g.SetPoint(i, mbb, mllbb, M22);
-//            }
-//        }
-//
-//        line1.push_back(M11g);
-//        line1.push_back(M12g);
-//        line2.push_back(M21g);
-//        line2.push_back(M22g);
-//
-//        matrix.push_back(line1);
-//        matrix.push_back(line2);
-//
-//        m_matrix = matrix;
-//        std::cout << "Exiting massWindow" << std::endl;
-//    }
-//}
-
-
-
+/*
+Old code, left for reference but not used
 //Returns the [n,m] component of the gauge matrix at point (mA,mH)
 double massWindow::getValue (int n, int m, pair_d point){
-    std::cout << "Entering getValue()" << std::endl;
+    //std::cout << "Entering getValue()" << std::endl;
 
     double interpolation = m_matrix[n][m].Interpolate(point.first, point.second);
-    std::cout << "interpolation: " << interpolation << std::endl;
+    //std::cout << "interpolation: " << interpolation << std::endl;
 
     double a_closestEllipse = 0;
     double b_closestEllipse = 0;
@@ -246,3 +156,4 @@ double massWindow::isInEllipse_noSize(double center_x, double center_y, double p
     std::cout << "dist: " << dist << std::endl;
     return dist;
 }
+*/
